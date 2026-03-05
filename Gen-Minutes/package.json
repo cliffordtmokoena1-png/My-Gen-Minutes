@@ -32,7 +32,6 @@
     "transcript:classify": "tsx --require ./src/scripts/loadenv.ts src/scripts/classifyTranscripts.ts",
     "diff:embedding": "tsx src/scripts/compareEmbeddings.ts",
     "stats:suggestions": "tsx src/scripts/suggestionStats.ts",
-    "prepare": "./prepare.sh",
     "format": "prettier --write \"**/*\"",
     "email": "tsx src/scripts/email.ts",
     "instantly": "tsx src/scripts/instantly.ts",
