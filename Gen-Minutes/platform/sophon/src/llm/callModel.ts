@@ -13,8 +13,8 @@ export async function callModel<T>(
     headers: {
       Authorization: `Bearer ${assertString(process.env.OPENROUTER_API_KEY)}`,
       "Content-Type": "application/json",
-      "HTTP-Referer": "https://minutesgenerator.com",
-      "X-Title": "MinutesGenerator",
+      "HTTP-Referer": "https://GovClerkMinutes.com",
+      "X-Title": "GovClerkMinutes",
     },
     body: JSON.stringify({
       model,

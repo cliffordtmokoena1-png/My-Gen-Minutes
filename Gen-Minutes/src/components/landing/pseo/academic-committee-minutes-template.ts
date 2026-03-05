@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free academic committee minutes template for university committees with curriculum tracking and accreditation compliance. Perfect for faculty senates and departments.",
     keywords:
       "academic committee minutes, university governance, curriculum committee, faculty senate, accreditation compliance",
-    canonical: "https://minutesgenerator.com/academic-committee-minutes-template",
+    canonical: "https://GovClerkMinutes.com/academic-committee-minutes-template",
   },
 };

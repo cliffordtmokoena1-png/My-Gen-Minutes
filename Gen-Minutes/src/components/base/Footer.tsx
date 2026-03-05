@@ -58,8 +58,8 @@ export const Footer = () => {
             <ChakraLink as={Link} href="/">
               About Us
             </ChakraLink>
-            <ChakraLink href="mailto:max@mail.minutesgenerator.com">Contact Us</ChakraLink>
-            <ChakraLink href="https://www.linkedin.com/company/minutesgenerator" isExternal>
+            <ChakraLink href="mailto:max@mail.GovClerkMinutes.com">Contact Us</ChakraLink>
+            <ChakraLink href="https://www.linkedin.com/company/GovClerkMinutes" isExternal>
               Careers
             </ChakraLink>
           </Stack>
@@ -91,19 +91,19 @@ export const Footer = () => {
             <ButtonGroup variant="ghost">
               <IconButton
                 as="a"
-                href="https://twitter.com/minutesgenerator"
+                href="https://twitter.com/GovClerkMinutes"
                 aria-label="Twitter"
                 icon={<FaTwitter fontSize="20px" />}
               />
               <IconButton
                 as="a"
-                href="https://github.com/minutesgenerator"
+                href="https://github.com/GovClerkMinutes"
                 aria-label="GitHub"
                 icon={<FaGithub fontSize="20px" />}
               />
               <IconButton
                 as="a"
-                href="https://linkedin.com/company/minutesgenerator"
+                href="https://linkedin.com/company/GovClerkMinutes"
                 aria-label="LinkedIn"
                 icon={<FaLinkedin fontSize="20px" />}
               />
@@ -126,7 +126,7 @@ export const Footer = () => {
               <IconWordmark variant="whiteWordmark" />
             </ChakraLink>
             <Text fontSize="sm">
-              {new Date().getFullYear()} MinutesGenerator. All rights reserved.
+              {new Date().getFullYear()} GovClerkMinutes. All rights reserved.
             </Text>
           </Stack>
         </Box>

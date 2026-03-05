@@ -521,13 +521,13 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
     seo: {
       title: "About ClerkDirect | AI Meeting Management",
       description:
-        "ClerkDirect is built by the MinutesGenerator team. Learn about our mission to modernize how organizations run meetings.",
+        "ClerkDirect is built by the GovClerkMinutes team. Learn about our mission to modernize how organizations run meetings.",
     },
     hero: {
       label: "Company",
       title: "Modernizing How Organizations Run Meetings",
       description:
-        "ClerkDirect is built by the MinutesGenerator team with a single mission: eliminate the hours of manual work that go into every meeting, so organizations can focus on the decisions that matter.",
+        "ClerkDirect is built by the GovClerkMinutes team with a single mission: eliminate the hours of manual work that go into every meeting, so organizations can focus on the decisions that matter.",
     },
     features: [
       {
@@ -537,9 +537,9 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
         imageUrl: "https://picsum.photos/600/400?random=about-mission",
       },
       {
-        title: "Built by MinutesGenerator",
+        title: "Built by GovClerkMinutes",
         description:
-          "ClerkDirect is powered by the same AI transcription and minutes generation technology trusted by thousands of organizations through MinutesGenerator.",
+          "ClerkDirect is powered by the same AI transcription and minutes generation technology trusted by thousands of organizations through GovClerkMinutes.",
         imageUrl: "https://picsum.photos/600/400?random=about-mg",
       },
     ],

@@ -25,9 +25,9 @@ export default function DemoPage() {
   return (
     <>
       <MgHead
-        title="Book a Demo - MinutesGenerator | See Our AI Meeting Minutes Platform in Action"
-        description="Schedule a personalized demo to see how MinutesGenerator transforms meeting documentation with AI-powered transcription and professional minutes generation."
-        canonical="https://minutesgenerator.com/demo"
+        title="Book a Demo - GovClerkMinutes | See Our AI Meeting Minutes Platform in Action"
+        description="Schedule a personalized demo to see how GovClerkMinutes transforms meeting documentation with AI-powered transcription and professional minutes generation."
+        canonical="https://GovClerkMinutes.com/demo"
         keywords="meeting minutes demo, AI transcription demo, schedule demo, product demo, meeting software demo"
       />
 

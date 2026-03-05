@@ -69,6 +69,6 @@ export const content: LandingPageContent = {
       "Free client meeting minutes template for consultants and agencies with deliverable tracking and feedback documentation. Build stronger client relationships.",
     keywords:
       "client meeting minutes, consultant documentation, project status meetings, deliverable tracking, client requirements",
-    canonical: "https://minutesgenerator.com/client-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/client-meeting-minutes-template",
   },
 };

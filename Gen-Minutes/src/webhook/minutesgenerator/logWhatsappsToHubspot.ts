@@ -33,7 +33,7 @@ function getWatiInboxUrl(conversationId: string): string {
 
 function getAdminPermalinkForWhatsapp(whatsappId: string): string {
   const f = serializeFilters([{ type: "phone", value: whatsappId }]);
-  return `https://minutesgenerator.com/admin?tool=5&f=${encodeURIComponent(f)}`;
+  return `https://GovClerkMinutes.com/admin?tool=5&f=${encodeURIComponent(f)}`;
 }
 
 function createTranscript(convo: WhatsappRow[]): string {

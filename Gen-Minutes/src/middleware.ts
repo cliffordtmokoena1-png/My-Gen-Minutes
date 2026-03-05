@@ -11,7 +11,7 @@ import {
 import {
   getSiteFromHost,
   isClerkDirect,
-  isMinutesGenerator,
+  isGovClerkMinutes,
   Site,
   SITE_HEADER,
 } from "./utils/site";
@@ -85,7 +85,7 @@ function buildClerkHandler(site: Site) {
   return async (auth: ClerkMiddlewareAuth, req: NextRequest) => {
     const { pathname } = req.nextUrl;
 
-    if (isMinutesGenerator(site) && isOrgRoute(req)) {
+    if (isGovClerkMinutes(site) && isOrgRoute(req)) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
@@ -143,7 +143,7 @@ function buildClerkMiddleware(site: Site) {
   });
 }
 
-const mgMiddleware = buildClerkMiddleware("minutesgenerator");
+const mgMiddleware = buildClerkMiddleware("GovClerkMinutes");
 const cdMiddleware = buildClerkMiddleware("clerkdirect");
 
 const middleware = (req: NextRequest, event: Parameters<typeof mgMiddleware>[1]) => {

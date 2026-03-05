@@ -67,7 +67,7 @@ export default function PwaInstallPrompt() {
 
         <Flex direction="column" flex={1}>
           <Text fontSize="sm" fontWeight="semibold" color="gray.800">
-            Install MinutesGenerator
+            Install GovClerkMinutes
           </Text>
           <Text fontSize="xs" color="gray.600">
             Quick access from your home screen

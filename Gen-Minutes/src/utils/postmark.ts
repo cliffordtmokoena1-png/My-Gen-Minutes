@@ -3,9 +3,9 @@ import { assertString } from "./assert";
 const POSTMARK_API_URL = "https://api.postmarkapp.com/email";
 
 const GET_STARTED_GUIDE_URL =
-  "https://help.minutesgenerator.com/en/articles/11072152-getting-started-with-minutesgenerator";
+  "https://help.GovClerkMinutes.com/en/articles/11072152-getting-started-with-GovClerkMinutes";
 const HOW_TO_GET_BACK_GUIDE_URL =
-  "https://help.minutesgenerator.com/en/articles/9176366-how-to-get-back-to-minutesgenerator-com";
+  "https://help.GovClerkMinutes.com/en/articles/9176366-how-to-get-back-to-GovClerkMinutes-com";
 
 export type SendEmailParams = {
   From: string;
@@ -65,11 +65,11 @@ export async function sendEmail({
 
 export async function sendWelcomeEmail(email: string) {
   await sendEmail({
-    From: "max@mail.minutesgenerator.com",
+    From: "max@mail.GovClerkMinutes.com",
     To: email,
-    Subject: "Hello from MinutesGenerator!",
+    Subject: "Hello from GovClerkMinutes!",
     HtmlBody:
-      "Thanks for creating an account with us at <a href='https://minutesgenerator.com?utm_medium=email'>MinutesGenerator.com</a>!<br /><br />To get started, go to the <a href='https://minutesgenerator.com/dashboard?utm_medium=email'>dashboard</a> and upload an (audio or video) recording of a meeting.<br /><br />Please let us know if we can assist you in any way.<br /><br />All the best,<br />Max Sherman",
+      "Thanks for creating an account with us at <a href='https://GovClerkMinutes.com?utm_medium=email'>GovClerkMinutes.com</a>!<br /><br />To get started, go to the <a href='https://GovClerkMinutes.com/dashboard?utm_medium=email'>dashboard</a> and upload an (audio or video) recording of a meeting.<br /><br />Please let us know if we can assist you in any way.<br /><br />All the best,<br />Max Sherman",
     TextBody:
       "Thanks for creating an account with us!\n\nTo get started, go to the dashboard and upload an (audio or video) recording of a meeting.\n\nPlease let us know if we can assist you in any way.\n\nAll the best,\nMax Sherman",
     MessageStream: "signup_and_purchase",
@@ -78,22 +78,22 @@ export async function sendWelcomeEmail(email: string) {
 
 export async function sendSignUpMagicEmail(email: string, token: string) {
   await sendEmail({
-    From: '"MinutesGenerator" <max@mail.minutesgenerator.com>',
+    From: '"GovClerkMinutes" <max@mail.GovClerkMinutes.com>',
     To: email,
     Subject: "Your sign in link",
-    HtmlBody: `Thanks for creating an account with us!<br /><br /><a href='https://minutesgenerator.com/accept-token/${token}?utm_medium=memail'>Click here to be logged in.</a><br /><br />After clicking the link above, read our <a href="${GET_STARTED_GUIDE_URL}">guide on getting started.</a>`,
-    TextBody: `Thanks for creating an account with us!\n\nPaste this link into your browser to complete your sign up: https://minutesgenerator.com/accept-token/${token}\n\nAfter clicking the link above, read our guide to getting started at ${GET_STARTED_GUIDE_URL}.`,
+    HtmlBody: `Thanks for creating an account with us!<br /><br /><a href='https://GovClerkMinutes.com/accept-token/${token}?utm_medium=memail'>Click here to be logged in.</a><br /><br />After clicking the link above, read our <a href="${GET_STARTED_GUIDE_URL}">guide on getting started.</a>`,
+    TextBody: `Thanks for creating an account with us!\n\nPaste this link into your browser to complete your sign up: https://GovClerkMinutes.com/accept-token/${token}\n\nAfter clicking the link above, read our guide to getting started at ${GET_STARTED_GUIDE_URL}.`,
     MessageStream: "signup_and_purchase",
   });
 }
 
 export async function sendSignInMagicEmail(email: string, token: string) {
   await sendEmail({
-    From: '"MinutesGenerator" <max@mail.minutesgenerator.com>',
+    From: '"GovClerkMinutes" <max@mail.GovClerkMinutes.com>',
     To: email,
     Subject: "Your sign in link",
-    HtmlBody: `Welcome back to MinutesGenerator!<br /><br /><a href='https://minutesgenerator.com/accept-token/${token}?utm_medium=memail'>Click here to be logged in.</a><br /><br />After clicking the link above, read our <a href="${HOW_TO_GET_BACK_GUIDE_URL}">guide on saving a shortcut to get back easier.</a>`,
-    TextBody: `Welcome back to MinutesGenerator!\n\nPaste this link into your browser to complete your sign up: https://minutesgenerator.com/accept-token/${token}\n\nAfter clicking the link above, read our guide on saving a shortcut to get back easier: ${HOW_TO_GET_BACK_GUIDE_URL}.`,
+    HtmlBody: `Welcome back to GovClerkMinutes!<br /><br /><a href='https://GovClerkMinutes.com/accept-token/${token}?utm_medium=memail'>Click here to be logged in.</a><br /><br />After clicking the link above, read our <a href="${HOW_TO_GET_BACK_GUIDE_URL}">guide on saving a shortcut to get back easier.</a>`,
+    TextBody: `Welcome back to GovClerkMinutes!\n\nPaste this link into your browser to complete your sign up: https://GovClerkMinutes.com/accept-token/${token}\n\nAfter clicking the link above, read our guide on saving a shortcut to get back easier: ${HOW_TO_GET_BACK_GUIDE_URL}.`,
     MessageStream: "signup_and_purchase",
   });
 }

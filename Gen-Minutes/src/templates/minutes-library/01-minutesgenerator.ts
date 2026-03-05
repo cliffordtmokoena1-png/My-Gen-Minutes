@@ -1,10 +1,10 @@
 import { Template } from "@/types/Template";
 
-export const minutesGeneratorTemplate: Template = {
-  id: "minutesgenerator-template",
-  name: "MinutesGenerator Template",
+export const GovClerkMinutesTemplate: Template = {
+  id: "GovClerkMinutes-template",
+  name: "GovClerkMinutes Template",
   description:
-    "The official MinutesGenerator template structure optimized for AI-generated meeting minutes",
+    "The official GovClerkMinutes template structure optimized for AI-generated meeting minutes",
   category: "meeting-minutes",
   useCase:
     "Perfect for AI-generated meeting minutes from transcripts. Uses speaker labels ({{A}}, {{B}}) and narrative paragraph style for professional documentation.",

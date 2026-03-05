@@ -104,7 +104,7 @@ export const LetterSection = () => {
                 <Text>Instead, I would like you to try something new.</Text>
 
                 <Text>
-                  MinutesGenerator can write your minutes faster than you can. A lot faster. It is
+                  GovClerkMinutes can write your minutes faster than you can. A lot faster. It is
                   more detailed, and extremely easy to use. I want you to try our service, because
                   it will{" "}
                   <Text as="span" fontWeight="normal" color="gray.900">
@@ -145,7 +145,7 @@ export const LetterSection = () => {
                   fontStyle="italic"
                   fontWeight="light"
                 >
-                  CEO, MinutesGenerator
+                  CEO, GovClerkMinutes
                 </Text>
               </VStack>
 

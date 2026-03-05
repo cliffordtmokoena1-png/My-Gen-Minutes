@@ -1,7 +1,7 @@
 import { isDev } from "@/utils/dev";
 
 const DEV_SOPHON_URL = "http://localhost:3000";
-const PROD_SOPHON_URL = "https://sophon.minutesgenerator.com";
+const PROD_SOPHON_URL = "https://sophon.GovClerkMinutes.com";
 
 function getSophonBaseUrl(): string {
   return isDev() ? DEV_SOPHON_URL : PROD_SOPHON_URL;

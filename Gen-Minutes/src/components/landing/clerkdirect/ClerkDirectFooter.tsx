@@ -89,16 +89,16 @@ export default function ClerkDirectFooter() {
               className="h-9 w-auto brightness-0 invert"
             />
             <p className="max-w-[260px] text-sm leading-relaxed text-gray-400">
-              ClerkDirect is a product of MinutesGenerator. We build tools that help organizations
+              ClerkDirect is a product of GovClerkMinutes. We build tools that help organizations
               run better meetings.
             </p>
             <Link
-              href="https://minutesgenerator.com"
+              href="https://GovClerkMinutes.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-gray-500 transition-colors hover:text-gray-300"
             >
-              Powered by MinutesGenerator
+              Powered by GovClerkMinutes
             </Link>
             <div className="flex gap-3 pt-2">
               {socialIcons.map((social) => {

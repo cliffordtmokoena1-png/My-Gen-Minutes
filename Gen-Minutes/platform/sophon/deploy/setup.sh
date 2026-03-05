@@ -7,8 +7,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 
 # Configurable inputs
-DOMAIN="${DOMAIN:-sophon.minutesgenerator.com}"
-EMAIL_DEFAULT="max@minutesgenerator.com"
+DOMAIN="${DOMAIN:-sophon.GovClerkMinutes.com}"
+EMAIL_DEFAULT="max@GovClerkMinutes.com"
 EMAIL="${EMAIL:-${1:-${EMAIL_DEFAULT}}}"
 
 # Load environment variables from colocated .env if present

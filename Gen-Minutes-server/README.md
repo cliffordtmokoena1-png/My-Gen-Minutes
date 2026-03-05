@@ -36,7 +36,7 @@ You can also view additional options with:
 This will start the server on port 8000.
 
 ```
-curl -X POST "http://humdinger.minutesgenerator.com/api/transcribe-segments" \
+curl -X POST "http://humdinger.GovClerkMinutes.com/api/transcribe-segments" \
 -H  "accept: application/json" \
 -H  "Content-Type: application/json" \
 -d "{\"prompt\": \"This is a conversation from the Lex Fridman podcast\",\"audio_key\":\"/Users/johnislarry/projects/minutes-generator-service/lexconvo2.m4a\",\"transcript_key\":\"/Users/johnislarry/projects/minutes-generator-service/lexconvo2diar.json\"}"

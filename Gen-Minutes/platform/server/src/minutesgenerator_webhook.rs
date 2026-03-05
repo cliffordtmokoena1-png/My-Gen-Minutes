@@ -40,11 +40,11 @@ pub async fn send_request(event: MgWebhookEvent) -> anyhow::Result<()> {
   let client = Client::new();
   let response = client
     .post(format!(
-      "{}/api/webhook/minutesgenerator",
+      "{}/api/webhook/GovClerkMinutes",
       if is_dev() {
         "http://localhost:3223"
       } else {
-        "https://minutesgenerator.com"
+        "https://GovClerkMinutes.com"
       }
     ))
     .header(

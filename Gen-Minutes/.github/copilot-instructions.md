@@ -1,4 +1,4 @@
-This is a Typescript and Rust monorepo. It uses NextJS for client and server. The Rust code is built and run as a standalone web server. MinutesGenerator is a service that allows users to upload audio or video files, and produces a transcript and meeting minutes downloadable as a Word document. Users can also upload Word, text and image files, and generate minutes from them too. Please follow these guidelines when contributing:
+This is a Typescript and Rust monorepo. It uses NextJS for client and server. The Rust code is built and run as a standalone web server. GovClerkMinutes is a service that allows users to upload audio or video files, and produces a transcript and meeting minutes downloadable as a Word document. Users can also upload Word, text and image files, and generate minutes from them too. Please follow these guidelines when contributing:
 
 ## Code Standards
 

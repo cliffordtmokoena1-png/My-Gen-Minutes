@@ -209,7 +209,7 @@ export const TemplateHeroSection = ({
             <Box w="full">
               <Image
                 src={mobileImage}
-                alt="MinutesGenerator Demo"
+                alt="GovClerkMinutes Demo"
                 width={600}
                 height={800}
                 layout="responsive"
@@ -331,7 +331,7 @@ export const TemplateHeroSection = ({
               >
                 <Image
                   src={image}
-                  alt="MinutesGenerator Demo"
+                  alt="GovClerkMinutes Demo"
                   width={1200}
                   height={800}
                   layout="responsive"

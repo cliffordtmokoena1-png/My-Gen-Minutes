@@ -84,12 +84,12 @@ export async function sendMinutesFinishedEmail(transcriptId: number): Promise<vo
   const docBase64 = Buffer.from(docBuffer).toString("base64");
 
   await sendEmail({
-    From: '"MinutesGenerator" <max@mail.minutesgenerator.com>',
+    From: '"GovClerkMinutes" <max@mail.GovClerkMinutes.com>',
     To: email,
     Bcc: [OUTGOING_BCC_EMAIL],
     Subject: `Your meeting minutes are ready: ${title}`,
-    HtmlBody: `Your meeting minutes for ${title} have been generated and are ready for download!<br /><br />You can view, edit, and download them from the <a href='https://minutesgenerator.com/dashboard/${transcriptId}?utm_medium=femail'>dashboard</a>.<br /><br />The document is also attached to this email for your convenience.`,
-    TextBody: `Your meeting minutes for ${title} have been generated and are ready for download!\n\nYou can view, edit, and download them from the dashboard at: https://minutesgenerator.com/dashboard/${transcriptId}\n\nThe document is also attached to this email for your convenience.`,
+    HtmlBody: `Your meeting minutes for ${title} have been generated and are ready for download!<br /><br />You can view, edit, and download them from the <a href='https://GovClerkMinutes.com/dashboard/${transcriptId}?utm_medium=femail'>dashboard</a>.<br /><br />The document is also attached to this email for your convenience.`,
+    TextBody: `Your meeting minutes for ${title} have been generated and are ready for download!\n\nYou can view, edit, and download them from the dashboard at: https://GovClerkMinutes.com/dashboard/${transcriptId}\n\nThe document is also attached to this email for your convenience.`,
     MessageStream: "signup_and_purchase",
     Attachments: [
       {

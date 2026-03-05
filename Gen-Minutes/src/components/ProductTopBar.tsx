@@ -321,7 +321,7 @@ export default function ProductTopBar({
                                     </Text>
                                     <Button
                                       as="a"
-                                      href="https://www.trustpilot.com/evaluate/minutesgenerator.com"
+                                      href="https://www.trustpilot.com/evaluate/GovClerkMinutes.com"
                                       target="_blank"
                                       rel="noopener noreferrer"
                                       colorScheme="orange"

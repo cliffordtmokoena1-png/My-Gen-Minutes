@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free project meeting minutes template with milestone tracking, resource management, and risk documentation. Perfect for project managers and teams.",
     keywords:
       "project meeting minutes, milestone tracking, project management, deliverables, risk management",
-    canonical: "https://minutesgenerator.com/project-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/project-meeting-minutes-template",
   },
 };

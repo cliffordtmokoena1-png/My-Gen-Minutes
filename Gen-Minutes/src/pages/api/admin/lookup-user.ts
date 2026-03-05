@@ -41,8 +41,8 @@ async function tryClient(
 type LookupResult = { kind: "success"; user: User } | { kind: "error"; err: string };
 
 const LOOKUP_COMBOS: Array<{ env: ClerkEnvironment; site: Site }> = [
-  { env: "prod", site: "minutesgenerator" },
-  { env: "dev", site: "minutesgenerator" },
+  { env: "prod", site: "GovClerkMinutes" },
+  { env: "dev", site: "GovClerkMinutes" },
   { env: "prod", site: "clerkdirect" },
   { env: "dev", site: "clerkdirect" },
 ];

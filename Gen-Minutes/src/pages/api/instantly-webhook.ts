@@ -115,7 +115,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       await replyToEmail({
         emailId: id,
         emailAccount: eaccount,
-        subject: body.reply_subject ?? "Re: MinutesGenerator",
+        subject: body.reply_subject ?? "Re: GovClerkMinutes",
         body: {
           text: getOutboundBurnerHandoffText(sdr.firstname),
           html: getOutboundBurnerHandoffHtml(sdr.firstname),

@@ -14,7 +14,7 @@ export default function BlogHomeWrapper({ blogPosts }: Props) {
   return (
     <>
       <MgHead
-        title="Blog | MinutesGenerator"
+        title="Blog | GovClerkMinutes"
         description="Blog insights, ideas, and inspiration for meeting minutes."
       />
       <Box position="relative" minH="100vh">

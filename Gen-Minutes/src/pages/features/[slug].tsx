@@ -36,9 +36,9 @@ export default function FeaturePage({ feature }: FeaturePageProps) {
   return (
     <>
       <MgHead
-        title={`${title} - MinutesGenerator`}
+        title={`${title} - GovClerkMinutes`}
         description={description}
-        canonical={`https://minutesgenerator.com/features/${feature.slug}`}
+        canonical={`https://GovClerkMinutes.com/features/${feature.slug}`}
         keywords={`meeting minutes, ${title.toLowerCase()}, transcription, ai minutes`}
       />
 

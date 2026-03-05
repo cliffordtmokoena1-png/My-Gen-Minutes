@@ -52,11 +52,11 @@ export const content: LandingPageContent = {
     buttonText: "Request Educational Pricing",
   },
   seo: {
-    title: "MinutesGenerator for Schools: Educational Meeting Minutes Solution",
+    title: "GovClerkMinutes for Schools: Educational Meeting Minutes Solution",
     description:
       "Meeting documentation software for schools, colleges, and universities. Streamline faculty meetings, board sessions, and administrative documentation with AI-powered transcription.",
     keywords:
       "Education, School Meeting Minutes, University Documentation, Faculty Meetings, Academic Administration, Educational Software, School Board Minutes",
-    canonical: "https://minutesgenerator.com/enterprise/schools",
+    canonical: "https://GovClerkMinutes.com/enterprise/schools",
   },
 };

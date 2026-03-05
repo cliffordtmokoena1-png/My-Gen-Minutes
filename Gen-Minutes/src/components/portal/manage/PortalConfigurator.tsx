@@ -333,7 +333,7 @@ export function PortalConfigurator({
         </div>
         <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-blue-700">
-            MinutesGenerator uses your Organization&apos;s Logo by default.
+            GovClerkMinutes uses your Organization&apos;s Logo by default.
           </p>
           <p className="text-sm text-blue-600 mt-1 flex items-center gap-1">
             Organization <LuChevronRight className="w-3.5 h-3.5" /> General{" "}

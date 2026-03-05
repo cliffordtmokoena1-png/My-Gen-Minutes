@@ -32,7 +32,7 @@ function getSignInUrl(): string {
       return "/sign-in";
     }
   }
-  return "https://minutesgenerator.com/sign-in";
+  return "https://GovClerkMinutes.com/sign-in";
 }
 
 export function PublicPortalHeader({

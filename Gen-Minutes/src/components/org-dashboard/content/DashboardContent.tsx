@@ -132,7 +132,7 @@ function DashboardContent() {
               <span className="font-mono">{streamKey}</span>
             </p>
             <a
-              href={`https://minutesgenerator.com/live/${streamKey}`}
+              href={`https://GovClerkMinutes.com/live/${streamKey}`}
               target="_blank"
               rel="noreferrer"
               className="text-yellow-800 underline"

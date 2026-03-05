@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free AGM minutes template with election management, financial reporting, and quorum tracking. Perfect for corporations and member organizations.",
     keywords:
       "AGM minutes, annual general meeting, shareholder meeting, election procedures, corporate governance, financial statements",
-    canonical: "https://minutesgenerator.com/annual-general-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/annual-general-meeting-minutes-template",
   },
 };

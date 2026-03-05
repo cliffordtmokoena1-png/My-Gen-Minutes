@@ -12,7 +12,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
 
-HOST="${HOST:-turn.minutesgenerator.com}"
+HOST="${HOST:-turn.GovClerkMinutes.com}"
 REMOTE_USER="${REMOTE_USER:-ubuntu}"
 DEST_DIR="${DEST_DIR:-~/turn}"
 SSH_OPTS="${SSH_OPTS:--i $HOME/.ssh/id_rsa}"

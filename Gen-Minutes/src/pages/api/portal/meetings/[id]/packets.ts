@@ -24,7 +24,7 @@ import { getPortalDbConnection } from "@/utils/portalDb";
 const RUST_SERVER_URL =
   process.env.RUST_SERVER_URL ||
   (process.env.NODE_ENV === "production"
-    ? "https://server.minutesgenerator.com"
+    ? "https://server.GovClerkMinutes.com"
     : "http://127.0.0.1:8000");
 
 // Supported convertible file types and their input format identifiers

@@ -49,7 +49,7 @@ const ResubscribeModal: React.FC<ResubscribeModalProps> = ({
         <ModalBody>
           <VStack spacing={2} align="stretch">
             <Text>
-              Resubscribe to <strong>MinutesGenerator {getPrettyPlanName(planName)}</strong>?
+              Resubscribe to <strong>GovClerkMinutes {getPrettyPlanName(planName)}</strong>?
             </Text>
             <UnorderedList spacing={2}>
               <ListItem>You will not be billed until {nextBillDate}</ListItem>

@@ -208,7 +208,7 @@ async function getS3DetailsFromDatabase(): Promise<S3Details> {
       if (awsRegion === "us-east-2") {
         bucket = "transcriptsummaryaudioupload";
       } else if (awsRegion === "eu-central-1") {
-        bucket = "minutesgeneratorfrankfurt";
+        bucket = "GovClerkMinutesfrankfurt";
       } else {
         bucket = "transcriptsummaryaudioupload";
       }

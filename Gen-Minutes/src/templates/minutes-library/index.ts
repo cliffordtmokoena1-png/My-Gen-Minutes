@@ -1,5 +1,5 @@
 import { Template } from "@/types/Template";
-import { minutesGeneratorTemplate } from "./01-minutesgenerator";
+import { GovClerkMinutesTemplate } from "./01-GovClerkMinutes";
 import { standardMeetingTemplate } from "./02-standard-meeting";
 import { boardMeetingTemplate } from "./03-board-meeting";
 import { projectMeetingTemplate } from "./04-project-meeting";
@@ -14,7 +14,7 @@ import { clientMeetingTemplate } from "./12-client-meeting";
 import { annualGeneralMeetingTemplate } from "./13-annual-general-meeting";
 
 export {
-  minutesGeneratorTemplate,
+  GovClerkMinutesTemplate,
   standardMeetingTemplate,
   boardMeetingTemplate,
   projectMeetingTemplate,
@@ -30,7 +30,7 @@ export {
 };
 
 export const ALL_TEMPLATES: Template[] = [
-  minutesGeneratorTemplate,
+  GovClerkMinutesTemplate,
   standardMeetingTemplate,
   boardMeetingTemplate,
   projectMeetingTemplate,

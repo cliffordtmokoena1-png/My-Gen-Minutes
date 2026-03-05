@@ -44,7 +44,7 @@ const FAQS = [
     answer: "Yes, we use Stripe for payment. We do not store any of your credit card information.",
   },
   {
-    question: "Where is MinutesGenerator located?",
+    question: "Where is GovClerkMinutes located?",
     answer: "We are located in New York City, USA",
   },
   {

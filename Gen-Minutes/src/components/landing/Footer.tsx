@@ -53,10 +53,10 @@ export const Footer = () => {
 
   const companyLinks = [
     { label: "About Us", href: "/" },
-    { label: "Contact Us", href: "mailto:max@mail.minutesgenerator.com" },
+    { label: "Contact Us", href: "mailto:max@mail.GovClerkMinutes.com" },
     {
       label: "Careers",
-      href: "https://www.linkedin.com/company/minutesgenerator",
+      href: "https://www.linkedin.com/company/GovClerkMinutes",
       isExternal: true,
     },
   ];
@@ -278,13 +278,13 @@ export const Footer = () => {
           align="center"
         >
           <Text color="gray.400" fontSize="sm">
-            © {new Date().getFullYear()} MinutesGenerator. All rights reserved.
+            © {new Date().getFullYear()} GovClerkMinutes. All rights reserved.
           </Text>
 
           <ButtonGroup variant="ghost">
             <IconButton
               as="a"
-              href="https://twitter.com/minutesgenerator"
+              href="https://twitter.com/GovClerkMinutes"
               aria-label="Twitter"
               icon={<FaTwitter fontSize="20px" />}
               color="gray.400"
@@ -292,7 +292,7 @@ export const Footer = () => {
             />
             <IconButton
               as="a"
-              href="https://github.com/minutesgenerator"
+              href="https://github.com/GovClerkMinutes"
               aria-label="GitHub"
               icon={<FaGithub fontSize="20px" />}
               color="gray.400"
@@ -300,7 +300,7 @@ export const Footer = () => {
             />
             <IconButton
               as="a"
-              href="https://linkedin.com/company/minutesgenerator"
+              href="https://linkedin.com/company/GovClerkMinutes"
               aria-label="LinkedIn"
               icon={<FaLinkedin fontSize="20px" />}
               color="gray.400"

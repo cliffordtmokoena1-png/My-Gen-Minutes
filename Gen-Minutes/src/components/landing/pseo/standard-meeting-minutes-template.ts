@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free standard meeting minutes template with sections for attendance, agenda, decisions, and action items. Perfect for corporate and team meetings.",
     keywords:
       "standard meeting minutes, meeting template, corporate meetings, team meetings, action items",
-    canonical: "https://minutesgenerator.com/standard-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/standard-meeting-minutes-template",
   },
 };

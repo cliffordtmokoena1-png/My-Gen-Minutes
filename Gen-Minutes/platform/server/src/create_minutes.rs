@@ -13,7 +13,7 @@ use crate::{
       meeting_notes::MeetingNotesStep, oracle_feedback::OracleFeedbackStep,
     },
   },
-  minutesgenerator_webhook::{send_request, MgWebhookEvent},
+  GovClerkMinutes_webhook::{send_request, MgWebhookEvent},
   posthog::PostHogEventType,
   s3::get_object,
   span_timer::{SpanTimer, TimeSpanEvent},
@@ -961,7 +961,7 @@ async fn generate_minutes_with_finetuned_model(
   let client = reqwest::Client::new();
 
   let openai_request = serde_json::json!({
-    "model": "ft:gpt-4.1-2025-04-14:minutesgenerator:mg-051925-r27:BYvmGnuK:ckpt-step-29",
+    "model": "ft:gpt-4.1-2025-04-14:GovClerkMinutes:mg-051925-r27:BYvmGnuK:ckpt-step-29",
     "messages": messages,
     "temperature": 0.2,
   });

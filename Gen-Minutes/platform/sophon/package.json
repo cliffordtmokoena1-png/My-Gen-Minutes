@@ -1,8 +1,8 @@
 {
-  "name": "@minutesgenerator/sophon",
+  "name": "@GovClerkMinutes/sophon",
   "version": "0.1.0",
   "private": true,
-  "description": "Dedicated NodeJS server for MinutesGenerator.",
+  "description": "Dedicated NodeJS server for GovClerkMinutes.",
   "type": "module",
   "main": "dist/index.js",
   "engines": {

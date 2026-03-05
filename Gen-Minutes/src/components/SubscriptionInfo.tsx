@@ -110,7 +110,7 @@ export default function SubscriptionInfo({
         <>
           <Alert status="info" borderRadius="md">
             <AlertIcon />
-            <Text fontSize="sm">You are on the Free plan of MinutesGenerator.</Text>
+            <Text fontSize="sm">You are on the Free plan of GovClerkMinutes.</Text>
           </Alert>
         </>
       )}
@@ -122,7 +122,7 @@ export default function SubscriptionInfo({
               <Icon as={MdStars} boxSize={6} color="purple.500" />
               <VStack align="start" spacing={0}>
                 <HStack>
-                  <Heading size="md">MinutesGenerator {getPrettyPlanName(planName)}</Heading>
+                  <Heading size="md">GovClerkMinutes {getPrettyPlanName(planName)}</Heading>
                   {billingContext && (
                     <Badge colorScheme={billingContext.type === "organization" ? "purple" : "blue"}>
                       {billingContext.type === "organization"

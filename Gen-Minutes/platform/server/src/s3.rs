@@ -4,7 +4,7 @@ use std::sync::Arc;
 
 pub fn get_bucket_name(region: String) -> String {
   if region == "eu-central-1" {
-    return "minutesgeneratorfrankfurt".to_string();
+    return "GovClerkMinutesfrankfurt".to_string();
   } else {
     return "transcriptsummaryaudioupload".to_string();
   }

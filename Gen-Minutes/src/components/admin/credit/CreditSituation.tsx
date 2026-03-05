@@ -50,7 +50,7 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
   const toast = useToast();
 
   const copyUrl = async (transcriptId: number) => {
-    const url = `https://minutesgenerator.com/dashboard/${transcriptId}`;
+    const url = `https://GovClerkMinutes.com/dashboard/${transcriptId}`;
     try {
       await navigator.clipboard.writeText(url);
       toast({

@@ -34,7 +34,7 @@ pub async fn download_and_cache_s3_asset(asset_name: &str) -> Result<PathBuf> {
 
   let response = s3_client
     .get_object()
-    .bucket("minutesgeneratorpublic")
+    .bucket("GovClerkMinutespublic")
     .key(asset_name)
     .send()
     .await?;

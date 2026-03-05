@@ -1,7 +1,7 @@
 {
   "id": "/",
   "short_name": "Minutes",
-  "name": "MinutesGenerator",
+  "name": "GovClerkMinutes",
   "description": "Automatically generate meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
   "start_url": "/",
   "display": "standalone",
@@ -27,13 +27,13 @@
       "type": "image/png",
       "sizes": "3502x1928",
       "form_factor": "wide",
-      "label": "MinutesGenerator Desktop View"
+      "label": "GovClerkMinutes Desktop View"
     },
     {
       "src": "/screenshots/mobile-screenshot.png",
       "type": "image/png",
       "sizes": "976x1912",
-      "label": "MinutesGenerator Mobile View"
+      "label": "GovClerkMinutes Mobile View"
     }
   ],
   "share_target": {

@@ -88,7 +88,7 @@ export default function DesktopTemplatesScreen() {
       await deleteTemplate(template.id);
 
       if (settings?.["selected-template-id"] === template.id) {
-        await setSetting("selected-template-id", "minutesgenerator-template");
+        await setSetting("selected-template-id", "GovClerkMinutes-template");
       }
 
       if (selectedTemplate?.id === template.id) {
@@ -233,10 +233,10 @@ export default function DesktopTemplatesScreen() {
         {templates
           .slice()
           .sort((a, b) => {
-            if (a.id === "minutesgenerator-template") {
+            if (a.id === "GovClerkMinutes-template") {
               return -1;
             }
-            if (b.id === "minutesgenerator-template") {
+            if (b.id === "GovClerkMinutes-template") {
               return 1;
             }
             if (a.isCustom === b.isCustom) {

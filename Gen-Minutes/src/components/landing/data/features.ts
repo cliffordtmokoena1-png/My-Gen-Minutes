@@ -317,7 +317,7 @@ export const featuresData: Record<string, FeatureData> = {
     slug: "mobile-app",
     title: "Mobile Web App (PWA)",
     description:
-      "Access MinutesGenerator on any device. Our Progressive Web App works seamlessly on mobile phones and tablets, letting you record meetings, review minutes, and manage transcripts on the go.",
+      "Access GovClerkMinutes on any device. Our Progressive Web App works seamlessly on mobile phones and tablets, letting you record meetings, review minutes, and manage transcripts on the go.",
     iconName: "LuSmartphone",
     layout: "2+3",
     topCards: [
@@ -445,7 +445,7 @@ export const featuresData: Record<string, FeatureData> = {
     slug: "multi-language",
     title: "96+ Languages Supported",
     description:
-      "Work in your language. MinutesGenerator supports transcription and minutes generation in over 96 languages, making it perfect for international teams and multilingual meetings.",
+      "Work in your language. GovClerkMinutes supports transcription and minutes generation in over 96 languages, making it perfect for international teams and multilingual meetings.",
     iconName: "LuLanguages",
     layout: "2+3",
     topCards: [
@@ -911,7 +911,7 @@ export const featuresData: Record<string, FeatureData> = {
       {
         title: "Personal Contact",
         description:
-          "Your personal point of contact at MinutesGenerator for all questions and needs.",
+          "Your personal point of contact at GovClerkMinutes for all questions and needs.",
         iconName: "LuUserPlus",
       },
       {
@@ -945,7 +945,7 @@ export const featuresData: Record<string, FeatureData> = {
     slug: "money-back-guarantee",
     title: "14-Day Money Back Guarantee",
     description:
-      "Try MinutesGenerator risk-free. If you're not completely satisfied within the first 14 days, we'll refund your purchase—no questions asked. We're confident you'll love how much time you save.",
+      "Try GovClerkMinutes risk-free. If you're not completely satisfied within the first 14 days, we'll refund your purchase—no questions asked. We're confident you'll love how much time you save.",
     iconName: "LuShield",
     layout: "2+0",
     topCards: [

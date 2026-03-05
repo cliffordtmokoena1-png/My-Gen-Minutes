@@ -1,4 +1,4 @@
-FROM ghcr.io/minutesgenerator/server-docker-image-base:latest
+FROM ghcr.io/GovClerkMinutes/server-docker-image-base:latest
 
 # Install required packages
 RUN apt-get update && \
@@ -16,6 +16,6 @@ ENV PATH=/opt/miniconda/bin:$PATH
 RUN /opt/miniconda/bin/conda init bash
 
 # Download and extract the pyannote speaker diarization data
-RUN wget -O - https://minutesgeneratorpublic.s3.amazonaws.com/data-2023-03-25-02.tar.gz | tar xz -C /
+RUN wget -O - https://GovClerkMinutespublic.s3.amazonaws.com/data-2023-03-25-02.tar.gz | tar xz -C /
 
 CMD bash -c 'apt update; mkdir -p ~/.ssh; cd ~/.ssh; chmod 700 ~/.ssh; echo "$PUBLIC_KEY" >> authorized_keys; chmod 600 authorized_keys; service ssh start; sleep infinity'

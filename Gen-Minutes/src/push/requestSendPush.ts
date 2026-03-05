@@ -13,7 +13,7 @@ export type PushContent = {
 // sendWebPush directly.
 export default async function requestSendPush(content: PushContent): Promise<void> {
   try {
-    const baseUrl = isDev() ? "http://localhost:3000" : "https://minutesgenerator.com";
+    const baseUrl = isDev() ? "http://localhost:3000" : "https://GovClerkMinutes.com";
     const secret = assertString(process.env.UPLOAD_COMPLETE_WEBHOOK_SECRET);
     const res = await fetch(`${baseUrl}/api/admin/push/send`, {
       method: "POST",

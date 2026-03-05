@@ -82,7 +82,7 @@ export const DemoHeroSection = ({ country }: DemoHeroSectionProps) => {
             </Heading>
 
             <Text fontSize="md" color="gray.600" lineHeight="1.8">
-              Schedule a personalized demo with our team to discover how MinutesGenerator can
+              Schedule a personalized demo with our team to discover how GovClerkMinutes can
               transform your meeting documentation process. See our AI-powered platform in action
               and get answers to all your questions.
             </Text>
@@ -123,7 +123,7 @@ export const DemoHeroSection = ({ country }: DemoHeroSectionProps) => {
             </Heading>
 
             <Text fontSize="clamp(0.95rem, 1.425vw, 1.19rem)" color="gray.600" lineHeight="1.8">
-              Schedule a personalized demo with our team to discover how MinutesGenerator can
+              Schedule a personalized demo with our team to discover how GovClerkMinutes can
               transform your meeting documentation process. See our AI-powered platform in action
               and get answers to all your questions.
             </Text>

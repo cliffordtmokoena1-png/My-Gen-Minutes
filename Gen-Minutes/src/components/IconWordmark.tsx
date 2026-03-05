@@ -10,7 +10,7 @@ export default function IconWordmark({ variant = "blackWordmark" }: Props) {
     <Flex w="full" justifyContent="flex-start" alignItems="center">
       <Image
         src={variant === "whiteWordmark" ? "/icon-wordmark-white.svg" : "/icon-wordmark.svg"}
-        alt="MinutesGenerator wordmark"
+        alt="GovClerkMinutes wordmark"
         width={200}
         height={40}
         priority

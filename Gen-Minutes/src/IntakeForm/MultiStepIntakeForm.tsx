@@ -351,8 +351,8 @@ export default function MultiStepIntakeForm({ fromFbAd, emailInputRef, country }
   if (submitState === "signup_submit") {
     const getUnqualifiedMessage = () => {
       return firstName
-        ? `Hi, it's ${firstName} - I'm interested in MinutesGenerator. My email is ${email}`
-        : `Hi, I'm interested in MinutesGenerator. My email is ${email}`;
+        ? `Hi, it's ${firstName} - I'm interested in GovClerkMinutes. My email is ${email}`
+        : `Hi, I'm interested in GovClerkMinutes. My email is ${email}`;
     };
     const getQualifiedMessage = () => {
       return firstName

@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free construction meeting minutes template with safety compliance, progress tracking, and subcontractor coordination. Perfect for construction managers.",
     keywords:
       "construction meeting minutes, construction project management, safety compliance, subcontractor coordination, change orders",
-    canonical: "https://minutesgenerator.com/construction-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/construction-meeting-minutes-template",
   },
 };

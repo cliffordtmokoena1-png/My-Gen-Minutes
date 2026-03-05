@@ -332,7 +332,7 @@ self.addEventListener("message", (event: any) => {
 self.addEventListener("push", (event: any) => {
   // Push notifications: prefer JSON payload { title?, body?, tag?, url? } sent via web-push; fallback to defaults
   // Prefer decrypted payload if available; otherwise show a generic notification
-  let title = "MinutesGenerator";
+  let title = "GovClerkMinutes";
   let body = "New WhatsApp message received";
   let tag = "mg-whatsapp";
   let data: any = { url: "/admin?tool=5" };

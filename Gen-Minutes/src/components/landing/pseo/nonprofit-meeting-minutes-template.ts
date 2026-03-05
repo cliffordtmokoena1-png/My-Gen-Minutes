@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free non-profit meeting minutes template with donor accountability, mission tracking, and regulatory compliance. Perfect for charities and community organizations.",
     keywords:
       "nonprofit meeting minutes, charity board minutes, 501c3 compliance, donor accountability, volunteer management",
-    canonical: "https://minutesgenerator.com/nonprofit-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/nonprofit-meeting-minutes-template",
   },
 };

@@ -161,7 +161,7 @@ export const EnterpriseHeroSection = ({
           <Box maxW="600px" mx="auto" borderRadius="2xl" overflow="hidden" w="full">
             <Image
               src="/screenshots/mobile-v2.png"
-              alt="MinutesGenerator Mobile Dashboard"
+              alt="GovClerkMinutes Mobile Dashboard"
               width={600}
               height={800}
               style={{ width: "100%", height: "auto" }}
@@ -241,7 +241,7 @@ export const EnterpriseHeroSection = ({
             <Box maxW="1200px" overflow="hidden" w="full" mt={0}>
               <Image
                 src="/screenshots/desktop-v2.png"
-                alt="MinutesGenerator Desktop Dashboard"
+                alt="GovClerkMinutes Desktop Dashboard"
                 width={1200}
                 height={800}
                 style={{ width: "100%", height: "auto" }}

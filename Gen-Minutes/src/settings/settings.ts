@@ -14,7 +14,7 @@ export const SETTINGS: Settings = {
     value: false,
   },
   "selected-template-id": {
-    value: "minutesgenerator-template",
+    value: "GovClerkMinutes-template",
   },
 } as const;
 

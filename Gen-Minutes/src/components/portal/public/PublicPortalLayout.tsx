@@ -80,12 +80,12 @@ export function PublicPortalLayout({
             <p className="text-center text-sm text-gray-500">
               Powered by{" "}
               <a
-                href="https://minutesgenerator.com"
+                href="https://GovClerkMinutes.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-gray-700"
               >
-                MinutesGenerator
+                GovClerkMinutes
               </a>{" "}
               · Public Records Portal
             </p>

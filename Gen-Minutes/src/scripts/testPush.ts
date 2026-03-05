@@ -6,7 +6,7 @@ const program = new Command();
 program
   .name("test-push")
   .description("Send a test Web Push to all admin subscriptions")
-  .option("-t, --title <title>", "Notification title", "MinutesGenerator")
+  .option("-t, --title <title>", "Notification title", "GovClerkMinutes")
   .option("-b, --body <body>", "Notification body", "Test push from CLI")
   .option("-u, --url <url>", "Open URL on click", "/admin?tool=5")
   .action(async (opts) => {

@@ -76,7 +76,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
   };
 
   const handleHelpCenterClick = () => {
-    window.open("https://help.minutesgenerator.com/", "_blank");
+    window.open("https://help.GovClerkMinutes.com/", "_blank");
   };
 
   const handleChatWithUsClick = () => {

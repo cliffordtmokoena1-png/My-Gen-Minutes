@@ -76,17 +76,17 @@ async function handler(req: NextRequest) {
     const customerName = contact?.properties.firstname ?? "there";
 
     let fromEmail = (await getPrimaryEmail(adminUserId, site)) ?? operator.email;
-    if (!fromEmail.includes("@minutesgenerator.com")) {
+    if (!fromEmail.includes("@GovClerkMinutes.com")) {
       fromEmail = operator.email;
     }
 
-    const HtmlBody = `Hi ${customerName},<br/><br/>Here's your checkout link to subscribe to MinutesGenerator:<br/><a href="${url}">${url}</a><br/><br/>If you have any questions, just reply to this email!<br/><br/>${operator.firstname}`;
-    const TextBody = `Hi ${customerName},\n\nHere's your checkout link to subscribe to MinutesGenerator:\n${url}\n\nIf you have any questions, just reply to this email!\n\n${operator.firstname}`;
+    const HtmlBody = `Hi ${customerName},<br/><br/>Here's your checkout link to subscribe to GovClerkMinutes:<br/><a href="${url}">${url}</a><br/><br/>If you have any questions, just reply to this email!<br/><br/>${operator.firstname}`;
+    const TextBody = `Hi ${customerName},\n\nHere's your checkout link to subscribe to GovClerkMinutes:\n${url}\n\nIf you have any questions, just reply to this email!\n\n${operator.firstname}`;
 
     await sendEmail({
       From: `"${operator.name()}" <${fromEmail}>`,
       To: customerEmail,
-      Subject: "Your MinutesGenerator checkout link",
+      Subject: "Your GovClerkMinutes checkout link",
       Bcc: [OUTGOING_BCC_EMAIL],
       HtmlBody,
       TextBody,

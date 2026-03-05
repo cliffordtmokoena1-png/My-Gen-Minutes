@@ -71,7 +71,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DeleteTemplateR
   }
 
   if (shouldResetSelection) {
-    const defaultTemplateValue = JSON.stringify("minutesgenerator-template");
+    const defaultTemplateValue = JSON.stringify("GovClerkMinutes-template");
     await conn.execute(
       `INSERT INTO mg_settings (user_id, setting_key, setting_value)
        VALUES (?, 'selected-template-id', ?)

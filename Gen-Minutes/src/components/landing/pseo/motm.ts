@@ -29,11 +29,11 @@ export const content: LandingPageContent = {
   },
   seo: {
     ...defaultContent.seo,
-    title: "MinutesGenerator: AI Minutes of the Meeting Generator",
+    title: "GovClerkMinutes: AI Minutes of the Meeting Generator",
     description:
       "Automatically generate minutes of the meeting from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI, Minutes of the Meeting",
-    canonical: "https://minutesgenerator.com/minutes-of-the-meeting",
+    canonical: "https://GovClerkMinutes.com/minutes-of-the-meeting",
   },
 };

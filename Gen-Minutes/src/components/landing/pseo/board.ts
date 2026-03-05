@@ -29,11 +29,11 @@ export const content: LandingPageContent = {
   },
   seo: {
     ...defaultContent.seo,
-    title: "MinutesGenerator: Board Meeting Minutes Generator",
+    title: "GovClerkMinutes: Board Meeting Minutes Generator",
     description:
       "Automatically generate board meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "Board, Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI, Board Meeting Minutes",
-    canonical: "https://minutesgenerator.com/board-meeting-minutes",
+    canonical: "https://GovClerkMinutes.com/board-meeting-minutes",
   },
 };

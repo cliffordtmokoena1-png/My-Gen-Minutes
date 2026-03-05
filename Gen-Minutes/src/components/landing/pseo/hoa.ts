@@ -30,11 +30,11 @@ export const content: LandingPageContent = {
   },
   seo: {
     ...defaultContent.seo,
-    title: "MinutesGenerator: HOA Meeting Minutes Generator",
+    title: "GovClerkMinutes: HOA Meeting Minutes Generator",
     description:
       "Automatically generate HOA meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "HOA, Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI, HOA Meeting Minutes",
-    canonical: "https://minutesgenerator.com/hoa-meeting-minutes",
+    canonical: "https://GovClerkMinutes.com/hoa-meeting-minutes",
   },
 };

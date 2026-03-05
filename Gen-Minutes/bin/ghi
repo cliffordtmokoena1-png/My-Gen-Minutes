@@ -7,27 +7,27 @@ import asyncio
 
 sections = {
     "🟠 Needs Review": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator review-requested:@me -review:approved -review:changes_requested -is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes review-requested:@me -review:approved -review:changes_requested -is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_result(obj),
     },
     "🟢 Approved": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator author:@me review:approved" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes author:@me review:approved" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_result(obj),
     },
     "🟡 Waiting for Reviewers": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator author:@me -review:changes_requested -review:approved -is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes author:@me -review:changes_requested -review:approved -is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_result(obj),
     },
     "🔵 Waiting for Author": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator reviewed-by:@me review:changes_requested" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes reviewed-by:@me review:changes_requested" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_result(obj),
     },
     "⚪️ Drafts": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator author:@me is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes author:@me is:draft" --state open --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_result(obj),
     },
     "🟣 Merged": {
-        "cmd": 'gh pr list --search "org:MinutesGenerator author:@me" --state merged --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
+        "cmd": 'gh pr list --search "org:GovClerkMinutes author:@me" --state merged --json number,title,reviewRequests,reviewDecision,url,state,mergedAt,updatedAt,author',
         "on_done": lambda obj: process_merged(obj),
     },
 }

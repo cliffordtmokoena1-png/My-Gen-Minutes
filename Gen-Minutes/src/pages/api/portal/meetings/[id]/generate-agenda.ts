@@ -160,7 +160,7 @@ async function handler(req: NextRequest): Promise<Response> {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${openRouterApiKey}`,
-        "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://minutesgenerator.com",
+        "HTTP-Referer": process.env.NEXT_PUBLIC_APP_URL || "https://GovClerkMinutes.com",
         "X-Title": "Minutes Generator",
       },
       body: JSON.stringify({

@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free healthcare meeting minutes template for medical staff meetings with patient safety tracking and compliance documentation. HIPAA-conscious format.",
     keywords:
       "healthcare meeting minutes, medical staff meetings, patient safety, clinical protocols, HIPAA compliance",
-    canonical: "https://minutesgenerator.com/healthcare-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/healthcare-meeting-minutes-template",
   },
 };

@@ -10,13 +10,13 @@ import { hideBin } from "yargs/helpers";
 
 dotenv.config();
 
-const VALID_SITES: Site[] = ["minutesgenerator", "clerkdirect"];
+const VALID_SITES: Site[] = ["GovClerkMinutes", "clerkdirect"];
 
 const siteOption = {
   describe: "Which site's Clerk instance to use",
   type: "string" as const,
   choices: VALID_SITES,
-  default: "minutesgenerator" as Site,
+  default: "GovClerkMinutes" as Site,
 };
 
 const devOption = {

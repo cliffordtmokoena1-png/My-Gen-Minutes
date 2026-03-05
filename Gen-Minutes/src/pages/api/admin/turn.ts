@@ -28,7 +28,7 @@ async function hmacSha1Base64(secret: string, message: string): Promise<string> 
 
 async function handler(req: Request): Promise<Response> {
   const ttlSec = 3600;
-  const domain = process.env.TURN_DOMAIN || "turn.minutesgenerator.com";
+  const domain = process.env.TURN_DOMAIN || "turn.GovClerkMinutes.com";
   const tlsPort = Number(process.env.TURN_TLS_PORT || "5349");
   const staticSecret = process.env.TURN_SERVER_KEY;
   if (!staticSecret) {

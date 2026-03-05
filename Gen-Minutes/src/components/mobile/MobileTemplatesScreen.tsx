@@ -190,7 +190,7 @@ export default function MobileTemplatesScreen() {
       await deleteTemplate(actionsTemplate.id);
 
       if (settings?.["selected-template-id"] === actionsTemplate.id) {
-        await setSetting("selected-template-id", "minutesgenerator-template");
+        await setSetting("selected-template-id", "GovClerkMinutes-template");
       }
 
       if (selectedTemplate?.id === actionsTemplate.id) {

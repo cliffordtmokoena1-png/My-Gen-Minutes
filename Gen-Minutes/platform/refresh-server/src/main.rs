@@ -287,9 +287,9 @@ async fn main() {
         }
     }
 
-    println!("Restarting minutesgenerator8000.service...");
-    match systemctl_restart("minutesgenerator8000.service") {
-        Ok(_) => println!("minutesgenerator8000.service restarted!"),
+    println!("Restarting GovClerkMinutes8000.service...");
+    match systemctl_restart("GovClerkMinutes8000.service") {
+        Ok(_) => println!("GovClerkMinutes8000.service restarted!"),
         Err(e) => {
             todo!("handle error {}", e);
         }
@@ -315,9 +315,9 @@ async fn main() {
         }
     }
 
-    println!("Restarting minutesgenerator8001.service...");
-    match systemctl_restart("minutesgenerator8001.service") {
-        Ok(_) => println!("minutesgenerator8001.service restarted!"),
+    println!("Restarting GovClerkMinutes8001.service...");
+    match systemctl_restart("GovClerkMinutes8001.service") {
+        Ok(_) => println!("GovClerkMinutes8001.service restarted!"),
         Err(e) => {
             todo!("handle error {}", e);
         }

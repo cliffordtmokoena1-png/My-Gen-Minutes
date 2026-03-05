@@ -158,7 +158,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
 
   // During SSR, read the site from the x-mg-site header set by middleware.
   // On client-side navigations req is undefined, so fall back to window detection.
-  let site: Site = "minutesgenerator";
+  let site: Site = "GovClerkMinutes";
   if (req) {
     const headerValue = req.headers[SITE_HEADER];
     if (headerValue === "clerkdirect") {

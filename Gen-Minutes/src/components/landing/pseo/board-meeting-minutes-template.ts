@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free board meeting minutes template with motion tracking, voting records, and governance compliance. Perfect for board of directors and executive committees.",
     keywords:
       "board meeting minutes, board of directors, corporate governance, voting records, board resolutions",
-    canonical: "https://minutesgenerator.com/board-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/board-meeting-minutes-template",
   },
 };

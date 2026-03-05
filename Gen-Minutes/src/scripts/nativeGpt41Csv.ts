@@ -224,8 +224,8 @@ async function callOpenRouter(prompt: string, model: string, apiKey: string): Pr
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
-      "HTTP-Referer": "https://minutesgenerator.com",
-      "X-Title": "MinutesGenerator",
+      "HTTP-Referer": "https://GovClerkMinutes.com",
+      "X-Title": "GovClerkMinutes",
     },
     body: JSON.stringify({
       model,

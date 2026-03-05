@@ -18,7 +18,7 @@ export const TestimonialsSection = () => {
   const testimonials = [
     {
       name: "Lucy M.",
-      location: "MinutesGenerator customer",
+      location: "GovClerkMinutes customer",
       date: "",
       text: "I love it. I normally take 5 days to do minutes but with this it was done in just below an hour! It's so professional, doesn't leave out important details and saves me so much time.",
     },

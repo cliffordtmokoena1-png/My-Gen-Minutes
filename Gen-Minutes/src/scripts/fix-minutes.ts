@@ -126,8 +126,8 @@ Instructions:
         headers: {
           Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://minutesgenerator.com",
-          "X-Title": "MinutesGenerator",
+          "HTTP-Referer": "https://GovClerkMinutes.com",
+          "X-Title": "GovClerkMinutes",
         },
       }
     );

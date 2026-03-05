@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free team huddle minutes template for daily standups and quick sync meetings. Track progress, blockers, and team mood efficiently.",
     keywords:
       "team huddle minutes, daily standup, scrum standup, team sync, agile meetings, sprint checkin",
-    canonical: "https://minutesgenerator.com/team-huddle-minutes-template",
+    canonical: "https://GovClerkMinutes.com/team-huddle-minutes-template",
   },
 };

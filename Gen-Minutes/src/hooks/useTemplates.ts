@@ -67,10 +67,10 @@ export function useTemplates() {
     const filtered = data.filter((template): template is Template => template != null);
 
     return filtered.slice().sort((a, b) => {
-      if (a.id === "minutesgenerator-template") {
+      if (a.id === "GovClerkMinutes-template") {
         return -1;
       }
-      if (b.id === "minutesgenerator-template") {
+      if (b.id === "GovClerkMinutes-template") {
         return 1;
       }
       if (a.isCustom === b.isCustom) {

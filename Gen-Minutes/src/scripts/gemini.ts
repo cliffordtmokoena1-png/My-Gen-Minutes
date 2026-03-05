@@ -7,7 +7,7 @@ type Options = {
 };
 
 const PROMPT_TEMPLATE = `
-Please analyze the following 1776 different WhatsApp conversations between MinutesGenerator.com prospects and our SDR (Cliff, or sometimes called 'Operator'). MinutesGenerator is a service that generates meeting minutes from an audio, video, text, Word, or Image upload.
+Please analyze the following 1776 different WhatsApp conversations between GovClerkMinutes.com prospects and our SDR (Cliff, or sometimes called 'Operator'). GovClerkMinutes is a service that generates meeting minutes from an audio, video, text, Word, or Image upload.
 
 Give a detailed answer with examples and numbers or statistics. Write a markdown-formatted report on this topic:
 

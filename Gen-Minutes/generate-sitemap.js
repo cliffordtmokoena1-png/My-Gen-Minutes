@@ -45,13 +45,13 @@ function generateSiteMap() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
-       <loc>https://minutesgenerator.com</loc>
+       <loc>https://GovClerkMinutes.com</loc>
      </url>
      ${additionalSlugs
        .map((slug) => {
          return `
      <url>
-       <loc>https://minutesgenerator.com/${slug}</loc>
+       <loc>https://GovClerkMinutes.com/${slug}</loc>
      </url>`;
        })
        .join("")}
@@ -59,7 +59,7 @@ function generateSiteMap() {
        .map((slug) => {
          return `
      <url>
-       <loc>https://minutesgenerator.com/blog/${slug}</loc>
+       <loc>https://GovClerkMinutes.com/blog/${slug}</loc>
      </url>`;
        })
        .join("")}

@@ -55,7 +55,7 @@ export const handler = async (event: S3Event): Promise<void> => {
   const postData = JSON.stringify({ s3_audio_key: s3Key });
 
   const options: https.RequestOptions = {
-    hostname: "server.minutesgenerator.com",
+    hostname: "server.GovClerkMinutes.com",
     port: 443,
     path: "/api/get-diarization",
     method: "POST",

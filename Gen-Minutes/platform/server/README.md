@@ -1,4 +1,4 @@
-# MinutesGenerator Backend
+# GovClerkMinutes Backend
 
 ## Requirements
 
@@ -84,7 +84,7 @@
    ![public hostname](../../docs/server/stepx.png)
 
 > [!IMPORTANT]
-> Ensure `server.minutesgenerator.com` is not occupied by another connector or DNS record.
+> Ensure `server.GovClerkMinutes.com` is not occupied by another connector or DNS record.
 
 ## Running Tests with ASAN
 

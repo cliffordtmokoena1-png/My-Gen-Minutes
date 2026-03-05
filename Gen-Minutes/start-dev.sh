@@ -76,7 +76,7 @@ echo -e "${BLUE}[next]${NC} Starting Next.js frontend on port 3223..."
 (NODE_OPTIONS=--inspect npx next dev -p 3223 2>&1) | prefix_output "next" "$BLUE" &
 PIDS+=($!)
 
-echo -e "${YELLOW}[caddy]${NC} Starting Caddy proxy for minutesgenerator on port 3224..."
+echo -e "${YELLOW}[caddy]${NC} Starting Caddy proxy for GovClerkMinutes on port 3224..."
 (cd dev && docker compose up 2>&1) | prefix_output "caddy" "$YELLOW" &
 PIDS+=($!)
 
@@ -90,7 +90,7 @@ echo -e "${GREEN}[start-dev]${NC} Services (with file watchers):"
 echo -e "  ${MAGENTA}• RTMP${NC}    - Docker Compose (no watcher)"
 echo -e "  ${CYAN}• Sophon${NC}  - http://localhost:3000 (watches platform/sophon/**)"
 echo -e "  ${BLUE}• Next.js${NC} - http://localhost:3223 (clerkdirect, built-in HMR)"
-echo -e "  ${YELLOW}• Caddy${NC}   - http://localhost:3224 (minutesgenerator proxy)"
+echo -e "  ${YELLOW}• Caddy${NC}   - http://localhost:3224 (GovClerkMinutes proxy)"
 echo -e "  ${GREEN}• Rust${NC}    - cargo watch (watches platform/server/**)"
 echo ""
 

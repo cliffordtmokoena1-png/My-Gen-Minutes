@@ -71,7 +71,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
         // Notify admins via server-side push API (Node runtime)
         await requestSendPush({
-          title: lead?.firstName ?? "MinutesGenerator",
+          title: lead?.firstName ?? "GovClerkMinutes",
           body: msg.text.body,
           url: "/admin/whatsapp",
           tag: "mg-whatsapp",
@@ -117,7 +117,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
           );
 
           await requestSendPush({
-            title: lead?.firstName ?? "MinutesGenerator",
+            title: lead?.firstName ?? "GovClerkMinutes",
             body: `Call permission: ${reply.response}`,
             url: "/admin/whatsapp",
             tag: "mg-whatsapp",
@@ -143,7 +143,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
           }),
           get_presigned_url({
             key,
-            bucket: "minutesgeneratorwhatsapp",
+            bucket: "GovClerkMinuteswhatsapp",
             region: "us-east-2",
             method: "PUT",
             expiresInSecs: 600,
@@ -190,7 +190,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
         );
 
         await requestSendPush({
-          title: lead?.firstName ?? "MinutesGenerator",
+          title: lead?.firstName ?? "GovClerkMinutes",
           body: "Audio message",
           url: "/admin/whatsapp",
           tag: "mg-whatsapp",

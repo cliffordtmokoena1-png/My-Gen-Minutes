@@ -33,9 +33,9 @@ export default function PricingPage() {
   return (
     <>
       <MgHead
-        title="Pricing - MinutesGenerator | Affordable AI Meeting Minutes Plans"
+        title="Pricing - GovClerkMinutes | Affordable AI Meeting Minutes Plans"
         description="Choose the perfect plan for your meeting minutes needs. From Basic to Enterprise, get AI-powered transcription and professional minutes at transparent prices."
-        canonical="https://minutesgenerator.com/pricing"
+        canonical="https://GovClerkMinutes.com/pricing"
         keywords="meeting minutes pricing, transcription plans, AI minutes cost, meeting software pricing, professional minutes subscription"
       />
 

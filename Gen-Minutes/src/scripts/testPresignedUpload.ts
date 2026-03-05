@@ -3,7 +3,7 @@
 //   npm run s3:test-upload -- --file ./path/to/file --key optional/custom/key
 //
 // Notes:
-// - This uses the same bucket and region as the WhatsApp audio codepath: minutesgeneratorwhatsapp (us-east-2).
+// - This uses the same bucket and region as the WhatsApp audio codepath: GovClerkMinuteswhatsapp (us-east-2).
 // - Requires AWS_WHATSAPP_ACCESS_KEY and AWS_WHATSAPP_ACCESS_KEY_SECRET in your .env
 
 import { Command } from "commander";
@@ -27,11 +27,11 @@ async function main() {
   program
     .name("test-presigned-upload")
     .description(
-      "Upload a local file to S3 using a presigned URL (minutesgeneratorwhatsapp / us-east-2)."
+      "Upload a local file to S3 using a presigned URL (GovClerkMinuteswhatsapp / us-east-2)."
     )
     .requiredOption("-f, --file <path>", "Path to a local file to upload")
     .option("-k, --key <s3-key>", "S3 object key to use (defaults to test/<timestamp>-<filename>)")
-    .option("-b, --bucket <bucket>", "S3 bucket name", "minutesgeneratorwhatsapp")
+    .option("-b, --bucket <bucket>", "S3 bucket name", "GovClerkMinuteswhatsapp")
     .option("-r, --region <region>", "AWS region", "us-east-2")
     .option(
       "-e, --expires <seconds>",

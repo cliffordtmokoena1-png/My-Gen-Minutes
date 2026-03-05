@@ -81,7 +81,7 @@ export const PricingHeroSection = ({ country }: PricingHeroSectionProps) => {
             >
               Request Custom Pricing from{" "}
               <Box as="span" bg="yellow.100" px={3} py={1} borderRadius="md">
-                MinutesGenerator
+                GovClerkMinutes
               </Box>
             </Heading>
 
@@ -107,7 +107,7 @@ export const PricingHeroSection = ({ country }: PricingHeroSectionProps) => {
           <Box maxW="600px" mx="auto" borderRadius="2xl" overflow="hidden" w="full">
             <Image
               src="/screenshots/mobile-v2.png"
-              alt="MinutesGenerator Mobile Dashboard"
+              alt="GovClerkMinutes Mobile Dashboard"
               width={600}
               height={800}
               style={{ width: "100%", height: "auto" }}
@@ -136,7 +136,7 @@ export const PricingHeroSection = ({ country }: PricingHeroSectionProps) => {
             >
               Request Custom Pricing from{" "}
               <Box as="span" bg="yellow.100" px={3} py={1} borderRadius="md">
-                MinutesGenerator
+                GovClerkMinutes
               </Box>
             </Heading>
 

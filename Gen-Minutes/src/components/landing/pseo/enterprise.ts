@@ -51,11 +51,11 @@ export const content: LandingPageContent = {
     buttonText: "Contact Sales",
   },
   seo: {
-    title: "MinutesGenerator Enterprise: AI Meeting Minutes for Organizations",
+    title: "GovClerkMinutes Enterprise: AI Meeting Minutes for Organizations",
     description:
       "Enterprise meeting documentation solution with unlimited hours, dedicated support, and custom integrations. Scale AI-powered meeting minutes across your entire organization.",
     keywords:
       "Enterprise, Meeting Minutes, AI Transcription, Business Documentation, Custom Integration, Dedicated Support, Enterprise Software",
-    canonical: "https://minutesgenerator.com/enterprise",
+    canonical: "https://GovClerkMinutes.com/enterprise",
   },
 };

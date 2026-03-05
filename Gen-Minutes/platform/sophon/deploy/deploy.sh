@@ -26,7 +26,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
 
-HOST="${HOST:-sophon.minutesgenerator.com}"
+HOST="${HOST:-sophon.GovClerkMinutes.com}"
 REMOTE_USER="${REMOTE_USER:-ubuntu}"
 STAGING_DIR="~/sophon-staging"
 FINAL_DIR="/var/www/sophon"

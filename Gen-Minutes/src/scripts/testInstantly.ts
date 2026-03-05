@@ -12,7 +12,7 @@ const TEST_WEBHOOK_EVENTS = {
     campaign_id: "4ea94d08-5e9f-4d39-8e1b-0090ce895b82",
     unibox_url: null,
     campaign_name: "signup_urgent",
-    email_account: "max@minutesgeneratorpartners.com",
+    email_account: "max@GovClerkMinutespartners.com",
     is_first: true,
     lead_email: "testlead123@gmail.com",
     email: "testlead123@gmail.com",
@@ -30,7 +30,7 @@ const TEST_WEBHOOK_EVENTS = {
     variant: 2,
     email_subject: "meeting minutes question",
     email_html:
-      "<div>Hey John - you said you need minutes soon.</div><div><br /></div><div>Can I help you use MinutesGenerator?  You will be done in 5 minutes (instead of hours)</div><div><br /></div><div>Best,<br />Mercedez Muniz</div>",
+      "<div>Hey John - you said you need minutes soon.</div><div><br /></div><div>Can I help you use GovClerkMinutes?  You will be done in 5 minutes (instead of hours)</div><div><br /></div><div>Best,<br />Mercedez Muniz</div>",
   },
   reply_received: {
     timestamp: "2025-06-09T16:04:40.963Z",
@@ -40,7 +40,7 @@ const TEST_WEBHOOK_EVENTS = {
     unibox_url:
       "https://app.instantly.ai/app/unibox?thread_search=testlead123@gmail.com&selected_wks=8f3e798e-b9d1-4af4-89ca-205202b07ce0",
     campaign_name: "signup_urgent",
-    email_account: "max@minutesgeneratorpartners.com",
+    email_account: "max@GovClerkMinutespartners.com",
     reply_text_snippet: "Yes please, thanks! \n\n",
     is_first: true,
     lead_email: "testlead123@gmail.com",
@@ -61,19 +61,19 @@ const TEST_WEBHOOK_EVENTS = {
     reply_text:
       "Yes please, thanks!\n" +
       "\n" +
-      "On Mon, Jun 9, 2025, 15:33 Mercedez Muniz <max@minutesgeneratorpartners.com>\n" +
+      "On Mon, Jun 9, 2025, 15:33 Mercedez Muniz <max@GovClerkMinutespartners.com>\n" +
       "wrote:\n" +
       "\n" +
       "> Hey John - you said you need minutes soon.\n" +
       ">\n" +
-      "> Can I help you use MinutesGenerator?  You will be done in 5 minutes\n" +
+      "> Can I help you use GovClerkMinutes?  You will be done in 5 minutes\n" +
       "> (instead of hours)\n" +
       ">\n" +
       "> Best,\n" +
       "> Mercedez Muniz\n" +
       "> [image: line]\n",
     reply_html:
-      '<div dir="auto">Yes please, thanks! </div><br><div class="gmail_quote gmail_quote_container"><div dir="ltr" class="gmail_attr">On Mon, Jun 9, 2025, 15:33 Mercedez Muniz &lt;<a href="mailto:max@minutesgeneratorpartners.com">max@minutesgeneratorpartners.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Hey John - you said you need minutes soon.</div><div><br></div><div>Can I help you use MinutesGenerator?  You will be done in 5 minutes (instead of hours)</div><div><br></div><div>Best,<br>Mercedez Muniz</div>\n' +
+      '<div dir="auto">Yes please, thanks! </div><br><div class="gmail_quote gmail_quote_container"><div dir="ltr" class="gmail_attr">On Mon, Jun 9, 2025, 15:33 Mercedez Muniz &lt;<a href="mailto:max@GovClerkMinutespartners.com">max@GovClerkMinutespartners.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Hey John - you said you need minutes soon.</div><div><br></div><div>Can I help you use GovClerkMinutes?  You will be done in 5 minutes (instead of hours)</div><div><br></div><div>Best,<br>Mercedez Muniz</div>\n' +
       '<img src="https://proxsclimmed.com/signature/images/4h9rGasOl8G5JJ915vyPx.png" alt="line"></blockquote></div>\n',
   },
   lead_interested: {
@@ -101,19 +101,19 @@ const TEST_WEBHOOK_EVENTS = {
       "Yes please\n" +
       "\n" +
       "On Wed, Jun 11, 2025, 11:34 AM Mercedez Muniz <\n" +
-      "max.sherman@workminutesgenerator.com> wrote:\n" +
+      "max.sherman@workGovClerkMinutes.com> wrote:\n" +
       "\n" +
       "> Hey John - you said you need minutes soon.\n" +
       ">\n" +
-      "> Can I help you use MinutesGenerator?  You will be done in 5 minutes\n" +
+      "> Can I help you use GovClerkMinutes?  You will be done in 5 minutes\n" +
       "> (instead of hours)\n" +
       ">\n" +
       "> Best,\n" +
       "> Mercedez Muniz\n" +
       "> [image: line]\n",
     reply_html:
-      '<div dir="auto">Yes please</div><br><div class="gmail_quote gmail_quote_container"><div dir="ltr" class="gmail_attr">On Wed, Jun 11, 2025, 11:34 AM Mercedez Muniz &lt;<a href="mailto:max.sherman@workminutesgenerator.com">max.sherman@workminutesgenerator.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Hey John - you said you need minutes soon.</div><div><br></div><div>Can I help you use MinutesGenerator?  You will be done in 5 minutes (instead of hours)</div><div><br></div><div>Best,<br>Mercedez Muniz</div>\n' +
-      '<img src="https://inst.workminutesgenerator.com/signature/images/aGz2uLJM-C6fwebclNRCX.png" alt="line"></blockquote></div>\n',
+      '<div dir="auto">Yes please</div><br><div class="gmail_quote gmail_quote_container"><div dir="ltr" class="gmail_attr">On Wed, Jun 11, 2025, 11:34 AM Mercedez Muniz &lt;<a href="mailto:max.sherman@workGovClerkMinutes.com">max.sherman@workGovClerkMinutes.com</a>&gt; wrote:<br></div><blockquote class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div>Hey John - you said you need minutes soon.</div><div><br></div><div>Can I help you use GovClerkMinutes?  You will be done in 5 minutes (instead of hours)</div><div><br></div><div>Best,<br>Mercedez Muniz</div>\n' +
+      '<img src="https://inst.workGovClerkMinutes.com/signature/images/aGz2uLJM-C6fwebclNRCX.png" alt="line"></blockquote></div>\n',
   },
 };
 

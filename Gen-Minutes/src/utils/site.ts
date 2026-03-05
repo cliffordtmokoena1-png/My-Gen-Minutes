@@ -1,4 +1,4 @@
-export type Site = "clerkdirect" | "minutesgenerator";
+export type Site = "clerkdirect" | "GovClerkMinutes";
 
 export const SITE_HEADER = "x-mg-site";
 
@@ -7,7 +7,7 @@ const CLERKDIRECT_PORTS = ["3223"];
 
 export function getSiteFromHost(host: string | null | undefined): Site {
   if (!host) {
-    return "minutesgenerator";
+    return "GovClerkMinutes";
   }
 
   const hostname = host.split(":")[0].toLowerCase();
@@ -21,12 +21,12 @@ export function getSiteFromHost(host: string | null | undefined): Site {
     return "clerkdirect";
   }
 
-  return "minutesgenerator";
+  return "GovClerkMinutes";
 }
 
 export function getSiteFromWindow(): Site {
   if (typeof window === "undefined") {
-    return "minutesgenerator";
+    return "GovClerkMinutes";
   }
 
   return getSiteFromHost(window.location.host);
@@ -36,8 +36,8 @@ export function isClerkDirect(site: Site): boolean {
   return site === "clerkdirect";
 }
 
-export function isMinutesGenerator(site: Site): boolean {
-  return site === "minutesgenerator";
+export function isGovClerkMinutes(site: Site): boolean {
+  return site === "GovClerkMinutes";
 }
 
 export function getSiteFromRequest(headers: Record<string, string | string[] | undefined>): Site {
@@ -45,7 +45,7 @@ export function getSiteFromRequest(headers: Record<string, string | string[] | u
   if (value === "clerkdirect") {
     return "clerkdirect";
   }
-  return "minutesgenerator";
+  return "GovClerkMinutes";
 }
 
 export function getSiteFromHeaders(headers: Headers): Site {
@@ -53,5 +53,5 @@ export function getSiteFromHeaders(headers: Headers): Site {
   if (value === "clerkdirect") {
     return "clerkdirect";
   }
-  return "minutesgenerator";
+  return "GovClerkMinutes";
 }

@@ -109,7 +109,7 @@ export default function DiscountPage({ expiryISO }: Props) {
 
   return (
     <>
-      <MgHead noindex title="50% off MinutesGenerator • Limited‑Time Offer" />
+      <MgHead noindex title="50% off GovClerkMinutes • Limited‑Time Offer" />
       <NavBar fromFbAd={false} />
 
       <Center minH="100vh" bgGradient={`linear(to-br, ${bg1}, ${bg2})`} p={6}>

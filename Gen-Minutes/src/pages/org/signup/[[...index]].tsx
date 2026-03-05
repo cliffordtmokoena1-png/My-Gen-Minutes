@@ -38,7 +38,7 @@ export default function OrgSignUpPage({ isFbIg, isMobile }: Props) {
 
   return (
     <>
-      <MgHead title="Create Organization - MinutesGenerator" noindex />
+      <MgHead title="Create Organization - GovClerkMinutes" noindex />
       <Flex
         direction="column"
         maxH="100dvh"

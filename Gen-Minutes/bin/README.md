@@ -1,4 +1,4 @@
-# MinutesGenerator Standalone Utilites
+# GovClerkMinutes Standalone Utilites
 
 This bin/ directory is intended for scripts that are global (works for all
 repositories) and standalone (doesn't need transpilers or other toolchains).

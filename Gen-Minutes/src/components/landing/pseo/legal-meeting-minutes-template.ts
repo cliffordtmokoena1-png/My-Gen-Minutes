@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free legal meeting minutes template with privilege protection, case tracking, and deadline management. Perfect for law firms and legal departments.",
     keywords:
       "legal meeting minutes, attorney client privilege, case management, law firm documentation, legal deadlines",
-    canonical: "https://minutesgenerator.com/legal-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/legal-meeting-minutes-template",
   },
 };

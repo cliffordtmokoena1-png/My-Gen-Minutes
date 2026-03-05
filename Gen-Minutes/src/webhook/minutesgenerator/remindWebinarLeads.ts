@@ -32,7 +32,7 @@ async function getMostRecentWebinarEventTime(): Promise<Date> {
 
 async function sendWebinarReminderEmail(email: string, firstName: string, eventUrl: string) {
   await sendEmail({
-    From: '"Max from MinutesGenerator" <max@mail.minutesgenerator.com>',
+    From: '"Max from GovClerkMinutes" <max@mail.GovClerkMinutes.com>',
     To: email,
     Subject: "Free training starting NOW!",
     HtmlBody: `<p>${firstName}, it's finally time!</p>

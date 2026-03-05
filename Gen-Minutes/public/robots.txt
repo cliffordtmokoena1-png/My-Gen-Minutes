@@ -14,4 +14,4 @@ Disallow: /sign-up/
 User-agent: *
 Allow: /
 
-Sitemap: https://minutesgenerator.com/sitemap.xml
+Sitemap: https://GovClerkMinutes.com/sitemap.xml

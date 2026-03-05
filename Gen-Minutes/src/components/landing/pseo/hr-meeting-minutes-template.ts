@@ -68,6 +68,6 @@ export const content: LandingPageContent = {
       "Free HR meeting minutes template with confidentiality protection, policy tracking, and compliance documentation. Perfect for human resources departments.",
     keywords:
       "HR meeting minutes, human resources documentation, employee relations, performance management, HR compliance",
-    canonical: "https://minutesgenerator.com/hr-meeting-minutes-template",
+    canonical: "https://GovClerkMinutes.com/hr-meeting-minutes-template",
   },
 };

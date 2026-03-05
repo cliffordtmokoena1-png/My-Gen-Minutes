@@ -29,11 +29,11 @@ export const content: LandingPageContent = {
   },
   seo: {
     ...defaultContent.seo,
-    title: "MinutesGenerator: Non-profit Meeting Minutes Generator",
+    title: "GovClerkMinutes: Non-profit Meeting Minutes Generator",
     description:
       "Automatically generate non-profit meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "Non-profit, Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI, Non-profit Meeting Minutes",
-    canonical: "https://minutesgenerator.com/nonprofit-meeting-minutes",
+    canonical: "https://GovClerkMinutes.com/nonprofit-meeting-minutes",
   },
 };

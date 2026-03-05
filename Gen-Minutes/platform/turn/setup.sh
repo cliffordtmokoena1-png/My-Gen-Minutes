@@ -10,9 +10,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Configurable inputs
 # DOMAIN defaults to the production TURN hostname. Override by exporting DOMAIN.
-DOMAIN="${DOMAIN:-turn.minutesgenerator.com}"
+DOMAIN="${DOMAIN:-turn.GovClerkMinutes.com}"
 # EMAIL defaults to ops email; can be overridden via env or first arg.
-EMAIL_DEFAULT="max@minutesgenerator.com"
+EMAIL_DEFAULT="max@GovClerkMinutes.com"
 EMAIL="${EMAIL:-${1:-${EMAIL_DEFAULT}}}"
 # TLS port for TURN over TLS (commonly 5349 or 443)
 TLS_PORT="${TLS_PORT:-5349}"

@@ -17,7 +17,7 @@ function extractSite(headers?: RequestHeaders, site?: Site): Site {
     return site;
   }
   if (!headers) {
-    return "minutesgenerator";
+    return "GovClerkMinutes";
   }
   if (headers instanceof Headers) {
     return getSiteFromHeaders(headers);

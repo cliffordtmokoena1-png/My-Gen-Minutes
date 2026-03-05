@@ -79,7 +79,7 @@ async function handler(req: NextRequest) {
   await addInstantlyLeadToCampaign(email, firstName, url, eventTime, prettyEventTime);
 
   sendEmail({
-    From: '"Max from MinutesGenerator" <max@mail.minutesgenerator.com>',
+    From: '"Max from GovClerkMinutes" <max@mail.GovClerkMinutes.com>',
     To: email,
     Subject: `See you Thursday, ${firstName}!`,
     HtmlBody: `${firstName} - after this training, generating quality meeting minutes will be fast and easy.<br /><br />Add this to your calendar!<br /><br />Here's the <a href=${url}>FB event for our free training.</a><br /><br />It will go live at ${prettyEventTime}.<br /><br />See you there!<br />Max Sherman`,
@@ -89,12 +89,12 @@ async function handler(req: NextRequest) {
       {
         Name: "invite.ics",
         Content: getIcsString({
-          calendarName: "MinutesGenerator Free Training",
+          calendarName: "GovClerkMinutes Free Training",
           eventTitle: "Free Training: Meeting Minutes Fast, Easy, and Detailed",
           eventDescription: `Join us for a live training on how to generate high quality meeting minutes.  You'll save hours of time and pain by automating your workflow.\n\nWe will give you a special discount in the session.\n\nJoin the session at: ${url}`,
           location: "Facebook Live",
-          senderEmail: "max@mail.minutesgenerator.com",
-          senderName: "Max from MinutesGenerator",
+          senderEmail: "max@mail.GovClerkMinutes.com",
+          senderName: "Max from GovClerkMinutes",
           receiverEmail: email,
           receiverName: firstName,
           eventTime,

@@ -14,15 +14,15 @@ export default function OrganizationProfilePage() {
   return (
     <>
       <Head>
-        <title>{orgName ? `${orgName} Organization` : "Organization"} - MinutesGenerator</title>
+        <title>{orgName ? `${orgName} Organization` : "Organization"} - GovClerkMinutes</title>
         <meta
           name="description"
           content="Manage your organization settings, members, and billing information"
         />
-        <meta property="og:title" content="Organization Management - MinutesGenerator" />
+        <meta property="og:title" content="Organization Management - GovClerkMinutes" />
         <meta
           property="og:description"
-          content="Manage your MinutesGenerator organization details"
+          content="Manage your GovClerkMinutes organization details"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>

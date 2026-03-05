@@ -1,13 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import withErrorReporting from "@/error/withErrorReporting";
-import { MgWebhook } from "@/webhook/minutesgenerator/types";
-import { checkRenewCredits } from "@/webhook/minutesgenerator/checkRenewCredits";
-import { logWhatsappsToHubspot } from "@/webhook/minutesgenerator/logWhatsappsToHubspot";
-import { sendScheduledWhatsapps } from "@/webhook/minutesgenerator/sendScheduledWhatsapps";
-import { runPostSignupTasks } from "@/webhook/minutesgenerator/runPostSignupTasks";
-import { remindWebinarLeads } from "@/webhook/minutesgenerator/remindWebinarLeads";
-import { sendMinutesFinishedEmail } from "@/webhook/minutesgenerator/sendMinutesFinishedEmail";
-import { handlePaywallAbandoners } from "@/webhook/minutesgenerator/handlePaywallAbandoners";
+import { MgWebhook } from "@/webhook/GovClerkMinutes/types";
+import { checkRenewCredits } from "@/webhook/GovClerkMinutes/checkRenewCredits";
+import { logWhatsappsToHubspot } from "@/webhook/GovClerkMinutes/logWhatsappsToHubspot";
+import { sendScheduledWhatsapps } from "@/webhook/GovClerkMinutes/sendScheduledWhatsapps";
+import { runPostSignupTasks } from "@/webhook/GovClerkMinutes/runPostSignupTasks";
+import { remindWebinarLeads } from "@/webhook/GovClerkMinutes/remindWebinarLeads";
+import { sendMinutesFinishedEmail } from "@/webhook/GovClerkMinutes/sendMinutesFinishedEmail";
+import { handlePaywallAbandoners } from "@/webhook/GovClerkMinutes/handlePaywallAbandoners";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.headers.authorization !== `Bearer ${process.env.UPLOAD_COMPLETE_WEBHOOK_SECRET}`) {

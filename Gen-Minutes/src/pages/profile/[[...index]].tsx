@@ -217,15 +217,15 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
   return (
     <>
       <Head>
-        <title>Your Account - MinutesGenerator</title>
+        <title>Your Account - GovClerkMinutes</title>
         <meta
           name="description"
-          content="Manage your MinutesGenerator account settings, subscription, and billing information"
+          content="Manage your GovClerkMinutes account settings, subscription, and billing information"
         />
-        <meta property="og:title" content="Account Management - MinutesGenerator" />
+        <meta property="og:title" content="Account Management - GovClerkMinutes" />
         <meta
           property="og:description"
-          content="Manage your MinutesGenerator profile and subscription details"
+          content="Manage your GovClerkMinutes profile and subscription details"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -340,7 +340,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
           <UserProfile.Link
             label="Get Help"
             labelIcon={<MdOutlineAlternateEmail size={16} />}
-            url="mailto:max@minutesgenerator.com"
+            url="mailto:max@GovClerkMinutes.com"
           />
           <UserProfile.Link label="Go Back" labelIcon={<MdArrowBack size={16} />} url="/a" />
         </UserProfile>

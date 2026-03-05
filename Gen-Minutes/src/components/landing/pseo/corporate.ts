@@ -29,11 +29,11 @@ export const content: LandingPageContent = {
   },
   seo: {
     ...defaultContent.seo,
-    title: "MinutesGenerator: Corporate Meeting Minutes Generator",
+    title: "GovClerkMinutes: Corporate Meeting Minutes Generator",
     description:
       "Automatically generate corporate meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "Corporate, Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI, Corporate Meeting Minutes",
-    canonical: "https://minutesgenerator.com/corporate-meeting-minutes",
+    canonical: "https://GovClerkMinutes.com/corporate-meeting-minutes",
   },
 };

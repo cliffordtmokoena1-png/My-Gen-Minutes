@@ -286,7 +286,7 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
           <UserProfile.Link
             label="Get Help"
             labelIcon={<MdOutlineAlternateEmail size={16} />}
-            url="mailto:max@minutesgenerator.com"
+            url="mailto:max@GovClerkMinutes.com"
           />
         </UserProfile>
       </Flex>

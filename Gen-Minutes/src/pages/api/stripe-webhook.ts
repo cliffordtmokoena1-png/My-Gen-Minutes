@@ -127,7 +127,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     if (!testMode) {
-      await fetch("https://minutesgenerator.com/api/meta-conversions-api-purchase", {
+      await fetch("https://GovClerkMinutes.com/api/meta-conversions-api-purchase", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

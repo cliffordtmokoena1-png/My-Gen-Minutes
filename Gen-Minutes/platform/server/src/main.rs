@@ -33,7 +33,7 @@ use tracing_subscriber::{EnvFilter, Layer, Registry};
 use crate::convert_document::convert_document_handler;
 use crate::create_agenda::create_agenda_handler;
 use crate::cron::start_cron_job;
-use crate::minutesgenerator_webhook::MgWebhookEvent;
+use crate::GovClerkMinutes_webhook::MgWebhookEvent;
 use crate::posthog::check_feature_flag;
 use crate::posthog::PostHogEventType;
 use crate::process_custom_template::process_custom_template_handler;
@@ -68,7 +68,7 @@ mod html;
 mod media_file;
 mod minutes;
 mod minutes_handler;
-mod minutesgenerator_webhook;
+mod GovClerkMinutes_webhook;
 mod monitor;
 mod mysql;
 mod pandoc;
@@ -402,28 +402,28 @@ async fn main() {
   start_cron_job(
     "renewal_credit_granter",
     Duration::from_secs(60 * 60), // 1 hour
-    async || minutesgenerator_webhook::send_request(MgWebhookEvent::CheckRenewCredits).await,
+    async || GovClerkMinutes_webhook::send_request(MgWebhookEvent::CheckRenewCredits).await,
   )
   .await;
 
   start_cron_job(
     "check_whatsapps",
     Duration::from_secs(60 * 10), // 10 minutes
-    async || minutesgenerator_webhook::send_request(MgWebhookEvent::CheckWhatsapps).await,
+    async || GovClerkMinutes_webhook::send_request(MgWebhookEvent::CheckWhatsapps).await,
   )
   .await;
 
   start_cron_job(
     "run_post_signup_tasks",
     Duration::from_secs(60 * 5), // 5 minutes
-    async || minutesgenerator_webhook::send_request(MgWebhookEvent::RunPostSignupTasks).await,
+    async || GovClerkMinutes_webhook::send_request(MgWebhookEvent::RunPostSignupTasks).await,
   )
   .await;
 
   start_cron_job(
     "handle_paywall_abandoners",
     Duration::from_secs(60 * 5), // 5 minutes
-    async || minutesgenerator_webhook::send_request(MgWebhookEvent::HandlePaywallAbandoners).await,
+    async || GovClerkMinutes_webhook::send_request(MgWebhookEvent::HandlePaywallAbandoners).await,
   )
   .await;
 

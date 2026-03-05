@@ -8,7 +8,7 @@ import type { Site } from "@/utils/site";
 
 dotenv.config();
 
-const VALID_SITES: Site[] = ["minutesgenerator", "clerkdirect"];
+const VALID_SITES: Site[] = ["GovClerkMinutes", "clerkdirect"];
 
 async function fetchAllUserEmails(isDev: boolean, site: Site) {
   const keys = getClerkKeysFromEnv(isDev ? "dev" : "prod", site);
@@ -78,7 +78,7 @@ yargs(hideBin(process.argv))
           describe: "Which site's Clerk instance to use",
           type: "string",
           choices: VALID_SITES,
-          default: "minutesgenerator" as Site,
+          default: "GovClerkMinutes" as Site,
         }),
     async (argv) => {
       try {

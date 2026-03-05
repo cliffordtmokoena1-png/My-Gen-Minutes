@@ -39,7 +39,7 @@ function createNewTabIcon() {
 
 function buildAdminUrl(conversationId) {
   const filter = conversationId ? [{ type: "conversationId", value: conversationId }] : [];
-  return `https://minutesgenerator.com/admin?tool=5&f=${encodeURIComponent(JSON.stringify(filter))}`;
+  return `https://GovClerkMinutes.com/admin?tool=5&f=${encodeURIComponent(JSON.stringify(filter))}`;
 }
 
 function getConversationIdFromLocation(loc = location) {

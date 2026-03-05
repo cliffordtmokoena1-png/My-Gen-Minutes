@@ -14,7 +14,7 @@ export default function MgHead({ noindex, title, description, image, canonical, 
   return (
     <>
       <Head>
-        <title>{title || "MinutesGenerator: Meeting Minutes with AI"}</title>
+        <title>{title || "GovClerkMinutes: Meeting Minutes with AI"}</title>
         {noindex && <meta name="robots" content="noindex" />}
         <meta charSet="UTF-8" />
 
@@ -38,14 +38,14 @@ export default function MgHead({ noindex, title, description, image, canonical, 
             "Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI"
           }
         />
-        <meta name="author" content="MinutesGenerator.com" />
+        <meta name="author" content="GovClerkMinutes.com" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://minutesgenerator.com/" />
+        <meta property="og:url" content="https://GovClerkMinutes.com/" />
         <meta
           property="og:title"
-          content={title || "MinutesGenerator: Professional Meeting Minutes Generated with AI"}
+          content={title || "GovClerkMinutes: Professional Meeting Minutes Generated with AI"}
         />
         <meta
           property="og:description"
@@ -55,15 +55,15 @@ export default function MgHead({ noindex, title, description, image, canonical, 
           }
         />
         {/* TODO: Use a better image, this will appear in social media feeds. */}
-        <meta property="og:image" content={image || "https://minutesgenerator.com/thumbnail.png"} />
+        <meta property="og:image" content={image || "https://GovClerkMinutes.com/thumbnail.png"} />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://minutesgenerator.com" />
+        <meta property="twitter:url" content="https://GovClerkMinutes.com" />
         <meta property="twitter:creator" content="@johnislarry" />
         <meta
           property="twitter:title"
-          content={title || "MinutesGenerator: Professional Meeting Minutes Generated with AI"}
+          content={title || "GovClerkMinutes: Professional Meeting Minutes Generated with AI"}
         />
         <meta
           property="twitter:description"
@@ -75,7 +75,7 @@ export default function MgHead({ noindex, title, description, image, canonical, 
         {/* TODO: Use a better image, this will appear in social media feeds. */}
         <meta
           property="twitter:image"
-          content={image || "https://minutesgenerator.com/thumbnail.png"}
+          content={image || "https://GovClerkMinutes.com/thumbnail.png"}
         />
       </Head>
 

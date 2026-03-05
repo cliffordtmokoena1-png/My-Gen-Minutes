@@ -6,7 +6,7 @@ use tracing::{info, warn};
 /// Flow:
 /// 1. Check mg_settings for selected-template-id
 /// 2. Query mg_templating for that template (both user templates and default templates)
-/// 3. Return template content or None if default MinutesGenerator template
+/// 3. Return template content or None if default GovClerkMinutes template
 ///
 pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Result<Option<String>> {
   info!("Checking for selected template: user_id={}", user_id);
@@ -35,9 +35,9 @@ pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Resu
 
   info!("User {} has selected template: {}", user_id, template_id);
 
-  // Special case: if it's the default MinutesGenerator template, don't fetch from DB
-  if template_id == "minutesgenerator-template" {
-    info!("Using default MinutesGenerator template (no custom content needed)");
+  // Special case: if it's the default GovClerkMinutes template, don't fetch from DB
+  if template_id == "GovClerkMinutes-template" {
+    info!("Using default GovClerkMinutes template (no custom content needed)");
     return Ok(None);
   }
 

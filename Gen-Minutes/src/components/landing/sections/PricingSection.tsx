@@ -144,7 +144,7 @@ export const PricingSection = ({
                 credits={-1}
                 isAnnual={isAnnual}
                 buttonText="Contact Sales"
-                buttonLink="mailto:max@mail.minutesgenerator.com"
+                buttonLink="mailto:max@mail.GovClerkMinutes.com"
               />
             </Grid>
           </Box>

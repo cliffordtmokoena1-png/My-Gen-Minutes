@@ -52,11 +52,11 @@ export const content: LandingPageContent = {
     buttonText: "Request Nonprofit Pricing",
   },
   seo: {
-    title: "MinutesGenerator for Nonprofits: Meeting Minutes for Charitable Organizations",
+    title: "GovClerkMinutes for Nonprofits: Meeting Minutes for Charitable Organizations",
     description:
       "Meeting documentation software for nonprofit organizations. Special pricing for 501(c)(3) organizations. Streamline board meetings, grant documentation, and compliance requirements.",
     keywords:
       "Nonprofit, Charity, Meeting Minutes, Board Meetings, Grant Documentation, 501c3, Nonprofit Software, Governance, Compliance",
-    canonical: "https://minutesgenerator.com/enterprise/nonprofits",
+    canonical: "https://GovClerkMinutes.com/enterprise/nonprofits",
   },
 };

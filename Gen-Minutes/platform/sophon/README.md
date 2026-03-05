@@ -1,4 +1,4 @@
-# Sophon - NodeJS server for MinutesGenerator
+# Sophon - NodeJS server for GovClerkMinutes
 
 ## Prerequisites
 

@@ -1,4 +1,4 @@
-# MinutesGenerator
+# GovClerkMinutes
 
 Welcome to the monorepo! This repository is divided into two sections: the `minutes-generator` for the frontend and everything under `./platform` for the backend.
 
@@ -22,7 +22,7 @@ npm run dev
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/MinutesGenerator/minutes-generator.git
+   git clone https://github.com/GovClerkMinutes/minutes-generator.git
    ```
 
 ### Windows Prerequisite

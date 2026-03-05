@@ -49,7 +49,7 @@ export const defaultContent: LandingPageContent = {
       quote:
         "I love it. I normally take 5 days to do minutes but with this it was done in just below an hour! It's so professional, doesn't leave out important details and saves me so much time.",
       author: "Lucy M.",
-      role: "MinutesGenerator customer",
+      role: "GovClerkMinutes customer",
       image: "/lucy.jpg",
     },
     {
@@ -103,7 +103,7 @@ export const defaultContent: LandingPageContent = {
       a: "Yes, we use Stripe for payment. We do not store any of your credit card information.",
     },
     {
-      q: "Where is MinutesGenerator located?",
+      q: "Where is GovClerkMinutes located?",
       a: "We are located in New York City, USA.",
     },
   ],
@@ -119,11 +119,11 @@ export const defaultContent: LandingPageContent = {
     buttonText: "Get Started Free",
   },
   seo: {
-    title: "MinutesGenerator: AI Meeting Minutes Generator",
+    title: "GovClerkMinutes: AI Meeting Minutes Generator",
     description:
       "Automatically generate meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
     keywords:
       "Meeting, Minutes, Generator, Transcription, Audio, Video, Productivity, Efficiency, AI",
-    canonical: "https://minutesgenerator.com/",
+    canonical: "https://GovClerkMinutes.com/",
   },
 };

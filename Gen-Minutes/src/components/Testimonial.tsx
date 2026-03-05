@@ -26,7 +26,7 @@ export default function Testimonial({}: Props) {
         </Box>
         <Flex flexDir="column" alignItems="start" justifyContent="center">
           <Text fontSize="lg">Lucy M.</Text>
-          <Text fontSize="lg">MinutesGenerator customer</Text>
+          <Text fontSize="lg">GovClerkMinutes customer</Text>
         </Flex>
       </Flex>
     </Flex>

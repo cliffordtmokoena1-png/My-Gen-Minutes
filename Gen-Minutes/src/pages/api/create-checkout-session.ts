@@ -114,7 +114,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const { userId, orgId, site } = await resolveRequestContext(auth.userId, body.orgId, req.headers);
 
-  const referer = req.headers.referer || "https://minutesgenerator.com/dashboard";
+  const referer = req.headers.referer || "https://GovClerkMinutes.com/dashboard";
   const cancelUrlBuilder = new URL(referer);
   cancelUrlBuilder.searchParams.set("canceled", "true");
   const cancelUrl = cancelUrlBuilder.toString();

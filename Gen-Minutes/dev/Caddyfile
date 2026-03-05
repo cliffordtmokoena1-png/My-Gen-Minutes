@@ -1,8 +1,8 @@
 # Next.js runs on host port 3223 (clerkdirect by default).
-# This proxy adds port 3224 as the minutesgenerator entrypoint.
+# This proxy adds port 3224 as the GovClerkMinutes entrypoint.
 #
 # localhost:3223 → clerkdirect  (direct to Next.js, no proxy needed)
-# localhost:3224 → minutesgenerator (proxied through Caddy)
+# localhost:3224 → GovClerkMinutes (proxied through Caddy)
 #
 # The Host header is NOT overridden so auth cookies (set on localhost)
 # are shared across both ports. Site detection uses the port number.

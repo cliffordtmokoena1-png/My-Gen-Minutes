@@ -1,7 +1,7 @@
 import { isProd } from "./dev";
 
-const PROD_SERVER_URI = "https://server.minutesgenerator.com";
-const PROD_SERVER_WEBSOCKET_URI = "wss://server.minutesgenerator.com";
+const PROD_SERVER_URI = "https://server.GovClerkMinutes.com";
+const PROD_SERVER_WEBSOCKET_URI = "wss://server.GovClerkMinutes.com";
 
 export function serverUri(slug: string): string {
   return isProd()

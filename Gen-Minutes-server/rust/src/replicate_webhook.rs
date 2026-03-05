@@ -298,7 +298,7 @@ async fn send_replicate_whisper_request(
                       "audio": presigned_request.uri().to_string(),
                       "initial_prompt": prompt.clone().unwrap_or("".to_string()),
                   }),
-                  "webhook": format!("https://minutesgenerator.com/api/whisper-webhook?transcriptId={}&segmentId={}&retries=1", transcript_id, i),
+                  "webhook": format!("https://GovClerkMinutes.com/api/whisper-webhook?transcriptId={}&segmentId={}&retries=1", transcript_id, i),
                   "webhook_events_filter": ["completed"],
               }))
               .send()

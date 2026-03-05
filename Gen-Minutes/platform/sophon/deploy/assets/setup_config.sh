@@ -4,7 +4,7 @@
 
 set -euo pipefail
 
-DOMAIN="${DOMAIN:-sophon.minutesgenerator.com}"
+DOMAIN="${DOMAIN:-sophon.GovClerkMinutes.com}"
 # Assuming the app is deployed to ~/sophon and user is ubuntu. 
 # Adjust APP_DIR if deployed elsewhere.
 APP_DIR="${APP_DIR:-/var/www/sophon}"
