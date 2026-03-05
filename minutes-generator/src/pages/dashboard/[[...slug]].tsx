@@ -1,0 +1,262 @@
+import React, {
+  useCallback,
+  useContext,
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+} from "react";
+import ProductPage from "@/components/ProductPage";
+import { Flex, Box, useDisclosure } from "@chakra-ui/react";
+import MgHead from "@/components/MgHead";
+import SimplePricingModal from "@/components/SimplePricingModal";
+import ReferralModal from "@/components/ReferralModal";
+import AnnouncementBar, { useAnnouncementBarHeight } from "@/components/AnnouncementBar";
+import DesktopLayout from "@/components/layouts/DesktopLayout";
+import MobileLayout from "@/components/layouts/MobileLayout";
+
+import { ApiTranscriptStatusResponseResult, getTranscriptStatus } from "../api/transcript-status";
+import { getAuth } from "@clerk/nextjs/server";
+import { getCountry } from "../api/get-country";
+import { ApiSidebarResponse } from "../api/sidebar";
+import { ApiGetCustomerDetailsResponse } from "../api/get-customer-details";
+import UpgradePlanConfirmModal from "@/components/UpgradePlanConfirmModal";
+import isMobile from "@/utils/isMobile";
+import { isDev } from "@/utils/dev";
+import { waitUntil } from "@vercel/functions";
+import { capture } from "@/utils/posthog";
+import { getTimer } from "@/utils/timer";
+import { withGsspErrorHandling } from "@/error/withErrorReporting";
+import { IntercomContext } from "@/components/IntercomProvider";
+import { useNetworkAnalytics } from "@/hooks/useNetworkAnalytics";
+import { useNetworkAnnouncements } from "@/hooks/useNetworkAnnouncements";
+import { useUploadFailureAnnouncements } from "@/hooks/useUploadFailureAnnouncements";
+
+export type LayoutKind =
+  | "desktop"
+  | "home"
+  | "recordings"
+  | "new-meeting"
+  | "templates"
+  | "account"
+  | "dashboard-transcript"
+  | "dashboard-minutes"
+  | "past-meetings";
+
+export type ModalType = "pricing" | "referral" | "upgrade";
+
+type Props = {
+  transcriptId: number | null;
+  transcriptStatus: ApiTranscriptStatusResponseResult | null;
+  country: string | null;
+  sidebarItems: ApiSidebarResponse | null;
+  customerDetails: ApiGetCustomerDetailsResponse | null;
+  credits: number | null;
+  isMobile: boolean;
+};
+
+export const getServerSideProps = withGsspErrorHandling(async (context) => {
+  const timer = getTimer({ clearTimer: true });
+  timer.start("dashboard_get_serverside_props");
+
+  const transcriptId = context.params?.slug
+    ? Number.parseInt(context.params.slug[0] as string)
+    : undefined;
+
+  timer.start("get_auth");
+  const { userId } = getAuth(context.req);
+  if (userId == null) {
+    return {
+      notFound: true,
+    };
+  }
+  timer.stop("get_auth");
+
+  timer.start("get_transcript_status");
+  const transcriptStatus = transcriptId ? await getTranscriptStatus(transcriptId, userId) : null;
+  timer.stop("get_transcript_status");
+
+  const country = isDev() ? "US" : getCountry((h) => context.req.headers[h] as any);
+
+  timer.stop("dashboard_get_serverside_props");
+
+  waitUntil(
+    (async () => {
+      if (userId == null) {
+        return;
+      }
+
+      capture(
+        "dashboard_get_serverside_props",
+        {
+          duration: timer.get("dashboard_get_serverside_props"),
+          transcript_id: transcriptId,
+          country,
+          get_auth_duration: timer.get("get_auth"),
+          get_transcript_status_duration: timer.get("get_transcript_status"),
+        },
+        userId
+      );
+    })()
+  );
+
+  return {
+    props: {
+      ...(transcriptId == null ? {} : { transcriptId }),
+      transcriptStatus,
+      country,
+      sidebarItems: null,
+      customerDetails: null,
+      credits: null,
+      isMobile: isMobile(context.req.headers),
+    },
+  };
+});
+
+const Home = ({
+  transcriptId,
+  transcriptStatus,
+  country,
+  sidebarItems,
+  customerDetails,
+  credits,
+  isMobile,
+}: Props) => {
+  const [highlightGetMinutesButton, setHighlightGetMinutesButton] = useState<boolean>(false);
+  const filePickerTriggerRef = useRef<(() => void) | null>(null);
+
+  const [modalType, setModalType] = useState<ModalType>("pricing");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const {
+    hide: hideIntercomChat,
+    show: showIntercomChat,
+    isChatOpen: isIntercomChatOpen,
+    hideDefaultLauncher,
+  } = useContext(IntercomContext);
+
+  const [isDesktop, setIsDesktop] = useState(!isMobile);
+
+  useLayoutEffect(() => {
+    const checkBreakpoint = () => {
+      setIsDesktop(window.innerWidth >= 768);
+    };
+
+    checkBreakpoint();
+    window.addEventListener("resize", checkBreakpoint);
+    return () => window.removeEventListener("resize", checkBreakpoint);
+  }, []);
+
+  useEffect(() => {
+    hideDefaultLauncher(!isDesktop);
+  }, [hideDefaultLauncher, isDesktop]);
+
+  useNetworkAnalytics();
+  useNetworkAnnouncements();
+  useUploadFailureAnnouncements();
+
+  const announcementBarHeight = useAnnouncementBarHeight();
+
+  const openModal = useCallback(
+    (modalType: ModalType) => {
+      setModalType(modalType);
+      onOpen();
+    },
+    [onOpen]
+  );
+
+  const mainContainerHeight = `calc(100dvh - ${announcementBarHeight}px)`;
+
+  return (
+    <>
+      <MgHead noindex />
+      <AnnouncementBar />
+      <Flex
+        flexDir={{ base: "column", md: "row" }}
+        w="full"
+        h={mainContainerHeight}
+        mt={`${announcementBarHeight}px`}
+      >
+        {(() => {
+          switch (modalType) {
+            case "pricing":
+              return (
+                <SimplePricingModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  country={country}
+                  customerDetails={customerDetails}
+                />
+              );
+            case "referral":
+              return <ReferralModal isOpen={isOpen} onClose={onClose} />;
+            case "upgrade":
+              return (
+                <UpgradePlanConfirmModal
+                  transcriptId={transcriptId ?? undefined}
+                  country={country ?? "US"}
+                  planName={customerDetails?.planName ?? "Basic"}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                />
+              );
+            default:
+              return null;
+          }
+        })()}
+
+        {!isMobile && (
+          <Box display={isDesktop ? "flex" : "none"} h="100%" w="100%">
+            <DesktopLayout
+              selectedTranscript={transcriptId}
+              initialSidebarItems={sidebarItems}
+              initialCustomerDetails={customerDetails}
+              initialCredits={credits}
+              onOpen={openModal}
+              filePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
+            >
+              <ProductPage
+                key={transcriptId}
+                transcriptId={transcriptId}
+                initialTranscriptStatus={transcriptStatus}
+                layoutKind="desktop"
+                setHighlightGetMinutesButton={setHighlightGetMinutesButton}
+                country={country}
+                onFilePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
+              />
+            </DesktopLayout>
+          </Box>
+        )}
+        {(isMobile || !isDesktop) && (
+          <Box display={isDesktop ? "none" : "flex"} h="100%" w="100%">
+            <MobileLayout
+              selectedTranscript={transcriptId}
+              initialSidebarItems={sidebarItems}
+              initialCustomerDetails={customerDetails}
+              initialCredits={credits}
+              onOpen={openModal}
+              filePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
+              modalType={modalType}
+              showIntercomChat={showIntercomChat}
+              hideIntercomChat={hideIntercomChat}
+              isIntercomChatOpen={isIntercomChatOpen}
+              highlightGetMinutesButton={highlightGetMinutesButton}
+            >
+              <ProductPage
+                key={transcriptId}
+                transcriptId={transcriptId}
+                initialTranscriptStatus={transcriptStatus}
+                layoutKind="new-meeting"
+                setHighlightGetMinutesButton={setHighlightGetMinutesButton}
+                country={country}
+                onFilePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
+              />
+            </MobileLayout>
+          </Box>
+        )}
+      </Flex>
+    </>
+  );
+};
+
+export default Home;

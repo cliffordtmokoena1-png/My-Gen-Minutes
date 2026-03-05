@@ -1,0 +1,159 @@
+import { useRef, useState } from "react";
+import { FaStar } from "react-icons/fa";
+import {
+  LuBuilding2,
+  LuGraduationCap,
+  LuHeart,
+  LuLandmark,
+  LuSchool,
+  LuUsers,
+} from "react-icons/lu";
+import FadeContent from "../../../reactbits/FadeContent";
+
+type Testimonial = {
+  name: string;
+  role: string;
+  organization: string;
+  text: string;
+};
+
+const testimonials: Testimonial[] = [
+  {
+    name: "Sarah Mitchell, CMC",
+    role: "City Clerk",
+    organization: "City of Oakridge, OR",
+    text: "ClerkDirect cut our minutes preparation time by 80%. What used to take two full days now takes less than an hour. The AI accuracy is remarkable, and our council members love having searchable transcripts.",
+  },
+  {
+    name: "James Thornton",
+    role: "Board Secretary",
+    organization: "Maplewood Unified School District",
+    text: "We needed a solution that met open meeting compliance requirements out of the box. ClerkDirect delivers that and more. The public portal alone saved us from three separate software subscriptions.",
+  },
+  {
+    name: "Patricia Nguyen",
+    role: "Executive Director",
+    organization: "Community Foundation of the Valley",
+    text: "Our board meetings are more productive now that we can focus on discussion instead of note-taking. The automated minutes capture every vote and action item without fail.",
+  },
+  {
+    name: "Robert Caldwell, MPA",
+    role: "County Administrator",
+    organization: "Harmon County, TX",
+    text: "The ROI was immediate. We eliminated overtime costs for manual transcription and improved public trust with transparent, accessible meeting records. Implementation took less than a week.",
+  },
+  {
+    name: "Maria Santos",
+    role: "Legislative Analyst",
+    organization: "City of Westbrook, CT",
+    text: "The speaker identification feature is a game changer for our large council sessions. No more guessing who said what. Every motion and vote is tracked automatically.",
+  },
+  {
+    name: "Linda Park, MMC",
+    role: "Deputy City Clerk",
+    organization: "City of Fairview, WA",
+    text: "Transitioning from manual transcription was seamless. The onboarding team walked us through every step, and we were live within three days. Our staff actually enjoys the meeting workflow now.",
+  },
+];
+
+const usedByOrgs = [
+  { name: "Municipal Governments", icon: LuLandmark },
+  { name: "School Districts", icon: LuSchool },
+  { name: "County Councils", icon: LuBuilding2 },
+  { name: "Nonprofit Boards", icon: LuHeart },
+  { name: "Planning Commissions", icon: LuUsers },
+  { name: "Higher Education", icon: LuGraduationCap },
+];
+
+function StarRating() {
+  return (
+    <div className="flex gap-1 text-yellow-400">
+      {[...Array(5)].map((_, i) => (
+        <FaStar key={i} className="h-4 w-4" />
+      ))}
+    </div>
+  );
+}
+
+export default function ClerkDirectTestimonialsSection() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Duplicate items in JSX instead of DOM cloning
+  const duplicatedTestimonials = [...testimonials, ...testimonials];
+
+  return (
+    <section className="overflow-hidden bg-white py-16 md:py-24">
+      {/* Section header */}
+      <div className="mx-auto mb-12 max-w-7xl px-6 text-center">
+        <FadeContent direction="up" duration={0.6}>
+          <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
+            Trusted by Organizations Across the Country
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
+            See what clerks, administrators, and board secretaries are saying about ClerkDirect.
+          </p>
+        </FadeContent>
+      </div>
+
+      {/* Scrollable testimonials carousel */}
+      <div
+        className="relative overflow-hidden py-4"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+        onFocus={() => setIsPaused(true)}
+        onBlur={() => setIsPaused(false)}
+      >
+        <div
+          ref={scrollRef}
+          className="flex w-max items-stretch gap-4"
+          style={{
+            animation: "cdScrollTestimonials 60s linear infinite",
+            animationPlayState: isPaused ? "paused" : "running",
+          }}
+        >
+          {duplicatedTestimonials.map((testimonial, index) => (
+            <div
+              key={`${testimonial.name}-${index}`}
+              className="flex min-w-[280px] max-w-[280px] flex-col rounded-xl border border-blue-200/20 bg-white/80 p-6 backdrop-blur-sm transition-all hover:border-blue-200/40 hover:-translate-y-0.5 hover:shadow-lg md:min-w-[350px] md:max-w-[350px]"
+            >
+              <div className="flex flex-1 flex-col gap-4">
+                <StarRating />
+                <p className="text-sm leading-relaxed text-gray-700">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <div className="mt-auto space-y-0 pt-2">
+                  <p className="text-sm font-semibold text-gray-900">{testimonial.name}</p>
+                  <p className="text-xs text-gray-500">
+                    {testimonial.role}, {testimonial.organization}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Used by organizations section */}
+      <div className="mx-auto mt-16 max-w-7xl px-6 md:mt-20">
+        <p className="mb-8 text-center text-sm font-medium uppercase tracking-wider text-gray-400">
+          Used by organizations like
+        </p>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
+          {usedByOrgs.map((org) => {
+            const IconComponent = org.icon;
+            return (
+              <div
+                key={org.name}
+                className="flex flex-col items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/50 p-6 transition-colors hover:border-gray-200 hover:bg-gray-50"
+              >
+                <IconComponent className="h-8 w-8 text-cd-blue/60" />
+                <span className="text-center text-xs font-medium text-gray-600">{org.name}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
