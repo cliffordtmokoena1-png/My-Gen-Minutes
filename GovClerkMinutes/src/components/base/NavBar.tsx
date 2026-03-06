@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Box, Button, Container, Flex, HStack, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
