@@ -25,25 +25,6 @@ export const HowItWorksSection = () => {
               fontFamily="Georgia, serif"
               color="gray.800"
             >
-              See How It Works
-            </Heading>
-            <Text fontSize={{ base: "lg", md: "xl" }} color="gray.600" maxW="2xl">
-              Watch how easy it is to generate professional meeting minutes in seconds
-            </Text>
-          </VStack>
-
-          <Box
-            w="full"
-            borderRadius="2xl"
-            overflow="hidden"
-            bg="rgba(239, 246, 255, 0.3)"
-            border="1px solid"
-            borderColor="rgba(59, 130, 246, 0.2)"
-            boxShadow="xl"
-            position="relative"
-            paddingBottom="56.25%"
-            height={0}
-          >
           </Box>
         </VStack>
       </Container>
