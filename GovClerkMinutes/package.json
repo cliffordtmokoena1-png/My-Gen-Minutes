@@ -6,11 +6,10 @@
     "node": "24.x"
   },
   "scripts": {
-    "preinstall": "npm config set legacy-peer-deps true",
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+  "build": "next build",
+  "start": "next start",
+  "lint": "next lint",
     "adminify": "tsx --require ./src/scripts/loadenv.ts src/scripts/adminify.ts",
     "delete-user": "tsx src/scripts/deleteUser.ts",
     "dev": "./start-dev.sh",
