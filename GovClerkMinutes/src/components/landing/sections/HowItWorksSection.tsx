@@ -44,14 +44,6 @@ export const HowItWorksSection = () => {
             paddingBottom="56.25%"
             height={0}
           >
-            <iframe
-              src="https://youtube.com/embed/gP7c9ULhfbc"
-              frameBorder="0"
-              allowFullScreen
-              title="How It Works Video"
-              loading="lazy"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-            />
           </Box>
         </VStack>
       </Container>
