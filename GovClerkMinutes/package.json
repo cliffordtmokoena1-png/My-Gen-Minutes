@@ -57,6 +57,7 @@
     "comments:dpo": "tsx src/scripts/commentsCsvToDpoJsonl.ts"
   },
   "dependencies": {
+   "dependencies": {
     "@aws-sdk/client-s3": "^3.335.0",
     "@aws-sdk/hash-node": "3.357.0",
     "@aws-sdk/s3-presigned-post": "^3.537.0",
@@ -78,6 +79,7 @@
     "@tiptap/extension-mention": "^2.11.5",
     "@tiptap/extension-underline": "^2.27.2",
     "@tiptap/react": "^2.10.3",
+    "@tiptap/suggestion": "^2.11.5",
     "@tiptap/starter-kit": "^2.10.3",
     "@twilio/voice-sdk": "^2.16.0",
     "@types/diff": "^6.0.0",
@@ -184,4 +186,3 @@
     "@types/react": "19.0.4",
     "@types/react-dom": "19.0.2"
   }
-}
