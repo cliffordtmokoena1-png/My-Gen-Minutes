@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "next dev",
   "build": "next build",
+  "build:sw": "npx webpack --config webpack.sw.config.js",
   "start": "next start",
   "lint": "next lint",
     "adminify": "tsx --require ./src/scripts/loadenv.ts src/scripts/adminify.ts",
