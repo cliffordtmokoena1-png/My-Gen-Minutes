@@ -16,16 +16,16 @@ export const HowItWorksSection = () => {
       }}
     >
       <Container maxW="7xl">
-        <VStack spacing={{ base: 8, md: 12 }}>
-          <VStack spacing={4} textAlign="center">
-            <Heading
-              as="h2"
-              fontSize={{ base: "3xl", md: "5xl" }}
-              fontWeight="normal"
-              fontFamily="Georgia, serif"
-              color="gray.800"
-            >
-            </Heading>
+        <VStack spacing={4} textAlign="center">
+          <Heading
+            as="h2"
+            fontSize={{ base: "3xl", md: "5xl" }}
+            fontWeight="normal"
+            fontFamily="Georgia, serif"
+            color="gray.800"
+          >
+            {/* GovClerk Minutes */}
+          </Heading>
         </VStack>
       </Container>
     </Box>
