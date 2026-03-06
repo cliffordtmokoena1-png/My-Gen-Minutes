@@ -25,7 +25,7 @@ export const HowItWorksSection = () => {
               fontFamily="Georgia, serif"
               color="gray.800"
             >
-          </Box>
+            </Heading>
         </VStack>
       </Container>
     </Box>
