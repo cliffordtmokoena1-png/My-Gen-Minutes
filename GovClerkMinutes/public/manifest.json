@@ -1,6 +1,6 @@
 {
   "id": "/",
-  "short_name": "Minutes",
+  "short_name": "GovClerk",
   "name": "GovClerkMinutes",
   "description": "Automatically generate meeting minutes from your audio or video recordings. Keep track of important decisions, tasks, and topics discussed during your meetings.",
   "start_url": "/",
