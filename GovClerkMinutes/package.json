@@ -10,7 +10,7 @@
     "build": "npm run build:sw && node generate-sitemap.js && next build",
     "start": "next start",
     "lint": "next lint",
-    "build:sw": "npx webpack --config webpack.sw.config.js",
+    "build:sw": "webpack --config webpack.sw.config.js",
     "adminify": "tsx --require ./src/scripts/loadenv.ts src/scripts/adminify.ts",
     "delete-user": "tsx src/scripts/deleteUser.ts",
     "build:lambda": "webpack --config webpack.lambda.config.js",
@@ -57,6 +57,8 @@
     "comments:dpo": "tsx src/scripts/commentsCsvToDpoJsonl.ts"
   },
   "dependencies": {
+    "webpack": "^5.90.0",
+    "webpack-cli": "^5.1.4",
     "@aws-sdk/client-s3": "^3.335.0",
     "@aws-sdk/hash-node": "3.357.0",
     "@aws-sdk/s3-presigned-post": "^3.537.0",
@@ -178,7 +180,6 @@
     "ts-loader": "^9.5.1",
     "tsx": "^4.20.3",
     "typescript": "^5.7.3",
-    "webpack-cli": "^5.1.4",
     "yargs": "^17.7.2"
   },
   "overrides": {
