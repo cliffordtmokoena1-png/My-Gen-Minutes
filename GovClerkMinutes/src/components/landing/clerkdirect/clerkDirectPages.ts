@@ -4,7 +4,7 @@ type FeatureBlock = {
   imageUrl: string;
 };
 
-export type ClerkDirectPageData = {
+export type GovClerkPageData = {
   slug: string;
   seo: {
     title: string;
@@ -19,26 +19,26 @@ export type ClerkDirectPageData = {
   features: FeatureBlock[];
 };
 
-export const clerkDirectPages: ClerkDirectPageData[] = [
+export const GovClerkPages: GovClerkPageData[] = [
   {
     slug: "product",
     seo: {
-      title: "All Features | ClerkDirect",
+      title: "All Features | GovClerk",
       description:
-        "Explore the full suite of ClerkDirect features: agenda management, AI minutes generation, transcription, votes and motions, public portal, and more.",
+        "Explore the full suite of GovClerk features: agenda management, AI minutes generation, transcription, votes and motions, public portal, and more.",
     },
     hero: {
       label: "Product",
       title: "Everything You Need to Run Better Meetings",
       description:
-        "From agenda creation to published minutes, ClerkDirect automates every step of your meeting workflow so your team can focus on decisions, not paperwork.",
+        "From agenda creation to published minutes, GovClerk automates every step of your meeting workflow so your team can focus on decisions, not paperwork.",
       imageUrl: "https://picsum.photos/600/400?random=product-hero",
     },
     features: [
       {
         title: "AI-Powered Minutes Generation",
         description:
-          "Upload a recording and let ClerkDirect produce structured, professional meeting minutes in seconds. Our AI identifies speakers, extracts action items, and formats everything to your organization's standards.",
+          "Upload a recording and let GovClerk produce structured, professional meeting minutes in seconds. Our AI identifies speakers, extracts action items, and formats everything to your organization's standards.",
         imageUrl: "https://picsum.photos/600/400?random=product-minutes",
       },
       {
@@ -64,7 +64,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/agenda-management",
     seo: {
-      title: "Agenda Management | ClerkDirect",
+      title: "Agenda Management | GovClerk",
       description:
         "Create, organize, and distribute meeting agendas digitally. Drag-and-drop builder, templates, and stakeholder notifications built in.",
     },
@@ -99,7 +99,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/minutes-generation",
     seo: {
-      title: "AI Minutes Generation | ClerkDirect",
+      title: "AI Minutes Generation | GovClerk",
       description:
         "Transform meeting recordings into structured, professional minutes with AI. Speaker labels, action items, and compliance-ready formatting.",
     },
@@ -107,7 +107,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Product",
       title: "Meeting Minutes in Seconds, Not Hours",
       description:
-        "Upload a recording and ClerkDirect produces formatted minutes with speaker attribution, action items, and key decisions. Review, edit, and publish from one place.",
+        "Upload a recording and GovClerk produces formatted minutes with speaker attribution, action items, and key decisions. Review, edit, and publish from one place.",
       imageUrl: "https://picsum.photos/600/400?random=minutes-hero",
     },
     features: [
@@ -120,7 +120,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Action Item Extraction",
         description:
-          "ClerkDirect automatically identifies action items, assigns them to speakers, and tracks completion status so nothing falls through the cracks.",
+          "GovClerk automatically identifies action items, assigns them to speakers, and tracks completion status so nothing falls through the cracks.",
         imageUrl: "https://picsum.photos/600/400?random=minutes-actions",
       },
       {
@@ -134,7 +134,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/transcription",
     seo: {
-      title: "Meeting Transcription | ClerkDirect",
+      title: "Meeting Transcription | GovClerk",
       description:
         "Real-time speech-to-text with speaker labels in 96+ languages. Searchable, timestamped transcripts for every meeting.",
     },
@@ -155,7 +155,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Speaker Identification",
         description:
-          "ClerkDirect labels who said what, making it easy to attribute statements, track discussion threads, and produce accurate meeting records.",
+          "GovClerk labels who said what, making it easy to attribute statements, track discussion threads, and produce accurate meeting records.",
         imageUrl: "https://picsum.photos/600/400?random=transcription-speakers",
       },
       {
@@ -169,7 +169,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/votes-and-motions",
     seo: {
-      title: "Votes & Motions | ClerkDirect",
+      title: "Votes & Motions | GovClerk",
       description:
         "Record, track, and archive motions, roll-call votes, and resolutions with full audit trails for open meeting compliance.",
     },
@@ -177,7 +177,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Product",
       title: "Track Every Vote and Motion with Confidence",
       description:
-        "From motion introduction to final resolution, ClerkDirect gives you a complete, auditable record of every vote your organization takes.",
+        "From motion introduction to final resolution, GovClerk gives you a complete, auditable record of every vote your organization takes.",
       imageUrl: "https://picsum.photos/600/400?random=votes-hero",
     },
     features: [
@@ -204,7 +204,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/organization-management",
     seo: {
-      title: "Organization Management | ClerkDirect",
+      title: "Organization Management | GovClerk",
       description:
         "Manage boards, committees, departments, and member roles from one central hub. Role-based access and org-wide visibility.",
     },
@@ -212,7 +212,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Product",
       title: "One Hub for Your Entire Organization",
       description:
-        "Manage boards, committees, departments, and member roles centrally. ClerkDirect gives every team the structure they need without the overhead.",
+        "Manage boards, committees, departments, and member roles centrally. GovClerk gives every team the structure they need without the overhead.",
       imageUrl: "https://picsum.photos/600/400?random=org-hero",
     },
     features: [
@@ -239,7 +239,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/public-portal",
     seo: {
-      title: "Public Portal | ClerkDirect",
+      title: "Public Portal | GovClerk",
       description:
         "Publish meeting records, agendas, minutes, and recordings for public transparency. Embeddable portal for your website.",
     },
@@ -274,7 +274,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/security",
     seo: {
-      title: "Security & Compliance | ClerkDirect",
+      title: "Security & Compliance | GovClerk",
       description:
         "SOC 2 Type II compliant meeting management with encryption, role-based access, and audit trails built for government requirements.",
     },
@@ -289,7 +289,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "SOC 2 Type II Certified",
         description:
-          "ClerkDirect has completed SOC 2 Type II audit certification, demonstrating ongoing commitment to data security, availability, and confidentiality.",
+          "GovClerk has completed SOC 2 Type II audit certification, demonstrating ongoing commitment to data security, availability, and confidentiality.",
         imageUrl: "https://picsum.photos/600/400?random=security-soc2",
       },
       {
@@ -301,7 +301,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Audit Trails",
         description:
-          "Every action in ClerkDirect is logged with timestamps and user attribution. Know who accessed, edited, or published any document at any time.",
+          "Every action in GovClerk is logged with timestamps and user attribution. Know who accessed, edited, or published any document at any time.",
         imageUrl: "https://picsum.photos/600/400?random=security-audit",
       },
     ],
@@ -309,7 +309,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "product/ai-artifacts",
     seo: {
-      title: "AI-Powered Artifacts | ClerkDirect",
+      title: "AI-Powered Artifacts | GovClerk",
       description:
         "Automatically extract action items, summaries, key decisions, and follow-ups from your meetings with AI.",
     },
@@ -317,7 +317,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Product",
       title: "AI That Extracts What Matters",
       description:
-        "ClerkDirect AI goes beyond transcription. It identifies action items, summarizes discussions, highlights key decisions, and generates follow-up tasks automatically.",
+        "GovClerk AI goes beyond transcription. It identifies action items, summarizes discussions, highlights key decisions, and generates follow-up tasks automatically.",
       imageUrl: "https://picsum.photos/600/400?random=ai-hero",
     },
     features: [
@@ -344,7 +344,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "solutions/government",
     seo: {
-      title: "Government Meeting Management | ClerkDirect",
+      title: "Government Meeting Management | GovClerk",
       description:
         "Meeting management software built for city councils, county boards, and municipal agencies. Automate agendas, minutes, and public records.",
     },
@@ -352,14 +352,14 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Solutions",
       title: "Meeting Management Built for Government",
       description:
-        "City councils, county boards, and municipal agencies trust ClerkDirect to automate agendas, minutes, and public records while meeting open meeting compliance requirements.",
+        "City councils, county boards, and municipal agencies trust GovClerk to automate agendas, minutes, and public records while meeting open meeting compliance requirements.",
       imageUrl: "https://picsum.photos/600/400?random=gov-hero",
     },
     features: [
       {
         title: "Open Meeting Compliance",
         description:
-          "Automatically publish agendas and minutes within required timeframes. ClerkDirect tracks deadlines and ensures your records meet state and local transparency laws.",
+          "Automatically publish agendas and minutes within required timeframes. GovClerk tracks deadlines and ensures your records meet state and local transparency laws.",
         imageUrl: "https://picsum.photos/600/400?random=gov-compliance",
       },
       {
@@ -379,7 +379,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "solutions/school-boards",
     seo: {
-      title: "School Board Meeting Software | ClerkDirect",
+      title: "School Board Meeting Software | GovClerk",
       description:
         "Meeting management for K-12 school districts, higher education boards, and academic committees. Streamline board governance with AI.",
     },
@@ -387,7 +387,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Solutions",
       title: "Streamline School Board Governance",
       description:
-        "From K-12 districts to higher education, ClerkDirect helps school boards run efficient meetings, maintain accurate records, and keep families informed.",
+        "From K-12 districts to higher education, GovClerk helps school boards run efficient meetings, maintain accurate records, and keep families informed.",
       imageUrl: "https://picsum.photos/600/400?random=school-hero",
     },
     features: [
@@ -414,7 +414,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "solutions/special-districts",
     seo: {
-      title: "Special District Meeting Software | ClerkDirect",
+      title: "Special District Meeting Software | GovClerk",
       description:
         "Meeting management for water, fire, transit, and utility districts. Comply with public meeting requirements and automate record-keeping.",
     },
@@ -422,7 +422,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Solutions",
       title: "Meeting Management for Special Districts",
       description:
-        "Water districts, fire districts, transit authorities, and utility boards have unique meeting requirements. ClerkDirect handles them all.",
+        "Water districts, fire districts, transit authorities, and utility boards have unique meeting requirements. GovClerk handles them all.",
       imageUrl: "https://picsum.photos/600/400?random=special-hero",
     },
     features: [
@@ -441,7 +441,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Small Staff, Big Capability",
         description:
-          "Special districts often run lean. ClerkDirect automates the record-keeping that would otherwise require a dedicated clerk.",
+          "Special districts often run lean. GovClerk automates the record-keeping that would otherwise require a dedicated clerk.",
         imageUrl: "https://picsum.photos/600/400?random=special-lean",
       },
     ],
@@ -449,7 +449,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "solutions/nonprofits",
     seo: {
-      title: "Nonprofit Board Meeting Software | ClerkDirect",
+      title: "Nonprofit Board Meeting Software | GovClerk",
       description:
         "Board governance and volunteer committee management for nonprofits. Keep your organization transparent and well-documented.",
     },
@@ -457,7 +457,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Solutions",
       title: "Board Governance for Nonprofits",
       description:
-        "Nonprofits deserve the same meeting tools as government agencies. ClerkDirect helps your board stay organized, transparent, and audit-ready.",
+        "Nonprofits deserve the same meeting tools as government agencies. GovClerk helps your board stay organized, transparent, and audit-ready.",
       imageUrl: "https://picsum.photos/600/400?random=nonprofit-hero",
     },
     features: [
@@ -484,7 +484,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "solutions/committees",
     seo: {
-      title: "Committee Meeting Software | ClerkDirect",
+      title: "Committee Meeting Software | GovClerk",
       description:
         "Meeting management for standing committees, advisory boards, and working groups. Structure and automate committee workflows.",
     },
@@ -492,7 +492,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       label: "Solutions",
       title: "Run Better Committee Meetings",
       description:
-        "Standing committees, advisory boards, and working groups need structure without overhead. ClerkDirect gives committees the tools to be productive and accountable.",
+        "Standing committees, advisory boards, and working groups need structure without overhead. GovClerk gives committees the tools to be productive and accountable.",
       imageUrl: "https://picsum.photos/600/400?random=committee-hero",
     },
     features: [
@@ -505,7 +505,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Recommendations and Reports",
         description:
-          "Committees produce recommendations for the full board. ClerkDirect tracks recommendations from draft through board action.",
+          "Committees produce recommendations for the full board. GovClerk tracks recommendations from draft through board action.",
         imageUrl: "https://picsum.photos/600/400?random=committee-reports",
       },
       {
@@ -519,15 +519,15 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "about",
     seo: {
-      title: "About ClerkDirect | AI Meeting Management",
+      title: "About GovClerk | AI Meeting Management",
       description:
-        "ClerkDirect is built by the GovClerkMinutes team. Learn about our mission to modernize how organizations run meetings.",
+        "GovClerk is built by the GovClerkMinutes team. Learn about our mission to modernize how organizations run meetings.",
     },
     hero: {
       label: "Company",
       title: "Modernizing How Organizations Run Meetings",
       description:
-        "ClerkDirect is built by the GovClerkMinutes team with a single mission: eliminate the hours of manual work that go into every meeting, so organizations can focus on the decisions that matter.",
+        "GovClerk is built by the GovClerkMinutes team with a single mission: eliminate the hours of manual work that go into every meeting, so organizations can focus on the decisions that matter.",
     },
     features: [
       {
@@ -539,7 +539,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Built by GovClerkMinutes",
         description:
-          "ClerkDirect is powered by the same AI transcription and minutes generation technology trusted by thousands of organizations through GovClerkMinutes.",
+          "GovClerk is powered by the same AI transcription and minutes generation technology trusted by thousands of organizations through GovClerkMinutes.",
         imageUrl: "https://picsum.photos/600/400?random=about-mg",
       },
     ],
@@ -547,9 +547,9 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "contact",
     seo: {
-      title: "Contact ClerkDirect | Get in Touch",
+      title: "Contact GovClerk | Get in Touch",
       description:
-        "Have questions about ClerkDirect? Contact our sales and support teams for demos, pricing, and technical assistance.",
+        "Have questions about GovClerk? Contact our sales and support teams for demos, pricing, and technical assistance.",
     },
     hero: {
       label: "Company",
@@ -561,13 +561,13 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Sales Inquiries",
         description:
-          "Interested in ClerkDirect for your organization? Our sales team can walk you through features, pricing, and implementation. Email us at sales@clerkdirect.com.",
+          "Interested in GovClerk for your organization? Our sales team can walk you through features, pricing, and implementation. Email us at sales@GovClerk.com.",
         imageUrl: "https://picsum.photos/600/400?random=contact-sales",
       },
       {
         title: "Technical Support",
         description:
-          "Already a customer? Our support team is available to help with setup, integrations, and any technical questions. Email support@clerkdirect.com.",
+          "Already a customer? Our support team is available to help with setup, integrations, and any technical questions. Email support@GovClerk.com.",
         imageUrl: "https://picsum.photos/600/400?random=contact-support",
       },
     ],
@@ -575,9 +575,9 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "careers",
     seo: {
-      title: "Careers at ClerkDirect | Join Our Team",
+      title: "Careers at GovClerk | Join Our Team",
       description:
-        "Join the team building AI-powered meeting management for government and organizations. See open positions at ClerkDirect.",
+        "Join the team building AI-powered meeting management for government and organizations. See open positions at GovClerk.",
     },
     hero: {
       label: "Company",
@@ -587,7 +587,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
     },
     features: [
       {
-        title: "Why ClerkDirect",
+        title: "Why GovClerk",
         description:
           "We are a small, focused team solving a real problem for real organizations. Every feature you build has a direct impact on how communities are governed.",
         imageUrl: "https://picsum.photos/600/400?random=careers-why",
@@ -595,7 +595,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Open Positions",
         description:
-          "We are always looking for talented engineers, designers, and go-to-market professionals. Check back for open roles or send your resume to careers@clerkdirect.com.",
+          "We are always looking for talented engineers, designers, and go-to-market professionals. Check back for open roles or send your resume to careers@GovClerk.com.",
         imageUrl: "https://picsum.photos/600/400?random=careers-positions",
       },
     ],
@@ -603,13 +603,13 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "partners",
     seo: {
-      title: "Partner with ClerkDirect | Integration Partners",
+      title: "Partner with GovClerk | Integration Partners",
       description:
-        "Become a ClerkDirect partner. Integration partnerships, reseller programs, and technology alliances for meeting management.",
+        "Become a GovClerk partner. Integration partnerships, reseller programs, and technology alliances for meeting management.",
     },
     hero: {
       label: "Company",
-      title: "Partner with ClerkDirect",
+      title: "Partner with GovClerk",
       description:
         "We work with technology partners, consultants, and resellers who serve government and public-sector organizations. Let us build something together.",
     },
@@ -617,13 +617,13 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Technology Partnerships",
         description:
-          "Integrate your platform with ClerkDirect to offer meeting management as part of your solution. APIs and webhooks make integration straightforward.",
+          "Integrate your platform with GovClerk to offer meeting management as part of your solution. APIs and webhooks make integration straightforward.",
         imageUrl: "https://picsum.photos/600/400?random=partners-tech",
       },
       {
         title: "Reseller Program",
         description:
-          "Serve government clients? Add ClerkDirect to your portfolio. We provide training, co-marketing, and dedicated partner support.",
+          "Serve government clients? Add GovClerk to your portfolio. We provide training, co-marketing, and dedicated partner support.",
         imageUrl: "https://picsum.photos/600/400?random=partners-reseller",
       },
     ],
@@ -631,34 +631,34 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "overview",
     seo: {
-      title: "Platform Overview | ClerkDirect",
+      title: "Platform Overview | GovClerk",
       description:
-        "See how ClerkDirect connects agenda management, transcription, AI minutes, votes, and public records into one seamless meeting workflow.",
+        "See how GovClerk connects agenda management, transcription, AI minutes, votes, and public records into one seamless meeting workflow.",
     },
     hero: {
       label: "Resources",
       title: "One Platform, Every Step of Your Meeting",
       description:
-        "ClerkDirect brings together agenda building, live transcription, AI-powered minutes, vote tracking, and public records publishing so your team can move from preparation to compliance in a single workflow.",
+        "GovClerk brings together agenda building, live transcription, AI-powered minutes, vote tracking, and public records publishing so your team can move from preparation to compliance in a single workflow.",
       imageUrl: "https://picsum.photos/600/400?random=overview-hero",
     },
     features: [
       {
         title: "End-to-End Meeting Lifecycle",
         description:
-          "Most teams juggle separate tools for agendas, notes, recordings, and publishing. ClerkDirect replaces that patchwork with a connected pipeline where each step feeds into the next automatically.",
+          "Most teams juggle separate tools for agendas, notes, recordings, and publishing. GovClerk replaces that patchwork with a connected pipeline where each step feeds into the next automatically.",
         imageUrl: "https://picsum.photos/600/400?random=overview-lifecycle",
       },
       {
         title: "Works with Your Existing Stack",
         description:
-          "ClerkDirect integrates with calendar systems, video conferencing platforms, and document storage providers your organization already uses, so adoption is fast and friction-free.",
+          "GovClerk integrates with calendar systems, video conferencing platforms, and document storage providers your organization already uses, so adoption is fast and friction-free.",
         imageUrl: "https://picsum.photos/600/400?random=overview-integrations",
       },
       {
         title: "Built for Teams of Every Size",
         description:
-          "Whether you manage a single board or coordinate dozens of committees, ClerkDirect scales to match your organizational structure without additional complexity.",
+          "Whether you manage a single board or coordinate dozens of committees, GovClerk scales to match your organizational structure without additional complexity.",
         imageUrl: "https://picsum.photos/600/400?random=overview-scale",
       },
     ],
@@ -666,7 +666,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "blog",
     seo: {
-      title: "Blog | ClerkDirect",
+      title: "Blog | GovClerk",
       description:
         "Insights on meeting management, public transparency, AI in government, and best practices for clerks and board administrators.",
     },
@@ -680,7 +680,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Product Updates",
         description:
-          "Stay current with the latest ClerkDirect features, improvements, and integrations. We publish detailed release notes so you always know what is new.",
+          "Stay current with the latest GovClerk features, improvements, and integrations. We publish detailed release notes so you always know what is new.",
         imageUrl: "https://picsum.photos/600/400?random=blog-updates",
       },
       {
@@ -700,15 +700,15 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "docs",
     seo: {
-      title: "Documentation | ClerkDirect",
+      title: "Documentation | GovClerk",
       description:
-        "Technical documentation, API reference, setup guides, and integration instructions for ClerkDirect meeting management software.",
+        "Technical documentation, API reference, setup guides, and integration instructions for GovClerk meeting management software.",
     },
     hero: {
       label: "Resources",
       title: "Documentation and Developer Guides",
       description:
-        "Everything you need to set up, configure, and integrate ClerkDirect. From getting started guides to API reference, our documentation helps your team move quickly.",
+        "Everything you need to set up, configure, and integrate GovClerk. From getting started guides to API reference, our documentation helps your team move quickly.",
     },
     features: [
       {
@@ -720,13 +720,13 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "API Reference",
         description:
-          "Integrate ClerkDirect into your existing systems with our REST API. Full endpoint documentation, authentication guides, and code examples are included.",
+          "Integrate GovClerk into your existing systems with our REST API. Full endpoint documentation, authentication guides, and code examples are included.",
         imageUrl: "https://picsum.photos/600/400?random=docs-api",
       },
       {
         title: "Integration Guides",
         description:
-          "Connect ClerkDirect with calendar providers, video conferencing tools, and document storage systems. Each guide includes prerequisites, setup steps, and troubleshooting tips.",
+          "Connect GovClerk with calendar providers, video conferencing tools, and document storage systems. Each guide includes prerequisites, setup steps, and troubleshooting tips.",
         imageUrl: "https://picsum.photos/600/400?random=docs-integrations",
       },
     ],
@@ -734,9 +734,9 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "help",
     seo: {
-      title: "Help Center | ClerkDirect",
+      title: "Help Center | GovClerk",
       description:
-        "Find answers to common questions, troubleshooting guides, and support contact information for ClerkDirect meeting management software.",
+        "Find answers to common questions, troubleshooting guides, and support contact information for GovClerk meeting management software.",
     },
     hero: {
       label: "Resources",
@@ -760,7 +760,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Contact Support",
         description:
-          "Need hands-on help? Reach our support team by email at support@clerkdirect.com. We respond to all inquiries within one business day.",
+          "Need hands-on help? Reach our support team by email at support@GovClerk.com. We respond to all inquiries within one business day.",
         imageUrl: "https://picsum.photos/600/400?random=help-contact",
       },
     ],
@@ -768,15 +768,15 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "case-studies",
     seo: {
-      title: "Case Studies | ClerkDirect",
+      title: "Case Studies | GovClerk",
       description:
-        "See how government agencies, school boards, and nonprofits use ClerkDirect to save time, improve transparency, and modernize their meeting workflows.",
+        "See how government agencies, school boards, and nonprofits use GovClerk to save time, improve transparency, and modernize their meeting workflows.",
     },
     hero: {
       label: "Resources",
       title: "Real Results from Real Organizations",
       description:
-        "Discover how cities, school districts, and nonprofits have transformed their meeting workflows with ClerkDirect. Each case study details the challenges, implementation process, and measurable outcomes.",
+        "Discover how cities, school districts, and nonprofits have transformed their meeting workflows with GovClerk. Each case study details the challenges, implementation process, and measurable outcomes.",
     },
     features: [
       {
@@ -788,7 +788,7 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
       {
         title: "Education Outcomes",
         description:
-          "School districts share how ClerkDirect streamlined board meeting workflows, increased community access to meeting records, and freed staff time for student-focused work.",
+          "School districts share how GovClerk streamlined board meeting workflows, increased community access to meeting records, and freed staff time for student-focused work.",
         imageUrl: "https://picsum.photos/600/400?random=cases-education",
       },
       {
@@ -802,39 +802,39 @@ export const clerkDirectPages: ClerkDirectPageData[] = [
   {
     slug: "acceptable-use",
     seo: {
-      title: "Acceptable Use Policy | ClerkDirect",
+      title: "Acceptable Use Policy | GovClerk",
       description:
-        "ClerkDirect acceptable use policy. Guidelines for responsible use of our meeting management platform and services.",
+        "GovClerk acceptable use policy. Guidelines for responsible use of our meeting management platform and services.",
     },
     hero: {
       label: "Legal",
       title: "Acceptable Use Policy",
       description:
-        "This policy outlines the rules and guidelines for using ClerkDirect services. By using our platform, you agree to comply with these terms to ensure a safe and productive experience for all users.",
+        "This policy outlines the rules and guidelines for using GovClerk services. By using our platform, you agree to comply with these terms to ensure a safe and productive experience for all users.",
     },
     features: [
       {
         title: "Permitted Use",
         description:
-          "ClerkDirect is designed for legitimate meeting management activities including agenda creation, meeting recording, transcription, minutes generation, and public records publishing.",
+          "GovClerk is designed for legitimate meeting management activities including agenda creation, meeting recording, transcription, minutes generation, and public records publishing.",
         imageUrl: "https://picsum.photos/600/400?random=aup-permitted",
       },
       {
         title: "Prohibited Activities",
         description:
-          "Users may not use ClerkDirect for unauthorized surveillance, distribution of harmful content, circumvention of security controls, or any activity that violates applicable law.",
+          "Users may not use GovClerk for unauthorized surveillance, distribution of harmful content, circumvention of security controls, or any activity that violates applicable law.",
         imageUrl: "https://picsum.photos/600/400?random=aup-prohibited",
       },
       {
         title: "Enforcement",
         description:
-          "ClerkDirect reserves the right to suspend or terminate accounts that violate this policy. If you believe a violation has occurred, please report it to compliance@clerkdirect.com.",
+          "GovClerk reserves the right to suspend or terminate accounts that violate this policy. If you believe a violation has occurred, please report it to compliance@GovClerk.com.",
         imageUrl: "https://picsum.photos/600/400?random=aup-enforcement",
       },
     ],
   },
 ];
 
-export function findPageBySlug(slug: string): ClerkDirectPageData | undefined {
-  return clerkDirectPages.find((page) => page.slug === slug);
+export function findPageBySlug(slug: string): GovClerkPageData | undefined {
+  return GovClerkPages.find((page) => page.slug === slug);
 }

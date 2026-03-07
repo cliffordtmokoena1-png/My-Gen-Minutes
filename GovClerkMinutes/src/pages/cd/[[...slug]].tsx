@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import ClerkDirectLandingPage from "@/components/landing/clerkdirect/ClerkDirectLandingPage";
-import ClerkDirectPageLayout from "@/components/landing/clerkdirect/ClerkDirectPageLayout";
-import ClerkDirectHead from "@/components/landing/clerkdirect/ClerkDirectHead";
-import ClerkDirectSubPageHero from "@/components/landing/clerkdirect/templates/ClerkDirectSubPageHero";
-import ClerkDirectFeatureDetailSection from "@/components/landing/clerkdirect/templates/ClerkDirectFeatureDetailSection";
-import ClerkDirectCtaSection from "@/components/landing/clerkdirect/sections/ClerkDirectCtaSection";
-import { findPageBySlug } from "@/components/landing/clerkdirect/clerkDirectPages";
+import GovClerkLandingPage from "@/components/landing/GovClerk/GovClerkLandingPage";
+import GovClerkPageLayout from "@/components/landing/GovClerk/GovClerkPageLayout";
+import GovClerkHead from "@/components/landing/GovClerk/GovClerkHead";
+import GovClerkSubPageHero from "@/components/landing/GovClerk/templates/GovClerkSubPageHero";
+import GovClerkFeatureDetailSection from "@/components/landing/GovClerk/templates/GovClerkFeatureDetailSection";
+import GovClerkCtaSection from "@/components/landing/GovClerk/sections/GovClerkCtaSection";
+import { findPageBySlug } from "@/components/landing/GovClerk/GovClerkPages";
 
-export default function ClerkDirectCatchAll() {
+export default function GovClerkCatchAll() {
   const router = useRouter();
   const slugParts = router.query.slug;
 
@@ -16,14 +16,14 @@ export default function ClerkDirectCatchAll() {
   // reserves its full height and avoids a CLS flash.
   if (!router.isReady) {
     return (
-      <ClerkDirectPageLayout>
+      <GovClerkPageLayout>
         <div className="min-h-[60vh]" />
-      </ClerkDirectPageLayout>
+      </GovClerkPageLayout>
     );
   }
 
   if (!slugParts || slugParts.length === 0) {
-    return <ClerkDirectLandingPage />;
+    return <GovClerkLandingPage />;
   }
 
   const slug = Array.isArray(slugParts) ? slugParts.join("/") : slugParts;
@@ -31,9 +31,9 @@ export default function ClerkDirectCatchAll() {
 
   if (!pageData) {
     return (
-      <ClerkDirectPageLayout>
-        <ClerkDirectHead
-          title="Page Not Found | ClerkDirect"
+      <GovClerkPageLayout>
+        <GovClerkHead
+          title="Page Not Found | GovClerk"
           description="The page you are looking for does not exist."
           noindex
         />
@@ -53,27 +53,27 @@ export default function ClerkDirectCatchAll() {
             </Link>
           </div>
         </div>
-      </ClerkDirectPageLayout>
+      </GovClerkPageLayout>
     );
   }
 
   return (
-    <ClerkDirectPageLayout>
-      <ClerkDirectHead
+    <GovClerkPageLayout>
+      <GovClerkHead
         title={pageData.seo.title}
         description={pageData.seo.description}
-        canonical={`https://clerkdirect.com/${pageData.slug}`}
+        canonical={`https://GovClerk.com/${pageData.slug}`}
       />
-      <ClerkDirectSubPageHero
+      <GovClerkSubPageHero
         label={pageData.hero.label}
         title={pageData.hero.title}
         description={pageData.hero.description}
         imageUrl={pageData.hero.imageUrl}
       />
       {pageData.features.length > 0 && (
-        <ClerkDirectFeatureDetailSection features={pageData.features} />
+        <GovClerkFeatureDetailSection features={pageData.features} />
       )}
-      <ClerkDirectCtaSection />
-    </ClerkDirectPageLayout>
+      <GovClerkCtaSection />
+    </GovClerkPageLayout>
   );
 }

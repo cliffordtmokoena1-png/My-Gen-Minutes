@@ -21,17 +21,17 @@ const MG_PROD_KEYS: ClerkKeys = {
   webhookKey: process.env.CLERK_WH_SECRET!,
 };
 
-// ClerkDirect keys
+// GovClerk keys
 const CD_DEV_KEYS: ClerkKeys = {
-  publishableKey: process.env.NEXT_PUBLIC_CLERKDIRECT_TEST_PUBLISHABLE_KEY!,
-  secretKey: process.env.CLERKDIRECT_TEST_SECRET_KEY!,
-  webhookKey: process.env.CLERKDIRECT_TEST_WH_SECRET!,
+  publishableKey: process.env.NEXT_PUBLIC_GovClerk_TEST_PUBLISHABLE_KEY!,
+  secretKey: process.env.GovClerk_TEST_SECRET_KEY!,
+  webhookKey: process.env.GovClerk_TEST_WH_SECRET!,
 };
 
 const CD_PROD_KEYS: ClerkKeys = {
-  publishableKey: process.env.NEXT_PUBLIC_CLERKDIRECT_PUBLISHABLE_KEY!,
-  secretKey: process.env.CLERKDIRECT_SECRET_KEY!,
-  webhookKey: process.env.CLERKDIRECT_WH_SECRET!,
+  publishableKey: process.env.NEXT_PUBLIC_GovClerk_PUBLISHABLE_KEY!,
+  secretKey: process.env.GovClerk_SECRET_KEY!,
+  webhookKey: process.env.GovClerk_WH_SECRET!,
 };
 
 function isDevOrPreview(): boolean {
@@ -53,13 +53,13 @@ function validateClerkKeys(keys: ClerkKeys, site: Site): void {
   }
   throw new Error(
     `Missing Clerk keys for site "${site}". ` +
-      "Ensure the corresponding env vars are set (e.g. NEXT_PUBLIC_CLERKDIRECT_PUBLISHABLE_KEY, CLERKDIRECT_SECRET_KEY)."
+      "Ensure the corresponding env vars are set (e.g. NEXT_PUBLIC_GovClerk_PUBLISHABLE_KEY, GovClerk_SECRET_KEY)."
   );
 }
 
 export function getClerkKeys(site?: Site): ClerkKeys {
   const s = site ?? "GovClerkMinutes";
-  if (s === "clerkdirect") {
+  if (s === "GovClerk") {
     const keys = isDevOrPreview() ? CD_DEV_KEYS : CD_PROD_KEYS;
     validateClerkKeys(keys, s);
     return keys;
@@ -77,8 +77,8 @@ export function getAllWebhookKeys(): WebhookKeyEntry[] {
     [
       { key: MG_PROD_KEYS.webhookKey, site: "GovClerkMinutes" as Site },
       { key: MG_DEV_KEYS.webhookKey, site: "GovClerkMinutes" as Site },
-      { key: CD_PROD_KEYS.webhookKey, site: "clerkdirect" as Site },
-      { key: CD_DEV_KEYS.webhookKey, site: "clerkdirect" as Site },
+      { key: CD_PROD_KEYS.webhookKey, site: "GovClerk" as Site },
+      { key: CD_DEV_KEYS.webhookKey, site: "GovClerk" as Site },
     ] satisfies WebhookKeyEntry[]
   ).filter((entry) => entry.key);
 }
@@ -88,9 +88,9 @@ export type ClerkEnvironment = "dev" | "prod";
 export function getClerkKeysFromEnv(env?: ClerkEnvironment, site?: Site): ClerkKeys {
   const s = site ?? "GovClerkMinutes";
   if (env === "prod") {
-    return s === "clerkdirect" ? CD_PROD_KEYS : MG_PROD_KEYS;
+    return s === "GovClerk" ? CD_PROD_KEYS : MG_PROD_KEYS;
   } else if (env === "dev") {
-    return s === "clerkdirect" ? CD_DEV_KEYS : MG_DEV_KEYS;
+    return s === "GovClerk" ? CD_DEV_KEYS : MG_DEV_KEYS;
   } else {
     return getClerkKeys(s);
   }

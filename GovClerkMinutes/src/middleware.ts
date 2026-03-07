@@ -10,7 +10,7 @@ import {
 } from "./utils/landing/landingPageMiddleware";
 import {
   getSiteFromHost,
-  isClerkDirect,
+  isGovClerk,
   isGovClerkMinutes,
   Site,
   SITE_HEADER,
@@ -89,7 +89,7 @@ function buildClerkHandler(site: Site) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
-    if (isClerkDirect(site)) {
+    if (isGovClerk(site)) {
       if (pathname === "/") {
         const { userId } = await auth();
 
@@ -144,11 +144,11 @@ function buildClerkMiddleware(site: Site) {
 }
 
 const mgMiddleware = buildClerkMiddleware("GovClerkMinutes");
-const cdMiddleware = buildClerkMiddleware("clerkdirect");
+const cdMiddleware = buildClerkMiddleware("GovClerk");
 
 const middleware = (req: NextRequest, event: Parameters<typeof mgMiddleware>[1]) => {
   const site = getSiteFromHost(req.headers.get("host"));
-  if (isClerkDirect(site)) {
+  if (isGovClerk(site)) {
     return cdMiddleware(req, event);
   }
   return mgMiddleware(req, event);

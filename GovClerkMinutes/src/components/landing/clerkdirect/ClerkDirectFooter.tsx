@@ -37,18 +37,18 @@ const companyLinks: FooterLink[] = [
 ];
 
 const socialIcons = [
-  { icon: FaLinkedinIn, label: "LinkedIn", href: "https://linkedin.com/company/clerkdirect" },
-  { icon: FaXTwitter, label: "X (Twitter)", href: "https://x.com/clerkdirect" },
-  { icon: FaFacebookF, label: "Facebook", href: "https://facebook.com/clerkdirect" },
-  { icon: FaInstagram, label: "Instagram", href: "https://instagram.com/clerkdirect" },
-  { icon: FaYoutube, label: "YouTube", href: "https://youtube.com/@clerkdirect" },
+  { icon: FaLinkedinIn, label: "LinkedIn", href: "https://linkedin.com/company/GovClerk" },
+  { icon: FaXTwitter, label: "X (Twitter)", href: "https://x.com/GovClerk" },
+  { icon: FaFacebookF, label: "Facebook", href: "https://facebook.com/GovClerk" },
+  { icon: FaInstagram, label: "Instagram", href: "https://instagram.com/GovClerk" },
+  { icon: FaYoutube, label: "YouTube", href: "https://youtube.com/@GovClerk" },
 ];
 
 const legalLinks: FooterLink[] = [
   { label: "Privacy", href: "/privacy-policy.html" },
   { label: "Terms of Use", href: "/terms-of-use.html" },
   { label: "Acceptable Use", href: "/acceptable-use" },
-  { label: "Status", href: "https://status.clerkdirect.com" },
+  { label: "Status", href: "https://status.GovClerk.com" },
 ];
 
 type FooterColumnProps = {
@@ -73,7 +73,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
   );
 }
 
-export default function ClerkDirectFooter() {
+export default function GovClerkFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -82,14 +82,14 @@ export default function ClerkDirectFooter() {
         <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
           <div className="flex flex-col items-start gap-5">
             <Image
-              src="/clerkdirect-logo.svg"
-              alt="ClerkDirect"
+              src="/GovClerk-logo.svg"
+              alt="GovClerk"
               width={128}
               height={36}
               className="h-9 w-auto brightness-0 invert"
             />
             <p className="max-w-[260px] text-sm leading-relaxed text-gray-400">
-              ClerkDirect is a product of GovClerkMinutes. We build tools that help organizations
+              GovClerk is a product of GovClerkMinutes. We build tools that help organizations
               run better meetings.
             </p>
             <Link
@@ -162,7 +162,7 @@ export default function ClerkDirectFooter() {
 
         <div className="flex items-center justify-between py-6">
           <p className="text-sm text-gray-500">
-            &copy; {currentYear} ClerkDirect. All rights reserved.
+            &copy; {currentYear} GovClerk. All rights reserved.
           </p>
         </div>
       </div>
@@ -172,7 +172,7 @@ export default function ClerkDirectFooter() {
         aria-hidden="true"
       >
         <p className="whitespace-nowrap font-serif text-[12rem] font-black leading-[0.75] tracking-wider text-white/[0.03] md:text-[20rem]">
-          ClerkDirect
+          GovClerk
         </p>
       </div>
     </footer>

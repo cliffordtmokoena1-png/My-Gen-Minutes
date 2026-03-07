@@ -5,7 +5,7 @@ import type { Site } from "@/utils/site";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
-const VALID_SITES: Site[] = ["GovClerkMinutes", "clerkdirect"];
+const VALID_SITES: Site[] = ["GovClerkMinutes", "GovClerk"];
 
 async function setAdmin(
   userId: string,

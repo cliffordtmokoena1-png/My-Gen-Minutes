@@ -43,8 +43,8 @@ type LookupResult = { kind: "success"; user: User } | { kind: "error"; err: stri
 const LOOKUP_COMBOS: Array<{ env: ClerkEnvironment; site: Site }> = [
   { env: "prod", site: "GovClerkMinutes" },
   { env: "dev", site: "GovClerkMinutes" },
-  { env: "prod", site: "clerkdirect" },
-  { env: "dev", site: "clerkdirect" },
+  { env: "prod", site: "GovClerk" },
+  { env: "dev", site: "GovClerk" },
 ];
 
 async function findUserIdByIdentifier(identifier: string): Promise<LookupResult> {

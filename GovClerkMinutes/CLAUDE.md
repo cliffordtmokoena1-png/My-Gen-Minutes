@@ -1,6 +1,6 @@
 GovClerkMinutes is a service that allows users to upload audio or video files, and produces a transcript and meeting minutes downloadable as a Word document. Users can also upload Word, text and image files, and generate minutes from them too.
 
-ClerkDirect is a SaaS product that is used by local governments to manage the meeting lifecycle end to end, including:
+GovClerk is a SaaS product that is used by local governments to manage the meeting lifecycle end to end, including:
 - agenda creation
 - live meeting management
 - meeting minutes creation

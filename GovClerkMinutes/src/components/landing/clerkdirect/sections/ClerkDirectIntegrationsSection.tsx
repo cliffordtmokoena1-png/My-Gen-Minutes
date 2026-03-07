@@ -21,7 +21,7 @@ const integrations = [
   { name: "OneDrive", icon: SiMicrosoftonedrive },
 ];
 
-export default function ClerkDirectIntegrationsSection() {
+export default function GovClerkIntegrationsSection() {
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -34,7 +34,7 @@ export default function ClerkDirectIntegrationsSection() {
               Connects With the Tools You Already Use
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
-              ClerkDirect integrates with leading conferencing, collaboration, and storage platforms
+              GovClerk integrates with leading conferencing, collaboration, and storage platforms
               so your team can work without switching contexts.
             </p>
           </div>

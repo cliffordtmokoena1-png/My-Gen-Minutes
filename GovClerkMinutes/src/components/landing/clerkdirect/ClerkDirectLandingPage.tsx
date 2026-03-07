@@ -1,45 +1,45 @@
-import ClerkDirectNavBar from "./ClerkDirectNavBar";
-import ClerkDirectFooter from "./ClerkDirectFooter";
-import ClerkDirectAnnouncementBar from "./ClerkDirectAnnouncementBar";
-import ClerkDirectHeroSection from "./sections/ClerkDirectHeroSection";
-import ClerkDirectTrustLogosSection from "./sections/ClerkDirectTrustLogosSection";
-import ClerkDirectStatsSection from "./sections/ClerkDirectStatsSection";
-import ClerkDirectWhySection from "./sections/ClerkDirectWhySection";
-import ClerkDirectFeaturesSection from "./sections/ClerkDirectFeaturesSection";
-import ClerkDirectHowItWorksSection from "./sections/ClerkDirectHowItWorksSection";
-import ClerkDirectAiSection from "./sections/ClerkDirectAiSection";
-import ClerkDirectRolesSection from "./sections/ClerkDirectRolesSection";
-import ClerkDirectIntegrationsSection from "./sections/ClerkDirectIntegrationsSection";
-import ClerkDirectComplianceSection from "./sections/ClerkDirectComplianceSection";
-import ClerkDirectTestimonialsSection from "./sections/ClerkDirectTestimonialsSection";
-import ClerkDirectFaqSection from "./sections/ClerkDirectFaqSection";
-import ClerkDirectCtaSection from "./sections/ClerkDirectCtaSection";
-import ClerkDirectHead from "./ClerkDirectHead";
+import GovClerkNavBar from "./GovClerkNavBar";
+import GovClerkFooter from "./GovClerkFooter";
+import GovClerkAnnouncementBar from "./GovClerkAnnouncementBar";
+import GovClerkHeroSection from "./sections/GovClerkHeroSection";
+import GovClerkTrustLogosSection from "./sections/GovClerkTrustLogosSection";
+import GovClerkStatsSection from "./sections/GovClerkStatsSection";
+import GovClerkWhySection from "./sections/GovClerkWhySection";
+import GovClerkFeaturesSection from "./sections/GovClerkFeaturesSection";
+import GovClerkHowItWorksSection from "./sections/GovClerkHowItWorksSection";
+import GovClerkAiSection from "./sections/GovClerkAiSection";
+import GovClerkRolesSection from "./sections/GovClerkRolesSection";
+import GovClerkIntegrationsSection from "./sections/GovClerkIntegrationsSection";
+import GovClerkComplianceSection from "./sections/GovClerkComplianceSection";
+import GovClerkTestimonialsSection from "./sections/GovClerkTestimonialsSection";
+import GovClerkFaqSection from "./sections/GovClerkFaqSection";
+import GovClerkCtaSection from "./sections/GovClerkCtaSection";
+import GovClerkHead from "./GovClerkHead";
 
-export default function ClerkDirectLandingPage() {
+export default function GovClerkLandingPage() {
   return (
     <div className="relative min-h-screen">
-      <ClerkDirectHead />
-      <ClerkDirectAnnouncementBar />
-      <ClerkDirectNavBar />
+      <GovClerkHead />
+      <GovClerkAnnouncementBar />
+      <GovClerkNavBar />
 
       <div className="flex flex-col">
-        <ClerkDirectHeroSection />
-        <ClerkDirectTrustLogosSection />
-        <ClerkDirectStatsSection />
-        <ClerkDirectWhySection />
-        <ClerkDirectFeaturesSection />
-        <ClerkDirectHowItWorksSection />
-        <ClerkDirectAiSection />
-        <ClerkDirectRolesSection />
-        <ClerkDirectIntegrationsSection />
-        <ClerkDirectComplianceSection />
-        <ClerkDirectTestimonialsSection />
-        <ClerkDirectFaqSection />
-        <ClerkDirectCtaSection />
+        <GovClerkHeroSection />
+        <GovClerkTrustLogosSection />
+        <GovClerkStatsSection />
+        <GovClerkWhySection />
+        <GovClerkFeaturesSection />
+        <GovClerkHowItWorksSection />
+        <GovClerkAiSection />
+        <GovClerkRolesSection />
+        <GovClerkIntegrationsSection />
+        <GovClerkComplianceSection />
+        <GovClerkTestimonialsSection />
+        <GovClerkFaqSection />
+        <GovClerkCtaSection />
       </div>
 
-      <ClerkDirectFooter />
+      <GovClerkFooter />
     </div>
   );
 }

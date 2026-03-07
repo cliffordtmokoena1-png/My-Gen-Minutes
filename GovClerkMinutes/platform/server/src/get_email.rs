@@ -12,10 +12,10 @@ fn get_clerk_secret_key(clerk_test_mode: bool) -> String {
   }
 }
 
-fn get_clerkdirect_secret_key(clerk_test_mode: bool) -> Option<String> {
+fn get_GovClerk_secret_key(clerk_test_mode: bool) -> Option<String> {
   match clerk_test_mode {
-    true => env::var("CLERKDIRECT_TEST_SECRET_KEY").ok(),
-    false => env::var("CLERKDIRECT_SECRET_KEY").ok(),
+    true => env::var("GovClerk_TEST_SECRET_KEY").ok(),
+    false => env::var("GovClerk_SECRET_KEY").ok(),
   }
 }
 
@@ -84,7 +84,7 @@ async fn try_get_primary_email_with_key(
 pub async fn get_primary_email(user_id: &str, state: Arc<SharedRequestState>) -> Result<String> {
   let http_client = Client::new();
   let mg_token = get_clerk_secret_key(state.options.clerk_test_mode);
-  let cd_token = get_clerkdirect_secret_key(state.options.clerk_test_mode);
+  let cd_token = get_GovClerk_secret_key(state.options.clerk_test_mode);
 
   let mg_future = try_get_primary_email_with_key(user_id, &mg_token, &http_client);
 

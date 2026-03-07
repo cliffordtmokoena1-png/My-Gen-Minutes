@@ -39,7 +39,7 @@ function AccordionItem({ question, answer }: FaqItem) {
   );
 }
 
-export default function ClerkDirectFaqSection() {
+export default function GovClerkFaqSection() {
   return (
     <section className="bg-gray-50 py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-6">

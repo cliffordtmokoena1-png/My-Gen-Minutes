@@ -10,7 +10,7 @@ type Props = {
   features: FeatureBlock[];
 };
 
-export default function ClerkDirectFeatureDetailSection({ features }: Props) {
+export default function GovClerkFeatureDetailSection({ features }: Props) {
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">

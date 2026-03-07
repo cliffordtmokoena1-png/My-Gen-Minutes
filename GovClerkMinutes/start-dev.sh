@@ -89,7 +89,7 @@ echo -e "${GREEN}[start-dev]${NC} All services starting. Press Ctrl+C to stop al
 echo -e "${GREEN}[start-dev]${NC} Services (with file watchers):"
 echo -e "  ${MAGENTA}• RTMP${NC}    - Docker Compose (no watcher)"
 echo -e "  ${CYAN}• Sophon${NC}  - http://localhost:3000 (watches platform/sophon/**)"
-echo -e "  ${BLUE}• Next.js${NC} - http://localhost:3223 (clerkdirect, built-in HMR)"
+echo -e "  ${BLUE}• Next.js${NC} - http://localhost:3223 (GovClerk, built-in HMR)"
 echo -e "  ${YELLOW}• Caddy${NC}   - http://localhost:3224 (GovClerkMinutes proxy)"
 echo -e "  ${GREEN}• Rust${NC}    - cargo watch (watches platform/server/**)"
 echo ""

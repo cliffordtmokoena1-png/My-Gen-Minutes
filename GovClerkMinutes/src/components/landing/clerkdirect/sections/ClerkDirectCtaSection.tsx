@@ -2,7 +2,7 @@ import Link from "next/link";
 import FadeContent from "../../../reactbits/FadeContent";
 import DotPattern from "../DotPattern";
 
-export default function ClerkDirectCtaSection() {
+export default function GovClerkCtaSection() {
   return (
     <section className="relative bg-gradient-to-r from-cd-blue to-cd-blue-dark py-16 md:py-24">
       <DotPattern dotColor="rgba(255,255,255,0.15)" fadeFrom="center" />
@@ -14,14 +14,14 @@ export default function ClerkDirectCtaSection() {
             </h2>
             <p className="max-w-xl text-base leading-relaxed text-white/80 md:text-lg">
               Join government bodies, school boards, and nonprofit organizations that trust
-              ClerkDirect to automate their meeting workflows.
+              GovClerk to automate their meeting workflows.
             </p>
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-4">
               <a
                 href="#hero-form"
                 className="rounded-lg bg-white px-10 py-3 text-base font-semibold text-cd-blue transition-all hover:bg-gray-100 hover:text-cd-blue-dark"
               >
-                See ClerkDirect in Action
+                See GovClerk in Action
               </a>
               <Link
                 href="/overview"

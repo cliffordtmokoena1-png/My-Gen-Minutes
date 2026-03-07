@@ -23,7 +23,7 @@ const aiFeatures = [
   },
 ];
 
-export default function ClerkDirectAiSection() {
+export default function GovClerkAiSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-cd-blue to-cd-blue-dark py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -38,7 +38,7 @@ export default function ClerkDirectAiSection() {
                 AI That Understands Your Meetings
               </h2>
               <p className="max-w-lg text-base leading-relaxed text-white/75 md:text-lg">
-                ClerkDirect uses purpose-built language models trained on government proceedings,
+                GovClerk uses purpose-built language models trained on government proceedings,
                 parliamentary procedure, and public meeting formats to deliver accurate, compliant
                 outputs every time.
               </p>
@@ -68,7 +68,7 @@ export default function ClerkDirectAiSection() {
             <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
               <Image
                 src="https://picsum.photos/700/500?random=40"
-                alt="ClerkDirect AI transcription and minutes generation interface"
+                alt="GovClerk AI transcription and minutes generation interface"
                 width={700}
                 height={500}
                 className="h-auto w-full"

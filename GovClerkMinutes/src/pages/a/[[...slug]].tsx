@@ -12,7 +12,7 @@ import { getCountry } from "../api/get-country";
 import { ApiGetCustomerDetailsResponse, getCustomerDetails } from "../api/get-customer-details";
 import { isDev } from "@/utils/dev";
 import { withGsspErrorHandling } from "@/error/withErrorReporting";
-import { getSiteFromRequest, isClerkDirect } from "@/utils/site";
+import { getSiteFromRequest, isGovClerk } from "@/utils/site";
 import whatsapp from "@/admin/whatsapp/api";
 import { Template } from "@/admin/whatsapp/api/templates";
 import BoardContent from "@/components/org-dashboard/content/BoardContent";
@@ -106,7 +106,7 @@ export const getServerSideProps = withGsspErrorHandling(async (context) => {
   if (!orgId) {
     return {
       redirect: {
-        destination: isClerkDirect(site) ? "/org/signup" : "/dashboard",
+        destination: isGovClerk(site) ? "/org/signup" : "/dashboard",
         permanent: false,
       },
     };

@@ -40,7 +40,7 @@ const steps: StepItem[] = [
   },
 ];
 
-export default function ClerkDirectHowItWorksSection() {
+export default function GovClerkHowItWorksSection() {
   const [activeTabIndex, setActiveTabIndex] = useState(0);
   const [autoSwitchKey, setAutoSwitchKey] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -67,7 +67,7 @@ export default function ClerkDirectHowItWorksSection() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-16 text-center md:mb-20">
             <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
-              How ClerkDirect Works
+              How GovClerk Works
             </h2>
             <p className="mx-auto mt-5 max-w-2xl text-base text-gray-500 md:text-lg">
               Four simple steps to transform your meeting workflow.
@@ -85,7 +85,7 @@ export default function ClerkDirectHowItWorksSection() {
               <div
                 className="flex gap-10 border-b border-gray-200"
                 role="tablist"
-                aria-label="How ClerkDirect works steps"
+                aria-label="How GovClerk works steps"
               >
                 {steps.map((step, tabIndex) => {
                   const isActive = tabIndex === activeTabIndex;

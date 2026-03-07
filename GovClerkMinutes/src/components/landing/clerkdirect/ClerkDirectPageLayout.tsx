@@ -1,19 +1,19 @@
 import { ReactNode } from "react";
-import ClerkDirectNavBar from "./ClerkDirectNavBar";
-import ClerkDirectFooter from "./ClerkDirectFooter";
-import ClerkDirectAnnouncementBar from "./ClerkDirectAnnouncementBar";
+import GovClerkNavBar from "./GovClerkNavBar";
+import GovClerkFooter from "./GovClerkFooter";
+import GovClerkAnnouncementBar from "./GovClerkAnnouncementBar";
 
 type Props = {
   children: ReactNode;
 };
 
-export default function ClerkDirectPageLayout({ children }: Props) {
+export default function GovClerkPageLayout({ children }: Props) {
   return (
     <div className="relative min-h-screen">
-      <ClerkDirectAnnouncementBar />
-      <ClerkDirectNavBar />
+      <GovClerkAnnouncementBar />
+      <GovClerkNavBar />
       <div className="flex flex-col">{children}</div>
-      <ClerkDirectFooter />
+      <GovClerkFooter />
     </div>
   );
 }

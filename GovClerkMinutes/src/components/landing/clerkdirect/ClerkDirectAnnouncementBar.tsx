@@ -1,19 +1,19 @@
 import { LuArrowRight } from "react-icons/lu";
 
-export const CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT = 40;
+export const GovClerk_ANNOUNCEMENT_BAR_HEIGHT = 40;
 
-export default function ClerkDirectAnnouncementBar() {
+export default function GovClerkAnnouncementBar() {
   return (
     <div
       className="fixed top-0 left-0 right-0 z-[101] flex items-center bg-cd-blue px-4 text-white sm:px-6"
-      style={{ height: `${CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT}px` }}
+      style={{ height: `${GovClerk_ANNOUNCEMENT_BAR_HEIGHT}px` }}
     >
       <div className="mx-auto w-full max-w-7xl overflow-hidden">
         <div className="flex items-center justify-center gap-2">
           <p className="truncate text-xs font-medium sm:text-sm">
-            <span className="sm:hidden">ClerkDirect: AI meeting management for government.</span>
+            <span className="sm:hidden">GovClerk: AI meeting management for government.</span>
             <span className="hidden sm:inline">
-              Introducing ClerkDirect: AI-powered meeting management for government organizations.
+              Introducing GovClerk: AI-powered meeting management for government organizations.
             </span>
           </p>
           <a

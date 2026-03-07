@@ -8,7 +8,7 @@ import { hideBin } from "yargs/helpers";
 type PropertyName = "isEnterprise";
 
 const BOOLEAN_PROPERTIES: PropertyName[] = ["isEnterprise"];
-const VALID_SITES: Site[] = ["GovClerkMinutes", "clerkdirect"];
+const VALID_SITES: Site[] = ["GovClerkMinutes", "GovClerk"];
 
 function isEmail(input: string): boolean {
   return input.includes("@");

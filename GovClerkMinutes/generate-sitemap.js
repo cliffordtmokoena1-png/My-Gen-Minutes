@@ -4,7 +4,7 @@ const path = require("path");
 const POSTS_PATH = path.join(process.cwd(), "src", "blog", "posts");
 const CONFIG_PATH = path.join(process.cwd(), "src", "components", "landing", "pseo", "config.ts");
 const SITEMAP_PATH = path.join(process.cwd(), "public", "sitemap.xml");
-const CD_SITEMAP_PATH = path.join(process.cwd(), "public", "clerkdirect-sitemap.xml");
+const CD_SITEMAP_PATH = path.join(process.cwd(), "public", "GovClerk-sitemap.xml");
 
 function getAllBlogPostSlugs() {
   const slugs = fs.readdirSync(POSTS_PATH);
@@ -71,7 +71,7 @@ function generateSiteMap() {
   const cdXml = `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
-       <loc>https://clerkdirect.com</loc>
+       <loc>https://GovClerk.com</loc>
      </url>
    </urlset>
  `;

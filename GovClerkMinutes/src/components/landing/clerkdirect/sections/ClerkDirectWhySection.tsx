@@ -17,14 +17,14 @@ const advantages = [
   "Smart templates that match your organization's format",
 ];
 
-export default function ClerkDirectWhySection() {
+export default function GovClerkWhySection() {
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-cd-blue">
-              Why ClerkDirect
+              Why GovClerk
             </p>
             <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
               Stop Struggling With Outdated Meeting Workflows
@@ -35,7 +35,7 @@ export default function ClerkDirectWhySection() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
           <FadeContent direction="up" duration={0.5} delay={0.1}>
             <div className="rounded-2xl border border-red-100 bg-red-50/50 p-8">
-              <h3 className="mb-6 text-lg font-semibold text-red-800">Without ClerkDirect</h3>
+              <h3 className="mb-6 text-lg font-semibold text-red-800">Without GovClerk</h3>
               <ul className="space-y-4">
                 {frustrations.map((item) => (
                   <li key={item} className="flex items-start gap-3">
@@ -49,7 +49,7 @@ export default function ClerkDirectWhySection() {
 
           <FadeContent direction="up" duration={0.5} delay={0.2}>
             <div className="rounded-2xl border border-green-100 bg-green-50/50 p-8">
-              <h3 className="mb-6 text-lg font-semibold text-green-800">With ClerkDirect</h3>
+              <h3 className="mb-6 text-lg font-semibold text-green-800">With GovClerk</h3>
               <ul className="space-y-4">
                 {advantages.map((item) => (
                   <li key={item} className="flex items-start gap-3">

@@ -8,13 +8,13 @@ type Props = {
   noindex?: boolean;
 };
 
-export default function ClerkDirectHead({ title, description, canonical, noindex }: Props) {
-  const defaultTitle = "ClerkDirect | AI-Powered Meeting Management for Government & Organizations";
+export default function GovClerkHead({ title, description, canonical, noindex }: Props) {
+  const defaultTitle = "GovClerk | AI-Powered Meeting Management for Government & Organizations";
   const defaultDescription =
     "Automate agendas, meeting minutes, transcription, and public records for government bodies, school boards, and organizations. AI-powered meeting management that saves hours on every meeting.";
   const resolvedTitle = title || defaultTitle;
   const resolvedDescription = description || defaultDescription;
-  const resolvedCanonical = canonical || "https://clerkdirect.com/";
+  const resolvedCanonical = canonical || "https://GovClerk.com/";
   const ogImageUrl = "https://picsum.photos/1200/630?random=cd-og";
 
   const faqJsonLd = {
@@ -33,10 +33,10 @@ export default function ClerkDirectHead({ title, description, canonical, noindex
   const softwareJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "ClerkDirect",
+    name: "GovClerk",
     applicationCategory: "BusinessApplication",
     description: resolvedDescription,
-    url: "https://clerkdirect.com",
+    url: "https://GovClerk.com",
     offers: {
       "@type": "Offer",
       price: "0",
@@ -49,16 +49,16 @@ export default function ClerkDirectHead({ title, description, canonical, noindex
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "ClerkDirect",
-    url: "https://clerkdirect.com",
-    logo: "https://clerkdirect.com/clerkdirect-icon.svg",
+    name: "GovClerk",
+    url: "https://GovClerk.com",
+    logo: "https://GovClerk.com/GovClerk-icon.svg",
     description:
       "AI-powered meeting management platform for government bodies, school boards, and public organizations.",
-    sameAs: ["https://linkedin.com/company/clerkdirect", "https://twitter.com/clerkdirect"],
+    sameAs: ["https://linkedin.com/company/GovClerk", "https://twitter.com/GovClerk"],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "sales",
-      url: "https://clerkdirect.com/",
+      url: "https://GovClerk.com/",
     },
   };
 
@@ -68,7 +68,7 @@ export default function ClerkDirectHead({ title, description, canonical, noindex
       {noindex && <meta name="robots" content="noindex" />}
       <meta charSet="UTF-8" />
 
-      <link rel="icon" href="/clerkdirect-icon.svg" type="image/svg+xml" />
+      <link rel="icon" href="/GovClerk-icon.svg" type="image/svg+xml" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="canonical" href={resolvedCanonical} />
 
@@ -76,9 +76,9 @@ export default function ClerkDirectHead({ title, description, canonical, noindex
       <meta name="description" content={resolvedDescription} />
       <meta
         name="keywords"
-        content="government meeting management software, AI meeting minutes, agenda management, board meeting software, municipal meeting minutes, public meeting portal, meeting transcription software, ClerkDirect, open meeting compliance"
+        content="government meeting management software, AI meeting minutes, agenda management, board meeting software, municipal meeting minutes, public meeting portal, meeting transcription software, GovClerk, open meeting compliance"
       />
-      <meta name="author" content="ClerkDirect" />
+      <meta name="author" content="GovClerk" />
 
       <meta property="og:type" content="website" />
       <meta property="og:url" content={resolvedCanonical} />
@@ -87,7 +87,7 @@ export default function ClerkDirectHead({ title, description, canonical, noindex
       <meta property="og:image" content={ogImageUrl} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="ClerkDirect" />
+      <meta property="og:site_name" content="GovClerk" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={resolvedCanonical} />

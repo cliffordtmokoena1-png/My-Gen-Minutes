@@ -8,7 +8,7 @@ import type { Site } from "@/utils/site";
 
 dotenv.config();
 
-const VALID_SITES: Site[] = ["GovClerkMinutes", "clerkdirect"];
+const VALID_SITES: Site[] = ["GovClerkMinutes", "GovClerk"];
 
 async function fetchAllUserEmails(isDev: boolean, site: Site) {
   const keys = getClerkKeysFromEnv(isDev ? "dev" : "prod", site);

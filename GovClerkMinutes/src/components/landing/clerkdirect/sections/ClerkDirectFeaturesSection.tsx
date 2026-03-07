@@ -57,7 +57,7 @@ const bottomFeatures: BottomFeature[] = [
   },
 ];
 
-export default function ClerkDirectFeaturesSection() {
+export default function GovClerkFeaturesSection() {
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -67,7 +67,7 @@ export default function ClerkDirectFeaturesSection() {
               Everything You Need to Run Better Meetings
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-              From agenda creation to public records, ClerkDirect streamlines every step of the
+              From agenda creation to public records, GovClerk streamlines every step of the
               meeting lifecycle.
             </p>
           </div>

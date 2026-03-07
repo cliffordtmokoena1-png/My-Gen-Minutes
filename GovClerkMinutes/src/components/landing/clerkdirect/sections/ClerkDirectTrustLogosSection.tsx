@@ -13,7 +13,7 @@ const trustedOrgs = [
   { name: "San Jose Water District", initials: "SJ" },
 ];
 
-export default function ClerkDirectTrustLogosSection() {
+export default function GovClerkTrustLogosSection() {
   return (
     <section className="border-y border-gray-100 bg-gray-50/60 py-8 md:py-10">
       <div className="mx-auto max-w-7xl px-6">

@@ -22,13 +22,13 @@ const testimonials: Testimonial[] = [
     name: "Sarah Mitchell, CMC",
     role: "City Clerk",
     organization: "City of Oakridge, OR",
-    text: "ClerkDirect cut our minutes preparation time by 80%. What used to take two full days now takes less than an hour. The AI accuracy is remarkable, and our council members love having searchable transcripts.",
+    text: "GovClerk cut our minutes preparation time by 80%. What used to take two full days now takes less than an hour. The AI accuracy is remarkable, and our council members love having searchable transcripts.",
   },
   {
     name: "James Thornton",
     role: "Board Secretary",
     organization: "Maplewood Unified School District",
-    text: "We needed a solution that met open meeting compliance requirements out of the box. ClerkDirect delivers that and more. The public portal alone saved us from three separate software subscriptions.",
+    text: "We needed a solution that met open meeting compliance requirements out of the box. GovClerk delivers that and more. The public portal alone saved us from three separate software subscriptions.",
   },
   {
     name: "Patricia Nguyen",
@@ -75,7 +75,7 @@ function StarRating() {
   );
 }
 
-export default function ClerkDirectTestimonialsSection() {
+export default function GovClerkTestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -91,7 +91,7 @@ export default function ClerkDirectTestimonialsSection() {
             Trusted by Organizations Across the Country
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
-            See what clerks, administrators, and board secretaries are saying about ClerkDirect.
+            See what clerks, administrators, and board secretaries are saying about GovClerk.
           </p>
         </FadeContent>
       </div>

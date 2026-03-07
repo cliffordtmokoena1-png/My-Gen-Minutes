@@ -23,7 +23,7 @@ import {
   LuHeart,
   LuLandmark,
 } from "react-icons/lu";
-import { CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT } from "./ClerkDirectAnnouncementBar";
+import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "./GovClerkAnnouncementBar";
 
 type MegaMenuItem = {
   icon: typeof LuCalendar;
@@ -144,7 +144,7 @@ const resourceItems: MegaMenuItem[] = [
     icon: LuMessageSquare,
     title: "Contact Us",
     description: "Get in touch with our team for questions or support",
-    href: "mailto:support@clerkdirect.com",
+    href: "mailto:support@GovClerk.com",
   },
 ];
 
@@ -285,7 +285,7 @@ function BentoMenuPanel({ items, dropdownKey }: BentoMenuPanelProps) {
   );
 }
 
-export default function ClerkDirectNavBar() {
+export default function GovClerkNavBar() {
   const { isLoaded, userId } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -333,7 +333,7 @@ export default function ClerkDirectNavBar() {
     };
   }, []);
 
-  const navTopOffset = CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT;
+  const navTopOffset = GovClerk_ANNOUNCEMENT_BAR_HEIGHT;
 
   return (
     <>
@@ -355,8 +355,8 @@ export default function ClerkDirectNavBar() {
                 className="flex items-center gap-2 transition-transform hover:scale-[1.02]"
               >
                 <Image
-                  src="/clerkdirect-logo.svg"
-                  alt="ClerkDirect"
+                  src="/GovClerk-logo.svg"
+                  alt="GovClerk"
                   width={128}
                   height={32}
                   className="h-8 w-auto"
@@ -489,8 +489,8 @@ export default function ClerkDirectNavBar() {
         <div className="flex h-16 items-center justify-between border-b border-gray-100 px-6">
           <Link href="/" className="flex items-center" onClick={handleClose}>
             <Image
-              src="/clerkdirect-logo.svg"
-              alt="ClerkDirect"
+              src="/GovClerk-logo.svg"
+              alt="GovClerk"
               width={128}
               height={32}
               className="h-8 w-auto"

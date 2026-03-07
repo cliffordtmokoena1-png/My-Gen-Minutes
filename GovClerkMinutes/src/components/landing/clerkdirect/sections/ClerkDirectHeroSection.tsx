@@ -1,15 +1,15 @@
 import Image from "next/image";
 import QuoteRequestForm from "../../QuoteRequestForm";
-import { CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT } from "../ClerkDirectAnnouncementBar";
+import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "../GovClerkAnnouncementBar";
 import DotPattern from "../DotPattern";
 
-export default function ClerkDirectHeroSection() {
+export default function GovClerkHeroSection() {
   return (
     <section
       id="hero-form"
       className="relative flex min-h-screen items-center bg-white"
       style={{
-        paddingTop: `${CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT + 80}px`,
+        paddingTop: `${GovClerk_ANNOUNCEMENT_BAR_HEIGHT + 80}px`,
         paddingBottom: "4rem",
       }}
     >
@@ -28,7 +28,7 @@ export default function ClerkDirectHeroSection() {
               Automate Agendas, Minutes &amp; Transcription for Your Organization
             </h1>
             <p className="text-base leading-relaxed text-gray-600">
-              ClerkDirect transforms how government bodies, boards, and committees manage meetings,
+              GovClerk transforms how government bodies, boards, and committees manage meetings,
               from agenda creation and real-time transcription to AI-generated minutes and public
               record portals.
             </p>
@@ -37,7 +37,7 @@ export default function ClerkDirectHeroSection() {
           <QuoteRequestForm
             country="US"
             heading="Book a Demo"
-            subtext="See how ClerkDirect can save your organization hours on every meeting. Fill out the form and our team will schedule a personalized walkthrough."
+            subtext="See how GovClerk can save your organization hours on every meeting. Fill out the form and our team will schedule a personalized walkthrough."
             buttonText="REQUEST DEMO"
             successTitle="Demo request received!"
             successMessage="Our team will reach out within one business day to schedule your demo."
@@ -47,7 +47,7 @@ export default function ClerkDirectHeroSection() {
           <div className="w-full overflow-hidden rounded-xl border border-gray-200 shadow-lg">
             <Image
               src="https://picsum.photos/800/500?random=20"
-              alt="ClerkDirect meeting management platform dashboard showing agenda builder and AI-generated minutes"
+              alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
               width={800}
               height={500}
               className="h-auto w-full"
@@ -68,7 +68,7 @@ export default function ClerkDirectHeroSection() {
               Automate Agendas, Minutes &amp; Transcription for Your Organization
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-gray-600 lg:text-xl">
-              ClerkDirect transforms how government bodies, boards, and committees manage meetings,
+              GovClerk transforms how government bodies, boards, and committees manage meetings,
               from agenda creation and real-time transcription to AI-generated minutes and public
               record portals.
             </p>
@@ -76,7 +76,7 @@ export default function ClerkDirectHeroSection() {
             <div className="mt-4 w-full overflow-hidden rounded-xl border border-gray-200 shadow-xl">
               <Image
                 src="https://picsum.photos/900/550?random=20"
-                alt="ClerkDirect meeting management platform dashboard showing agenda builder and AI-generated minutes"
+                alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
                 width={900}
                 height={550}
                 className="h-auto w-full"
@@ -84,11 +84,11 @@ export default function ClerkDirectHeroSection() {
             </div>
           </div>
 
-          <div className="sticky" style={{ top: `${CLERKDIRECT_ANNOUNCEMENT_BAR_HEIGHT + 80}px` }}>
+          <div className="sticky" style={{ top: `${GovClerk_ANNOUNCEMENT_BAR_HEIGHT + 80}px` }}>
             <QuoteRequestForm
               country="US"
               heading="Book a Demo"
-              subtext="See how ClerkDirect can save your organization hours on every meeting. Fill out the form and our team will schedule a personalized walkthrough."
+              subtext="See how GovClerk can save your organization hours on every meeting. Fill out the form and our team will schedule a personalized walkthrough."
               buttonText="REQUEST DEMO"
               successTitle="Demo request received!"
               successMessage="Our team will reach out within one business day to schedule your demo."

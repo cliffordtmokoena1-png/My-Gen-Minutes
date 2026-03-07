@@ -15,7 +15,7 @@ const stats: StatItem[] = [
   { to: 1, suffix: " Day", prefix: "<", label: "Average Setup Time" },
 ];
 
-export default function ClerkDirectStatsSection() {
+export default function GovClerkStatsSection() {
   return (
     <section className="border-y border-gray-100 bg-gray-50 py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">

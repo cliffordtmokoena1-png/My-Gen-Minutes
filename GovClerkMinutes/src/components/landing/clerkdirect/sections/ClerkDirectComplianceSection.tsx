@@ -27,7 +27,7 @@ const badges = [
   },
 ];
 
-export default function ClerkDirectComplianceSection() {
+export default function GovClerkComplianceSection() {
   return (
     <section className="bg-gray-50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -40,7 +40,7 @@ export default function ClerkDirectComplianceSection() {
               Built for Public Sector Standards
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
-              ClerkDirect meets the security and accessibility requirements that government
+              GovClerk meets the security and accessibility requirements that government
               organizations demand. Your data is protected at every level.
             </p>
           </div>

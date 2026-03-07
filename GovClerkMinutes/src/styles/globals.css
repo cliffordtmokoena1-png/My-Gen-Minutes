@@ -52,7 +52,7 @@
   --color-orange-900: #7d2c11;
   --color-orange-950: #441406;
 
-  /* ClerkDirect color palette */
+  /* GovClerk color palette */
   --color-cd-blue: #1e40af;
   --color-cd-blue-dark: #1e3a8a;
   --color-cd-orange: #f97316;
@@ -266,7 +266,7 @@ html.intercom-mobile-messenger-active:not(#nonexistent) {
   cursor: pointer;
 }
 
-/* ClerkDirect mega menu fade-in */
+/* GovClerk mega menu fade-in */
 @keyframes megaFadeIn {
   from {
     opacity: 0;
@@ -278,7 +278,7 @@ html.intercom-mobile-messenger-active:not(#nonexistent) {
   }
 }
 
-/* ClerkDirect testimonials scroll */
+/* GovClerk testimonials scroll */
 @keyframes cdScrollTestimonials {
   0% {
     transform: translateX(0);

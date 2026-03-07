@@ -7,7 +7,7 @@ const roles = [
     icon: LuClipboardList,
     title: "City & County Clerks",
     description:
-      "Eliminate hours of manual transcription. ClerkDirect auto-generates minutes from recordings, tracks motions and votes, and publishes records to your public portal in the format your jurisdiction requires.",
+      "Eliminate hours of manual transcription. GovClerk auto-generates minutes from recordings, tracks motions and votes, and publishes records to your public portal in the format your jurisdiction requires.",
     image: "https://picsum.photos/600/400?random=30",
     stats: "80% less time on minutes preparation",
   },
@@ -29,7 +29,7 @@ const roles = [
   },
 ];
 
-export default function ClerkDirectRolesSection() {
+export default function GovClerkRolesSection() {
   return (
     <section className="bg-gray-50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
@@ -43,7 +43,7 @@ export default function ClerkDirectRolesSection() {
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
               Whether you manage the minutes, oversee the board, or run the IT infrastructure,
-              ClerkDirect fits your workflow.
+              GovClerk fits your workflow.
             </p>
           </div>
         </FadeContent>
@@ -72,7 +72,7 @@ export default function ClerkDirectRolesSection() {
                   <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
                     <Image
                       src={role.image}
-                      alt={`${role.title} using ClerkDirect`}
+                      alt={`${role.title} using GovClerk`}
                       width={600}
                       height={400}
                       className="h-auto w-full"
