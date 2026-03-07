@@ -23,7 +23,7 @@ import {
   LuHeart,
   LuLandmark,
 } from "react-icons/lu";
-import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "./sections/GovClerkAnnouncementBar";
+import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "./GovClerkAnnouncementBar";
 
 type MegaMenuItem = {
   icon: typeof LuCalendar;
