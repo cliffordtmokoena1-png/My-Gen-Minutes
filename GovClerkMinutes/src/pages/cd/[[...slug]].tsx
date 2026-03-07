@@ -1,19 +1,19 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import GovClerkLandingPage from "@/components/landing/GovClerk/GovClerkLandingPage";
-import GovClerkPageLayout from "@/components/landing/GovClerk/GovClerkPageLayout";
-import GovClerkHead from "@/components/landing/GovClerk/GovClerkHead";
+// These lines are updated to match your actual file names
+import GovClerkLandingPage from "@/components/landing/GovClerk/ClerkDirectLandingPage";
+import GovClerkPageLayout from "@/components/landing/GovClerk/ClerkDirectPageLayout";
+import GovClerkHead from "@/components/landing/GovClerk/ClerkDirectHead";
 import GovClerkSubPageHero from "@/components/landing/GovClerk/templates/GovClerkSubPageHero";
 import GovClerkFeatureDetailSection from "@/components/landing/GovClerk/templates/GovClerkFeatureDetailSection";
+// These names should be checked against your 'sections' and 'GovClerkPages' files
 import GovClerkCtaSection from "@/components/landing/GovClerk/sections/GovClerkCtaSection";
-import { findPageBySlug } from "@/components/landing/GovClerk/GovClerkPages";
+import { findPageBySlug } from "@/components/landing/GovClerk/clerkDirectPages";
 
 export default function GovClerkCatchAll() {
   const router = useRouter();
   const slugParts = router.query.slug;
 
-  // Render the layout shell while the router hydrates so the page
-  // reserves its full height and avoids a CLS flash.
   if (!router.isReady) {
     return (
       <GovClerkPageLayout>
