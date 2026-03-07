@@ -196,7 +196,7 @@ async fn handle_paywall_abandonment_email(
     .exec(
       "
       SELECT COUNT(*) as count
-      FROM mg_emails
+      FROM GC_emails
       WHERE user_id = :user_id
       AND campaign = 'paywall_abandonment'
       ",
@@ -219,7 +219,7 @@ async fn handle_paywall_abandonment_email(
   let email = get_primary_email(&user_id, state.clone()).await?;
 
   "
-  INSERT INTO mg_emails (should_email, email, campaign, user_id, transcript_id)
+  INSERT INTO GC_emails (should_email, email, campaign, user_id, transcript_id)
   VALUES (1, :email, 'paywall_abandonment', :user_id, :transcript_id)
   "
   .with(params! {
@@ -234,7 +234,7 @@ async fn handle_paywall_abandonment_email(
 }
 
 #[derive(Clone)]
-pub struct MgSegmentsRow {
+pub struct GCSegmentsRow {
   pub transcript_id: u64,
   pub start: String,
   pub stop: String,
@@ -275,7 +275,7 @@ pub async fn run_post_speaker_segmentation(
   let previous_speakers = fetch_previous_speakers(&mut conn, &user_id, transcript_id).await?;
 
   // Only use holder-based text filling for non-Scribe strategies
-  let orphaned_rows: Vec<MgSegmentsRow> = if include_text {
+  let orphaned_rows: Vec<GCSegmentsRow> = if include_text {
     Vec::new()
   } else {
     fill_text_and_collect_orphans(

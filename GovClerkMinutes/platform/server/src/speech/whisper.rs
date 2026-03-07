@@ -154,7 +154,7 @@ async fn send_groq_request(
           error!("Groq: failed to set mime type: {:?}", groq_err);
           return WhisperRequestError::Fatal;
         })?
-        .file_name("mg_audio.wav"),
+        .file_name("GC_audio.wav"),
     );
 
   let response = http_client
@@ -214,7 +214,7 @@ async fn send_openai_request(
           error!("OpenAI: failed to set mime type: {:?}", openai_err);
           return WhisperRequestError::Fatal;
         })?
-        .file_name("mg_audio.wav"),
+        .file_name("GC_audio.wav"),
     );
 
   let response = http_client

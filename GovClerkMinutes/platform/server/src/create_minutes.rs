@@ -4,7 +4,7 @@ use crate::pandoc;
 use crate::{
   error::LogError,
   get_current_balance::get_current_balance,
-  html::remove_img_tags,
+  html::remove_iGC_tags,
   make_pipeline,
   minutes::{
     pipeline::Ctx,
@@ -13,7 +13,7 @@ use crate::{
       meeting_notes::MeetingNotesStep, oracle_feedback::OracleFeedbackStep,
     },
   },
-  GovClerkMinutes_webhook::{send_request, MgWebhookEvent},
+  GovClerkMinutes_webhook::{send_request, GCWebhookEvent},
   posthog::PostHogEventType,
   s3::get_object,
   span_timer::{SpanTimer, TimeSpanEvent},
@@ -515,7 +515,7 @@ pub async fn create_minutes_fast(
 
   info!("create_minutes_fast: transcript_id={}", transcript_id);
 
-  // Check for the mg-finetuned feature flag
+  // Check for the GC-finetuned feature flag
   if let Ok(true) = crate::posthog::check_feature_flag(user_id, "mg-finetuned").await {
     info!(
       "Using finetuned model for transcript_id={} (mg-finetuned flag enabled)",

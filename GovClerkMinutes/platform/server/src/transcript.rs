@@ -84,7 +84,7 @@ impl Transcript {
     transcript_id: u64,
     fast_mode: bool,
   ) -> anyhow::Result<Transcript> {
-    let segments = r"SELECT start, stop, speaker, transcript FROM mg_segments WHERE transcript_id = :transcript_id AND fast_mode = :fast_mode ORDER BY CAST(start AS TIME);"
+    let segments = r"SELECT start, stop, speaker, transcript FROM GC_segments WHERE transcript_id = :transcript_id AND fast_mode = :fast_mode ORDER BY CAST(start AS TIME);"
       .with(params! {
         "transcript_id" => transcript_id,
         "fast_mode" => fast_mode,

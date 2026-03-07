@@ -203,7 +203,7 @@ pub async fn process_custom_template_handler(
     }
   };
 
-  // Insert into mg_templating table
+  // Insert into GC_templating table
   let mut conn = state
     .db
     .get_conn()
@@ -221,7 +221,7 @@ pub async fn process_custom_template_handler(
   conn
     .exec_drop(
       "
-      INSERT INTO mg_templating (
+      INSERT INTO GC_templating (
         template_id,
         user_id,
         is_default,
@@ -255,11 +255,11 @@ pub async fn process_custom_template_handler(
       StatusCode::INTERNAL_SERVER_ERROR
     })?;
 
-  // Auto-select the new template by updating mg_settings
+  // Auto-select the new template by updating GC_settings
   conn
     .exec_drop(
       "
-      INSERT INTO mg_settings (user_id, setting_key, setting_value)
+      INSERT INTO GC_settings (user_id, setting_key, setting_value)
       VALUES (?, ?, ?)
       ON DUPLICATE KEY UPDATE
         setting_value = VALUES(setting_value),

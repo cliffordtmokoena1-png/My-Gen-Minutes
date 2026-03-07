@@ -61,7 +61,7 @@ fn try_decode_with_env_var(token: &str, env_var: &str) -> Option<User> {
 
 /// Core JWT authentication using Clerk public key. Returns the authenticated user id on success.
 pub fn authenticate_bearer_token(token: &str) -> Result<User, StatusCode> {
-  // Try all known Clerk JWT public keys (MG prod, MG test, ClerkDirect prod, ClerkDirect test)
+  // Try all known Clerk JWT public keys (GC prod, GC test, ClerkDirect prod, ClerkDirect test)
   let env_vars = [
     "CLERK_JWT_PUBLIC_KEY",
     "CLERK_TEST_JWT_PUBLIC_KEY",

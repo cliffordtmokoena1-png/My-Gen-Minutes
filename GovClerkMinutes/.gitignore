@@ -1,6 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-/mg_transcript_*
+/gc_transcript_*
 
 # rust tests
 platform/server/.cached_test_assets/

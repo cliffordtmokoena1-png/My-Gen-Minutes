@@ -1,4 +1,4 @@
-use crate::get_diarization::MgSegmentsRow;
+use crate::get_diarization::GCSegmentsRow;
 use crate::SharedRequestState;
 use mysql_async::{prelude::Queryable, Conn, Error, Value};
 use std::sync::Arc;

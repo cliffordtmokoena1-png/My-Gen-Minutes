@@ -1,11 +1,11 @@
 use mysql_async::{prelude::Queryable, Conn};
 use tracing::{info, warn};
 
-/// Fetches the user's selected template from mg_templating table
+/// Fetches the user's selected template from GC_templating table
 ///
 /// Flow:
-/// 1. Check mg_settings for selected-template-id
-/// 2. Query mg_templating for that template (both user templates and default templates)
+/// 1. Check GC_settings for selected-template-id
+/// 2. Query GC_templating for that template (both user templates and default templates)
 /// 3. Return template content or None if default GovClerkMinutes template
 ///
 pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Result<Option<String>> {
@@ -14,7 +14,7 @@ pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Resu
   // Get selected template ID from settings
   let selected_template_id: Option<String> = conn
     .exec_first(
-      "SELECT setting_value FROM mg_settings WHERE user_id = ? AND setting_key = 'selected-template-id'",
+      "SELECT setting_value FROM GC_settings WHERE user_id = ? AND setting_key = 'selected-template-id'",
       (user_id,),
     )
     .await?
@@ -43,7 +43,7 @@ pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Resu
 
   let template_content: Option<String> = conn
     .exec_first(
-      "SELECT content FROM mg_templating 
+      "SELECT content FROM GC_templating 
        WHERE template_id = ? 
        AND (user_id = ? OR user_id IS NULL)
        LIMIT 1",
@@ -63,7 +63,7 @@ pub async fn get_custom_template(conn: &mut Conn, user_id: &str) -> anyhow::Resu
     }
     None => {
       warn!(
-        "Template {} not found for user {} in mg_templating table",
+        "Template {} not found for user {} in GC_templating table",
         template_id, user_id
       );
       Ok(None)
