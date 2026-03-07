@@ -1,19 +1,20 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-// These lines are updated to match your actual file names
-import GovClerkLandingPage from "@/components/landing/GovClerk/ClerkDirectLandingPage";
-import GovClerkPageLayout from "@/components/landing/GovClerk/ClerkDirectPageLayout";
-import GovClerkHead from "@/components/landing/GovClerk/ClerkDirectHead";
+
+// These imports are updated to match your actual folder: src/components/landing/GovClerk/
+import GovClerkLandingPage from "@/components/landing/GovClerk/GovClerkLandingPage";
+import GovClerkPageLayout from "@/components/landing/GovClerk/GovClerkPageLayout";
+import GovClerkHead from "@/components/landing/GovClerk/GovClerkHead";
 import GovClerkSubPageHero from "@/components/landing/GovClerk/templates/GovClerkSubPageHero";
 import GovClerkFeatureDetailSection from "@/components/landing/GovClerk/templates/GovClerkFeatureDetailSection";
-// These names should be checked against your 'sections' and 'GovClerkPages' files
 import GovClerkCtaSection from "@/components/landing/GovClerk/sections/GovClerkCtaSection";
-import { findPageBySlug } from "@/components/landing/GovClerk/clerkDirectPages";
+import { findPageBySlug } from "@/components/landing/GovClerk/GovClerkPages";
 
 export default function GovClerkCatchAll() {
   const router = useRouter();
   const slugParts = router.query.slug;
 
+  // Hydration check to prevent layout shift
   if (!router.isReady) {
     return (
       <GovClerkPageLayout>
@@ -22,6 +23,7 @@ export default function GovClerkCatchAll() {
     );
   }
 
+  // Handle the root /cd path
   if (!slugParts || slugParts.length === 0) {
     return <GovClerkLandingPage />;
   }
@@ -29,6 +31,7 @@ export default function GovClerkCatchAll() {
   const slug = Array.isArray(slugParts) ? slugParts.join("/") : slugParts;
   const pageData = findPageBySlug(slug);
 
+  // 404 Fallback
   if (!pageData) {
     return (
       <GovClerkPageLayout>
@@ -57,6 +60,7 @@ export default function GovClerkCatchAll() {
     );
   }
 
+  // Dynamic Page Rendering
   return (
     <GovClerkPageLayout>
       <GovClerkHead

@@ -16,6 +16,9 @@ import {
   SITE_HEADER,
 } from "./utils/site";
 
+// Force Edge Runtime to prevent Vercel from trying to use Node.js
+export const runtime = 'edge';
+
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
   "/profile(.*)",
@@ -70,15 +73,12 @@ function getCdLandingRewritePath(pathname: string): string | null {
 }
 
 function withSiteHeader(req: NextRequest, site: string, response?: NextResponse): NextResponse {
-  const requestHeaders = new Headers(req.headers);
-  requestHeaders.set(SITE_HEADER, site);
-
-  if (response) {
-    response.headers.set(SITE_HEADER, site);
-    return response;
-  }
-
-  return NextResponse.next({ request: { headers: requestHeaders } });
+  const res = response || NextResponse.next();
+  // Set the header on the response going to the browser
+  res.headers.set(SITE_HEADER, site);
+  // Set the header on the request so the app knows which site it is
+  req.headers.set(SITE_HEADER, site);
+  return res;
 }
 
 function buildClerkHandler(site: Site) {
@@ -118,7 +118,7 @@ function buildClerkHandler(site: Site) {
     if (isAdminRoute(req)) {
       const { sessionClaims } = await auth();
 
-      if (sessionClaims?.role !== "admin") {
+      if (sessionClaims?.metadata?.role !== "admin") {
         return NextResponse.redirect(new URL("/sign-in", req.url));
       }
 
@@ -136,7 +136,8 @@ function buildClerkHandler(site: Site) {
 function buildClerkMiddleware(site: Site) {
   const keys = getClerkKeys(site);
   return clerkMiddleware(buildClerkHandler(site), {
-    debug: isProd(),
+    // FIX: Only debug if NOT in production
+    debug: !isProd(),
     clockSkewInMs: 10 * 60 * 1000,
     publishableKey: keys.publishableKey,
     secretKey: keys.secretKey,
@@ -158,9 +159,7 @@ export default withMiddlewareErrorHandling(middleware);
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and all static files, unless found in search params
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
-    // Always run for API routes
     "/(api|trpc)(.*)",
   ],
 };
