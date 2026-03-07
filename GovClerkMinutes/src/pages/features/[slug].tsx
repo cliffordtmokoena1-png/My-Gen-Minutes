@@ -1,13 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Box, Container, Heading, Text, VStack, Icon, Grid } from "@chakra-ui/react";
 import { NavBar } from "@/components/landing/NavBar";
-import { CtaSection } from "@/components/landing/sections/CtaSection";
+import { CtaSection } from "@/components/landing/GovClerk/GovClerkCtaSection";
 import { Footer } from "@/components/landing/Footer";
 import { GradientBackground } from "@/components/GradientBackground";
 import MgHead from "@/components/MgHead";
-import { FaqSection } from "@/components/landing/sections/FaqSection";
+import { FaqSection } from "@/components/landing/GovClerk/GovClerkFaqSection";
 import { CompanyCarousel } from "@/components/landing/sections/CompanyCarousel";
-import { TestimonialsSection } from "@/components/landing/sections/TestimonialsSection";
+import { TestimonialsSection } from "@/components/landing/GovClerk/GovClerkTestimonialsSection";
 import { HowItWorksSection } from "@/components/landing/sections/HowItWorksSection";
 import { LetterSection } from "@/components/landing/sections/LetterSection";
 import { PricingSection } from "@/components/landing/sections/PricingSection";

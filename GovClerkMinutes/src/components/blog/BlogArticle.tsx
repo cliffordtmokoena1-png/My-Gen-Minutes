@@ -12,7 +12,7 @@ import ReactMarkdown from "react-markdown";
 import { assertString } from "@/utils/assert";
 import Image from "next/image";
 import { BlogPost } from "@/blog/blogUtils";
-import { CtaSection } from "@/components/landing/sections/CtaSection";
+import { CtaSection } from "@/components/landing/GovClerk/GovClerkCtaSection";
 
 type Props = BlogPost;
 

@@ -1,13 +1,13 @@
 import { Box, VStack } from "@chakra-ui/react";
 import { NavBar } from "./NavBar";
-import { HeroSection } from "./sections/HeroSection";
+import { HeroSection } from "./GovClerk/GovClerkHeroSection";
 import { CompanyCarousel } from "./sections/CompanyCarousel";
-import { FeaturesSection } from "./sections/FeaturesSection";
+import { FeaturesSection } from "./GovClerk/GovClerkFeaturesSection";
 import { HowItWorksSection } from "./sections/HowItWorksSection";
 import { LetterSection } from "./sections/LetterSection";
-import { TestimonialsSection } from "./sections/TestimonialsSection";
-import { FaqSection } from "./sections/FaqSection";
-import { CtaSection } from "./sections/CtaSection";
+import { TestimonialsSection } from "./GovClerk/GovClerkTestimonialsSection";
+import { FaqSection } from "./GovClerk/GovClerkFaqSection";
+import { CtaSection } from "./GovClerk/GovClerkCtaSection";
 import { Footer } from "./Footer";
 import { GradientBackground } from "../GradientBackground";
 
