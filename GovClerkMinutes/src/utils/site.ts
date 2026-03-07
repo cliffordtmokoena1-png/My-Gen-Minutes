@@ -21,7 +21,7 @@ export function getSiteFromHost(host: string | null | undefined): Site {
     return "GovClerk";
   }
 
-  // Default to your Minutes generator project
+  // Default to your GovClerkMinutes project
   return "GovClerkMinutes";
 }
 
