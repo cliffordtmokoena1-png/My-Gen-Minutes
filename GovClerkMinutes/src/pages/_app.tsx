@@ -42,46 +42,44 @@ type MyAppProps = AppProps & {
 function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
   const router = useRouter();
   const discount = router.query.discount;
-  // Use SSR-provided site so ClerkProvider initializes with the correct key
-  // on the very first render, before any useEffect can fire.
+  
+  // 1. Existing site state
   const [site] = useState<Site>(() => ssrSite ?? getSiteFromWindow());
 
+  // 2. ADD THIS: The "Pause Button" state
+  const [isMounted, setIsMounted] = useState(false);
+
   useEffect(() => {
+    // This tells the app: "The browser is now ready!"
+    setIsMounted(true);
+
     if (discount === "valuedcustomer") {
       Cookies.set("mgdiscount", "true", { expires: 30 });
     }
 
-    // Manually set the _fbc cookie to track Facebook ad conversions
-    // Despite this check, the fb pixel sometimes tries to do the same thing asynchronously, and so we may end up with two _fbc cookies.
-    // On the server we should choose the last cookie set, which should be fine.  And we are doing this to make sure we get an _fbc cookie.
     const fbclid = router.query.fbclid;
     if (fbclid && Cookies.get("_fbc") === undefined) {
       const timestamp = Date.now();
       const fbcValue = `fb.1.${timestamp}.${fbclid}`;
-      Cookies.set("_fbc", fbcValue, { expires: 90 }); // Expires in 90 days
+      Cookies.set("_fbc", fbcValue, { expires: 90 });
     }
 
     const sendMetaConversionsViewContent = (): Promise<string> => {
       return fetch("/api/meta-conversions-api-view-content")
         .then((res) => res.json())
-        .then((data) => {
-          return data?.fbc;
-        });
+        .then((data) => data?.fbc);
     };
 
     sendMetaConversionsViewContent().then((fbc) => {
-      // If the user switches browsers, we want to preserve their fbc cookie.
-      // This happens e.g. when switching between the FB in-app browser, and the
-      // user's system browser, which is a very common occurence.
       if (fbc && Cookies.get("_fbc") === undefined) {
-        Cookies.set("_fbc", fbc, { expires: 90 }); // Expires in 90 days
+        Cookies.set("_fbc", fbc, { expires: 90 });
       }
     });
 
-    const handleRouteChange = (url: string) => {
+    const handleRouteChange = () => {
       sendMetaConversionsViewContent().then((fbc) => {
         if (fbc && Cookies.get("_fbc") === undefined) {
-          Cookies.set("_fbc", fbc, { expires: 90 }); // Expires in 90 days
+          Cookies.set("_fbc", fbc, { expires: 90 });
         }
       });
     };
@@ -94,31 +92,29 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      // Force update by adding version parameter
       navigator.serviceWorker
         .register("/service-worker.js?v=2", { scope: "/" })
-        .then((registration) => {
-          // Force immediate update check
-          registration.update();
-        })
-        .catch((err) => console.error("Service Worker registration failed: ", err));
+        .then((registration) => registration.update())
+        .catch((err) => console.error("Service Worker failed: ", err));
     }
   }, []);
 
+  // 3. ADD THIS: If not ready, show nothing (prevents crashes)
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <div className={inter.variable}>
-      <ClerkProvider key={site} {...pageProps} publishableKey={getClerkKeys(site).publishableKey}>
+      <ClerkProvider 
+        key={site} 
+        {...pageProps} 
+        publishableKey={getClerkKeys(site).publishableKey || process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      >
         <OrgContextProvider>
           <IntercomProvider>
             <CustomPosthogProvider>
-              <SWRConfig
-                value={{
-                  dedupingInterval: 2000,
-                  revalidateOnFocus: false,
-                  revalidateOnReconnect: false,
-                  shouldRetryOnError: false,
-                }}
-              >
+              <SWRConfig value={{ dedupingInterval: 2000, revalidateOnFocus: false, revalidateOnReconnect: false, shouldRetryOnError: false }}>
                 <ChakraProvider theme={theme}>
                   <NavigationPerfAnalyticsProvider>
                     <AnnouncementProvider>
@@ -130,14 +126,13 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
                         </RecordingStateProvider>
                         <Script id="fb-pixel" strategy="afterInteractive">
                           {`!function(f,b,e,v,n,t,s)
-                {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                n.queue=[];t=b.createElement(e);t.async=!0;
-                t.src=v;s=b.getElementsByTagName(e)[0];
-                s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
-                fbq('track', 'PageView');
-                `}
+                          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                          n.queue=[];t=b.createElement(e);t.async=!0;
+                          t.src=v;s=b.getElementsByTagName(e)[0];
+                          s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                          fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+                          fbq('track', 'PageView');`}
                         </Script>
                       </UploadUriProvider>
                     </AnnouncementProvider>
@@ -151,22 +146,5 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
     </div>
   );
 }
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  const req = appContext.ctx.req;
-
-  // During SSR, read the site from the x-mg-site header set by middleware.
-  // On client-side navigations req is undefined, so fall back to window detection.
-  let site: Site = "GovClerkMinutes";
-  if (req) {
-    const headerValue = req.headers[SITE_HEADER];
-    if (headerValue === "clerkdirect") {
-      site = "clerkdirect";
-    }
-  }
-
-  return { ...appProps, site };
-};
 
 export default MyApp;

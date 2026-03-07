@@ -64,7 +64,7 @@
     "@aws-sdk/util-create-request": "^3.316.0",
     "@chakra-ui/icons": "^2.2.4",
     "@chakra-ui/react": "^2.7.1",
-    "@clerk/nextjs": "^6.39.0",
+    "@clerk/nextjs": "^7.0.1",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fontsource-variable/plus-jakarta-sans": "^5.0.3",
