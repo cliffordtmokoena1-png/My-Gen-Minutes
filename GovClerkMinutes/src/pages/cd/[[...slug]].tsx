@@ -2,13 +2,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 // These imports are updated to match your actual folder: src/components/landing/GovClerk/
-import GovClerkLandingPage from "@/components/landing/GovClerk/GovClerkLandingPage";
-import GovClerkPageLayout from "@/components/landing/GovClerk/GovClerkPageLayout";
+import GovClerkLandingPage from "@/components/landing/GovClerk/sections/GovClerkLandingPage";
+import GovClerkPageLayout from "@/components/landing/GovClerk/sections/GovClerkPageLayout";
 import GovClerkHead from "@/components/landing/GovClerk/GovClerkHead";
 import GovClerkSubPageHero from "@/components/landing/GovClerk/templates/GovClerkSubPageHero";
 import GovClerkFeatureDetailSection from "@/components/landing/GovClerk/templates/GovClerkFeatureDetailSection";
 import GovClerkCtaSection from "@/components/landing/GovClerk/sections/GovClerkCtaSection";
-import { findPageBySlug } from "@/components/landing/GovClerk/GovClerkPages";
+import { findPageBySlug } from "@/components/landing/GovClerk/sections/GovClerkPages";
 
 export default function GovClerkCatchAll() {
   const router = useRouter();

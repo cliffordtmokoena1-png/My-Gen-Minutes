@@ -1,6 +1,6 @@
 import Image from "next/image";
 import QuoteRequestForm from "../../QuoteRequestForm";
-import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "../GovClerkAnnouncementBar";
+import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "./GovClerkAnnouncementBar";
 import DotPattern from "../DotPattern";
 
 export default function GovClerkHeroSection() {

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import GovClerkNavBar from "./GovClerkNavBar";
-import GovClerkFooter from "./GovClerkFooter";
+import GovClerkFooter from "../GovClerkFooter";
 import GovClerkAnnouncementBar from "./GovClerkAnnouncementBar";
 
 type Props = {
