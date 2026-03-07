@@ -1,5 +1,5 @@
 import GovClerkNavBar from "./GovClerkNavBar";
-import GovClerkFooter from "../GovClerkFooter";
+import GovClerkFooter from "./GovClerkFooter";
 import GovClerkAnnouncementBar from "./GovClerkAnnouncementBar";
 import GovClerkHeroSection from "./GovClerkHeroSection";
 import GovClerkTrustLogosSection from "./GovClerkTrustLogosSection";
