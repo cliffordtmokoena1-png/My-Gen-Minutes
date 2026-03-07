@@ -1,4 +1,4 @@
-import { PostHog } from "posthog-node";
+// We removed 'posthog-node' because it crashes Vercel Edge builds
 import { assertString } from "./assert";
 import { isDev } from "./dev";
 
@@ -8,6 +8,7 @@ export const MG_WEBHOOK_ANONYMOUS_ID = "mg_webhook";
 export const CLERK_WEBHOOK_ANONYMOUS_ID = "clerk_webhook";
 export const WHATSAPP_WEBHOOK_ANONYMOUS_ID = "whatsapp_webhook";
 
+// Keep all your event names exactly as they were
 export type PostHogEvent =
   | "api_toplevel_error"
   | "api_toplevel_bad_status_code"
@@ -58,45 +59,30 @@ export type PostHogEvent =
   | "quote_request_hcaptcha_failed";
 
 export async function capture(event: PostHogEvent, properties: any, distinctId: string) {
-  const client = new PostHog(assertString(process.env.NEXT_PUBLIC_POSTHOG_KEY), {
-    host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-    flushAt: 1,
-    flushInterval: 0,
-  });
+  const apiKey = assertString(process.env.NEXT_PUBLIC_POSTHOG_KEY);
+  const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com";
 
-  if (isDev()) {
-    client.debug();
-  }
-
-  let groups;
-
-  const transcriptId: number | undefined = properties["transcript_id"];
-  if (transcriptId != null) {
-    const groupKey = String(transcriptId);
-
-    groups = {
-      transcript: transcriptId,
-    };
-
-    client.groupIdentify({
-      groupType: "transcript",
-      groupKey,
-      distinctId: "group:transcript",
-    });
-  }
-
-  client.capture({
-    event,
-    properties,
-    distinctId,
-    groups,
-    sendFeatureFlags: true,
-  });
-
+  // We use 'fetch' here because it works on Vercel Edge (Middleware)
   try {
-    await client.shutdown();
+    await fetch(`${host}/capture/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        api_key: apiKey,
+        event: event,
+        properties: {
+          ...properties,
+          distinct_id: distinctId,
+          $lib: 'web-fetch-edge',
+        },
+        timestamp: new Date().toISOString(),
+      }),
+    });
   } catch (e) {
-    // Treat this error as non-fatal so logging doesn't take down the API function.
-    console.error("Error shutting down PostHog client:", e);
+    if (isDev()) {
+      console.error("PostHog capture failed:", e);
+    }
   }
 }
