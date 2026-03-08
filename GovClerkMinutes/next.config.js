@@ -1,5 +1,12 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -40,7 +47,6 @@ module.exports = {
       },
     });
 
-    // Suppress warnings from the ffmpeg package about dynamic imports
     config.ignoreWarnings = [
       {
         module: /@ffmpeg\/ffmpeg/,
@@ -48,23 +54,6 @@ module.exports = {
       },
     ];
 
-    return config;
-  },
-};
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  // This keeps your existing webpack settings
-  webpack: (config) => {
-    config.ignoreWarnings = [
-      { module: /@ffmpeg\/ffmpeg/ },
-      { message: /Critical dependency: the request of a dependency is an expression/ },
-    ];
     return config;
   },
 };
