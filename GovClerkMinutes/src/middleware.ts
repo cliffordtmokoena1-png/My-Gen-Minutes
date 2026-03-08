@@ -3,7 +3,7 @@ import { isProd } from "./utils/dev";
 import { withMiddlewareErrorHandling } from "./error/withErrorReporting";
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import type { ClerkMiddlewareAuth } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import {
   handleLandingPagePersonalization,
   isLandingPageRequest,
@@ -15,9 +15,6 @@ import {
   Site,
   SITE_HEADER,
 } from "./utils/site";
-
-// Force Edge Runtime to prevent Vercel from trying to use Node.js
-export const runtime = 'experimental-edge';
 
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
@@ -134,25 +131,44 @@ function buildClerkHandler(site: Site) {
 }
 
 function buildClerkMiddleware(site: Site) {
-  const keys = getClerkKeys(site);
-  return clerkMiddleware(buildClerkHandler(site), {
-    // FIX: Only debug if NOT in production
-    debug: !isProd(),
-    clockSkewInMs: 10 * 60 * 1000,
-    publishableKey: keys.publishableKey,
-    secretKey: keys.secretKey,
-  });
+  try {
+    const keys = getClerkKeys(site);
+    if (!keys.publishableKey || !keys.secretKey) {
+      console.error(`[middleware] Clerk keys missing for "${site}", skipping auth middleware.`);
+      return null;
+    }
+    return clerkMiddleware(buildClerkHandler(site), {
+      // FIX: Only debug if NOT in production
+      debug: !isProd(),
+      clockSkewInMs: 10 * 60 * 1000,
+      publishableKey: keys.publishableKey,
+      secretKey: keys.secretKey,
+    });
+  } catch (error) {
+    console.error(`[middleware] Failed to build Clerk middleware for "${site}":`, error);
+    return null;
+  }
 }
 
 const mgMiddleware = buildClerkMiddleware("GovClerkMinutes");
 const cdMiddleware = buildClerkMiddleware("GovClerk");
 
-const middleware = (req: NextRequest, event: Parameters<typeof mgMiddleware>[1]) => {
+const middleware = async (req: NextRequest, event: NextFetchEvent) => {
   const site = getSiteFromHost(req.headers.get("host"));
-  if (isGovClerk(site)) {
-    return cdMiddleware(req, event);
+
+  const activeMiddleware = isGovClerk(site) ? cdMiddleware : mgMiddleware;
+
+  if (!activeMiddleware) {
+    // No Clerk middleware available — pass through the request
+    return withSiteHeader(req, site);
   }
-  return mgMiddleware(req, event);
+
+  try {
+    return await activeMiddleware(req, event);
+  } catch (error) {
+    console.error("[middleware] Clerk middleware error, falling through:", error);
+    return withSiteHeader(req, site);
+  }
 };
 
 export default withMiddlewareErrorHandling(middleware);

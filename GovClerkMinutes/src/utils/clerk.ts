@@ -43,11 +43,7 @@ function validateClerkKeys(keys: ClerkKeys, site: Site): void {
   const missing = !keys.publishableKey || (isServer && !keys.secretKey);
   if (!missing) return;
 
-  if (isDevOrPreview()) {
-    console.warn(`[clerk] Missing keys for site "${site}" — skipping validation in dev/preview.`);
-    return;
-  }
-  throw new Error(`Missing Clerk keys for site "${site}". Check your Vercel Environment Variables.`);
+  console.error(`[clerk] Missing Clerk keys for site "${site}". Check your Vercel Environment Variables.`);
 }
 
 // --- The "Key Switcher" Logic ---
