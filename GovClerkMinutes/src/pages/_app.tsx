@@ -104,45 +104,55 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
     return null;
   }
 
+  const clerkPublishableKey = getClerkKeys(site)?.publishableKey || process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  const appContent = (
+    <OrgContextProvider>
+      <IntercomProvider>
+        <CustomPosthogProvider>
+          <SWRConfig value={{ dedupingInterval: 2000, revalidateOnFocus: false, revalidateOnReconnect: false, shouldRetryOnError: false }}>
+            <ChakraProvider theme={theme}>
+              <NavigationPerfAnalyticsProvider>
+                <AnnouncementProvider>
+                  <UploadUriProvider>
+                    <RecordingStateProvider>
+                      <WebSocketProvider debug>
+                        <Component {...pageProps} />
+                      </WebSocketProvider>
+                    </RecordingStateProvider>
+                    <Script id="fb-pixel" strategy="afterInteractive">
+                      {`!function(f,b,e,v,n,t,s)
+                      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+                      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+                      n.queue=[];t=b.createElement(e);t.async=!0;
+                      t.src=v;s=b.getElementsByTagName(e)[0];
+                      s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+                      fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
+                      fbq('track', 'PageView');`}
+                    </Script>
+                  </UploadUriProvider>
+                </AnnouncementProvider>
+              </NavigationPerfAnalyticsProvider>
+            </ChakraProvider>
+          </SWRConfig>
+        </CustomPosthogProvider>
+      </IntercomProvider>
+    </OrgContextProvider>
+  );
+
   return (
     <div className={inter.variable}>
-      <ClerkProvider 
-        key={site} 
-        {...pageProps} 
-        publishableKey={getClerkKeys(site).publishableKey || process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
-      >
-        <OrgContextProvider>
-          <IntercomProvider>
-            <CustomPosthogProvider>
-              <SWRConfig value={{ dedupingInterval: 2000, revalidateOnFocus: false, revalidateOnReconnect: false, shouldRetryOnError: false }}>
-                <ChakraProvider theme={theme}>
-                  <NavigationPerfAnalyticsProvider>
-                    <AnnouncementProvider>
-                      <UploadUriProvider>
-                        <RecordingStateProvider>
-                          <WebSocketProvider debug>
-                            <Component {...pageProps} />
-                          </WebSocketProvider>
-                        </RecordingStateProvider>
-                        <Script id="fb-pixel" strategy="afterInteractive">
-                          {`!function(f,b,e,v,n,t,s)
-                          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-                          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-                          n.queue=[];t=b.createElement(e);t.async=!0;
-                          t.src=v;s=b.getElementsByTagName(e)[0];
-                          s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-                          fbq('init', '${process.env.NEXT_PUBLIC_FB_PIXEL_ID}');
-                          fbq('track', 'PageView');`}
-                        </Script>
-                      </UploadUriProvider>
-                    </AnnouncementProvider>
-                  </NavigationPerfAnalyticsProvider>
-                </ChakraProvider>
-              </SWRConfig>
-            </CustomPosthogProvider>
-          </IntercomProvider>
-        </OrgContextProvider>
-      </ClerkProvider>
+      {clerkPublishableKey ? (
+        <ClerkProvider 
+          key={site} 
+          {...pageProps} 
+          publishableKey={clerkPublishableKey}
+        >
+          {appContent}
+        </ClerkProvider>
+      ) : (
+        appContent
+      )}
     </div>
   );
 }
