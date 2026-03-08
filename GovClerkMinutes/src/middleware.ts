@@ -17,7 +17,7 @@ import {
 } from "./utils/site";
 
 // Force Edge Runtime to prevent Vercel from trying to use Node.js
-export const runtime = 'experimental-edge';
+export const runtime = 'edge';
 
 const isProtectedRoute = createRouteMatcher([
   "/dashboard(.*)",
