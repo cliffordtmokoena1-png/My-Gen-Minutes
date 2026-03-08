@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import GovClerkLandingPage from "@/components/landing/GovClerk/sections/GovClerkLandingPage";
 import GovClerkPageLayout from "@/components/landing/GovClerk/sections/GovClerkPageLayout";
 import GovClerkHead from "@/components/landing/GovClerk/GovClerkHead";
-import GovClerkSubPageHero from "@/components/landing/GovClerk/templates/GovClerkSubPageHero";
+import GovClerkSubPageHero from @/components/landing/GovClerk/sections/GovClerkSubPageHero;
 import GovClerkFeatureDetailSection from "@/components/landing/GovClerk/sections/GovClerkFeatureDetailSection";
 import GovClerkCtaSection from "@/components/landing/GovClerk/sections/GovClerkCtaSection";
 import { findPageBySlug } from "@/components/landing/GovClerk/sections/GovClerkPages";
