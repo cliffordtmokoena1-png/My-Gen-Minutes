@@ -28,7 +28,7 @@ export default function GovClerkStatsSection() {
                   <CountUp to={stat.to} duration={2.5} />
                   {stat.suffix}
                 </p>
-                <p className="mt-2 text-sm font-medium text-blue-200 md:text-base">{stat.label}</p>
+                <p className="mt-2 text-sm font-medium text-blue-100 md:text-base">{stat.label}</p>
               </div>
             ))}
           </div>

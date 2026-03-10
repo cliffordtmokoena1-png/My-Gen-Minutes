@@ -110,7 +110,7 @@ export default function GovClerkFeaturesSection() {
                 spotlightColor="rgba(255, 255, 255, 0.15)"
               >
                 <div className="group relative h-full overflow-hidden rounded-xl border border-white/20 bg-white p-6 backdrop-blur-sm transition-all hover:border-white/40 hover:shadow-md md:p-8">
-                  <IconComponent className="absolute -right-4 -top-4 h-24 w-24 text-blue-100 opacity-30" />
+                  <IconComponent className="absolute -right-4 -top-4 h-24 w-24 text-blue-200 opacity-30" />
 
                   <div className="relative z-10 space-y-3">
                     <h3 className="text-base font-bold text-gray-900 md:text-lg">
