@@ -31,17 +31,17 @@ const roles = [
 
 export default function GovClerkRolesSection() {
   return (
-    <section className="bg-gray-50 py-16 md:py-24">
+    <section className="bg-cd-blue py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-14 text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-cd-blue">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-blue-200">
               Built for Your Role
             </p>
-            <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
+            <h2 className="font-serif text-3xl font-normal text-white md:text-5xl leading-[1.1]">
               Purpose-Built for Every Stakeholder
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base text-blue-100 md:text-lg">
               Whether you manage the minutes, oversee the board, or run the IT infrastructure,
               GovClerk fits your workflow.
             </p>
@@ -60,16 +60,16 @@ export default function GovClerkRolesSection() {
                   }`}
                 >
                   <div className="space-y-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cd-blue/10">
-                      <IconComponent className="h-6 w-6 text-cd-blue" />
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/10">
+                      <IconComponent className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 md:text-2xl">
+                    <h3 className="text-xl font-semibold text-white md:text-2xl">
                       {role.title}
                     </h3>
-                    <p className="text-base leading-relaxed text-gray-600">{role.description}</p>
-                    <p className="text-sm font-semibold text-cd-blue">{role.stats}</p>
+                    <p className="text-base leading-relaxed text-blue-100">{role.description}</p>
+                    <p className="text-sm font-semibold text-blue-200">{role.stats}</p>
                   </div>
-                  <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-lg">
+                  <div className="overflow-hidden rounded-2xl border border-white/20 shadow-lg">
                     <Image
                       src={role.image}
                       alt={`${role.title} using GovClerk`}

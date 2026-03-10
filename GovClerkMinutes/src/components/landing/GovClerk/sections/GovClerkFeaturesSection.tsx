@@ -59,14 +59,14 @@ const bottomFeatures: BottomFeature[] = [
 
 export default function GovClerkFeaturesSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-cd-blue py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center md:mb-16">
-            <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
+            <h2 className="font-serif text-3xl font-normal text-white md:text-5xl leading-[1.1]">
               Everything You Need to Run Better Meetings
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-blue-100 md:text-lg">
               From agenda creation to public records, GovClerk streamlines every step of the
               meeting lifecycle.
             </p>
@@ -78,7 +78,7 @@ export default function GovClerkFeaturesSection() {
           {topFeatures.map((feature) => (
             <div
               key={feature.title}
-              className="group relative flex h-[400px] flex-col justify-end overflow-hidden rounded-2xl border border-blue-200/20 bg-blue-50/30 p-6 transition-all hover:border-blue-200/40 hover:bg-blue-50/50 hover:shadow-lg md:h-[450px] md:p-8"
+              className="group relative flex h-[400px] flex-col justify-end overflow-hidden rounded-2xl border border-white/20 bg-white p-6 transition-all hover:border-white/40 hover:shadow-lg md:h-[450px] md:p-8"
             >
               {/* Screenshot image behind */}
               <div className="absolute left-6 right-6 top-6 h-full overflow-hidden rounded-xl border border-gray-200 bg-white opacity-60 shadow-lg md:left-8 md:right-8 md:top-8">
@@ -107,9 +107,9 @@ export default function GovClerkFeaturesSection() {
               <SpotlightCard
                 key={feature.title}
                 className="rounded-xl"
-                spotlightColor="rgba(30, 64, 175, 0.15)"
+                spotlightColor="rgba(255, 255, 255, 0.15)"
               >
-                <div className="group relative h-full overflow-hidden rounded-xl border border-blue-200/20 bg-blue-50/40 p-6 backdrop-blur-sm transition-all hover:border-blue-200/40 hover:bg-blue-50/60 hover:shadow-md md:p-8">
+                <div className="group relative h-full overflow-hidden rounded-xl border border-white/20 bg-white p-6 backdrop-blur-sm transition-all hover:border-white/40 hover:shadow-md md:p-8">
                   <IconComponent className="absolute -right-4 -top-4 h-24 w-24 text-blue-100 opacity-30" />
 
                   <div className="relative z-10 space-y-3">

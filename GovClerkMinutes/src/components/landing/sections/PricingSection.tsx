@@ -49,8 +49,8 @@ export const PricingSection = ({
       id="pricing"
       py={{ base: 16, md: 24 }}
       position="relative"
-      bgGradient={showGradient ? "linear(to-b, blue.100, white)" : undefined}
-      bg={showGradient ? undefined : "white"}
+      bgGradient={showGradient ? "linear(to-b, blue.100, blue.50)" : undefined}
+      bg={showGradient ? undefined : "blue.50"}
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "pricing",

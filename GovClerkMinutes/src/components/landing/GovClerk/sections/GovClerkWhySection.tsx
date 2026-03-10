@@ -19,7 +19,7 @@ const advantages = [
 
 export default function GovClerkWhySection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-blue-50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center">

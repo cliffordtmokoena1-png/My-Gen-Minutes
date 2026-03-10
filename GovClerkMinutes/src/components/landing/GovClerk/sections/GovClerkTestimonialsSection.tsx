@@ -83,7 +83,7 @@ export default function GovClerkTestimonialsSection() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="overflow-hidden bg-white py-16 md:py-24">
+    <section className="overflow-hidden bg-blue-50 py-16 md:py-24">
       {/* Section header */}
       <div className="mx-auto mb-12 max-w-7xl px-6 text-center">
         <FadeContent direction="up" duration={0.6}>
@@ -115,7 +115,7 @@ export default function GovClerkTestimonialsSection() {
           {duplicatedTestimonials.map((testimonial, index) => (
             <div
               key={`${testimonial.name}-${index}`}
-              className="flex min-w-[280px] max-w-[280px] flex-col rounded-xl border border-blue-200/20 bg-white/80 p-6 backdrop-blur-sm transition-all hover:border-blue-200/40 hover:-translate-y-0.5 hover:shadow-lg md:min-w-[350px] md:max-w-[350px]"
+              className="flex min-w-[280px] max-w-[280px] flex-col rounded-xl border border-blue-200/30 bg-white p-6 backdrop-blur-sm transition-all hover:border-blue-200/60 hover:-translate-y-0.5 hover:shadow-lg md:min-w-[350px] md:max-w-[350px]"
             >
               <div className="flex flex-1 flex-col gap-4">
                 <StarRating />
@@ -145,7 +145,7 @@ export default function GovClerkTestimonialsSection() {
             return (
               <div
                 key={org.name}
-                className="flex flex-col items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/50 p-6 transition-colors hover:border-gray-200 hover:bg-gray-50"
+                className="flex flex-col items-center gap-3 rounded-xl border border-blue-200 bg-white p-6 transition-colors hover:border-blue-300 hover:bg-white"
               >
                 <IconComponent className="h-8 w-8 text-cd-blue/60" />
                 <span className="text-center text-xs font-medium text-gray-600">{org.name}</span>

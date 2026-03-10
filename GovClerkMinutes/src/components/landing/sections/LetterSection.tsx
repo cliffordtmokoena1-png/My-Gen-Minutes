@@ -27,7 +27,7 @@ export const LetterSection = () => {
       as="section"
       pt={{ base: 3, md: 5 }}
       pb={{ base: 16, md: 24 }}
-      bg="gray.50"
+      bg="blue.50"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "letter",

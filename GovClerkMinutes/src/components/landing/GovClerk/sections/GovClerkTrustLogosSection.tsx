@@ -15,10 +15,10 @@ const trustedOrgs = [
 
 export default function GovClerkTrustLogosSection() {
   return (
-    <section className="border-y border-gray-100 bg-gray-50/60 py-8 md:py-10">
+    <section className="border-y border-blue-200 bg-blue-100 py-8 md:py-10">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.5}>
-          <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-gray-400">
+          <p className="mb-6 text-center text-xs font-medium uppercase tracking-widest text-blue-700">
             Trusted by 500+ government agencies and public organizations
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:gap-x-12">
@@ -30,7 +30,7 @@ export default function GovClerkTrustLogosSection() {
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-cd-blue/10 text-xs font-bold text-cd-blue">
                   {org.initials}
                 </div>
-                <span className="hidden text-sm font-medium text-gray-500 sm:inline">
+                <span className="hidden text-sm font-medium text-blue-800 sm:inline">
                   {org.name}
                 </span>
               </div>

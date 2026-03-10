@@ -13,7 +13,7 @@ const GradientOverlay = ({ direction }: { direction: "left" | "right" }) => (
     zIndex={2}
     pointerEvents="none"
     bgGradient={
-      direction === "left" ? "linear(to-r, white, transparent)" : "linear(to-l, white, transparent)"
+      direction === "left" ? "linear(to-r, #eff6ff, transparent)" : "linear(to-l, #eff6ff, transparent)"
     }
   />
 );
@@ -66,6 +66,7 @@ export const CompanyCarousel = () => {
       pb={{ base: 12, md: 16 }}
       position="relative"
       overflow="hidden"
+      bg="blue.50"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "logos",
