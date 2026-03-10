@@ -13,7 +13,7 @@ const GradientOverlay = ({ direction }: { direction: "left" | "right" }) => (
     zIndex={2}
     pointerEvents="none"
     bgGradient={
-      direction === "left" ? "linear(to-r, #eff6ff, transparent)" : "linear(to-l, #eff6ff, transparent)"
+      direction === "left" ? "linear(to-r, #152a4e, transparent)" : "linear(to-l, #152a4e, transparent)"
     }
   />
 );
@@ -66,7 +66,7 @@ export const CompanyCarousel = () => {
       pb={{ base: 12, md: 16 }}
       position="relative"
       overflow="hidden"
-      bg="blue.50"
+      bg="#152a4e"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "logos",
@@ -78,7 +78,7 @@ export const CompanyCarousel = () => {
         <Text
           textAlign="center"
           fontSize={{ base: "sm", md: "md" }}
-          color="gray.500"
+          color="white"
           fontWeight="medium"
           mb={8}
           letterSpacing="wide"
@@ -118,8 +118,8 @@ export const CompanyCarousel = () => {
                   objectFit: "contain",
                   maxWidth: "140px",
                   maxHeight: "80px",
-                  filter: "grayscale(100%)",
-                  opacity: 0.5,
+                  filter: "grayscale(100%) brightness(2)",
+                  opacity: 0.7,
                 }}
                 width={140}
                 height={80}
