@@ -4,7 +4,7 @@ import DotPattern from "../DotPattern";
 
 export default function GovClerkCtaSection() {
   return (
-    <section className="relative bg-gradient-to-r from-cd-blue to-cd-blue-dark py-16 md:py-24">
+    <section className="relative bg-gradient-to-r from-cd-navy to-[#0f1f3a] py-16 md:py-24">
       <DotPattern dotColor="rgba(255,255,255,0.15)" fadeFrom="center" />
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
         <FadeContent direction="up" duration={0.7}>

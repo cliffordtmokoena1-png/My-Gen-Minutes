@@ -17,7 +17,7 @@ const stats: StatItem[] = [
 
 export default function GovClerkStatsSection() {
   return (
-    <section className="border-y border-white/10 bg-cd-blue py-12 md:py-16">
+    <section className="border-y border-white/10 bg-cd-navy py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">

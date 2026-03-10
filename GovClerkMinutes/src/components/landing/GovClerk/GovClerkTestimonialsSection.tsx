@@ -123,7 +123,7 @@ export const TestimonialsSection = () => {
     <Box
       as="section"
       py={{ base: 16, md: 24 }}
-      bg="gray.50"
+      bg="#152a4e"
       overflow="hidden"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
@@ -139,11 +139,11 @@ export const TestimonialsSection = () => {
             fontSize={{ base: "3xl", md: "5xl" }}
             fontWeight="normal"
             fontFamily="Georgia, serif"
-            color="gray.800"
+            color="white"
           >
             Loved by Professionals Worldwide
           </Heading>
-          <Text fontSize={{ base: "lg", md: "xl" }} color="gray.600" maxW="2xl">
+          <Text fontSize={{ base: "lg", md: "xl" }} color="blue.200" maxW="2xl">
             See what our users are saying about their experience
           </Text>
         </VStack>
@@ -166,17 +166,17 @@ export const TestimonialsSection = () => {
               minW={{ base: "280px", md: "350px" }}
               maxW={{ base: "280px", md: "350px" }}
               p={6}
-              bg="rgba(255, 255, 255, 0.8)"
+              bg="rgba(255, 255, 255, 0.05)"
               backdropFilter="blur(12px)"
               borderRadius="xl"
               border="1px solid"
-              borderColor="rgba(59, 130, 246, 0.2)"
+              borderColor="rgba(255, 255, 255, 0.1)"
               transition="all 0.3s"
               display="flex"
               flexDirection="column"
               _hover={{
                 "@media (hover: hover)": {
-                  borderColor: "rgba(59, 130, 246, 0.4)",
+                  borderColor: "rgba(255, 255, 255, 0.2)",
                   boxShadow: "lg",
                   transform: "translateY(-2px)",
                 },
@@ -184,14 +184,14 @@ export const TestimonialsSection = () => {
             >
               <VStack align="start" spacing={4} flex="1">
                 <StarRating />
-                <Text color="gray.700" fontSize="sm" lineHeight="tall">
+                <Text color="whiteAlpha.800" fontSize="sm" lineHeight="tall">
                   &ldquo;{testimonial.text}&rdquo;
                 </Text>
                 <VStack align="start" spacing={0} pt={2} mt="auto">
-                  <Text fontWeight="semibold" color="gray.900" fontSize="sm">
+                  <Text fontWeight="semibold" color="white" fontSize="sm">
                     {testimonial.name}
                   </Text>
-                  <Text fontSize="xs" color="gray.500">
+                  <Text fontSize="xs" color="whiteAlpha.600">
                     {testimonial.location}
                     {testimonial.date ? ` • ${testimonial.date}` : ""}
                   </Text>

@@ -25,7 +25,7 @@ const aiFeatures = [
 
 export default function GovClerkAiSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-cd-blue to-cd-blue-dark py-16 md:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-cd-navy to-[#0f1f3a] py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16">
           <FadeContent direction="up" duration={0.6}>
