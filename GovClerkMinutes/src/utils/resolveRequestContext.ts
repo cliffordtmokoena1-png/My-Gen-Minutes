@@ -1,7 +1,7 @@
 import { createClerkClient } from "@clerk/nextjs/server";
 import { getClerkKeys } from "./clerk";
 import { isDev } from "./dev";
-import { getSiteFromHeaders, getSiteFromRequest, type Site } from "./site";
+import { getSiteFromHeaders, type Site } from "./site";
 
 // Accepts both Web API Headers (edge runtime) and Node IncomingHttpHeaders (node runtime)
 export type RequestHeaders = Headers | Record<string, string | string[] | undefined>;
@@ -22,7 +22,7 @@ function extractSite(headers?: RequestHeaders, site?: Site): Site {
   if (headers instanceof Headers) {
     return getSiteFromHeaders(headers);
   }
-  return getSiteFromRequest(headers);
+  return getSiteFromHeaders(headers);
 }
 
 export async function resolveRequestContext(
