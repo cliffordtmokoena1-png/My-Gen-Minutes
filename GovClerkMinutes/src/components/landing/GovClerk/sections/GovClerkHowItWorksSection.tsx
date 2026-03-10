@@ -63,7 +63,7 @@ export default function GovClerkHowItWorksSection() {
 
   return (
     <FadeContent direction="up" delay={0.1} duration={0.7}>
-      <section className="bg-gray-50 py-20 md:py-32">
+      <section className="bg-blue-50 py-20 md:py-32">
         <div className="mx-auto max-w-6xl px-6">
           <div className="mb-16 text-center md:mb-20">
             <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">

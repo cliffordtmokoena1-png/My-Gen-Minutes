@@ -13,8 +13,8 @@ export default function GovClerkHeroSection() {
         paddingBottom: "4rem",
       }}
     >
-      {/* Background gradient */}
-      <div className="pointer-events-none absolute left-0 right-0 top-0 h-[60%] bg-gradient-to-b from-blue-50 to-white" />
+      {/* Background */}
+      <div className="pointer-events-none absolute inset-0 bg-white" />
       <DotPattern dotColor="rgba(0,0,0,0.12)" fadeFrom="center" className="!bottom-auto h-[60%]" />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6">

@@ -41,11 +41,11 @@ function AccordionItem({ question, answer }: FaqItem) {
 
 export default function GovClerkFaqSection() {
   return (
-    <section className="bg-gray-50 py-16 md:py-24">
+    <section className="bg-cd-blue py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center md:mb-16">
-            <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
+            <h2 className="font-serif text-3xl font-normal text-white md:text-5xl leading-[1.1]">
               Frequently Asked Questions
             </h2>
           </div>

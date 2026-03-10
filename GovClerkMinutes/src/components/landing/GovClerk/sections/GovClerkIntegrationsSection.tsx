@@ -23,7 +23,7 @@ const integrations = [
 
 export default function GovClerkIntegrationsSection() {
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section className="bg-blue-50 py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center">
@@ -50,7 +50,7 @@ export default function GovClerkIntegrationsSection() {
                 duration={0.4}
                 delay={index * 0.05}
               >
-                <div className="flex flex-col items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/50 p-6 transition-all hover:border-gray-200 hover:bg-white hover:shadow-sm">
+                <div className="flex flex-col items-center gap-3 rounded-xl border border-blue-200/50 bg-white p-6 transition-all hover:border-blue-300 hover:bg-white hover:shadow-sm">
                   <IconComponent className="h-8 w-8 text-gray-600" />
                   <span className="text-center text-xs font-medium text-gray-600">
                     {integration.name}

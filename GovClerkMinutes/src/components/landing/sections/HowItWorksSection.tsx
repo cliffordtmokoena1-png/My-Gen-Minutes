@@ -7,7 +7,7 @@ export const HowItWorksSection = () => {
       as="section"
       id="how-it-works"
       py={{ base: 16, md: 24 }}
-      bg="white"
+      bg="blue.50"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "how_it_works",
