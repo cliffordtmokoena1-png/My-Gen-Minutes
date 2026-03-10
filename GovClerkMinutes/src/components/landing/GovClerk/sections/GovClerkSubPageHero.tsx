@@ -11,7 +11,7 @@ type Props = {
 
 export default function GovClerkSubPageHero({ label, title, description, imageUrl }: Props) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50/80 to-white py-16 md:py-24">
+    <section className="relative overflow-hidden bg-white py-16 md:py-24">
       <DotPattern dotColor="rgba(0,0,0,0.08)" dotSize={1.2} gap={24} fadeFrom="edges" />
       <div className="relative z-10 mx-auto max-w-7xl px-6">
         <div className="grid items-center gap-12 md:grid-cols-2">

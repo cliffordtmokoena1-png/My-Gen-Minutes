@@ -17,18 +17,18 @@ const stats: StatItem[] = [
 
 export default function GovClerkStatsSection() {
   return (
-    <section className="border-y border-gray-100 bg-gray-50 py-12 md:py-16">
+    <section className="border-y border-white/10 bg-cd-navy py-12 md:py-16">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4 md:gap-12">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
-                <p className="text-3xl font-bold text-cd-blue md:text-4xl">
+                <p className="text-3xl font-bold text-white md:text-4xl">
                   {stat.prefix}
                   <CountUp to={stat.to} duration={2.5} />
                   {stat.suffix}
                 </p>
-                <p className="mt-2 text-sm font-medium text-gray-600 md:text-base">{stat.label}</p>
+                <p className="mt-2 text-sm font-medium text-blue-200 md:text-base">{stat.label}</p>
               </div>
             ))}
           </div>

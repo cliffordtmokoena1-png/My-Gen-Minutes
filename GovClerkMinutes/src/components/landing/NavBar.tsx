@@ -95,7 +95,7 @@ export const NavBar = () => {
         zIndex={100}
         w={isScrolled ? "95%" : "100%"}
         maxW="7xl"
-        bg={isScrolled ? "rgba(200, 220, 255, 0.7)" : "transparent"}
+        bg={isScrolled ? "rgba(255, 255, 255, 0.85)" : "transparent"}
         backdropFilter={isScrolled ? "blur(12px)" : "none"}
         borderRadius={isScrolled ? "2xl" : "0"}
         boxShadow={isScrolled ? "lg" : "none"}

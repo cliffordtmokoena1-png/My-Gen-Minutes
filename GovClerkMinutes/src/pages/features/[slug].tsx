@@ -64,19 +64,7 @@ export default function FeaturePage({ feature }: FeaturePageProps) {
               left={0}
               right={0}
               bottom={0}
-              bgGradient="linear(to-b, blue.100, white)"
-              _after={{
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundImage:
-                  "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")",
-                opacity: 0.5,
-                pointerEvents: "none",
-              }}
+              bg="white"
             />
             <Container maxW="7xl" position="relative" zIndex={1}>
               {/* Mobile: Vertical Stack */}
@@ -157,7 +145,7 @@ export default function FeaturePage({ feature }: FeaturePageProps) {
           </Box>
 
           {/* Cards Section */}
-          <Box as="section" py={{ base: 16, md: 24 }} bg="white">
+          <Box as="section" py={{ base: 16, md: 24 }} bg="blue.50">
             <Container maxW="7xl">
               <VStack spacing="8px">
                 <Grid templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }} gap="8px" w="full">

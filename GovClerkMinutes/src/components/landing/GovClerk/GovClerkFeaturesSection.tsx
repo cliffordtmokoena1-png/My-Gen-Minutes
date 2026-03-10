@@ -111,7 +111,7 @@ export const FeaturesSection = ({ customFeatures, customHeading }: V2FeaturesSec
                 position="relative"
                 h={{ base: "400px", md: "450px" }}
                 transition="all 0.3s"
-                bg="rgba(239, 246, 255, 0.3)"
+                bg="white"
                 p={{ base: 6, md: 8 }}
                 display="flex"
                 flexDirection="column"
@@ -180,7 +180,7 @@ export const FeaturesSection = ({ customFeatures, customHeading }: V2FeaturesSec
               <Box
                 key={index}
                 p={{ base: 6, md: 8 }}
-                bg="rgba(239, 246, 255, 0.4)"
+                bg="white"
                 backdropFilter="blur(12px)"
                 borderRadius="xl"
                 border="1px solid"
@@ -191,7 +191,6 @@ export const FeaturesSection = ({ customFeatures, customHeading }: V2FeaturesSec
                 _hover={{
                   "@media (hover: hover)": {
                     borderColor: "rgba(59, 130, 246, 0.4)",
-                    bg: "rgba(239, 246, 255, 0.6)",
                     boxShadow: "md",
                   },
                 }}

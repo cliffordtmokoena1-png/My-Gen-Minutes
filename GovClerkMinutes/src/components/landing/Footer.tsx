@@ -15,7 +15,6 @@ import Link from "next/link";
 import IconWordmark from "@/components/IconWordmark";
 import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 import { getAllSlugs } from "@/utils/landing/landingUtils";
-import ElevenLabsLogo from "@/components/ElevenLabsLogo";
 import { isDev } from "@/utils/dev";
 
 export const Footer = () => {
@@ -87,19 +86,6 @@ export const Footer = () => {
               AI-powered meeting minutes that save you hours every week. Transform recordings into
               professional minutes in seconds.
             </Text>
-            <Box
-              bg="white"
-              borderRadius="full"
-              px={3}
-              py={1}
-              display="inline-flex"
-              alignItems="center"
-              justifyContent="center"
-              height="fit-content"
-              mt={0}
-            >
-              <ElevenLabsLogo width={100} />
-            </Box>
           </VStack>
 
           <VStack align="stretch" spacing={8}>

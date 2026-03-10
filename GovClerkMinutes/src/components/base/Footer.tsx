@@ -15,7 +15,7 @@ import Link from "next/link";
 import { FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 import { getAllSlugs } from "@/utils/landing/landingUtils";
 import IconWordmark from "@/components/IconWordmark";
-import ElevenLabsLogo from "@/components/ElevenLabsLogo";
+
 
 const ListHeader = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -108,7 +108,6 @@ export const Footer = () => {
                 icon={<FaLinkedin fontSize="20px" />}
               />
             </ButtonGroup>
-            <ElevenLabsLogo />
           </Stack>
         </SimpleGrid>
 
