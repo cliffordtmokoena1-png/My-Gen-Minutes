@@ -7,7 +7,7 @@ export const HowItWorksSection = () => {
       as="section"
       id="how-it-works"
       py={{ base: 16, md: 24 }}
-      bg="blue.50"
+      bg="#152a4e"
       onMouseEnter={() => {
         safeCapture("new_landing_page_section_seen", {
           section: "how_it_works",
@@ -22,7 +22,7 @@ export const HowItWorksSection = () => {
             fontSize={{ base: "3xl", md: "5xl" }}
             fontWeight="normal"
             fontFamily="Georgia, serif"
-            color="gray.800"
+            color="white"
           >
             {/* GovClerk Minutes */}
           </Heading>
