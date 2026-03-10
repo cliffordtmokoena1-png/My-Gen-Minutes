@@ -83,14 +83,14 @@ export default function GovClerkTestimonialsSection() {
   const duplicatedTestimonials = [...testimonials, ...testimonials];
 
   return (
-    <section className="overflow-hidden bg-blue-50 py-16 md:py-24">
+    <section className="overflow-hidden bg-cd-navy py-16 md:py-24">
       {/* Section header */}
       <div className="mx-auto mb-12 max-w-7xl px-6 text-center">
         <FadeContent direction="up" duration={0.6}>
-          <h2 className="font-serif text-3xl font-normal text-gray-800 md:text-5xl leading-[1.1]">
+          <h2 className="font-serif text-3xl font-normal text-white md:text-5xl leading-[1.1]">
             Trusted by Organizations Across the Country
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
+          <p className="mx-auto mt-4 max-w-2xl text-base text-blue-200 md:text-lg">
             See what clerks, administrators, and board secretaries are saying about GovClerk.
           </p>
         </FadeContent>
@@ -115,16 +115,16 @@ export default function GovClerkTestimonialsSection() {
           {duplicatedTestimonials.map((testimonial, index) => (
             <div
               key={`${testimonial.name}-${index}`}
-              className="flex min-w-[280px] max-w-[280px] flex-col rounded-xl border border-blue-200/30 bg-white p-6 backdrop-blur-sm transition-all hover:border-blue-200/60 hover:-translate-y-0.5 hover:shadow-lg md:min-w-[350px] md:max-w-[350px]"
+              className="flex min-w-[280px] max-w-[280px] flex-col rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:-translate-y-0.5 hover:shadow-lg md:min-w-[350px] md:max-w-[350px]"
             >
               <div className="flex flex-1 flex-col gap-4">
                 <StarRating />
-                <p className="text-sm leading-relaxed text-gray-700">
+                <p className="text-sm leading-relaxed text-white/80">
                   &ldquo;{testimonial.text}&rdquo;
                 </p>
                 <div className="mt-auto space-y-0 pt-2">
-                  <p className="text-sm font-semibold text-gray-900">{testimonial.name}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-semibold text-white">{testimonial.name}</p>
+                  <p className="text-xs text-white/50">
                     {testimonial.role}, {testimonial.organization}
                   </p>
                 </div>
@@ -136,7 +136,7 @@ export default function GovClerkTestimonialsSection() {
 
       {/* Used by organizations section */}
       <div className="mx-auto mt-16 max-w-7xl px-6 md:mt-20">
-        <p className="mb-8 text-center text-sm font-medium uppercase tracking-wider text-gray-400">
+        <p className="mb-8 text-center text-sm font-medium uppercase tracking-wider text-white/40">
           Used by organizations like
         </p>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6">
@@ -145,10 +145,10 @@ export default function GovClerkTestimonialsSection() {
             return (
               <div
                 key={org.name}
-                className="flex flex-col items-center gap-3 rounded-xl border border-blue-200 bg-white p-6 transition-colors hover:border-blue-300 hover:bg-white"
+                className="flex flex-col items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-6 transition-colors hover:border-white/20 hover:bg-white/10"
               >
-                <IconComponent className="h-8 w-8 text-cd-blue/60" />
-                <span className="text-center text-xs font-medium text-gray-600">{org.name}</span>
+                <IconComponent className="h-8 w-8 text-blue-300" />
+                <span className="text-center text-xs font-medium text-white/70">{org.name}</span>
               </div>
             );
           })}

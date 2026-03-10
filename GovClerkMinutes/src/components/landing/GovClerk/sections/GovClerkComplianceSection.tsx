@@ -29,7 +29,7 @@ const badges = [
 
 export default function GovClerkComplianceSection() {
   return (
-    <section className="bg-cd-blue py-16 md:py-24">
+    <section className="bg-cd-navy py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-6">
         <FadeContent direction="up" duration={0.6}>
           <div className="mb-12 text-center">
@@ -51,12 +51,12 @@ export default function GovClerkComplianceSection() {
             const IconComponent = badge.icon;
             return (
               <FadeContent key={badge.title} direction="up" duration={0.5} delay={index * 0.1}>
-                <div className="flex flex-col items-center rounded-2xl border border-gray-200 bg-white p-8 text-center transition-shadow hover:shadow-md">
-                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50">
-                    <IconComponent className="h-7 w-7 text-cd-blue" />
+                <div className="flex flex-col items-center rounded-2xl border border-white/10 bg-white/5 p-8 text-center transition-shadow hover:shadow-md hover:bg-white/10">
+                  <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-white/10">
+                    <IconComponent className="h-7 w-7 text-blue-300" />
                   </div>
-                  <h3 className="mb-2 text-lg font-semibold text-gray-900">{badge.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{badge.description}</p>
+                  <h3 className="mb-2 text-lg font-semibold text-white">{badge.title}</h3>
+                  <p className="text-sm leading-relaxed text-white/70">{badge.description}</p>
                 </div>
               </FadeContent>
             );
