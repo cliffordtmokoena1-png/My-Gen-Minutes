@@ -56,7 +56,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
 export default function GovClerkFooter() {
     const currentYear = new Date().getFullYear();
     return (
-        <footer className="relative overflow-hidden bg-gray-900 pt-12 text-white md:pt-16">
+        <footer className="relative overflow-hidden bg-gray-800 pt-12 text-white md:pt-16">
             <div className="relative z-10 mx-auto max-w-7xl px-6">
                 <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
                     <div className="flex flex-col items-start gap-5">
