@@ -358,8 +358,8 @@ export default function GovClerkNavBar() {
                   src="/govclerk-logo.svg"
                   alt="GovClerk"
                   width={250}
-                  height={150}
-                  className="h-14 w-auto"
+                  height={250}
+                  className="h-20 w-auto"
                 />
               </Link>
 
@@ -492,8 +492,8 @@ export default function GovClerkNavBar() {
               src="/govclerk-logo.svg"
               alt="GovClerk"
               width={250}
-              height={150}
-              className="h-14 w-auto"
+              height={250}
+              className="h-20 w-auto"
             />
           </Link>
           <button
