@@ -20,13 +20,13 @@ const topFeatures: TopFeature[] = [
     title: "AI-Powered Minutes Generation",
     description:
       "Transform meeting recordings into structured, professional minutes automatically. Decisions, action items, and key discussions are organized and ready to export.",
-    imageSrc: "https://picsum.photos/800/600?random=40",
+    imageSrc: "/screenshots/minutes-excerpt.png",
   },
   {
     title: "Real-Time Transcription",
     description:
       "Get accurate, searchable transcripts with automatic speaker identification. Support for 96+ languages with real-time processing.",
-    imageSrc: "https://picsum.photos/800/600?random=41",
+    imageSrc: "/screenshots/transcripts-excerpt.png",
   },
 ];
 

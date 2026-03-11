@@ -32,32 +32,32 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Everything You Need to Run Better Meetings",
       description:
         "From agenda creation to published minutes, GovClerk automates every step of your meeting workflow so your team can focus on decisions, not paperwork.",
-      imageUrl: "https://picsum.photos/600/400?random=product-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "AI-Powered Minutes Generation",
         description:
           "Upload a recording and let GovClerk produce structured, professional meeting minutes in seconds. Our AI identifies speakers, extracts action items, and formats everything to your organization's standards.",
-        imageUrl: "https://picsum.photos/600/400?random=product-minutes",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
       {
         title: "Agenda Builder with Templates",
         description:
           "Create agendas from templates, reorder items with drag-and-drop, and distribute them digitally to all stakeholders before the meeting even starts.",
-        imageUrl: "https://picsum.photos/600/400?random=product-agenda",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Real-Time Transcription in 96+ Languages",
         description:
           "Capture every word with speaker-labeled transcription that works across languages. Searchable, timestamped, and ready for the public record.",
-        imageUrl: "https://picsum.photos/600/400?random=product-transcription",
+        imageUrl: "/screenshots/transcripts-excerpt.png",
       },
       {
         title: "Votes, Motions, and Resolutions",
         description:
           "Record roll-call votes, track motions through their lifecycle, and archive resolutions with full audit trails for compliance.",
-        imageUrl: "https://picsum.photos/600/400?random=product-votes",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -73,26 +73,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Agenda Management That Keeps Everyone Prepared",
       description:
         "Build agendas in minutes, not hours. Use templates, drag-and-drop reordering, and automatic stakeholder notifications to ensure every meeting starts on the same page.",
-      imageUrl: "https://picsum.photos/600/400?random=agenda-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Template Library",
         description:
           "Start from pre-built agenda templates for council meetings, board sessions, committee reviews, and more. Customize once, reuse forever.",
-        imageUrl: "https://picsum.photos/600/400?random=agenda-templates",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Drag-and-Drop Builder",
         description:
           "Reorder agenda items, nest sub-topics, and set time allocations with an intuitive visual editor that anyone on your team can use.",
-        imageUrl: "https://picsum.photos/600/400?random=agenda-builder",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Automatic Distribution",
         description:
           "Notify board members, department heads, and the public when agendas are published. Integrated email and portal notifications keep everyone informed.",
-        imageUrl: "https://picsum.photos/600/400?random=agenda-distribute",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -108,26 +108,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Meeting Minutes in Seconds, Not Hours",
       description:
         "Upload a recording and GovClerk produces formatted minutes with speaker attribution, action items, and key decisions. Review, edit, and publish from one place.",
-      imageUrl: "https://picsum.photos/600/400?random=minutes-hero",
+      imageUrl: "/screenshots/minutes-excerpt.png",
     },
     features: [
       {
         title: "AI-Powered Drafting",
         description:
           "Our AI listens to your recordings and produces a structured draft with headers, speaker labels, timestamps, and extracted motions ready for your review.",
-        imageUrl: "https://picsum.photos/600/400?random=minutes-ai",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
       {
         title: "Action Item Extraction",
         description:
           "GovClerk automatically identifies action items, assigns them to speakers, and tracks completion status so nothing falls through the cracks.",
-        imageUrl: "https://picsum.photos/600/400?random=minutes-actions",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
       {
         title: "One-Click Publishing",
         description:
           "Export minutes as Word, PDF, or publish directly to your public portal. Formatting follows your organization's standards every time.",
-        imageUrl: "https://picsum.photos/600/400?random=minutes-publish",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -143,26 +143,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Accurate Transcription for Every Meeting",
       description:
         "Capture every word with speaker-labeled transcription that works in 96+ languages. Fully searchable, timestamped, and ready for the official record.",
-      imageUrl: "https://picsum.photos/600/400?random=transcription-hero",
+      imageUrl: "/screenshots/transcripts-excerpt.png",
     },
     features: [
       {
         title: "96+ Language Support",
         description:
           "Transcribe meetings in English, Spanish, Mandarin, and dozens more. Multilingual meetings are handled seamlessly with automatic language detection.",
-        imageUrl: "https://picsum.photos/600/400?random=transcription-languages",
+        imageUrl: "/screenshots/transcripts-excerpt.png",
       },
       {
         title: "Speaker Identification",
         description:
           "GovClerk labels who said what, making it easy to attribute statements, track discussion threads, and produce accurate meeting records.",
-        imageUrl: "https://picsum.photos/600/400?random=transcription-speakers",
+        imageUrl: "/screenshots/transcripts-excerpt.png",
       },
       {
         title: "Searchable Archives",
         description:
           "Full-text search across all your transcripts. Find any statement, decision, or discussion point from any meeting in seconds.",
-        imageUrl: "https://picsum.photos/600/400?random=transcription-search",
+        imageUrl: "/screenshots/transcripts-excerpt.png",
       },
     ],
   },
@@ -178,26 +178,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Track Every Vote and Motion with Confidence",
       description:
         "From motion introduction to final resolution, GovClerk gives you a complete, auditable record of every vote your organization takes.",
-      imageUrl: "https://picsum.photos/600/400?random=votes-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Roll-Call Voting",
         description:
           "Record individual member votes with timestamps. Support for voice votes, roll-call votes, and unanimous consent with automatic tally.",
-        imageUrl: "https://picsum.photos/600/400?random=votes-rollcall",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Motion Lifecycle Tracking",
         description:
           "Track motions from introduction through second, discussion, amendment, and final vote. Every state change is logged for the record.",
-        imageUrl: "https://picsum.photos/600/400?random=votes-lifecycle",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Resolution Archive",
         description:
           "Maintain a searchable archive of all adopted resolutions with links to the meetings, votes, and discussions that produced them.",
-        imageUrl: "https://picsum.photos/600/400?random=votes-archive",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -213,26 +213,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "One Hub for Your Entire Organization",
       description:
         "Manage boards, committees, departments, and member roles centrally. GovClerk gives every team the structure they need without the overhead.",
-      imageUrl: "https://picsum.photos/600/400?random=org-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Board and Committee Structure",
         description:
           "Define your organizational hierarchy with boards, sub-committees, and working groups. Each has its own meetings, agendas, and member lists.",
-        imageUrl: "https://picsum.photos/600/400?random=org-boards",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Role-Based Access",
         description:
           "Control who can create agendas, approve minutes, publish to the portal, and manage members with granular role-based permissions.",
-        imageUrl: "https://picsum.photos/600/400?random=org-roles",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Member Directory",
         description:
           "Maintain a central directory of all members across boards and committees with contact details, term dates, and attendance records.",
-        imageUrl: "https://picsum.photos/600/400?random=org-directory",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -248,26 +248,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Transparent Meetings, Open to the Public",
       description:
         "Publish agendas, minutes, recordings, and resolutions to a public-facing portal that meets open meeting requirements and builds community trust.",
-      imageUrl: "https://picsum.photos/600/400?random=portal-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Automated Publishing",
         description:
           "Approved minutes and agendas are published to your portal automatically. No manual uploads, no forgotten updates.",
-        imageUrl: "https://picsum.photos/600/400?random=portal-auto",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Searchable Public Records",
         description:
           "Citizens can search agendas, minutes, and recordings by date, topic, or keyword. Full transparency without the filing cabinet.",
-        imageUrl: "https://picsum.photos/600/400?random=portal-search",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Embeddable Widget",
         description:
           "Embed your meeting calendar and records directly into your existing government or organization website. No separate portal needed.",
-        imageUrl: "https://picsum.photos/600/400?random=portal-embed",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -283,26 +283,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Enterprise Security Built for Government",
       description:
         "SOC 2 Type II certified with end-to-end encryption, role-based access controls, and complete audit trails. Built to meet the security requirements government organizations demand.",
-      imageUrl: "https://picsum.photos/600/400?random=security-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "SOC 2 Type II Certified",
         description:
           "GovClerk has completed SOC 2 Type II audit certification, demonstrating ongoing commitment to data security, availability, and confidentiality.",
-        imageUrl: "https://picsum.photos/600/400?random=security-soc2",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "End-to-End Encryption",
         description:
           "All data is encrypted in transit and at rest. Meeting recordings, transcripts, and documents are protected with AES-256 encryption.",
-        imageUrl: "https://picsum.photos/600/400?random=security-encryption",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Audit Trails",
         description:
           "Every action in GovClerk is logged with timestamps and user attribution. Know who accessed, edited, or published any document at any time.",
-        imageUrl: "https://picsum.photos/600/400?random=security-audit",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -318,26 +318,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "AI That Extracts What Matters",
       description:
         "GovClerk AI goes beyond transcription. It identifies action items, summarizes discussions, highlights key decisions, and generates follow-up tasks automatically.",
-      imageUrl: "https://picsum.photos/600/400?random=ai-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Smart Summaries",
         description:
           "Get concise meeting summaries that capture the essential decisions, discussions, and outcomes without reading the full transcript.",
-        imageUrl: "https://picsum.photos/600/400?random=ai-summaries",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
       {
         title: "Action Item Detection",
         description:
           "AI automatically identifies commitments, deadlines, and assignments from meeting conversations and turns them into trackable tasks.",
-        imageUrl: "https://picsum.photos/600/400?random=ai-actions",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
       {
         title: "Decision Highlighting",
         description:
           "Key decisions are automatically flagged and linked to the discussion context, making it easy to reference why a decision was made.",
-        imageUrl: "https://picsum.photos/600/400?random=ai-decisions",
+        imageUrl: "/screenshots/minutes-excerpt.png",
       },
     ],
   },
@@ -353,26 +353,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Meeting Management Built for Government",
       description:
         "City councils, county boards, and municipal agencies trust GovClerk to automate agendas, minutes, and public records while meeting open meeting compliance requirements.",
-      imageUrl: "https://picsum.photos/600/400?random=gov-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Open Meeting Compliance",
         description:
           "Automatically publish agendas and minutes within required timeframes. GovClerk tracks deadlines and ensures your records meet state and local transparency laws.",
-        imageUrl: "https://picsum.photos/600/400?random=gov-compliance",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Council Meeting Workflows",
         description:
           "Purpose-built workflows for council meetings: consent calendars, public hearings, ordinance readings, and roll-call votes are all supported out of the box.",
-        imageUrl: "https://picsum.photos/600/400?random=gov-workflows",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Citizen Access Portal",
         description:
           "Give constituents a searchable, public-facing portal to find agendas, minutes, recordings, and resolutions from any meeting in your history.",
-        imageUrl: "https://picsum.photos/600/400?random=gov-portal",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -388,26 +388,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Streamline School Board Governance",
       description:
         "From K-12 districts to higher education, GovClerk helps school boards run efficient meetings, maintain accurate records, and keep families informed.",
-      imageUrl: "https://picsum.photos/600/400?random=school-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Board Meeting Packages",
         description:
           "Assemble complete board meeting packages with agendas, supporting documents, and background materials. Distribute digitally to all board members.",
-        imageUrl: "https://picsum.photos/600/400?random=school-packages",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Executive Session Support",
         description:
           "Manage closed session agendas, separate minutes, and confidential materials with the access controls school boards require.",
-        imageUrl: "https://picsum.photos/600/400?random=school-executive",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Parent and Community Access",
         description:
           "Publish meeting records to a family-friendly portal. Parents and community members can follow board decisions that affect their schools.",
-        imageUrl: "https://picsum.photos/600/400?random=school-community",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -423,26 +423,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Meeting Management for Special Districts",
       description:
         "Water districts, fire districts, transit authorities, and utility boards have unique meeting requirements. GovClerk handles them all.",
-      imageUrl: "https://picsum.photos/600/400?random=special-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Multi-Board Support",
         description:
           "Manage multiple boards and committees within a single district. Each has its own meeting schedule, agendas, and member roster.",
-        imageUrl: "https://picsum.photos/600/400?random=special-multiboard",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Public Hearing Management",
         description:
           "Track public hearing notices, capture public comments, and ensure all required documentation is recorded and published on time.",
-        imageUrl: "https://picsum.photos/600/400?random=special-hearing",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Small Staff, Big Capability",
         description:
           "Special districts often run lean. GovClerk automates the record-keeping that would otherwise require a dedicated clerk.",
-        imageUrl: "https://picsum.photos/600/400?random=special-lean",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -458,26 +458,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Board Governance for Nonprofits",
       description:
         "Nonprofits deserve the same meeting tools as government agencies. GovClerk helps your board stay organized, transparent, and audit-ready.",
-      imageUrl: "https://picsum.photos/600/400?random=nonprofit-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Board Meeting Management",
         description:
           "Run board meetings with structured agendas, recorded votes, and published minutes. Keep your board governance up to grant compliance standards.",
-        imageUrl: "https://picsum.photos/600/400?random=nonprofit-board",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Committee Coordination",
         description:
           "Finance committees, program committees, and volunteer groups each get their own meeting space with agendas, minutes, and member management.",
-        imageUrl: "https://picsum.photos/600/400?random=nonprofit-committees",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Audit-Ready Records",
         description:
           "Maintain complete meeting records that satisfy auditors, funders, and regulatory bodies. Every document is timestamped and version-controlled.",
-        imageUrl: "https://picsum.photos/600/400?random=nonprofit-audit",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -493,26 +493,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "Run Better Committee Meetings",
       description:
         "Standing committees, advisory boards, and working groups need structure without overhead. GovClerk gives committees the tools to be productive and accountable.",
-      imageUrl: "https://picsum.photos/600/400?random=committee-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "Committee Workspaces",
         description:
           "Each committee gets its own workspace with meeting history, document library, member roster, and upcoming agenda drafts.",
-        imageUrl: "https://picsum.photos/600/400?random=committee-workspace",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Recommendations and Reports",
         description:
           "Committees produce recommendations for the full board. GovClerk tracks recommendations from draft through board action.",
-        imageUrl: "https://picsum.photos/600/400?random=committee-reports",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Cross-Committee Visibility",
         description:
           "See what every committee is working on from a single dashboard. Prevent duplicated efforts and keep the full board informed.",
-        imageUrl: "https://picsum.photos/600/400?random=committee-visibility",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -534,13 +534,13 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Our Mission",
         description:
           "Government bodies, school boards, and nonprofits spend thousands of hours each year on meeting paperwork. We believe that time belongs to the communities they serve.",
-        imageUrl: "https://picsum.photos/600/400?random=about-mission",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Built by GovClerkMinutes",
         description:
           "GovClerk is powered by the same AI transcription and minutes generation technology trusted by thousands of organizations through GovClerkMinutes.",
-        imageUrl: "https://picsum.photos/600/400?random=about-mg",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -562,13 +562,13 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Sales Inquiries",
         description:
           "Interested in GovClerk for your organization? Our sales team can walk you through features, pricing, and implementation. Email us at sales@GovClerk.com.",
-        imageUrl: "https://picsum.photos/600/400?random=contact-sales",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Technical Support",
         description:
           "Already a customer? Our support team is available to help with setup, integrations, and any technical questions. Email support@GovClerk.com.",
-        imageUrl: "https://picsum.photos/600/400?random=contact-support",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -590,13 +590,13 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Why GovClerk",
         description:
           "We are a small, focused team solving a real problem for real organizations. Every feature you build has a direct impact on how communities are governed.",
-        imageUrl: "https://picsum.photos/600/400?random=careers-why",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Open Positions",
         description:
           "We are always looking for talented engineers, designers, and go-to-market professionals. Check back for open roles or send your resume to careers@GovClerk.com.",
-        imageUrl: "https://picsum.photos/600/400?random=careers-positions",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -618,13 +618,13 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Technology Partnerships",
         description:
           "Integrate your platform with GovClerk to offer meeting management as part of your solution. APIs and webhooks make integration straightforward.",
-        imageUrl: "https://picsum.photos/600/400?random=partners-tech",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Reseller Program",
         description:
           "Serve government clients? Add GovClerk to your portfolio. We provide training, co-marketing, and dedicated partner support.",
-        imageUrl: "https://picsum.photos/600/400?random=partners-reseller",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -640,26 +640,26 @@ export const GovClerkPages: GovClerkPageData[] = [
       title: "One Platform, Every Step of Your Meeting",
       description:
         "GovClerk brings together agenda building, live transcription, AI-powered minutes, vote tracking, and public records publishing so your team can move from preparation to compliance in a single workflow.",
-      imageUrl: "https://picsum.photos/600/400?random=overview-hero",
+      imageUrl: "/screenshots/desktop-v2.png",
     },
     features: [
       {
         title: "End-to-End Meeting Lifecycle",
         description:
           "Most teams juggle separate tools for agendas, notes, recordings, and publishing. GovClerk replaces that patchwork with a connected pipeline where each step feeds into the next automatically.",
-        imageUrl: "https://picsum.photos/600/400?random=overview-lifecycle",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Works with Your Existing Stack",
         description:
           "GovClerk integrates with calendar systems, video conferencing platforms, and document storage providers your organization already uses, so adoption is fast and friction-free.",
-        imageUrl: "https://picsum.photos/600/400?random=overview-integrations",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Built for Teams of Every Size",
         description:
           "Whether you manage a single board or coordinate dozens of committees, GovClerk scales to match your organizational structure without additional complexity.",
-        imageUrl: "https://picsum.photos/600/400?random=overview-scale",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -681,19 +681,19 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Product Updates",
         description:
           "Stay current with the latest GovClerk features, improvements, and integrations. We publish detailed release notes so you always know what is new.",
-        imageUrl: "https://picsum.photos/600/400?random=blog-updates",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Best Practices",
         description:
           "Learn how leading organizations streamline their meeting workflows, improve public engagement, and reduce the administrative burden on their staff.",
-        imageUrl: "https://picsum.photos/600/400?random=blog-practices",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Industry Perspectives",
         description:
           "Explore how AI, digital transparency, and evolving regulations are reshaping the way government bodies and nonprofits conduct their meetings.",
-        imageUrl: "https://picsum.photos/600/400?random=blog-perspectives",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -715,19 +715,19 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Getting Started",
         description:
           "Step-by-step guides walk you through account setup, organization configuration, and your first meeting. Most teams are up and running within a single afternoon.",
-        imageUrl: "https://picsum.photos/600/400?random=docs-start",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "API Reference",
         description:
           "Integrate GovClerk into your existing systems with our REST API. Full endpoint documentation, authentication guides, and code examples are included.",
-        imageUrl: "https://picsum.photos/600/400?random=docs-api",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Integration Guides",
         description:
           "Connect GovClerk with calendar providers, video conferencing tools, and document storage systems. Each guide includes prerequisites, setup steps, and troubleshooting tips.",
-        imageUrl: "https://picsum.photos/600/400?random=docs-integrations",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -749,19 +749,19 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Frequently Asked Questions",
         description:
           "Answers to the most common questions about account setup, billing, meeting workflows, and feature configuration, all organized by topic for quick access.",
-        imageUrl: "https://picsum.photos/600/400?random=help-faq",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Troubleshooting Guides",
         description:
           "Step-by-step instructions for resolving common issues with recordings, transcription accuracy, portal publishing, and user permissions.",
-        imageUrl: "https://picsum.photos/600/400?random=help-troubleshoot",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Contact Support",
         description:
           "Need hands-on help? Reach our support team by email at support@GovClerk.com. We respond to all inquiries within one business day.",
-        imageUrl: "https://picsum.photos/600/400?random=help-contact",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -783,19 +783,19 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Government Success Stories",
         description:
           "Learn how municipal clerks have reduced minutes preparation time by up to 80% while improving the accuracy and consistency of their public records.",
-        imageUrl: "https://picsum.photos/600/400?random=cases-government",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Education Outcomes",
         description:
           "School districts share how GovClerk streamlined board meeting workflows, increased community access to meeting records, and freed staff time for student-focused work.",
-        imageUrl: "https://picsum.photos/600/400?random=cases-education",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Nonprofit Impact",
         description:
           "Nonprofit boards describe how structured meeting management improved governance practices, satisfied auditors, and strengthened trust with donors and stakeholders.",
-        imageUrl: "https://picsum.photos/600/400?random=cases-nonprofit",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
@@ -817,19 +817,19 @@ export const GovClerkPages: GovClerkPageData[] = [
         title: "Permitted Use",
         description:
           "GovClerk is designed for legitimate meeting management activities including agenda creation, meeting recording, transcription, minutes generation, and public records publishing.",
-        imageUrl: "https://picsum.photos/600/400?random=aup-permitted",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Prohibited Activities",
         description:
           "Users may not use GovClerk for unauthorized surveillance, distribution of harmful content, circumvention of security controls, or any activity that violates applicable law.",
-        imageUrl: "https://picsum.photos/600/400?random=aup-prohibited",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
       {
         title: "Enforcement",
         description:
           "GovClerk reserves the right to suspend or terminate accounts that violate this policy. If you believe a violation has occurred, please report it to compliance@GovClerk.com.",
-        imageUrl: "https://picsum.photos/600/400?random=aup-enforcement",
+        imageUrl: "/screenshots/desktop-v2.png",
       },
     ],
   },
