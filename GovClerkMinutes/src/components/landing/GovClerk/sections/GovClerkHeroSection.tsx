@@ -46,7 +46,7 @@ export default function GovClerkHeroSection() {
 
           <div className="w-full overflow-hidden rounded-xl border border-gray-200 shadow-lg">
             <Image
-              src="https://picsum.photos/800/500?random=20"
+              src="/screenshots/desktop-v2.png"
               alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
               width={800}
               height={500}
@@ -75,7 +75,7 @@ export default function GovClerkHeroSection() {
 
             <div className="mt-4 w-full overflow-hidden rounded-xl border border-gray-200 shadow-xl">
               <Image
-                src="https://picsum.photos/900/550?random=20"
+                src="/screenshots/desktop-v2.png"
                 alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
                 width={900}
                 height={550}

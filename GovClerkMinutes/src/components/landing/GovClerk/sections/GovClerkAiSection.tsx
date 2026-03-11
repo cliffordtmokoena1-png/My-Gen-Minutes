@@ -67,7 +67,7 @@ export default function GovClerkAiSection() {
           <FadeContent direction="up" duration={0.6} delay={0.2}>
             <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
               <Image
-                src="https://picsum.photos/700/500?random=40"
+                src="/screenshots/desktop-v2.png"
                 alt="GovClerk AI transcription and minutes generation interface"
                 width={700}
                 height={500}
