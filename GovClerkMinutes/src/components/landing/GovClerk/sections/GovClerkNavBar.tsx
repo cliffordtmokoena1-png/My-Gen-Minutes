@@ -359,7 +359,7 @@ export default function GovClerkNavBar() {
                   alt="GovClerk"
                   width={128}
                   height={32}
-                  className="h-8 w-auto"
+                  className="block h-8 w-auto"
                 />
               </Link>
 
