@@ -46,7 +46,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
         <div className="flex flex-col gap-3">
             <h3 className="text-sm font-bold uppercase tracking-wide text-white">{title}</h3>
             {links.map((link) => (
-                <Link key={link.label} href={link.href} className="text-sm text-gray-400 transition-colors hover:text-white">
+                <Link key={link.label} href={link.href} className="text-sm text-gray-300 transition-colors hover:text-white">
                     {link.label}
                 </Link>
             ))}
@@ -56,18 +56,18 @@ function FooterColumn({ title, links }: FooterColumnProps) {
 export default function GovClerkFooter() {
     const currentYear = new Date().getFullYear();
     return (
-        <footer className="relative overflow-hidden bg-gray-800 pt-12 text-white md:pt-16">
+        <footer className="relative overflow-hidden bg-gray-700 pt-12 text-white md:pt-16">
             <div className="relative z-10 mx-auto max-w-7xl px-6">
                 <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
                     <div className="flex flex-col items-start gap-5">
                         <Image src="/GovClerk-logo.svg" alt="GovClerk" width={128} height={36} className="h-9 w-auto brightness-0 invert" />
-                        <p className="max-w-[260px] text-sm leading-relaxed text-gray-400">GovClerk is a product of GovClerkMinutes. We build tools that help organizations run better meetings.</p>
-                        <Link href="https://GovClerkMinutes.com" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-500 transition-colors hover:text-gray-300">Powered by GovClerkMinutes</Link>
+                        <p className="max-w-[260px] text-sm leading-relaxed text-gray-300">GovClerk is a product of GovClerkMinutes. We build tools that help organizations run better meetings.</p>
+                        <Link href="https://GovClerkMinutes.com" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 transition-colors hover:text-white">Powered by GovClerkMinutes</Link>
                         <div className="flex gap-3 pt-2">
                             {socialIcons.map((social) => {
                                 const IconComponent = social.icon;
                                 return (
-                                    <a key={social.label} href={social.href} aria-label={social.label} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-gray-400 transition-all hover:bg-white/20 hover:text-white">
+                                    <a key={social.label} href={social.href} aria-label={social.label} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-gray-300 transition-all hover:bg-white/20 hover:text-white">
                                         <IconComponent className="h-4 w-4" />
                                     </a>
                                 );
@@ -88,19 +88,19 @@ export default function GovClerkFooter() {
                                 const isExternal = link.href.startsWith("http") || link.href.endsWith(".html");
                                 if (isExternal) {
                                     return (
-                                        <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 transition-colors hover:text-white">{link.label}</a>
+                                        <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-300 transition-colors hover:text-white">{link.label}</a>
                                     );
                                 }
                                 return (
-                                    <Link key={link.label} href={link.href} className="text-sm text-gray-400 transition-colors hover:text-white">{link.label}</Link>
+                                    <Link key={link.label} href={link.href} className="text-sm text-gray-300 transition-colors hover:text-white">{link.label}</Link>
                                 );
                             })}
                         </div>
                     </div>
                 </div>
-                <div className="border-t border-gray-700" />
+                <div className="border-t border-gray-600" />
                 <div className="flex items-center justify-between py-6">
-                    <p className="text-sm text-gray-500">&copy; {currentYear} GovClerk. All rights reserved.</p>
+                    <p className="text-sm text-gray-400">&copy; {currentYear} GovClerk. All rights reserved.</p>
                 </div>
             </div>
             <div className="pointer-events-none absolute bottom-0 left-0 right-0 flex items-end justify-center overflow-hidden" aria-hidden="true">
