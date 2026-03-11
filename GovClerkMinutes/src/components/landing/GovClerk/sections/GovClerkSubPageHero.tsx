@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FadeContent from "../../../reactbits/FadeContent";
 import DotPattern from "../DotPattern";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 type Props = {
   label: string;
@@ -43,9 +44,9 @@ export default function GovClerkSubPageHero({ label, title, description, imageUr
             </div>
           </FadeContent>
 
-          {imageUrl && (
-            <FadeContent direction="up" delay={0.2} duration={0.7}>
-              <div className="flex items-center justify-center">
+          <FadeContent direction="up" delay={0.2} duration={0.7}>
+            <div className="flex items-center justify-center">
+              {imageUrl ? (
                 <img
                   src={imageUrl}
                   alt={title}
@@ -54,9 +55,11 @@ export default function GovClerkSubPageHero({ label, title, description, imageUr
                   className="aspect-[3/2] w-full max-w-md rounded-xl object-cover shadow-lg"
                   loading="eager"
                 />
-              </div>
-            </FadeContent>
-          )}
+              ) : (
+                <GovClerkDesktopMockup className="w-full" />
+              )}
+            </div>
+          </FadeContent>
         </div>
       </div>
     </section>

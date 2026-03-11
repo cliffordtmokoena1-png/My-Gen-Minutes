@@ -15,7 +15,7 @@ export default function GovClerkHead({ title, description, canonical, noindex }:
   const resolvedTitle = title || defaultTitle;
   const resolvedDescription = description || defaultDescription;
   const resolvedCanonical = canonical || "https://GovClerk.com/";
-  const ogImageUrl = "https://picsum.photos/1200/630?random=cd-og";
+  const ogImageUrl = "https://GovClerk.com/GovClerk-icon.svg";
 
   const faqJsonLd = {
     "@context": "https://schema.org",

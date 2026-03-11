@@ -1,9 +1,10 @@
 import FadeContent from "../../../reactbits/FadeContent";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 type FeatureBlock = {
   title: string;
   description: string;
-  imageUrl: string;
+  imageUrl?: string;
 };
 
 type Props = {
@@ -33,14 +34,18 @@ export default function GovClerkFeatureDetailSection({ features }: Props) {
                     </p>
                   </div>
                   <div className={isReversed ? "md:[direction:ltr]" : ""}>
-                    <img
-                      src={feature.imageUrl}
-                      alt={feature.title}
-                      width={600}
-                      height={400}
-                      className="aspect-[3/2] w-full rounded-xl object-cover shadow-md"
-                      loading="lazy"
-                    />
+                    {feature.imageUrl ? (
+                      <img
+                        src={feature.imageUrl}
+                        alt={feature.title}
+                        width={600}
+                        height={400}
+                        className="aspect-[3/2] w-full rounded-xl object-cover shadow-md"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <GovClerkDesktopMockup className="w-full rounded-xl shadow-md" />
+                    )}
                   </div>
                 </div>
               </FadeContent>

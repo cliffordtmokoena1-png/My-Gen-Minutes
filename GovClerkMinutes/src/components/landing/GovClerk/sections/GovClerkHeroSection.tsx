@@ -1,7 +1,7 @@
-import Image from "next/image";
 import QuoteRequestForm from "../../QuoteRequestForm";
 import { GovClerk_ANNOUNCEMENT_BAR_HEIGHT } from "./GovClerkAnnouncementBar";
 import DotPattern from "../DotPattern";
+import { GovClerkDesktopMockup, GovClerkMobileMockup } from "./GovClerkProductMockup";
 
 export default function GovClerkHeroSection() {
   return (
@@ -45,13 +45,7 @@ export default function GovClerkHeroSection() {
           />
 
           <div className="w-full overflow-hidden rounded-xl border border-gray-200 shadow-lg">
-            <Image
-              src="https://picsum.photos/800/500?random=20"
-              alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
-              width={800}
-              height={500}
-              className="h-auto w-full"
-            />
+            <GovClerkMobileMockup className="mx-auto" />
           </div>
         </div>
 
@@ -74,13 +68,7 @@ export default function GovClerkHeroSection() {
             </p>
 
             <div className="mt-4 w-full overflow-hidden rounded-xl border border-gray-200 shadow-xl">
-              <Image
-                src="https://picsum.photos/900/550?random=20"
-                alt="GovClerk meeting management platform dashboard showing agenda builder and AI-generated minutes"
-                width={900}
-                height={550}
-                className="h-auto w-full"
-              />
+              <GovClerkDesktopMockup />
             </div>
           </div>
 

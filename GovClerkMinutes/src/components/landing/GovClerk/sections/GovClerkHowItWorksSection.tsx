@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
 import FadeContent from "../../../reactbits/FadeContent";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 type StepItem = {
   number: string;
   title: string;
   description: string;
-  imageSrc: string;
 };
 
 const steps: StepItem[] = [
@@ -15,28 +14,24 @@ const steps: StepItem[] = [
     title: "Create Your Agenda",
     description:
       "Build structured agendas with attachments, time allocations, and speaking order. Distribute to members automatically.",
-    imageSrc: "https://picsum.photos/1200/700?random=30",
   },
   {
     number: "02",
     title: "Record or Upload",
     description:
       "Record meetings directly in your browser or upload audio and video files. We support all major formats including Zoom and Teams recordings.",
-    imageSrc: "https://picsum.photos/1200/700?random=31",
   },
   {
     number: "03",
     title: "AI Generates Minutes",
     description:
       "Our AI transcribes the meeting, identifies speakers, extracts decisions and action items, and formats professional minutes in seconds.",
-    imageSrc: "https://picsum.photos/1200/700?random=32",
   },
   {
     number: "04",
     title: "Export & Publish",
     description:
       "Download Word or PDF documents, share with stakeholders, and publish to your public portal for community access.",
-    imageSrc: "https://picsum.photos/1200/700?random=33",
   },
 ];
 
@@ -136,14 +131,7 @@ export default function GovClerkHowItWorksSection() {
                   `}
                   aria-hidden={imageIndex !== activeTabIndex}
                 >
-                  <Image
-                    src={step.imageSrc}
-                    alt={step.title}
-                    width={1200}
-                    height={700}
-                    className="h-auto w-full object-cover"
-                    priority={imageIndex === 0}
-                  />
+                  <GovClerkDesktopMockup />
                 </div>
               ))}
             </div>
@@ -217,13 +205,7 @@ export default function GovClerkHowItWorksSection() {
                         {step.description}
                       </p>
                       <div className="rounded-xl border border-white/10 shadow-md overflow-hidden">
-                        <Image
-                          src={step.imageSrc}
-                          alt={step.title}
-                          width={1200}
-                          height={700}
-                          className="h-auto w-full object-cover"
-                        />
+                        <GovClerkDesktopMockup />
                       </div>
                     </div>
                   </div>

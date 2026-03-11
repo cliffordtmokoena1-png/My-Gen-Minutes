@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { LuSparkles, LuFileText, LuMic, LuSearch } from "react-icons/lu";
 import FadeContent from "../../../reactbits/FadeContent";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 const aiFeatures = [
   {
@@ -66,13 +66,7 @@ export default function GovClerkAiSection() {
 
           <FadeContent direction="up" duration={0.6} delay={0.2}>
             <div className="overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-              <Image
-                src="https://picsum.photos/700/500?random=40"
-                alt="GovClerk AI transcription and minutes generation interface"
-                width={700}
-                height={500}
-                className="h-auto w-full"
-              />
+              <GovClerkDesktopMockup />
             </div>
           </FadeContent>
         </div>

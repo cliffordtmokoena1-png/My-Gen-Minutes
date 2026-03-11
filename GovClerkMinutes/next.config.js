@@ -13,10 +13,6 @@ const nextConfig = {
         protocol: "https",
         hostname: "igc.clerk.com",
       },
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-      },
     ],
   },
   async rewrites() {

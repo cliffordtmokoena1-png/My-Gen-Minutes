@@ -1,12 +1,11 @@
-import Image from "next/image";
 import { LuCalendar, LuFileText, LuMic, LuClipboardCheck, LuGlobe, LuShield } from "react-icons/lu";
 import SpotlightCard from "../../../reactbits/SpotlightCard";
 import FadeContent from "../../../reactbits/FadeContent";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 type TopFeature = {
   title: string;
   description: string;
-  imageSrc: string;
 };
 
 type BottomFeature = {
@@ -20,13 +19,11 @@ const topFeatures: TopFeature[] = [
     title: "AI-Powered Minutes Generation",
     description:
       "Transform meeting recordings into structured, professional minutes automatically. Decisions, action items, and key discussions are organized and ready to export.",
-    imageSrc: "https://picsum.photos/800/600?random=40",
   },
   {
     title: "Real-Time Transcription",
     description:
       "Get accurate, searchable transcripts with automatic speaker identification. Support for 96+ languages with real-time processing.",
-    imageSrc: "https://picsum.photos/800/600?random=41",
   },
 ];
 
@@ -80,14 +77,9 @@ export default function GovClerkFeaturesSection() {
               key={feature.title}
               className="group relative flex h-[400px] flex-col justify-end overflow-hidden rounded-2xl border border-white/20 bg-white p-6 transition-all hover:border-white/40 hover:shadow-lg md:h-[450px] md:p-8"
             >
-              {/* Screenshot image behind */}
-              <div className="absolute left-6 right-6 top-6 h-full overflow-hidden rounded-xl border border-gray-200 bg-white opacity-60 shadow-lg md:left-8 md:right-8 md:top-8">
-                <Image
-                  src={feature.imageSrc}
-                  alt={feature.title}
-                  fill
-                  className="object-cover object-top"
-                />
+              {/* Product mockup behind */}
+              <div className="absolute left-6 right-6 top-6 overflow-hidden rounded-xl border border-gray-200 bg-white opacity-70 shadow-lg md:left-8 md:right-8 md:top-8">
+                <GovClerkDesktopMockup />
               </div>
 
               {/* Content overlay with gradient */}

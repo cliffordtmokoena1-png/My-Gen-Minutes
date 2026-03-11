@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { LuClipboardList, LuShieldCheck, LuServer } from "react-icons/lu";
 import FadeContent from "../../../reactbits/FadeContent";
+import { GovClerkDesktopMockup } from "./GovClerkProductMockup";
 
 const roles = [
   {
@@ -8,7 +8,6 @@ const roles = [
     title: "City & County Clerks",
     description:
       "Eliminate hours of manual transcription. GovClerk auto-generates minutes from recordings, tracks motions and votes, and publishes records to your public portal in the format your jurisdiction requires.",
-    image: "https://picsum.photos/600/400?random=30",
     stats: "80% less time on minutes preparation",
   },
   {
@@ -16,7 +15,6 @@ const roles = [
     title: "Board Secretaries & Administrators",
     description:
       "Keep your board organized with automated agenda building, real-time collaboration, and a searchable archive of every meeting. Stay compliant with open meeting laws without the manual overhead.",
-    image: "https://picsum.photos/600/400?random=31",
     stats: "100% compliance with open meeting requirements",
   },
   {
@@ -24,7 +22,6 @@ const roles = [
     title: "IT Directors & System Administrators",
     description:
       "Deploy a SOC 2 compliant platform with SSO integration, role-based access controls, and API connectivity to your existing systems. No on-premise infrastructure required.",
-    image: "https://picsum.photos/600/400?random=32",
     stats: "Zero infrastructure to maintain",
   },
 ];
@@ -70,13 +67,7 @@ export default function GovClerkRolesSection() {
                     <p className="text-sm font-semibold text-blue-200">{role.stats}</p>
                   </div>
                   <div className="overflow-hidden rounded-2xl border border-white/20 shadow-lg">
-                    <Image
-                      src={role.image}
-                      alt={`${role.title} using GovClerk`}
-                      width={600}
-                      height={400}
-                      className="h-auto w-full"
-                    />
+                    <GovClerkDesktopMockup />
                   </div>
                 </div>
               </FadeContent>
