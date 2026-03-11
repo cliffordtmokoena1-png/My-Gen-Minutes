@@ -18,7 +18,7 @@ import GovClerkHead from "../GovClerkHead";
 
 export default function GovClerkLandingPage() {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen pt-10">
       <GovClerkHead />
       <GovClerkAnnouncementBar />
       <GovClerkNavBar />

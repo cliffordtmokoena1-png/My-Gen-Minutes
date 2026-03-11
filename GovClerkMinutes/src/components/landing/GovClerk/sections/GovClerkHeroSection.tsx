@@ -9,7 +9,7 @@ export default function GovClerkHeroSection() {
       id="hero-form"
       className="relative flex min-h-screen items-center bg-white"
       style={{
-        paddingTop: `${GovClerk_ANNOUNCEMENT_BAR_HEIGHT + 80}px`,
+        paddingTop: "80px",
         paddingBottom: "4rem",
       }}
     >
