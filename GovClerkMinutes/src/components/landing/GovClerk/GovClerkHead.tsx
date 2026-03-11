@@ -51,7 +51,7 @@ export default function GovClerkHead({ title, description, canonical, noindex }:
     "@type": "Organization",
     name: "GovClerk",
     url: "https://GovClerk.com",
-    logo: "https://GovClerk.com/clerkdirect-icon.svg",
+    logo: "https://GovClerk.com/govclerk-icon.svg",
     description:
       "AI-powered meeting management platform for government bodies, school boards, and public organizations.",
     sameAs: ["https://linkedin.com/company/GovClerk", "https://twitter.com/GovClerk"],
@@ -68,7 +68,7 @@ export default function GovClerkHead({ title, description, canonical, noindex }:
       {noindex && <meta name="robots" content="noindex" />}
       <meta charSet="UTF-8" />
 
-      <link rel="icon" href="/clerkdirect-icon.svg" type="image/svg+xml" />
+      <link rel="icon" href="/govclerk-icon.svg" type="image/svg+xml" />
       <link rel="manifest" href="/manifest.json" />
       <link rel="canonical" href={resolvedCanonical} />
 
