@@ -75,7 +75,7 @@ export const Footer = () => {
     : [];
 
   return (
-    <Box as="footer" bg="gray.900" color="white" pt={{ base: 12, md: 16 }} pb={8}>
+    <Box as="footer" bg="gray.800" color="white" pt={{ base: 12, md: 16 }} pb={8}>
       <Container maxW="7xl">
         <Grid templateColumns={{ base: "1fr", md: "1fr 2fr" }} gap={{ base: 8, md: 16 }} mb={12}>
           <VStack align="start" spacing={4}>

@@ -346,7 +346,7 @@ export default function GovClerkNavBar() {
         }`}
         style={{ top: `${navTopOffset}px` }}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-7xl px-6">
           <div className="flex h-16 items-center justify-between">
             {/* Left: logo + nav */}
             <div className="flex items-center gap-10">
@@ -359,7 +359,7 @@ export default function GovClerkNavBar() {
                   alt="GovClerk"
                   width={128}
                   height={32}
-                  className="h-8 w-auto"
+                  className="block h-8 w-auto"
                 />
               </Link>
 
