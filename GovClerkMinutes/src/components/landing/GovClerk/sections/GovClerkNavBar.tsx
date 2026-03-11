@@ -355,7 +355,7 @@ export default function GovClerkNavBar() {
                 className="flex items-center gap-2 transition-transform hover:scale-[1.02]"
               >
                 <Image
-                  src="/clerkdirect-logo.svg"
+                  src="/govclerk-logo.svg"
                   alt="GovClerk"
                   width={128}
                   height={32}
@@ -489,7 +489,7 @@ export default function GovClerkNavBar() {
         <div className="flex h-16 items-center justify-between border-b border-gray-100 px-6">
           <Link href="/" className="flex items-center" onClick={handleClose}>
             <Image
-              src="/clerkdirect-logo.svg"
+              src="/govclerk-logo.svg"
               alt="GovClerk"
               width={128}
               height={32}
