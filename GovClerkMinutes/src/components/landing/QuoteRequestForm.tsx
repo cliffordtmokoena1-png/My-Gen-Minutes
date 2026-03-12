@@ -22,7 +22,6 @@ import "react-phone-number-input/style.css";
 import { FaCheckCircle, FaCalendarAlt } from "react-icons/fa";
 import { useRouter } from "next/router";
 import { safeCapture } from "@/utils/safePosthog";
-import { getEmailDomain, isPersonalEmail } from "@/utils/emailValidation";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 import { reportSubmitLeadFormConversion } from "@/google/conversion";
 
@@ -92,19 +91,9 @@ export default function QuoteRequestForm({
     }
     const trimmedEmail = formData.email.trim();
     if (!trimmedEmail) {
-      newErrors.email = "Work email is required";
+      newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
       newErrors.email = "Please enter a valid email";
-    } else {
-      // Check if email domain is a personal email
-      if (isPersonalEmail(trimmedEmail)) {
-        newErrors.email = "Please use a work email address";
-        safeCapture("quote_request_personal_email_blocked_client", {
-          formType,
-          route: router.pathname,
-          emailDomain: getEmailDomain(trimmedEmail),
-        });
-      }
     }
     if (!formData.phone) {
       newErrors.phone = "Phone number is required";
@@ -415,10 +404,10 @@ export default function QuoteRequestForm({
           </FormControl>
         </Grid>
 
-        {/* Work Email - Full Row */}
+        {/* Email - Full Row */}
         <FormControl isInvalid={!!errors.email}>
           <FormLabel fontSize="xs" fontWeight="medium" color="gray.700">
-            Work Email *
+            Email *
           </FormLabel>
           <Input
             type="email"
@@ -430,7 +419,7 @@ export default function QuoteRequestForm({
                 setErrors({ ...errors, email: "" });
               }
             }}
-            placeholder="you@company.com"
+            placeholder="you@example.com"
             size="md"
             bg="gray.50"
             border="1px solid"
