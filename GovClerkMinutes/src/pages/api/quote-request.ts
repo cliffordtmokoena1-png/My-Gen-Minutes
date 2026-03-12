@@ -4,7 +4,6 @@ import { getUserIdFromEmail } from "@/auth/getUserIdFromEmail";
 import { createUser } from "@/auth/createUser";
 import { sendSlackWebhook } from "@/utils/slack";
 import { NextRequest } from "next/server";
-import { isPersonalEmail, getEmailDomain } from "@/utils/emailValidation";
 import { capture } from "@/utils/posthog";
 import {
   readMetaConversionData,
@@ -113,23 +112,6 @@ async function handler(req: NextRequest) {
       !trimmedOrganizationName
     ) {
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    if (isPersonalEmail(normalizedEmail)) {
-      await capture(
-        "quote_request_blocked_personal_email",
-        {
-          formType,
-          email: normalizedEmail,
-          emailDomain: getEmailDomain(normalizedEmail),
-          $session_id: posthogSessionId,
-        },
-        normalizedEmail
-      );
-      return new Response(JSON.stringify({ error: "Please use a work email address" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
