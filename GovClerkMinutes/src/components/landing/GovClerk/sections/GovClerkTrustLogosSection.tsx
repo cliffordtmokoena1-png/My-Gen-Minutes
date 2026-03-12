@@ -1,16 +1,16 @@
 import FadeContent from "../../../reactbits/FadeContent";
 
 const trustedOrgs = [
-  { name: "City of Sacramento", initials: "CS" },
-  { name: "Fairfax County", initials: "FC" },
-  { name: "Denver Public Schools", initials: "DP" },
-  { name: "Portland Metro", initials: "PM" },
-  { name: "Charlotte-Mecklenburg", initials: "CM" },
-  { name: "King County", initials: "KC" },
-  { name: "Austin ISD", initials: "AI" },
-  { name: "Miami-Dade County", initials: "MD" },
-  { name: "Hennepin County", initials: "HC" },
-  { name: "San Jose Water District", initials: "SJ" },
+  { name: "New York County, NY", initials: "NY" },
+  { name: "Washington, DC", initials: "DC" },
+  { name: "Dubai Municipality", initials: "DM" },
+  { name: "City of Cape Town", initials: "CT" },
+  { name: "City of Pretoria", initials: "CP" },
+  { name: "City of Johannesburg", initials: "CJ" },
+  { name: "eThekwini (Durban)", initials: "ED" },
+  { name: "Mangaung (Bloemfontein)", initials: "MB" },
+  { name: "Nelson Mandela Bay (Gqeberha)", initials: "NM" },
+  { name: "Brooklyn Borough, NY", initials: "BB" },
 ];
 
 export default function GovClerkTrustLogosSection() {
