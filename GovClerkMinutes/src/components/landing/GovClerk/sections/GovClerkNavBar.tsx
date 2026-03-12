@@ -347,7 +347,7 @@ export default function GovClerkNavBar() {
         style={{ top: `${navTopOffset}px` }}
       >
         <div className="mx-auto max-w-7xl px-6">
-          <div className="flex h-28 items-center justify-between">
+          <div className="flex h-16 items-center justify-between">
             {/* Left: logo + nav */}
             <div className="flex items-center gap-10">
               <Link
@@ -357,9 +357,9 @@ export default function GovClerkNavBar() {
                 <Image
                   src="/govclerk-logo.svg"
                   alt="GovClerk"
-                  width={250}
-                  height={100}
-                  className="h-[100px] w-auto"
+                  width={160}
+                  height={40}
+                  className="h-10 w-auto"
                 />
               </Link>
 
@@ -486,14 +486,14 @@ export default function GovClerkNavBar() {
         style={{ top: `${navTopOffset}px` }}
       >
         {/* Mobile header */}
-        <div className="flex h-28 items-center justify-between border-b border-gray-100 px-6">
+        <div className="flex h-16 items-center justify-between border-b border-gray-100 px-6">
           <Link href="/" className="flex items-center" onClick={handleClose}>
             <Image
               src="/govclerk-logo.svg"
               alt="GovClerk"
-              width={250}
-              height={100}
-              className="h-[100px] w-auto"
+              width={160}
+              height={40}
+              className="h-10 w-auto"
             />
           </Link>
           <button
