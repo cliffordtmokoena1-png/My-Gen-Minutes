@@ -21,37 +21,37 @@ const testimonials: Testimonial[] = [
   {
     name: "Sarah Mitchell, CMC",
     role: "City Clerk",
-    organization: "City of Oakridge, OR",
+    organization: "New York County, NY",
     text: "GovClerk cut our minutes preparation time by 80%. What used to take two full days now takes less than an hour. The AI accuracy is remarkable, and our council members love having searchable transcripts.",
   },
   {
     name: "James Thornton",
     role: "Board Secretary",
-    organization: "Maplewood Unified School District",
+    organization: "Washington, DC Public Schools",
     text: "We needed a solution that met open meeting compliance requirements out of the box. GovClerk delivers that and more. The public portal alone saved us from three separate software subscriptions.",
   },
   {
-    name: "Patricia Nguyen",
+    name: "Fatima Al-Rashid",
     role: "Executive Director",
-    organization: "Community Foundation of the Valley",
+    organization: "Dubai Community Foundation",
     text: "Our board meetings are more productive now that we can focus on discussion instead of note-taking. The automated minutes capture every vote and action item without fail.",
   },
   {
-    name: "Robert Caldwell, MPA",
-    role: "County Administrator",
-    organization: "Harmon County, TX",
+    name: "Thabo Mokoena, MPA",
+    role: "Municipal Manager",
+    organization: "City of Cape Town, South Africa",
     text: "The ROI was immediate. We eliminated overtime costs for manual transcription and improved public trust with transparent, accessible meeting records. Implementation took less than a week.",
   },
   {
-    name: "Maria Santos",
+    name: "Naledi Khumalo",
     role: "Legislative Analyst",
-    organization: "City of Westbrook, CT",
+    organization: "City of Johannesburg, South Africa",
     text: "The speaker identification feature is a game changer for our large council sessions. No more guessing who said what. Every motion and vote is tracked automatically.",
   },
   {
-    name: "Linda Park, MMC",
+    name: "Lerato Dlamini, MMC",
     role: "Deputy City Clerk",
-    organization: "City of Fairview, WA",
+    organization: "City of Pretoria, South Africa",
     text: "Transitioning from manual transcription was seamless. The onboarding team walked us through every step, and we were live within three days. Our staff actually enjoys the meeting workflow now.",
   },
 ];
@@ -88,7 +88,7 @@ export default function GovClerkTestimonialsSection() {
       <div className="mx-auto mb-12 max-w-7xl px-6 text-center">
         <FadeContent direction="up" duration={0.6}>
           <h2 className="font-serif text-3xl font-normal text-white md:text-5xl leading-[1.1]">
-            Trusted by Organizations Across the Country
+            Trusted by Organizations Across the Globe
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-blue-200 md:text-lg">
             See what clerks, administrators, and board secretaries are saying about GovClerk.
