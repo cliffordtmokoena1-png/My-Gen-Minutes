@@ -60,7 +60,7 @@ export default function GovClerkFooter() {
             <div className="relative z-10 mx-auto max-w-7xl px-6">
                 <div className="mb-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
                     <div className="flex flex-col items-start gap-5">
-                        <Image src="/govclerk-logo.svg" alt="GovClerk" width={180} height={48} className="h-12 w-auto brightness-0 invert" />
+                        <Image src="/govclerk-logo.svg" alt="GovClerk" width={380} height={110} className="h-[110px] w-auto max-w-[380px] brightness-0 invert" />
                         <p className="max-w-[260px] text-sm leading-relaxed text-gray-300">GovClerk is a product of GovClerkMinutes. We build tools that help organizations run better meetings.</p>
                         <Link href="https://GovClerkMinutes.com" target="_blank" rel="noopener noreferrer" className="text-xs text-gray-400 transition-colors hover:text-white">Powered by GovClerkMinutes</Link>
                         <div className="flex gap-3 pt-2">
