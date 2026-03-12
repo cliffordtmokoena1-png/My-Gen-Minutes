@@ -103,12 +103,12 @@ export function buildSqlParts(opts: {
   const ensureJoinsForLeads = () => {
     // Avoid duplicate JOIN lines
     const hasJoinContacts = joinParts.some((j) => j.includes("mg_whatsapp_contacts c"));
-    const hasJoinLeads = joinParts.some((j) => j.includes("mg_leads l"));
+    const hasJoinLeads = joinParts.some((j) => j.includes("gc_leads l"));
     if (!hasJoinContacts) {
       joinParts.push("LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id");
     }
     if (!hasJoinLeads) {
-      joinParts.push("INNER JOIN mg_leads l ON l.user_id = c.user_id");
+      joinParts.push("INNER JOIN gc_leads l ON l.user_id = c.user_id");
     }
   };
 
@@ -426,7 +426,7 @@ export async function buildConversationsFor(
           r.last_read_at
         FROM mg_whatsapps w
         LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
-        LEFT JOIN mg_leads l ON c.user_id = l.user_id
+        LEFT JOIN gc_leads l ON c.user_id = l.user_id
         LEFT JOIN mg_whatsapp_reads r ON r.user_id = ? AND w.conversation_id = r.conversation_id
         WHERE w.conversation_id IN (${placeholders})
         ORDER BY w.conversation_id, w.created_at;

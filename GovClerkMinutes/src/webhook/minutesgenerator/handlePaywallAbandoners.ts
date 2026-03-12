@@ -52,7 +52,7 @@ async function startPaywallAbandonmentEmailSequence(
       first_name: string | null;
       phone: string | null;
       instantly_id: string | null;
-    }>("SELECT first_name, phone, instantly_id FROM mg_leads WHERE user_id = ?", [lead.userId])
+    }>("SELECT first_name, phone, instantly_id FROM gc_leads WHERE user_id = ?", [lead.userId])
     .then((r) => r.rows?.[0] ?? null);
 
   if (!leadInfo || !leadInfo.instantly_id) {

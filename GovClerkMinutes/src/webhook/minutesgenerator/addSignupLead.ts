@@ -26,7 +26,7 @@ export async function addSignupLead(lead: PostSignupLead, conn: Connection): Pro
     customVariables: variables,
   });
 
-  await conn.execute("UPDATE mg_leads SET instantly_id = ? WHERE user_id = ?", [
+  await conn.execute("UPDATE gc_leads SET instantly_id = ? WHERE user_id = ?", [
     instantlyResponse.id,
     lead.user_id,
   ]);

@@ -42,7 +42,7 @@ export async function runPostSignupTasks(): Promise<void> {
         ELSE 0
       END AS has_whatsapp_inbound
       FROM mg_emails e
-      JOIN mg_leads l ON e.user_id = l.user_id
+      JOIN gc_leads l ON e.user_id = l.user_id
       LEFT JOIN mg_whatsapp_contacts wc ON wc.user_id = l.user_id
       WHERE TIMESTAMPDIFF(MINUTE, e.created_at, UTC_TIMESTAMP()) >= 5
         AND e.should_email = 1

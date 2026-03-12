@@ -83,7 +83,7 @@ export async function updateLeadInDb({
 
   const setListStr = setList.join(", ");
 
-  await conn.execute(`UPDATE mg_leads SET ${setListStr} WHERE user_id = ?;`, [...values, userId]);
+  await conn.execute(`UPDATE gc_leads SET ${setListStr} WHERE user_id = ?;`, [...values, userId]);
 }
 
 export async function upsertLeadToDb({
@@ -107,7 +107,7 @@ export async function upsertLeadToDb({
 
   await conn.execute(
     `
-    INSERT INTO mg_leads
+    INSERT INTO gc_leads
       (user_id, email, first_name, last_name, phone, organization_name, website_url, comments, minutes_freq, minutes_due, instantly_id)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
@@ -164,7 +164,7 @@ export async function getLeadsFromDb(userIds: string[]): Promise<MgLead[]> {
         minutes_freq,
         minutes_due,
         instantly_id
-      FROM mg_leads
+      FROM gc_leads
       WHERE user_id IN (?);
       `,
       [userIds]
@@ -212,7 +212,7 @@ export async function getLeadByPhoneFromDb(phone: string): Promise<MgLead | null
         minutes_freq,
         minutes_due,
         instantly_id
-      FROM mg_leads
+      FROM gc_leads
       WHERE phone = ?
       LIMIT 1;
       `,
