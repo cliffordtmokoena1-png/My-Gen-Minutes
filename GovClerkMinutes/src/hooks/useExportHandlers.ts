@@ -136,7 +136,7 @@ export function useExportHandlers({
             selectedVersion !== undefined && minutesData?.minutes && minutesData.minutes.length > 1
               ? `_v${selectedVersion + 1}`
               : "";
-          saveAs(blob, `${title}_MG_${contentType}${versionSuffix}.${format}`);
+          saveAs(blob, `${title}_GC_${contentType}${versionSuffix}.${format}`);
           toast({
             title: `Exported as ${format.toUpperCase()}`,
             status: "success",
@@ -187,7 +187,7 @@ export function useExportHandlers({
         });
 
         if (blob) {
-          saveAs(blob, `${title}_MG_Transcript.${format}`);
+          saveAs(blob, `${title}_GC_Transcript.${format}`);
           toast({
             title: `Exported as ${format.toUpperCase()}`,
             status: "success",

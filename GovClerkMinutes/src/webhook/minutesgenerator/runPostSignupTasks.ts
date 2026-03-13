@@ -1,6 +1,6 @@
 import { connect } from "@planetscale/database";
 import { addSignupLead } from "./addSignupLead";
-import { capture, MG_WEBHOOK_ANONYMOUS_ID } from "@/utils/posthog";
+import { capture, GC_WEBHOOK_ANONYMOUS_ID } from "@/utils/posthog";
 import { sendCompleteRegistrationConversionEvent } from "@/meta/sendCompleteRegistrationConversionEvent";
 import { assertString } from "@/utils/assert";
 
@@ -88,7 +88,7 @@ export async function runPostSignupTasks(): Promise<void> {
           email: lead.email,
           error: String(error),
         },
-        MG_WEBHOOK_ANONYMOUS_ID
+        GC_WEBHOOK_ANONYMOUS_ID
       );
     }
   }

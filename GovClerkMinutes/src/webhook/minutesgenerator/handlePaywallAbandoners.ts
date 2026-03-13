@@ -6,7 +6,7 @@ import {
   moveLeadByInstantlyId,
   updateLeadByInstantlyId,
 } from "@/instantly/leads";
-import { capture, MG_WEBHOOK_ANONYMOUS_ID } from "@/utils/posthog";
+import { capture, GC_WEBHOOK_ANONYMOUS_ID } from "@/utils/posthog";
 import { getLeadFromDb, MgLead } from "@/crm/leads";
 
 function formatRecordingLength(credits_required: number): string {
@@ -173,7 +173,7 @@ export async function handlePaywallAbandoners(): Promise<void> {
           email: emailInfo.email,
           campaign: emailInfo.campaign,
         },
-        MG_WEBHOOK_ANONYMOUS_ID
+        GC_WEBHOOK_ANONYMOUS_ID
       );
     } catch (e) {
       console.error("failed to move lead to instantly:", e);
@@ -185,7 +185,7 @@ export async function handlePaywallAbandoners(): Promise<void> {
           email: emailInfo.email,
           instantly_err: String(e),
         },
-        MG_WEBHOOK_ANONYMOUS_ID
+        GC_WEBHOOK_ANONYMOUS_ID
       );
     }
   }

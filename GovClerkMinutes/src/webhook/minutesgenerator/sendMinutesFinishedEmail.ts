@@ -93,7 +93,7 @@ export async function sendMinutesFinishedEmail(transcriptId: number): Promise<vo
     MessageStream: "signup_and_purchase",
     Attachments: [
       {
-        Name: `MG_Minutes_${title.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 20)}.pdf`,
+        Name: `GC_Minutes_${title.replace(/[^a-zA-Z0-9]/g, "_").slice(0, 20)}.pdf`,
         Content: docBase64,
         ContentType: "application/pdf",
       },
