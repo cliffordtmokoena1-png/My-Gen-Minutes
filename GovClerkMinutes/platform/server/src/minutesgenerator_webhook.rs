@@ -2,7 +2,7 @@ use crate::dev::is_dev;
 use reqwest::Client;
 use serde_json::json;
 
-pub enum MgWebhookEvent {
+pub enum GcWebhookEvent {
   CheckRenewCredits,
   CheckWhatsapps,
   RunPostSignupTasks,
@@ -14,24 +14,24 @@ pub enum MgWebhookEvent {
   },
 }
 
-pub async fn send_request(event: MgWebhookEvent) -> anyhow::Result<()> {
+pub async fn send_request(event: GcWebhookEvent) -> anyhow::Result<()> {
   let body = match event {
-    MgWebhookEvent::CheckRenewCredits => json!({
+    GcWebhookEvent::CheckRenewCredits => json!({
       "event": "check_renew_credits"
     }),
-    MgWebhookEvent::CheckWhatsapps => json!({
+    GcWebhookEvent::CheckWhatsapps => json!({
       "event": "check_whatsapps"
     }),
-    MgWebhookEvent::RunPostSignupTasks => json!({
+    GcWebhookEvent::RunPostSignupTasks => json!({
       "event": "run_post_signup_tasks"
     }),
-    MgWebhookEvent::HandlePaywallAbandoners => json!({
+    GcWebhookEvent::HandlePaywallAbandoners => json!({
       "event": "handle_paywall_abandoners"
     }),
-    MgWebhookEvent::RemindWebinarLeads => json!({
+    GcWebhookEvent::RemindWebinarLeads => json!({
       "event": "remind_webinar_leads"
     }),
-    MgWebhookEvent::SendMinutesFinishedEmail { transcript_id } => json!({
+    GcWebhookEvent::SendMinutesFinishedEmail { transcript_id } => json!({
       "event": "send_minutes_finished_email",
       "transcript_id": transcript_id
     }),

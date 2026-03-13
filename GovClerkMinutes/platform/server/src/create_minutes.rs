@@ -587,7 +587,7 @@ pub async fn create_minutes_fast(
           .num_milliseconds()
       });
 
-  if let Err(e) = send_request(MgWebhookEvent::SendMinutesFinishedEmail { transcript_id }).await {
+  if let Err(e) = send_request(GcWebhookEvent::SendMinutesFinishedEmail { transcript_id }).await {
     error!("Failed to send webhook event: {}", e);
   }
 
@@ -1019,7 +1019,7 @@ async fn generate_minutes_with_finetuned_model(
       .ok();
   }
 
-  if let Err(e) = send_request(MgWebhookEvent::SendMinutesFinishedEmail { transcript_id }).await {
+  if let Err(e) = send_request(GcWebhookEvent::SendMinutesFinishedEmail { transcript_id }).await {
     error!("Failed to send webhook event: {}", e);
   }
 
