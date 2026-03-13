@@ -30,7 +30,7 @@ async function handler(req: NextRequest) {
 
   await conn.execute(
     `
-      INSERT INTO mg_settings (user_id, setting_key, setting_value)
+      INSERT INTO gc_settings (user_id, setting_key, setting_value)
       VALUES (?, ?, ?)
       ON DUPLICATE KEY UPDATE
         setting_value = VALUES(setting_value),

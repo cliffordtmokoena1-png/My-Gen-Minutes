@@ -43,7 +43,7 @@ program
 
     const results = await conn.execute<ReferenceKeysRow>(
       `SELECT template_id, name, reference_s3_keys
-       FROM mg_templating
+       FROM gc_templating
        WHERE template_id = ?
        LIMIT 1`,
       [templateId]

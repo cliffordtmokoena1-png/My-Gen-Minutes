@@ -30,10 +30,10 @@ fn create_auth_token() -> String {
     .take(100)
     .collect();
 
-  return format!("mg_{}", token);
+  return format!("gc_{}", token);
 }
 
-async fn create_mg_auth_token_record(
+async fn create_gc_auth_token_record(
   user_id: String,
   state: Arc<SharedRequestState>,
 ) -> anyhow::Result<String> {
@@ -41,7 +41,7 @@ async fn create_mg_auth_token_record(
 
   let token = create_auth_token();
 
-  r"INSERT INTO mg_auth_tokens (user_id, token, expires_at) VALUES (:user_id, :token, NOW() + INTERVAL 1 YEAR)"
+  r"INSERT INTO gc_auth_tokens (user_id, token, expires_at) VALUES (:user_id, :token, NOW() + INTERVAL 1 YEAR)"
     .with(params! {
       "user_id" => user_id,
       "token" => token.clone(),
@@ -66,7 +66,7 @@ pub async fn create_auth_token_handler(
   State(state): State<Arc<SharedRequestState>>,
   Json(payload): Json<AuthRequest>,
 ) -> Result<Json<AuthResponse>, StatusCode> {
-  let token = create_mg_auth_token_record(payload.user_id, state)
+  let token = create_gc_auth_token_record(payload.user_id, state)
     .await
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 

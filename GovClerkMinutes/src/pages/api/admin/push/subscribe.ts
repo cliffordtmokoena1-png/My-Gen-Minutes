@@ -45,7 +45,7 @@ async function handler(req: Request): Promise<Response> {
 
   await conn.execute(
     `
-    INSERT INTO mg_push_subscriptions (user_id, device_id, endpoint, p256dh, auth, expiration_time)
+    INSERT INTO gc_push_subscriptions (user_id, device_id, endpoint, p256dh, auth, expiration_time)
     VALUES (?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       endpoint = VALUES(endpoint),

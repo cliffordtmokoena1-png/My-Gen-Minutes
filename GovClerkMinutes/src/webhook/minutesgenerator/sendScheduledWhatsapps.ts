@@ -36,7 +36,7 @@ export async function sendScheduledWhatsapps(): Promise<void> {
         .execute<Row>(
           `
           SELECT id, whatsapp_id, template_id, variables, freeform, source, language, sender_user_id, template_body, business_whatsapp_id
-          FROM mg_scheduled_whatsapps
+          FROM gc_scheduled_whatsapps
           WHERE is_sent = 0
             AND send_at <= NOW()
           ORDER BY send_at ASC
@@ -126,7 +126,7 @@ export async function sendScheduledWhatsapps(): Promise<void> {
 
       await tx.execute(
         `
-        UPDATE mg_scheduled_whatsapps
+        UPDATE gc_scheduled_whatsapps
         SET is_sent = 1
         WHERE id = ?;
         `,

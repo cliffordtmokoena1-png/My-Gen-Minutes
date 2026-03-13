@@ -22,7 +22,7 @@ async function handler(req: NextRequest) {
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  await conn.execute("INSERT INTO mg_reviews (user_id, transcript_id) VALUES (?, ?);", [
+  await conn.execute("INSERT INTO gc_reviews (user_id, transcript_id) VALUES (?, ?);", [
     userId,
     transcriptId,
   ]);

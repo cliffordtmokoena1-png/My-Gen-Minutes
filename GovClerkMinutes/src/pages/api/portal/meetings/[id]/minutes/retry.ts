@@ -53,7 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
 
   try {
     const meetingCheck = await conn.execute(
-      "SELECT id, title, minutes_transcript_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+      "SELECT id, title, minutes_transcript_id FROM gc_meetings WHERE id = ? AND org_id = ?",
       [meetingId, orgId]
     );
 

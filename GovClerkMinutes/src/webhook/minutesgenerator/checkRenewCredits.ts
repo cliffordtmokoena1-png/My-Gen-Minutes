@@ -80,7 +80,7 @@ export async function checkRenewCredits(): Promise<void> {
     await tx.execute(
       `
       SELECT mc.user_id, mc.stripe_customer_id
-      FROM mg_customers mc
+      FROM gc_customers mc
       WHERE mc.stripe_customer_id IN (${placeholders})
       ORDER BY mc.stripe_customer_id
       FOR UPDATE
@@ -93,7 +93,7 @@ export async function checkRenewCredits(): Promise<void> {
       .execute(
         `
           SELECT mc.user_id, mc.stripe_customer_id, MAX(p.created_at) AS last_payment_date
-          FROM mg_customers mc
+          FROM gc_customers mc
           LEFT JOIN payments p
           ON p.user_id = mc.user_id
           AND p.action = 'add'

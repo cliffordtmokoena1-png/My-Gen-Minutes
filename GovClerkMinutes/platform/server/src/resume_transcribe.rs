@@ -29,7 +29,7 @@ use crate::{
   transcript::{Segment, Transcript},
   upload_key::get_upload_key,
   utils::{
-    db::{insert_mg_segments_batch, update_segments_table, SegmentUpdate},
+    db::{insert_gc_segments_batch, update_segments_table, SegmentUpdate},
     time::timestamp_to_seconds,
   },
   SharedRequestState,
@@ -205,7 +205,7 @@ pub async fn transcribe_segments(
       .collect::<Vec<MgSegmentsRow>>()
   };
 
-  insert_mg_segments_batch(&mut conn, &orphaned_segments).await?;
+  insert_gc_segments_batch(&mut conn, &orphaned_segments).await?;
 
   update_segments_table(transcript_id, state.clone(), updates).await?;
 

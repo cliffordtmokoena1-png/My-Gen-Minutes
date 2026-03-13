@@ -83,17 +83,17 @@ async fn try_get_primary_email_with_key(
 
 pub async fn get_primary_email(user_id: &str, state: Arc<SharedRequestState>) -> Result<String> {
   let http_client = Client::new();
-  let mg_token = get_clerk_secret_key(state.options.clerk_test_mode);
+  let gc_token = get_clerk_secret_key(state.options.clerk_test_mode);
   let cd_token = get_GovClerk_secret_key(state.options.clerk_test_mode);
 
-  let mg_future = try_get_primary_email_with_key(user_id, &mg_token, &http_client);
+  let gc_future = try_get_primary_email_with_key(user_id, &gc_token, &http_client);
 
   match cd_token {
     Some(cd_token) => {
       let cd_future = try_get_primary_email_with_key(user_id, &cd_token, &http_client);
-      let (mg_result, cd_result) = tokio::join!(mg_future, cd_future);
-      mg_result.or(cd_result)
+      let (gc_result, cd_result) = tokio::join!(gc_future, cd_future);
+      gc_result.or(cd_result)
     }
-    None => mg_future.await,
+    None => gc_future.await,
   }
 }

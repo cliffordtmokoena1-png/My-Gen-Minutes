@@ -191,7 +191,7 @@ export default function useFileUploadHandler({
               });
 
               // Template selection is now handled via settings, not per-upload
-              // The backend will fetch the selected template from mg_templating table
+              // The backend will fetch the selected template from gc_templating table
 
               setIsTransitioning(false);
 

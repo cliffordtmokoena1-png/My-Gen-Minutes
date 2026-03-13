@@ -10,7 +10,7 @@ export type HubspotContactProperties =
   | "hubspot_owner_id"
   | keyof ExtraContactProperties;
 
-export type LeadSource = "mg_landing_page" | "mg_school" | "test_source";
+export type LeadSource = "gc_landing_page" | "gc_school" | "test_source";
 export type ExtraContactProperties = {
   lead_source: LeadSource;
 };

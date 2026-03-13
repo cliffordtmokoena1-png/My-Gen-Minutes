@@ -37,7 +37,7 @@ async function getTranscriptSegments(
 ): Promise<Segment[]> {
   const rows = await conn
     .execute(
-      "SELECT speaker, transcript FROM mg_segments WHERE transcript_id = ? AND fast_mode = ? ORDER BY CAST(start AS TIME)",
+      "SELECT speaker, transcript FROM gc_segments WHERE transcript_id = ? AND fast_mode = ? ORDER BY CAST(start AS TIME)",
       [transcriptId, fastMode ? 1 : 0]
     )
     .then((res) => res.rows);

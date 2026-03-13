@@ -201,7 +201,7 @@ async function createPacketArtifact(
   const now = formatMySQLDateTime();
 
   const insertResult = await conn.execute(
-    `INSERT INTO mg_artifacts (
+    `INSERT INTO gc_artifacts (
       org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
       content_type, s3_key, s3_url, is_public, version, created_at, updated_at
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -233,7 +233,7 @@ async function createPacketItemRelationships(
   const now = formatMySQLDateTime();
   const insertPromises = orderedArtifactIds.map((artifactId, index) =>
     conn.execute(
-      `INSERT INTO mg_artifact_packet_items (artifact_packet_id, artifact_item_id, ordinal, created_at)
+      `INSERT INTO gc_artifact_packet_items (artifact_packet_id, artifact_item_id, ordinal, created_at)
        VALUES (?, ?, ?, ?)`,
       [packetArtifactId, artifactId, index + 1, now]
     )
@@ -279,7 +279,7 @@ async function handlePost(
 
   // Verify meeting exists and get portal settings ID
   const meetingResult = await conn.execute(
-    "SELECT id, portal_settings_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id, portal_settings_id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 
@@ -294,7 +294,7 @@ async function handlePost(
   const placeholders = artifactIds.map(() => "?").join(",");
   const artifactsResult = await conn.execute(
     `SELECT id, s3_key, s3_url, file_name, content_type
-     FROM mg_artifacts
+     FROM gc_artifacts
      WHERE id IN (${placeholders}) AND org_id = ? AND meeting_id = ?`,
     [...artifactIds, orgId, id]
   );

@@ -140,7 +140,7 @@ export async function getTranscriptStatus(
   if (diarization_ready) {
     const countRows = await conn
       .execute(
-        "SELECT fast_mode, SUM(CASE WHEN transcript IS NULL THEN 0 ELSE 1 END) AS non_null_transcript_count, COUNT(*) AS total_count FROM mg_segments WHERE transcript_id = ? GROUP BY fast_mode ORDER BY fast_mode ASC;",
+        "SELECT fast_mode, SUM(CASE WHEN transcript IS NULL THEN 0 ELSE 1 END) AS non_null_transcript_count, COUNT(*) AS total_count FROM gc_segments WHERE transcript_id = ? GROUP BY fast_mode ORDER BY fast_mode ASC;",
         [transcriptId]
       )
       .then((result) => result.rows);

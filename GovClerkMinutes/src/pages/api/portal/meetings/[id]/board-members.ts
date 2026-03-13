@@ -42,7 +42,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Get meeting to verify org_id and get board_id
   const meetingResult = await conn.execute(
-    "SELECT id, org_id, board_id FROM mg_meetings WHERE id = ?",
+    "SELECT id, org_id, board_id FROM gc_meetings WHERE id = ?",
     [meetingId]
   );
 
@@ -64,7 +64,7 @@ async function handler(req: NextRequest): Promise<Response> {
   // Get board members
   const membersResult = await conn.execute(
     `SELECT id, org_id, board_id, user_id, title, start_date, end_date, created_at, updated_at
-     FROM mg_board_members WHERE board_id = ? AND org_id = ?`,
+     FROM gc_board_members WHERE board_id = ? AND org_id = ?`,
     [boardId, orgId]
   );
 

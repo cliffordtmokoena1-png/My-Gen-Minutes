@@ -26,7 +26,7 @@ async function listQuickRepliesDb(
       message: string;
       created_at: string;
     }>(
-      "SELECT id, name, message, created_at FROM mg_whatsapp_quick_replies WHERE user_id = ? ORDER BY id DESC",
+      "SELECT id, name, message, created_at FROM gc_whatsapp_quick_replies WHERE user_id = ? ORDER BY id DESC",
       [userId]
     )
     .then((r) => r.rows);
@@ -69,7 +69,7 @@ async function handler(req: NextRequest) {
       return new Response("Missing name or body", { status: 400 });
     }
     const result = await conn.execute(
-      "INSERT INTO mg_whatsapp_quick_replies (user_id, name, message) VALUES (?, ?, ?)",
+      "INSERT INTO gc_whatsapp_quick_replies (user_id, name, message) VALUES (?, ?, ?)",
       [userId, name, textBody]
     );
     const newItem: QuickReply = {
@@ -102,7 +102,7 @@ async function handler(req: NextRequest) {
       return new Response("No changes", { status: 400 });
     }
     values.push(userId, Number(id));
-    const sql = `UPDATE mg_whatsapp_quick_replies SET ${sets.join(", ")} WHERE user_id = ? AND id = ?`;
+    const sql = `UPDATE gc_whatsapp_quick_replies SET ${sets.join(", ")} WHERE user_id = ? AND id = ?`;
     const result = await conn.execute(sql, values);
     if ((result.rowsAffected ?? 0) === 0) {
       return new Response("Not found", { status: 404 });
@@ -121,7 +121,7 @@ async function handler(req: NextRequest) {
       return new Response("Missing id", { status: 400 });
     }
     const result = await conn.execute(
-      "DELETE FROM mg_whatsapp_quick_replies WHERE user_id = ? AND id = ?",
+      "DELETE FROM gc_whatsapp_quick_replies WHERE user_id = ? AND id = ?",
       [userId, Number(id)]
     );
     if ((result.rowsAffected ?? 0) === 0) {

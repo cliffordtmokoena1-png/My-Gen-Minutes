@@ -36,7 +36,7 @@ async function handler(req: NextRequest): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const meetingCheck = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -46,8 +46,8 @@ async function handler(req: NextRequest): Promise<Response> {
 
   const segmentCountResult = await conn.execute(
     `SELECT COUNT(*) as count 
-     FROM mg_broadcast_transcript_segments s
-     INNER JOIN mg_broadcasts b ON s.broadcast_id = b.id
+     FROM gc_broadcast_transcript_segments s
+     INNER JOIN gc_broadcasts b ON s.broadcast_id = b.id
      WHERE b.meeting_id = ?`,
     [meetingId]
   );

@@ -23,7 +23,7 @@ async function handler(req: NextRequest) {
     .execute(
       `
     SELECT whatsapp_id, template_id, send_at, sender_user_id, is_sent
-    FROM mg_scheduled_whatsapps
+    FROM gc_scheduled_whatsapps
     ORDER BY send_at DESC
     LIMIT 100
     `,

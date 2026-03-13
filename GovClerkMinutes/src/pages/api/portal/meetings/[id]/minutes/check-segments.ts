@@ -43,7 +43,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   try {
     const broadcastResult = await conn.execute(
-      `SELECT id FROM mg_broadcasts 
+      `SELECT id FROM gc_broadcasts 
        WHERE meeting_id = ? AND org_id = ? AND status IN ('active', 'ended')
        ORDER BY created_at DESC LIMIT 1`,
       [meetingId, orgId]
@@ -56,7 +56,7 @@ async function handler(req: NextRequest): Promise<Response> {
     const broadcastId = Number((broadcastResult.rows[0] as { id: number }).id);
 
     const countResult = await conn.execute(
-      "SELECT COUNT(*) as count FROM mg_broadcast_transcript_segments WHERE broadcast_id = ?",
+      "SELECT COUNT(*) as count FROM gc_broadcast_transcript_segments WHERE broadcast_id = ?",
       [broadcastId]
     );
 

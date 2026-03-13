@@ -41,7 +41,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Verify template exists and belongs to org
   const templateResult = await conn.execute(
-    "SELECT id, org_id FROM mg_agenda_templates WHERE id = ? AND org_id = ?",
+    "SELECT id, org_id FROM gc_agenda_templates WHERE id = ? AND org_id = ?",
     [templateId, orgId]
   );
 
@@ -50,7 +50,7 @@ async function handler(req: NextRequest): Promise<Response> {
   }
 
   // Delete the template
-  await conn.execute("DELETE FROM mg_agenda_templates WHERE id = ? AND org_id = ?", [
+  await conn.execute("DELETE FROM gc_agenda_templates WHERE id = ? AND org_id = ?", [
     templateId,
     orgId,
   ]);

@@ -71,7 +71,7 @@ async function getOrCreateAgenda(
 ): Promise<MgAgenda> {
   const existing = await conn.execute(
     `SELECT id, org_id, meeting_id, created_at, updated_at
-     FROM mg_agendas WHERE meeting_id = ? AND org_id = ?`,
+     FROM gc_agendas WHERE meeting_id = ? AND org_id = ?`,
     [meetingId, orgId]
   );
 
@@ -80,14 +80,14 @@ async function getOrCreateAgenda(
   }
 
   const result = await conn.execute(
-    `INSERT INTO mg_agendas (org_id, meeting_id, created_at, updated_at)
+    `INSERT INTO gc_agendas (org_id, meeting_id, created_at, updated_at)
      VALUES (?, ?, NOW(), NOW())`,
     [orgId, meetingId]
   );
 
   const newAgenda = await conn.execute(
     `SELECT id, org_id, meeting_id, created_at, updated_at
-     FROM mg_agendas WHERE id = ?`,
+     FROM gc_agendas WHERE id = ?`,
     [result.insertId]
   );
 
@@ -98,7 +98,7 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const meetingCheck = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -110,7 +110,7 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
 
   const itemsResult = await conn.execute(
     `SELECT id, org_id, agenda_id, parent_id, title, description, minutes, is_section, ordinal, created_at, updated_at
-     FROM mg_agenda_items WHERE agenda_id = ? ORDER BY ordinal ASC`,
+     FROM gc_agenda_items WHERE agenda_id = ? ORDER BY ordinal ASC`,
     [agenda.id]
   );
 
@@ -125,8 +125,8 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
     // Fetch artifacts
     const artifactsResult = await conn.execute(
       `SELECT ma.*, maia.agenda_item_id, maia.ordinal as attachment_ordinal
-       FROM mg_agenda_artifacts_group maia
-       JOIN mg_artifacts ma ON maia.artifact_id = ma.id
+       FROM gc_agenda_artifacts_group maia
+       JOIN gc_artifacts ma ON maia.artifact_id = ma.id
        WHERE maia.agenda_item_id IN (${itemIds.map(() => "?").join(",")})
        ORDER BY maia.ordinal ASC`,
       itemIds
@@ -145,10 +145,10 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
     const motionsResult = await conn.execute(
       `SELECT m.id, m.org_id, m.agenda_item_id, m.title, m.description, m.mover, m.seconder,
        m.is_withdrawn, m.is_tabled, m.ordinal, m.created_at, m.updated_at,
-       (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
-       (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
-       (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
-       FROM mg_motions m WHERE m.agenda_item_id IN (${itemIds.map(() => "?").join(",")})
+       (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
+       (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
+       (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
+       FROM gc_motions m WHERE m.agenda_item_id IN (${itemIds.map(() => "?").join(",")})
        ORDER BY m.ordinal ASC`,
       itemIds
     );
@@ -195,13 +195,13 @@ async function handlePut(
     for (const item of body.items) {
       if (item.parent_id !== undefined) {
         await tx.execute(
-          `UPDATE mg_agenda_items SET ordinal = ?, parent_id = ?, updated_at = NOW()
+          `UPDATE gc_agenda_items SET ordinal = ?, parent_id = ?, updated_at = NOW()
            WHERE id = ? AND agenda_id = ? AND org_id = ?`,
           [item.ordinal, item.parent_id, item.id, agenda.id, orgId]
         );
       } else {
         await tx.execute(
-          `UPDATE mg_agenda_items SET ordinal = ?, updated_at = NOW()
+          `UPDATE gc_agenda_items SET ordinal = ?, updated_at = NOW()
            WHERE id = ? AND agenda_id = ? AND org_id = ?`,
           [item.ordinal, item.id, agenda.id, orgId]
         );
@@ -211,7 +211,7 @@ async function handlePut(
 
   const itemsResult = await conn.execute(
     `SELECT id, org_id, agenda_id, parent_id, title, description, minutes, is_section, ordinal, created_at, updated_at
-     FROM mg_agenda_items WHERE agenda_id = ? ORDER BY ordinal ASC`,
+     FROM gc_agenda_items WHERE agenda_id = ? ORDER BY ordinal ASC`,
     [agenda.id]
   );
 

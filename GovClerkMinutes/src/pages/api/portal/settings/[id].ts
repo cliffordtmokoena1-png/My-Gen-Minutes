@@ -47,7 +47,7 @@ async function handlePut(
 
   // Verify settings belong to org
   const existing = await conn.execute(
-    "SELECT * FROM mg_portal_settings WHERE id = ? AND org_id = ?",
+    "SELECT * FROM gc_portal_settings WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 
@@ -99,11 +99,11 @@ async function handlePut(
 
   const result = await conn.transaction(async (tx) => {
     await tx.execute(
-      `UPDATE mg_portal_settings SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
+      `UPDATE gc_portal_settings SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
       values
     );
 
-    return tx.execute("SELECT * FROM mg_portal_settings WHERE id = ?", [id]);
+    return tx.execute("SELECT * FROM gc_portal_settings WHERE id = ?", [id]);
   });
 
   const response: PortalSettingsResponse = {
@@ -117,7 +117,7 @@ async function handleDelete(id: string, orgId: string): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const existing = await conn.execute(
-    "SELECT id FROM mg_portal_settings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_portal_settings WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 
@@ -125,7 +125,7 @@ async function handleDelete(id: string, orgId: string): Promise<Response> {
     return errorResponse("Portal settings not found", 404);
   }
 
-  await conn.execute("DELETE FROM mg_portal_settings WHERE id = ? AND org_id = ?", [id, orgId]);
+  await conn.execute("DELETE FROM gc_portal_settings WHERE id = ? AND org_id = ?", [id, orgId]);
 
   return jsonResponse({ success: true });
 }

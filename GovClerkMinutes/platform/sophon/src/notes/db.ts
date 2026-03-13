@@ -12,7 +12,7 @@ export async function getBroadcastForExport(broadcastId: number): Promise<{
   const conn = getDb();
   const result = await conn.execute(
     `SELECT id, notes, meeting_id, org_id, started_at, ended_at 
-     FROM mg_broadcasts 
+     FROM gc_broadcasts 
      WHERE id = ?`,
     [broadcastId]
   );
@@ -39,7 +39,7 @@ export async function getMeetingForExport(meetingId: number): Promise<{
   const conn = getDb();
   const result = await conn.execute(
     `SELECT title, portal_settings_id, meeting_date 
-     FROM mg_meetings 
+     FROM gc_meetings 
      WHERE id = ?`,
     [meetingId]
   );

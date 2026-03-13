@@ -13,7 +13,7 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const meetingResult = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -24,7 +24,7 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
   const operationsResult = await conn.execute(
     `SELECT id, meeting_id, operation_type, status, progress_percent, metadata, 
             error_message, started_at, completed_at, created_at, updated_at
-     FROM mg_progress_operations
+     FROM gc_progress_operations
      WHERE meeting_id = ? AND (
        status IN ('pending', 'in_progress') OR 
        completed_at > DATE_SUB(NOW(), INTERVAL 24 HOUR)

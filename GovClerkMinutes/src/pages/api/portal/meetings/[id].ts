@@ -25,7 +25,7 @@ async function handleGet(id: string, orgId: string): Promise<Response> {
   const result = await conn.execute(
     `SELECT id, org_id, portal_settings_id, board_id, title, description, meeting_date, location,
             is_public, tags, is_cancelled, created_at, updated_at, minutes_transcript_id, minutes_version
-     FROM mg_meetings WHERE id = ? AND org_id = ?`,
+     FROM gc_meetings WHERE id = ? AND org_id = ?`,
     [id, orgId]
   );
 
@@ -40,9 +40,9 @@ async function handleGet(id: string, orgId: string): Promise<Response> {
             a.source_agenda_id, a.version, a.created_at, a.updated_at,
             aia.agenda_item_id as linked_agenda_item_id,
             ai.title as linked_agenda_item_title
-     FROM mg_artifacts a
-     LEFT JOIN mg_agenda_artifacts_group aia ON a.id = aia.artifact_id
-     LEFT JOIN mg_agenda_items ai ON aia.agenda_item_id = ai.id
+     FROM gc_artifacts a
+     LEFT JOIN gc_agenda_artifacts_group aia ON a.id = aia.artifact_id
+     LEFT JOIN gc_agenda_items ai ON aia.agenda_item_id = ai.id
      WHERE a.meeting_id = ? AND a.org_id = ?
      ORDER BY a.created_at DESC`,
     [id, orgId]
@@ -68,7 +68,7 @@ async function handlePut(
 ): Promise<Response> {
   const conn = getPortalDbConnection();
 
-  const existing = await conn.execute("SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?", [
+  const existing = await conn.execute("SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?", [
     id,
     orgId,
   ]);
@@ -129,14 +129,14 @@ async function handlePut(
 
   const result = await conn.transaction(async (tx) => {
     await tx.execute(
-      `UPDATE mg_meetings SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
+      `UPDATE gc_meetings SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
       values
     );
 
     return tx.execute(
       `SELECT id, org_id, portal_settings_id, board_id, title, description, meeting_date, location,
               is_public, tags, is_cancelled, created_at, updated_at, minutes_transcript_id, minutes_version
-       FROM mg_meetings WHERE id = ?`,
+       FROM gc_meetings WHERE id = ?`,
       [id]
     );
   });
@@ -151,7 +151,7 @@ async function handlePut(
 async function handleDelete(id: string, orgId: string): Promise<Response> {
   const conn = getPortalDbConnection();
 
-  const existing = await conn.execute("SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?", [
+  const existing = await conn.execute("SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?", [
     id,
     orgId,
   ]);
@@ -160,7 +160,7 @@ async function handleDelete(id: string, orgId: string): Promise<Response> {
     return errorResponse("Meeting not found", 404);
   }
 
-  await conn.execute("DELETE FROM mg_meetings WHERE id = ? AND org_id = ?", [id, orgId]);
+  await conn.execute("DELETE FROM gc_meetings WHERE id = ? AND org_id = ?", [id, orgId]);
 
   return jsonResponse({ success: true });
 }

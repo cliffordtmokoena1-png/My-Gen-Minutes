@@ -35,7 +35,7 @@ async function handleGet(orgId: string, searchParams: URLSearchParams): Promise<
   const offset = (page - 1) * pageSize;
 
   const countResult = await conn.execute(
-    "SELECT COUNT(*) as total FROM mg_meetings WHERE org_id = ?",
+    "SELECT COUNT(*) as total FROM gc_meetings WHERE org_id = ?",
     [orgId]
   );
   const total = parseInt((countResult.rows[0] as any).total, 10);
@@ -43,7 +43,7 @@ async function handleGet(orgId: string, searchParams: URLSearchParams): Promise<
   const meetingsResult = await conn.execute(
     `SELECT id, org_id, portal_settings_id, board_id, title, description, meeting_date, location,
             is_public, tags, is_cancelled, created_at, updated_at
-     FROM mg_meetings WHERE org_id = ? ORDER BY meeting_date DESC LIMIT ? OFFSET ?`,
+     FROM gc_meetings WHERE org_id = ? ORDER BY meeting_date DESC LIMIT ? OFFSET ?`,
     [orgId, pageSize, offset]
   );
 
@@ -58,7 +58,7 @@ async function handleGet(orgId: string, searchParams: URLSearchParams): Promise<
       `SELECT id, org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
               content_type, s3_key, s3_url, is_public, source_transcript_id, source_agenda_id,
               version, created_at, updated_at
-       FROM mg_artifacts
+       FROM gc_artifacts
        WHERE meeting_id IN (${placeholders}) AND org_id = ?`,
       [...meetingIds, orgId]
     );
@@ -103,7 +103,7 @@ async function handlePost(
 
   const result = await conn.transaction(async (tx) => {
     const insertResult = await tx.execute(
-      `INSERT INTO mg_meetings (
+      `INSERT INTO gc_meetings (
         org_id, portal_settings_id, board_id, title, description, meeting_date, location, is_public,
         tags, is_cancelled
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -126,7 +126,7 @@ async function handlePost(
     return tx.execute(
       `SELECT id, org_id, portal_settings_id, board_id, title, description, meeting_date, location,
               is_public, tags, is_cancelled, created_at, updated_at
-       FROM mg_meetings WHERE id = ?`,
+       FROM gc_meetings WHERE id = ?`,
       [id]
     );
   });

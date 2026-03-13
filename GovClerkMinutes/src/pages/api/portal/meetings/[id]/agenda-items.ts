@@ -32,7 +32,7 @@ async function getAgendaForMeeting(
   orgId: string
 ) {
   const result = await conn.execute(
-    "SELECT id FROM mg_agendas WHERE meeting_id = ? AND org_id = ?",
+    "SELECT id FROM gc_agendas WHERE meeting_id = ? AND org_id = ?",
     [meetingId, orgId]
   );
   return result.rows[0] as { id: number } | undefined;
@@ -55,7 +55,7 @@ async function handlePost(
   }
 
   const result = await conn.execute(
-    `INSERT INTO mg_agenda_items (org_id, agenda_id, parent_id, title, description, is_section, ordinal, created_at, updated_at)
+    `INSERT INTO gc_agenda_items (org_id, agenda_id, parent_id, title, description, is_section, ordinal, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
     [
       orgId,
@@ -70,7 +70,7 @@ async function handlePost(
 
   const newItem = await conn.execute(
     `SELECT id, org_id, agenda_id, parent_id, title, description, minutes, is_section, ordinal, created_at, updated_at
-     FROM mg_agenda_items WHERE id = ?`,
+     FROM gc_agenda_items WHERE id = ?`,
     [result.insertId]
   );
 
@@ -94,7 +94,7 @@ async function handlePut(
   }
 
   const existing = await conn.execute(
-    "SELECT id FROM mg_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?",
+    "SELECT id FROM gc_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?",
     [body.itemId, agenda.id, orgId]
   );
 
@@ -138,13 +138,13 @@ async function handlePut(
   values.push(body.itemId, agenda.id, orgId);
 
   await conn.execute(
-    `UPDATE mg_agenda_items SET ${updates.join(", ")} WHERE id = ? AND agenda_id = ? AND org_id = ?`,
+    `UPDATE gc_agenda_items SET ${updates.join(", ")} WHERE id = ? AND agenda_id = ? AND org_id = ?`,
     values
   );
 
   const updated = await conn.execute(
     `SELECT id, org_id, agenda_id, parent_id, title, description, minutes, is_section, ordinal, created_at, updated_at
-     FROM mg_agenda_items WHERE id = ?`,
+     FROM gc_agenda_items WHERE id = ?`,
     [body.itemId]
   );
 
@@ -160,7 +160,7 @@ async function handleDelete(meetingId: string, orgId: string, itemId: number): P
   }
 
   const existing = await conn.execute(
-    "SELECT id FROM mg_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?",
+    "SELECT id FROM gc_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?",
     [itemId, agenda.id, orgId]
   );
 
@@ -168,7 +168,7 @@ async function handleDelete(meetingId: string, orgId: string, itemId: number): P
     return errorResponse("Agenda item not found", 404);
   }
 
-  await conn.execute("DELETE FROM mg_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?", [
+  await conn.execute("DELETE FROM gc_agenda_items WHERE id = ? AND agenda_id = ? AND org_id = ?", [
     itemId,
     agenda.id,
     orgId,

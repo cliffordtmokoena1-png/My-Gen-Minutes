@@ -38,7 +38,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
     await conn.execute(
       `
-      INSERT INTO mg_whatsapp_contacts (whatsapp_id, name, user_id, source)
+      INSERT INTO gc_whatsapp_contacts (whatsapp_id, name, user_id, source)
       VALUES (?, ?, ?, 'whatsapp')
       ON DUPLICATE KEY UPDATE
         name = IF(name IS NULL, VALUES(name), name),
@@ -52,7 +52,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
       case "text": {
         await conn.execute(
           `
-          INSERT INTO mg_whatsapps
+          INSERT INTO gc_whatsapps
           (created_at, operator_email, sender, whatsapp_id, business_whatsapp_id, conversation_id, message_id, type, text, direction, source)
           VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, 'whatsapp')
           `,
@@ -99,7 +99,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
           await conn.execute(
             `
-            INSERT INTO mg_whatsapps
+            INSERT INTO gc_whatsapps
             (created_at, operator_email, sender, whatsapp_id, business_whatsapp_id, conversation_id, message_id, type, text, direction, source)
             VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, 'whatsapp')
             `,
@@ -172,7 +172,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
         await conn.execute(
           `
-          INSERT INTO mg_whatsapps
+          INSERT INTO gc_whatsapps
           (created_at, operator_email, sender, whatsapp_id, business_whatsapp_id, conversation_id, message_id, type, text, direction, source)
           VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, 'whatsapp')
           `,
@@ -205,7 +205,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
     await conn.execute(
       `
-      UPDATE mg_scheduled_whatsapps
+      UPDATE gc_scheduled_whatsapps
       SET is_sent = 2
       WHERE whatsapp_id = ?
         AND is_sent = 0
@@ -228,7 +228,7 @@ export async function handleWhatsappMessages(change: WhatsappWebhook.MessagesCha
 
 // Handle status updates (sent, delivered, read, failed) for previously sent outbound messages.
 // For now we only capture analytics events. If we later want to persist delivery/read timestamps,
-// we can add columns (e.g., delivered_at, read_at, status) to mg_whatsapps and update here.
+// we can add columns (e.g., delivered_at, read_at, status) to gc_whatsapps and update here.
 export async function handleWhatsAppStatuses(change: WhatsappWebhook.MessagesChange) {
   const value = change.value;
   const statuses = value.statuses ?? [];
@@ -254,7 +254,7 @@ export async function handleWhatsAppStatuses(change: WhatsappWebhook.MessagesCha
       case "read":
         await conn.execute(
           `
-          UPDATE mg_whatsapps
+          UPDATE gc_whatsapps
           SET ${status.status}_at = FROM_UNIXTIME(?)
           WHERE message_id = ?
           `,
@@ -265,7 +265,7 @@ export async function handleWhatsAppStatuses(change: WhatsappWebhook.MessagesCha
     if (status.errors && status.errors.length > 0) {
       await conn.execute(
         `
-        UPDATE mg_whatsapps
+        UPDATE gc_whatsapps
         SET error = ?
         WHERE message_id = ?
         `,

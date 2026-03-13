@@ -41,7 +41,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
 
   // Fetch the artifact first
   const artifactResult = await conn.execute(
-    "SELECT id, org_id, s3_key, file_name FROM mg_artifacts WHERE id = ?",
+    "SELECT id, org_id, s3_key, file_name FROM gc_artifacts WHERE id = ?",
     [artifactId]
   );
 
@@ -84,7 +84,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
     }
 
     // Delete from database
-    await conn.execute("DELETE FROM mg_artifacts WHERE id = ?", [artifactId]);
+    await conn.execute("DELETE FROM gc_artifacts WHERE id = ?", [artifactId]);
 
     res.status(200).json({ success: true });
     return;
@@ -122,7 +122,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
     values.push(now);
     values.push(artifactId);
 
-    await conn.execute(`UPDATE mg_artifacts SET ${updates.join(", ")} WHERE id = ?`, values);
+    await conn.execute(`UPDATE gc_artifacts SET ${updates.join(", ")} WHERE id = ?`, values);
 
     res.status(200).json({ success: true, fileName, artifactType, isPublic });
     return;

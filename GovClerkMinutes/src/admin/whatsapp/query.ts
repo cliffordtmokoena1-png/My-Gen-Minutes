@@ -102,10 +102,10 @@ export function buildSqlParts(opts: {
 
   const ensureJoinsForLeads = () => {
     // Avoid duplicate JOIN lines
-    const hasJoinContacts = joinParts.some((j) => j.includes("mg_whatsapp_contacts c"));
+    const hasJoinContacts = joinParts.some((j) => j.includes("gc_whatsapp_contacts c"));
     const hasJoinLeads = joinParts.some((j) => j.includes("gc_leads l"));
     if (!hasJoinContacts) {
-      joinParts.push("LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id");
+      joinParts.push("LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id");
     }
     if (!hasJoinLeads) {
       joinParts.push("INNER JOIN gc_leads l ON l.user_id = c.user_id");
@@ -218,7 +218,7 @@ export function buildSqlParts(opts: {
     const esc = escapeForLike(messageText.trim());
     whereParts.push(
       `EXISTS (
-        SELECT 1 FROM mg_whatsapps w2
+        SELECT 1 FROM gc_whatsapps w2
         WHERE w2.conversation_id = w.conversation_id
           AND w2.text IS NOT NULL
           AND w2.text LIKE ?
@@ -231,7 +231,7 @@ export function buildSqlParts(opts: {
     whereParts.push(
       `NOT EXISTS (
         SELECT 1
-        FROM mg_scheduled_whatsapps s
+        FROM gc_scheduled_whatsapps s
         WHERE s.whatsapp_id = w.whatsapp_id
           AND s.send_at > ?
       )`
@@ -256,7 +256,7 @@ export function buildSqlParts(opts: {
   if (unrepliedTo) {
     havingParts.push(
       `(
-        SELECT w4.direction FROM mg_whatsapps w4
+        SELECT w4.direction FROM gc_whatsapps w4
         WHERE w4.conversation_id = w.conversation_id
         ORDER BY w4.created_at DESC
         LIMIT 1
@@ -366,7 +366,7 @@ export async function fetchKeysetBatch(
         SELECT
           w.conversation_id,
           ${sortPlan.aggExpr} AS sort_ts
-        FROM mg_whatsapps w
+        FROM gc_whatsapps w
         ${sqlParts.joinClause}
         ${sqlParts.whereClause}
         GROUP BY w.conversation_id
@@ -424,10 +424,10 @@ export async function buildConversationsFor(
           l.minutes_freq,
           l.minutes_due,
           r.last_read_at
-        FROM mg_whatsapps w
-        LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
+        FROM gc_whatsapps w
+        LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
         LEFT JOIN gc_leads l ON c.user_id = l.user_id
-        LEFT JOIN mg_whatsapp_reads r ON r.user_id = ? AND w.conversation_id = r.conversation_id
+        LEFT JOIN gc_whatsapp_reads r ON r.user_id = ? AND w.conversation_id = r.conversation_id
         WHERE w.conversation_id IN (${placeholders})
         ORDER BY w.conversation_id, w.created_at;
         `,
@@ -467,7 +467,7 @@ export async function buildConversationsFor(
             is_sent,
             sender_user_id,
             cancel_on_reply
-          FROM mg_scheduled_whatsapps
+          FROM gc_scheduled_whatsapps
           WHERE whatsapp_id IN (${schedPH})
           ORDER BY created_at;
           `,
@@ -559,7 +559,7 @@ export async function countTotalFiltered(
         SELECT COUNT(*) AS total
         FROM (
           SELECT w.conversation_id
-          FROM mg_whatsapps w
+          FROM gc_whatsapps w
           ${sqlParts.joinClause}
           ${sqlParts.whereClause}
           GROUP BY w.conversation_id

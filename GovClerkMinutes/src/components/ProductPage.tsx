@@ -190,7 +190,7 @@ const ProductPage = ({
 
       messageChannel.port1.onmessage = (event) => {
         const { kind, ok, file } = event.data;
-        if (kind === "mg_shared_file_response" && ok && file) {
+        if (kind === "gc_shared_file_response" && ok && file) {
           setSharedFile(file);
           setSharedFileMetadata({
             name: file.name,
@@ -199,11 +199,11 @@ const ProductPage = ({
           });
           onShareDrawerOpen();
 
-          serviceWorker.postMessage({ kind: "mg_shared_file_discard", token });
+          serviceWorker.postMessage({ kind: "gc_shared_file_discard", token });
         }
       };
 
-      serviceWorker.postMessage({ kind: "mg_shared_file_request", token }, [messageChannel.port2]);
+      serviceWorker.postMessage({ kind: "gc_shared_file_request", token }, [messageChannel.port2]);
 
       const { shared: _, token: __, ...restQuery } = router.query;
       router.replace({ pathname: router.pathname, query: restQuery }, undefined, { shallow: true });

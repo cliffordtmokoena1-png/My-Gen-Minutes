@@ -23,10 +23,10 @@ async function handleGet(
 
   // Verify motion exists and belongs to org/agenda item/meeting
   const motionCheck = await conn.execute(
-    `SELECT m.id FROM mg_motions m
-     JOIN mg_agenda_items ai ON m.agenda_item_id = ai.id
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m2 ON a.meeting_id = m2.id
+    `SELECT m.id FROM gc_motions m
+     JOIN gc_agenda_items ai ON m.agenda_item_id = ai.id
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m2 ON a.meeting_id = m2.id
      WHERE m.id = ? AND m.agenda_item_id = ? AND a.meeting_id = ? AND m.org_id = ? AND m2.org_id = ?`,
     [motionId, agendaItemId, meetingId, orgId, orgId]
   );
@@ -38,7 +38,7 @@ async function handleGet(
   // Get votes for this motion
   const votesResult = await conn.execute(
     `SELECT id, org_id, motion_id, user_id, board_member_id, vote_value, created_at, updated_at
-     FROM mg_votes WHERE motion_id = ? AND org_id = ? ORDER BY created_at ASC`,
+     FROM gc_votes WHERE motion_id = ? AND org_id = ? ORDER BY created_at ASC`,
     [motionId, orgId]
   );
 
@@ -61,10 +61,10 @@ async function handlePut(
 
   // Verify motion exists and belongs to org/agenda item/meeting
   const motionCheck = await conn.execute(
-    `SELECT m.id FROM mg_motions m
-     JOIN mg_agenda_items ai ON m.agenda_item_id = ai.id
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m2 ON a.meeting_id = m2.id
+    `SELECT m.id FROM gc_motions m
+     JOIN gc_agenda_items ai ON m.agenda_item_id = ai.id
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m2 ON a.meeting_id = m2.id
      WHERE m.id = ? AND m.agenda_item_id = ? AND a.meeting_id = ? AND m.org_id = ? AND m2.org_id = ?`,
     [motionId, agendaItemId, meetingId, orgId, orgId]
   );
@@ -93,14 +93,14 @@ async function handlePut(
 
       // Check if vote already exists
       const existingVote = await tx.execute(
-        "SELECT id FROM mg_votes WHERE motion_id = ? AND user_id = ? AND org_id = ?",
+        "SELECT id FROM gc_votes WHERE motion_id = ? AND user_id = ? AND org_id = ?",
         [motionId, voteUpdate.user_id, orgId]
       );
 
       if (existingVote.rows.length > 0) {
         // Update existing vote
         await tx.execute(
-          `UPDATE mg_votes SET vote_value = ?, board_member_id = ?, updated_at = NOW()
+          `UPDATE gc_votes SET vote_value = ?, board_member_id = ?, updated_at = NOW()
            WHERE motion_id = ? AND user_id = ? AND org_id = ?`,
           [
             voteUpdate.vote_value,
@@ -113,7 +113,7 @@ async function handlePut(
       } else {
         // Create new vote
         await tx.execute(
-          `INSERT INTO mg_votes (org_id, motion_id, user_id, board_member_id, vote_value, created_at, updated_at)
+          `INSERT INTO gc_votes (org_id, motion_id, user_id, board_member_id, vote_value, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, NOW(), NOW())`,
           [
             orgId,
@@ -130,7 +130,7 @@ async function handlePut(
   // Get updated votes (vote counts are computed on-read, not stored)
   const votesResult = await conn.execute(
     `SELECT id, org_id, motion_id, user_id, board_member_id, vote_value, created_at, updated_at
-     FROM mg_votes WHERE motion_id = ? AND org_id = ? ORDER BY created_at ASC`,
+     FROM gc_votes WHERE motion_id = ? AND org_id = ? ORDER BY created_at ASC`,
     [motionId, orgId]
   );
 

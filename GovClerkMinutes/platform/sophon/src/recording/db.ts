@@ -34,7 +34,7 @@ export async function createRecording(broadcastId: number, streamKey: string): P
   const conn = getDb();
 
   const result = await conn.execute(
-    `INSERT INTO mg_broadcast_recordings (broadcast_id, stream_key, status, created_at, updated_at)
+    `INSERT INTO gc_broadcast_recordings (broadcast_id, stream_key, status, created_at, updated_at)
      VALUES (?, ?, 'pending', NOW(), NOW())`,
     [broadcastId, streamKey]
   );
@@ -95,7 +95,7 @@ export async function updateRecordingStatus(
   params.push(recordingId);
 
   await conn.execute(
-    `UPDATE mg_broadcast_recordings 
+    `UPDATE gc_broadcast_recordings 
      SET ${updateFields.join(", ")} 
      WHERE id = ?`,
     params
@@ -105,7 +105,7 @@ export async function updateRecordingStatus(
 export async function getRecordingByStreamKey(streamKey: string): Promise<Recording | null> {
   const conn = getDb();
 
-  const result = await conn.execute(`SELECT * FROM mg_broadcast_recordings WHERE stream_key = ?`, [
+  const result = await conn.execute(`SELECT * FROM gc_broadcast_recordings WHERE stream_key = ?`, [
     streamKey,
   ]);
 
@@ -119,7 +119,7 @@ export async function getRecordingByStreamKey(streamKey: string): Promise<Record
 export async function getRecordingById(recordingId: number): Promise<Recording | null> {
   const conn = getDb();
 
-  const result = await conn.execute(`SELECT * FROM mg_broadcast_recordings WHERE id = ?`, [
+  const result = await conn.execute(`SELECT * FROM gc_broadcast_recordings WHERE id = ?`, [
     recordingId,
   ]);
 
@@ -134,7 +134,7 @@ export async function getRecordingsByBroadcastId(broadcastId: number): Promise<R
   const conn = getDb();
 
   const result = await conn.execute(
-    `SELECT * FROM mg_broadcast_recordings WHERE broadcast_id = ? ORDER BY created_at DESC`,
+    `SELECT * FROM gc_broadcast_recordings WHERE broadcast_id = ? ORDER BY created_at DESC`,
     [broadcastId]
   );
 
@@ -149,7 +149,7 @@ export async function getActiveRecordingByStreamKey(streamKey: string): Promise<
   const conn = getDb();
 
   const result = await conn.execute(
-    `SELECT * FROM mg_broadcast_recordings 
+    `SELECT * FROM gc_broadcast_recordings 
      WHERE stream_key = ? AND status IN ('pending', 'recording', 'processing')`,
     [streamKey]
   );

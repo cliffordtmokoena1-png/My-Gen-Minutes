@@ -46,7 +46,7 @@ export async function fetchSettings(userId: string): Promise<SettingsValues> {
     .execute<{
       setting_key: string;
       setting_value: unknown;
-    }>("SELECT setting_key, setting_value FROM mg_settings WHERE user_id = ?", [userId])
+    }>("SELECT setting_key, setting_value FROM gc_settings WHERE user_id = ?", [userId])
     .then((result) => result.rows);
 
   const data: Partial<SettingsValues> = {};

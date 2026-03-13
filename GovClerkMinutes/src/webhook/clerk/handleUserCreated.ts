@@ -36,7 +36,7 @@ export async function handleUserCreated(body: UserJSON, site: Site): Promise<voi
     await Promise.all([
       conn.execute(
         `
-        INSERT INTO mg_emails (email, campaign, user_id, first_name)
+        INSERT INTO gc_emails (email, campaign, user_id, first_name)
         VALUES (?, "signup_urgent", ?, ?);
         `,
         [email, userId, firstName]

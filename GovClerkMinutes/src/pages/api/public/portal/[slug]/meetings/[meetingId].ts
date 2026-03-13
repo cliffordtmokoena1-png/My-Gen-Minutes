@@ -48,7 +48,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Verify the portal exists and is enabled
   const portalResult = await conn.execute(
-    "SELECT id, org_id FROM mg_portal_settings WHERE slug = ? AND is_enabled = true",
+    "SELECT id, org_id FROM gc_portal_settings WHERE slug = ? AND is_enabled = true",
     [slug]
   );
 
@@ -65,7 +65,7 @@ async function handler(req: NextRequest): Promise<Response> {
   // Get the meeting
   const meetingResult = await conn.execute(
     `SELECT id, title, description, meeting_date, tags, is_cancelled
-     FROM mg_meetings
+     FROM gc_meetings
      WHERE id = ? AND org_id = ? AND is_public = true`,
     [meetingId, orgId]
   );
@@ -84,7 +84,7 @@ async function handler(req: NextRequest): Promise<Response> {
     `SELECT id, org_id, meeting_id, artifact_type, file_name, file_size,
             content_type, s3_key, s3_url, is_public, source_transcript_id,
             source_agenda_id, version, created_at, updated_at
-     FROM mg_artifacts
+     FROM gc_artifacts
      WHERE meeting_id = ? AND is_public = 1`,
     [meetingId]
   );

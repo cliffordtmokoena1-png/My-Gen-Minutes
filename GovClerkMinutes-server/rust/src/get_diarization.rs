@@ -164,7 +164,7 @@ fn transcribe_first_n_segments(
 
       let text = get_snippet(audio_path_clone, start, stop, http_client_clone).await;
 
-      r"UPDATE mg_segments SET transcript = :transcript WHERE transcript_id = :transcript_id AND segment_index = :segment_index;"
+      r"UPDATE gc_segments SET transcript = :transcript WHERE transcript_id = :transcript_id AND segment_index = :segment_index;"
         .with(params! {
           "transcript" => text,
           "transcript_id" => transcript_id,
@@ -449,7 +449,7 @@ pub async fn process_diarization(
       .batch(&mut conn)
       .await?;
 
-  r"INSERT INTO mg_segments (transcript_id, start, stop, speaker, segment_index) VALUES (:transcript_id, :start, :stop, :speaker, :segment_index)"
+  r"INSERT INTO gc_segments (transcript_id, start, stop, speaker, segment_index) VALUES (:transcript_id, :start, :stop, :speaker, :segment_index)"
       .with(
         transcript
           .segments
@@ -489,7 +489,7 @@ pub async fn process_diarization(
       }),
     );
 
-    let result: Option<mysql_async::Row> = r"SELECT COUNT(*) as count FROM mg_emails WHERE user_id = :user_id AND transcript_id = :transcript_id AND campaign = 'paywall_abandonment'"
+    let result: Option<mysql_async::Row> = r"SELECT COUNT(*) as count FROM gc_emails WHERE user_id = :user_id AND transcript_id = :transcript_id AND campaign = 'paywall_abandonment'"
         .with(params! {
             "user_id" => user_id.clone(),
             "transcript_id" => transcript_id,
@@ -505,8 +505,8 @@ pub async fn process_diarization(
     };
 
     if count == 0 {
-        let select_query = r"SELECT COUNT(*) FROM mg_emails WHERE user_id = :user_id AND transcript_id = :transcript_id AND campaign = 'paywall_abandonment'";
-        let count_mg_emails: u64 = conn
+        let select_query = r"SELECT COUNT(*) FROM gc_emails WHERE user_id = :user_id AND transcript_id = :transcript_id AND campaign = 'paywall_abandonment'";
+        let count_gc_emails: u64 = conn
             .exec_first(select_query, params! {
                 "user_id" => user_id.clone(),
                 "transcript_id" => transcript_id.clone(),
@@ -514,12 +514,12 @@ pub async fn process_diarization(
             .await?
             .unwrap_or(0);
     
-        if count_mg_emails == 0 {
+        if count_gc_emails == 0 {
           let email_id = get_primary_email_id(&user_id, State(state.clone())).await?;
           info!("email_id: {}", email_id);
           let email = get_primary_email(&email_id, State(state.clone())).await?;
 
-          r"INSERT INTO mg_emails (should_email, email, campaign, user_id, transcript_id) VALUES (1, :email, 'paywall_abandonment', :user_id, :transcript_id)"
+          r"INSERT INTO gc_emails (should_email, email, campaign, user_id, transcript_id) VALUES (1, :email, 'paywall_abandonment', :user_id, :transcript_id)"
               .with(params! {
                   "email" => email,
                   "user_id" => user_id.clone(),

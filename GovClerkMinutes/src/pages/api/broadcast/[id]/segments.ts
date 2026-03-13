@@ -44,7 +44,7 @@ async function handleGetSegments(
       end_time as endTime,
       is_final as isFinal,
       created_at as createdAt
-    FROM mg_broadcast_transcript_segments
+    FROM gc_broadcast_transcript_segments
     WHERE broadcast_id = ?`;
 
   const params: (number | string)[] = [broadcastId];
@@ -100,7 +100,7 @@ async function handler(req: NextRequest) {
   const conn = getPortalDbConnection();
 
   const broadcastResult = await conn.execute(
-    "SELECT id FROM mg_broadcasts WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_broadcasts WHERE id = ? AND org_id = ?",
     [broadcastId, orgId]
   );
 

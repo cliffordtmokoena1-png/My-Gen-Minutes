@@ -64,7 +64,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Verify meeting exists and belongs to org
   const meetingResult = await conn.execute(
-    "SELECT id, title FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id, title FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -75,7 +75,7 @@ async function handler(req: NextRequest): Promise<Response> {
   // Verify template exists and belongs to org
   const templateResult = await conn.execute(
     "SELECT id, org_id, name, description, template_data, created_at, updated_at " +
-      "FROM mg_agenda_templates WHERE id = ? AND org_id = ?",
+      "FROM gc_agenda_templates WHERE id = ? AND org_id = ?",
     [templateId, orgId]
   );
 
@@ -91,7 +91,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Get or create agenda for the meeting
   let agendaResult = await conn.execute(
-    "SELECT id FROM mg_agendas WHERE meeting_id = ? AND org_id = ?",
+    "SELECT id FROM gc_agendas WHERE meeting_id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -100,7 +100,7 @@ async function handler(req: NextRequest): Promise<Response> {
   if (agendaResult.rows.length === 0) {
     // Create agenda if it doesn't exist
     const createAgendaResult = await conn.execute(
-      "INSERT INTO mg_agendas (org_id, meeting_id) VALUES (?, ?)",
+      "INSERT INTO gc_agendas (org_id, meeting_id) VALUES (?, ?)",
       [orgId, meetingId]
     );
     agendaId = Number(createAgendaResult.insertId);
@@ -108,7 +108,7 @@ async function handler(req: NextRequest): Promise<Response> {
     agendaId = agendaResult.rows[0].id;
 
     // Delete existing agenda items
-    await conn.execute("DELETE FROM mg_agenda_items WHERE agenda_id = ? AND org_id = ?", [
+    await conn.execute("DELETE FROM gc_agenda_items WHERE agenda_id = ? AND org_id = ?", [
       agendaId,
       orgId,
     ]);
@@ -122,7 +122,7 @@ async function handler(req: NextRequest): Promise<Response> {
   ): Promise<void> => {
     for (const item of items) {
       const insertItemResult = await conn.execute(
-        `INSERT INTO mg_agenda_items 
+        `INSERT INTO gc_agenda_items 
          (org_id, agenda_id, parent_id, title, description, is_section, ordinal) 
          VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [orgId, agendaId, parentId, item.title, item.description || null, item.is_section, ordinal]

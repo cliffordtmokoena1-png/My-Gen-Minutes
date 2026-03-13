@@ -77,7 +77,7 @@ async function handler(req: NextRequest): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const settingsResult = await conn.execute(
-    "SELECT id, org_id FROM mg_portal_settings WHERE slug = ? AND is_enabled = true",
+    "SELECT id, org_id FROM gc_portal_settings WHERE slug = ? AND is_enabled = true",
     [slug]
   );
 
@@ -91,8 +91,8 @@ async function handler(req: NextRequest): Promise<Response> {
   const broadcastResult = await conn.execute(
     `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
             m.description as meeting_description, m.meeting_date
-     FROM mg_broadcasts b
-     JOIN mg_meetings m ON b.meeting_id = m.id
+     FROM gc_broadcasts b
+     JOIN gc_meetings m ON b.meeting_id = m.id
      WHERE b.org_id = ? AND b.status IN ('live', 'paused')
      ORDER BY b.created_at DESC LIMIT 1`,
     [orgId]
@@ -105,8 +105,8 @@ async function handler(req: NextRequest): Promise<Response> {
   const broadcast = rowToBroadcast(broadcastResult.rows[0]);
 
   const agendaResult = await conn.execute(
-    `SELECT ai.* FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.* FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE a.meeting_id = ? AND ai.org_id = ?
      ORDER BY ai.ordinal`,
     [broadcast.mgMeetingId, orgId]
@@ -131,7 +131,7 @@ async function handler(req: NextRequest): Promise<Response> {
       end_time as endTime,
       is_final as isFinal,
       created_at as createdAt
-    FROM mg_broadcast_transcript_segments
+    FROM gc_broadcast_transcript_segments
     WHERE broadcast_id = ?`;
 
   const segmentParams: (number | string)[] = [broadcast.id];

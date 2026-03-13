@@ -1,4 +1,4 @@
-export const mg_segments = [
+export const gc_segments = [
   {
     transcript_id: 33056,
     start: "0:00:00.030969",

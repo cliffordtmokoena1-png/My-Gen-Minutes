@@ -3,7 +3,7 @@ use html5ever::serialize::{serialize, SerializeOpts};
 use html5ever::tendril::TendrilSink;
 use markup5ever_rcdom::{Handle, NodeData, RcDom, SerializableHandle};
 
-pub fn remove_img_tags(html_content: &str) -> anyhow::Result<String> {
+pub fn remove_igc_tags(html_content: &str) -> anyhow::Result<String> {
   let dom = parse_document(RcDom::default(), Default::default())
     .from_utf8()
     .read_from(&mut html_content.as_bytes())?;

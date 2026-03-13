@@ -1,6 +1,6 @@
 import { isDev } from "@/utils/dev";
 
-export const DISCOUNT_COOKIE_NAME = "mg_discount";
+export const DISCOUNT_COOKIE_NAME = "gc_discount";
 
 export function getDiscountCodeId(
   discountCode: undefined | null | string | string[]

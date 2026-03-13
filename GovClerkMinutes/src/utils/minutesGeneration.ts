@@ -86,7 +86,7 @@ export async function fetchBroadcastSegments(
        end_time as endTime,
        is_final as isFinal,
        created_at as createdAt
-     FROM mg_broadcast_transcript_segments
+     FROM gc_broadcast_transcript_segments
      WHERE broadcast_id = ?
      ORDER BY segment_index ASC`,
     [broadcastId]
@@ -110,7 +110,7 @@ export async function findLatestBroadcastForMeeting(
   orgId: string
 ): Promise<number | null> {
   const broadcastResult = await conn.execute(
-    `SELECT id FROM mg_broadcasts 
+    `SELECT id FROM gc_broadcasts 
      WHERE meeting_id = ? AND org_id = ? AND status IN ('active', 'ended')
      ORDER BY created_at DESC LIMIT 1`,
     [meetingId, orgId]
@@ -148,7 +148,7 @@ export async function linkMinutesToMeeting(
   transcriptId: number
 ): Promise<void> {
   await conn.execute(
-    "UPDATE mg_meetings SET minutes_transcript_id = ?, minutes_version = NULL WHERE id = ? AND org_id = ?",
+    "UPDATE gc_meetings SET minutes_transcript_id = ?, minutes_version = NULL WHERE id = ? AND org_id = ?",
     [transcriptId, meetingId, orgId]
   );
 }
@@ -159,7 +159,7 @@ export async function clearMinutesFromMeeting(
   orgId: string
 ): Promise<void> {
   await conn.execute(
-    "UPDATE mg_meetings SET minutes_transcript_id = NULL, minutes_version = NULL WHERE id = ? AND org_id = ?",
+    "UPDATE gc_meetings SET minutes_transcript_id = NULL, minutes_version = NULL WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 }
@@ -169,7 +169,7 @@ export async function findCompletedRecordingForBroadcast(
   broadcastId: number
 ): Promise<{ s3Key: string; durationMs: number | null } | null> {
   const result = await conn.execute(
-    `SELECT s3_key, duration_ms FROM mg_broadcast_recordings 
+    `SELECT s3_key, duration_ms FROM gc_broadcast_recordings 
      WHERE broadcast_id = ? AND status = 'completed' AND s3_key IS NOT NULL 
      ORDER BY created_at DESC LIMIT 1`,
     [broadcastId]

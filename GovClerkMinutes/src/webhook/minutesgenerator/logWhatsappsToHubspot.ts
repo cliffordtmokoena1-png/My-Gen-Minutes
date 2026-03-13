@@ -65,7 +65,7 @@ async function markMessagesLogged(convo: WhatsappRow[]): Promise<void> {
 
   await conn.execute(
     `
-    UPDATE mg_whatsapps
+    UPDATE gc_whatsapps
     SET is_logged = 1
     WHERE id IN (${vars});
     `,
@@ -82,7 +82,7 @@ async function saveUserId(whatsappId: string, userId: string): Promise<void> {
 
   await conn.execute(
     `
-    UPDATE mg_whatsapp_contacts
+    UPDATE gc_whatsapp_contacts
     SET user_id = ?
     WHERE whatsapp_id = ?;
     `,
@@ -132,13 +132,13 @@ export async function logWhatsappsToHubspot(): Promise<void> {
         w.type,
         w.text,
         c.user_id 
-      FROM mg_whatsapps w
-      LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
+      FROM gc_whatsapps w
+      LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
       WHERE w.is_logged = 0
         AND w.created_at >= NOW() - INTERVAL 7 DAY
         AND w.conversation_id IN (
           SELECT conversation_id
-          FROM mg_whatsapps
+          FROM gc_whatsapps
           GROUP BY conversation_id
           HAVING MAX(created_at) < NOW() - INTERVAL 15 MINUTE
         )

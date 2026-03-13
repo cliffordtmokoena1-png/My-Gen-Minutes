@@ -42,7 +42,7 @@ async function insertAgendaItemsWithMotions(
   for (const item of items) {
     // Insert agenda item
     const insertItemResult = await conn.execute(
-      `INSERT INTO mg_agenda_items
+      `INSERT INTO gc_agenda_items
        (org_id, agenda_id, parent_id, title, description, is_section, ordinal)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
@@ -67,7 +67,7 @@ async function insertAgendaItemsWithMotions(
 
         try {
           await conn.execute(
-            `INSERT INTO mg_motions (org_id, agenda_item_id, title, description, mover, seconder, is_withdrawn, is_tabled, ordinal, created_at, updated_at)
+            `INSERT INTO gc_motions (org_id, agenda_item_id, title, description, mover, seconder, is_withdrawn, is_tabled, ordinal, created_at, updated_at)
              VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, NOW(), NOW())`,
             [
               orgId,
@@ -138,7 +138,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Verify meeting exists and belongs to org
   const meetingResult = await conn.execute(
-    "SELECT id, title FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id, title FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -212,7 +212,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
     // Get or create agenda for the meeting
     let agendaResult = await conn.execute(
-      "SELECT id FROM mg_agendas WHERE meeting_id = ? AND org_id = ?",
+      "SELECT id FROM gc_agendas WHERE meeting_id = ? AND org_id = ?",
       [meetingId, orgId]
     );
 
@@ -221,7 +221,7 @@ async function handler(req: NextRequest): Promise<Response> {
     if (agendaResult.rows.length === 0) {
       // Create agenda if it doesn't exist
       const createAgendaResult = await conn.execute(
-        "INSERT INTO mg_agendas (org_id, meeting_id, created_at, updated_at) VALUES (?, ?, NOW(), NOW())",
+        "INSERT INTO gc_agendas (org_id, meeting_id, created_at, updated_at) VALUES (?, ?, NOW(), NOW())",
         [orgId, meetingId]
       );
       agendaId = Number(createAgendaResult.insertId);
@@ -229,7 +229,7 @@ async function handler(req: NextRequest): Promise<Response> {
       agendaId = agendaResult.rows[0].id;
 
       // Delete existing agenda items and their motions (cascade delete should handle motions)
-      await conn.execute("DELETE FROM mg_agenda_items WHERE agenda_id = ? AND org_id = ?", [
+      await conn.execute("DELETE FROM gc_agenda_items WHERE agenda_id = ? AND org_id = ?", [
         agendaId,
         orgId,
       ]);

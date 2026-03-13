@@ -19,7 +19,7 @@ async function handlePatch(
 
   // Verify meeting belongs to org
   const meetingResult = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -32,7 +32,7 @@ async function handlePatch(
     `SELECT id, org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
             content_type, s3_key, s3_url, is_public, source_transcript_id, source_agenda_id,
             version, created_at, updated_at
-     FROM mg_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?`,
+     FROM gc_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?`,
     [artifactId, meetingId, orgId]
   );
 
@@ -60,7 +60,7 @@ async function handlePatch(
   params.push(artifactId, meetingId, orgId);
 
   await conn.execute(
-    `UPDATE mg_artifacts SET ${updates.join(", ")} WHERE id = ? AND meeting_id = ? AND org_id = ?`,
+    `UPDATE gc_artifacts SET ${updates.join(", ")} WHERE id = ? AND meeting_id = ? AND org_id = ?`,
     params
   );
 
@@ -69,7 +69,7 @@ async function handlePatch(
     `SELECT id, org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
             content_type, s3_key, s3_url, is_public, source_transcript_id, source_agenda_id,
             version, created_at, updated_at
-     FROM mg_artifacts WHERE id = ?`,
+     FROM gc_artifacts WHERE id = ?`,
     [artifactId]
   );
 
@@ -87,7 +87,7 @@ async function handleDelete(
 
   // Verify meeting belongs to org
   const meetingResult = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -97,7 +97,7 @@ async function handleDelete(
 
   // Verify artifact belongs to meeting and org
   const artifactResult = await conn.execute(
-    "SELECT id, s3_key FROM mg_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?",
+    "SELECT id, s3_key FROM gc_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?",
     [artifactId, meetingId, orgId]
   );
 
@@ -107,7 +107,7 @@ async function handleDelete(
 
   // Delete the artifact record from database
   // Note: S3 object deletion could be handled by a separate cleanup job if needed
-  await conn.execute("DELETE FROM mg_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?", [
+  await conn.execute("DELETE FROM gc_artifacts WHERE id = ? AND meeting_id = ? AND org_id = ?", [
     artifactId,
     meetingId,
     orgId,

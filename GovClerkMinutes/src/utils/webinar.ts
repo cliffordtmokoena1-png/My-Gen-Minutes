@@ -16,7 +16,7 @@ export async function getNextWebinarDetails(): Promise<WebinarDetail | undefined
     .execute(
       `
       SELECT url, event_time
-      FROM mg_events
+      FROM gc_events
       WHERE event_time > NOW()
       ORDER BY event_time ASC
       LIMIT 1;
@@ -50,7 +50,7 @@ export async function getWebinarDetails(limit: number): Promise<WebinarDetail[] 
     .execute(
       `
       SELECT url, event_time
-      FROM mg_events
+      FROM gc_events
       ORDER BY event_time DESC
       LIMIT ?;
       `,

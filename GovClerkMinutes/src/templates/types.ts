@@ -61,6 +61,6 @@ export interface TemplateData {
   transcripts: Transcript[];
   minutes: Minute[];
   speakers: Speaker[];
-  mg_segments: Segment[];
+  gc_segments: Segment[];
   changes: Change[];
 }

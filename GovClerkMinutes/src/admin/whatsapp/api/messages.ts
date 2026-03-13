@@ -33,7 +33,7 @@ export async function writeMessageToDb({
   await Promise.all([
     conn.execute(
       `
-      INSERT INTO mg_whatsapps
+      INSERT INTO gc_whatsapps
   (created_at, operator_email, sender, whatsapp_id, business_whatsapp_id, conversation_id, message_id, type, \`text\`, direction, source)
       VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
@@ -52,7 +52,7 @@ export async function writeMessageToDb({
     ),
     conn.execute(
       `
-      INSERT INTO mg_whatsapp_reads (conversation_id, user_id, last_read_at)
+      INSERT INTO gc_whatsapp_reads (conversation_id, user_id, last_read_at)
       VALUES (?, ?, NOW())
       ON DUPLICATE KEY UPDATE
         last_read_at = NOW();

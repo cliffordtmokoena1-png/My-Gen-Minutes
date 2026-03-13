@@ -44,7 +44,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // First verify the portal exists and is enabled
   const portalResult = await conn.execute(
-    "SELECT id, org_id FROM mg_portal_settings WHERE slug = ? AND is_enabled = true",
+    "SELECT id, org_id FROM gc_portal_settings WHERE slug = ? AND is_enabled = true",
     [slug]
   );
 
@@ -123,7 +123,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // Get total count
   const countResult = await conn.execute(
-    `SELECT COUNT(*) as total FROM mg_meetings WHERE ${whereConditions}`,
+    `SELECT COUNT(*) as total FROM gc_meetings WHERE ${whereConditions}`,
     queryParams
   );
   const total = parseInt((countResult.rows[0] as any).total, 10);
@@ -131,7 +131,7 @@ async function handler(req: NextRequest): Promise<Response> {
   // Get meetings
   const meetingsResult = await conn.execute(
     `SELECT id, title, description, meeting_date, tags, is_cancelled
-     FROM mg_meetings
+     FROM gc_meetings
      WHERE ${whereConditions}
      ORDER BY meeting_date ${orderDirection}
      LIMIT ? OFFSET ?`,
@@ -149,7 +149,7 @@ async function handler(req: NextRequest): Promise<Response> {
       `SELECT id, org_id, meeting_id, artifact_type, file_name, file_size,
               content_type, s3_key, s3_url, is_public, source_transcript_id,
               source_agenda_id, version, created_at, updated_at
-       FROM mg_artifacts
+       FROM gc_artifacts
        WHERE meeting_id IN (${placeholders}) AND is_public = 1`,
       meetingIds
     );

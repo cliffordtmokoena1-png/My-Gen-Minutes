@@ -28,7 +28,7 @@ async function handler(req: NextRequest) {
 
   await conn.execute(
     `
-      INSERT INTO mg_whatsapp_reads (conversation_id, user_id, last_read_at)
+      INSERT INTO gc_whatsapp_reads (conversation_id, user_id, last_read_at)
       VALUES (?, ?, NOW())
       ON DUPLICATE KEY UPDATE
         last_read_at = NOW();

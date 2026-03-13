@@ -76,7 +76,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
   // Fetch the artifact
   const artifactResult = await conn.execute(
     `SELECT id, org_id, s3_key, s3_url, file_name, is_public
-    FROM mg_artifacts WHERE id = ?`,
+    FROM gc_artifacts WHERE id = ?`,
     [artifactId]
   );
 

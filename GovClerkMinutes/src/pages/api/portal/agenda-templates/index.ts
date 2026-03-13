@@ -48,7 +48,7 @@ async function handleGet(orgId: string): Promise<Response> {
 
   const templatesResult = await conn.execute(
     "SELECT id, org_id, name, description, template_data, created_at, updated_at " +
-      "FROM mg_agenda_templates WHERE org_id = ? ORDER BY updated_at DESC",
+      "FROM gc_agenda_templates WHERE org_id = ? ORDER BY updated_at DESC",
     [orgId]
   );
 
@@ -82,7 +82,7 @@ async function handlePost(
   } else if (body.meetingId) {
     // Fetch agenda items from meeting and save as template
     const agendaResult = await conn.execute(
-      "SELECT id FROM mg_agendas WHERE meeting_id = ? AND org_id = ?",
+      "SELECT id FROM gc_agendas WHERE meeting_id = ? AND org_id = ?",
       [body.meetingId, orgId]
     );
 
@@ -94,7 +94,7 @@ async function handlePost(
 
     const itemsResult = await conn.execute(
       "SELECT id, org_id, agenda_id, parent_id, title, description, minutes, is_section, ordinal, created_at, updated_at " +
-        "FROM mg_agenda_items WHERE agenda_id = ? AND org_id = ? ORDER BY ordinal",
+        "FROM gc_agenda_items WHERE agenda_id = ? AND org_id = ? ORDER BY ordinal",
       [agendaId, orgId]
     );
 
@@ -129,7 +129,7 @@ async function handlePost(
   }
 
   const result = await conn.execute(
-    "INSERT INTO mg_agenda_templates (org_id, name, description, template_data) VALUES (?, ?, ?, ?)",
+    "INSERT INTO gc_agenda_templates (org_id, name, description, template_data) VALUES (?, ?, ?, ?)",
     [orgId, body.name.trim(), body.description?.trim() || null, JSON.stringify(templateData)]
   );
 
@@ -138,7 +138,7 @@ async function handlePost(
   // Fetch the created template
   const createdTemplateResult = await conn.execute(
     "SELECT id, org_id, name, description, template_data, created_at, updated_at " +
-      "FROM mg_agenda_templates WHERE id = ?",
+      "FROM gc_agenda_templates WHERE id = ?",
     [insertId]
   );
 

@@ -14,7 +14,7 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
 
   // Verify meeting exists and belongs to org
   const meetingResult = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -29,9 +29,9 @@ async function handleGet(meetingId: string, orgId: string): Promise<Response> {
             a.version, a.created_at, a.updated_at,
             aia.agenda_item_id as linked_agenda_item_id,
             ai.title as linked_agenda_item_title
-     FROM mg_artifacts a
-     LEFT JOIN mg_agenda_artifacts_group aia ON a.id = aia.artifact_id
-     LEFT JOIN mg_agenda_items ai ON aia.agenda_item_id = ai.id
+     FROM gc_artifacts a
+     LEFT JOIN gc_agenda_artifacts_group aia ON a.id = aia.artifact_id
+     LEFT JOIN gc_agenda_items ai ON aia.agenda_item_id = ai.id
      WHERE a.meeting_id = ? AND a.org_id = ?
      ORDER BY a.created_at DESC`,
     [meetingId, orgId]

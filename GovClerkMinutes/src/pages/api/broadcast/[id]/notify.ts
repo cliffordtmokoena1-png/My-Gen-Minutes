@@ -49,7 +49,7 @@ async function handler(req: NextRequest): Promise<Response> {
   const conn = getPortalDbConnection();
 
   const broadcastResult = await conn.execute(
-    "SELECT stream_key, meeting_id, current_agenda_item_id, status, agenda_timestamps FROM mg_broadcasts WHERE id = ? AND org_id = ?",
+    "SELECT stream_key, meeting_id, current_agenda_item_id, status, agenda_timestamps FROM gc_broadcasts WHERE id = ? AND org_id = ?",
     [broadcastId, orgId]
   );
 

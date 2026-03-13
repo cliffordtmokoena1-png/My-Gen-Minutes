@@ -5,7 +5,7 @@ export function useDeviceId(): string | undefined {
   const [deviceId, setDeviceId] = useState<string>();
 
   useEffect(() => {
-    const key = "mg_device_id";
+    const key = "gc_device_id";
     let id = window.localStorage.getItem(key);
     if (!id) {
       id = crypto.randomUUID();

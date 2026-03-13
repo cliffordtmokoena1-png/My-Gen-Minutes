@@ -39,8 +39,8 @@ async function handler(req: NextRequest): Promise<Response> {
 
   const recordingResult = await conn.execute(
     `SELECT r.id, r.status, b.org_id
-     FROM mg_broadcast_recordings r
-     JOIN mg_broadcasts b ON b.id = r.broadcast_id
+     FROM gc_broadcast_recordings r
+     JOIN gc_broadcasts b ON b.id = r.broadcast_id
      WHERE r.id = ? AND b.org_id = ?`,
     [recordingId, orgId]
   );

@@ -41,7 +41,7 @@ async function handlePost(
   const conn = getPortalDbConnection();
 
   // Check if settings already exist for this org
-  const existing = await conn.execute("SELECT id FROM mg_portal_settings WHERE org_id = ?", [
+  const existing = await conn.execute("SELECT id FROM gc_portal_settings WHERE org_id = ?", [
     orgId,
   ]);
 
@@ -52,7 +52,7 @@ async function handlePost(
   const slug = orgSlug;
 
   // Validate slug uniqueness
-  const slugExists = await conn.execute("SELECT id FROM mg_portal_settings WHERE slug = ?", [slug]);
+  const slugExists = await conn.execute("SELECT id FROM gc_portal_settings WHERE slug = ?", [slug]);
 
   if (slugExists.rows.length > 0) {
     return errorResponse("Slug is already in use", 409);
@@ -62,7 +62,7 @@ async function handlePost(
 
   const result = await conn.transaction(async (tx) => {
     const insertResult = await tx.execute(
-      `INSERT INTO mg_portal_settings (
+      `INSERT INTO gc_portal_settings (
         org_id, slug, page_title, page_description, logo_url,
         header_bg_color, header_text_color, accent_color, nav_links, is_enabled
       ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -82,7 +82,7 @@ async function handlePost(
 
     // PlanetScale returns insertId as string
     const id = Number(insertResult.insertId);
-    return tx.execute("SELECT * FROM mg_portal_settings WHERE id = ?", [id]);
+    return tx.execute("SELECT * FROM gc_portal_settings WHERE id = ?", [id]);
   });
 
   const response: PortalSettingsResponse = {

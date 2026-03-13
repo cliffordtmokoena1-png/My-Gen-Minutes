@@ -50,7 +50,7 @@ async function handler(
     }
 
     const updateResult = await conn.execute(
-      `UPDATE mg_segments
+      `UPDATE gc_segments
        SET speaker = ?
        WHERE transcript_id = ?
          AND start = ?

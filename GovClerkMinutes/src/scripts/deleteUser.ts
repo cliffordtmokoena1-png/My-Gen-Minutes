@@ -32,13 +32,13 @@ const rl = readline.createInterface({
 
 async function deleteUserData(userId: string) {
   const results = {
-    mg_customers: false,
+    gc_customers: false,
     transcripts: false,
     minutes: false,
-    mg_emails: false,
+    gc_emails: false,
     payments: false,
-    mg_templates: false,
-    mg_meta_conversions: false,
+    gc_templates: false,
+    gc_meta_conversions: false,
   };
 
   const conn = connect({
@@ -48,11 +48,11 @@ async function deleteUserData(userId: string) {
   });
 
   try {
-    await conn.execute("DELETE FROM mg_customers WHERE user_id = ?", [userId]);
-    results.mg_customers = true;
+    await conn.execute("DELETE FROM gc_customers WHERE user_id = ?", [userId]);
+    results.gc_customers = true;
   } catch (error) {
     console.error(
-      "Failed to delete from mg_customers:",
+      "Failed to delete from gc_customers:",
       error instanceof Error ? error.message : "Unknown error"
     );
   }
@@ -78,11 +78,11 @@ async function deleteUserData(userId: string) {
   }
 
   try {
-    await conn.execute("DELETE FROM mg_emails WHERE user_id = ?", [userId]);
-    results.mg_emails = true;
+    await conn.execute("DELETE FROM gc_emails WHERE user_id = ?", [userId]);
+    results.gc_emails = true;
   } catch (error) {
     console.error(
-      "Failed to delete from mg_emails:",
+      "Failed to delete from gc_emails:",
       error instanceof Error ? error.message : "Unknown error"
     );
   }
@@ -98,21 +98,21 @@ async function deleteUserData(userId: string) {
   }
 
   try {
-    await conn.execute("DELETE FROM mg_templates WHERE user_id = ?", [userId]);
-    results.mg_templates = true;
+    await conn.execute("DELETE FROM gc_templates WHERE user_id = ?", [userId]);
+    results.gc_templates = true;
   } catch (error) {
     console.error(
-      "Failed to delete from mg_templates:",
+      "Failed to delete from gc_templates:",
       error instanceof Error ? error.message : "Unknown error"
     );
   }
 
   try {
-    await conn.execute("DELETE FROM mg_meta_conversions WHERE user_id = ?", [userId]);
-    results.mg_meta_conversions = true;
+    await conn.execute("DELETE FROM gc_meta_conversions WHERE user_id = ?", [userId]);
+    results.gc_meta_conversions = true;
   } catch (error) {
     console.error(
-      "Failed to delete from mg_meta_conversions:",
+      "Failed to delete from gc_meta_conversions:",
       error instanceof Error ? error.message : "Unknown error"
     );
   }

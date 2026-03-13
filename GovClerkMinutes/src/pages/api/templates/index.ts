@@ -51,7 +51,7 @@ async function handler(
         preview,
         use_case,
         advantages
-      FROM mg_templating
+      FROM gc_templating
       WHERE (is_default = 1 AND user_id IS NULL AND org_id IS NULL) OR org_id = ?
       ORDER BY is_default DESC, created_at DESC
     `;
@@ -70,7 +70,7 @@ async function handler(
         preview,
         use_case,
         advantages
-      FROM mg_templating
+      FROM gc_templating
       WHERE (is_default = 1 AND user_id IS NULL AND org_id IS NULL) OR (user_id = ? AND org_id IS NULL)
       ORDER BY is_default DESC, created_at DESC
     `;

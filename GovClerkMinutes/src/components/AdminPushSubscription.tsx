@@ -38,7 +38,7 @@ export default function AdminPushSubscription({ enabled = true }: Props) {
       try {
         // Ensure SW ready
         const registration = await navigator.serviceWorker.ready;
-        const LOCAL_KEY = "mg_last_vapid_pub";
+        const LOCAL_KEY = "gc_last_vapid_pub";
         // Fetch current key from server to avoid build-time stale embedding
         const currentKey = VAPID_PUBLIC_KEY_B64URL;
         const lastKey = (() => {

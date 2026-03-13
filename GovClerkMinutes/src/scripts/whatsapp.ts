@@ -99,8 +99,8 @@ async function run(
         w.text,
         w.direction,
         c.user_id 
-      FROM mg_whatsapps w
-      LEFT JOIN mg_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
+      FROM gc_whatsapps w
+      LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
       WHERE ${startDateCondition}
       ORDER BY w.created_at;
       `,

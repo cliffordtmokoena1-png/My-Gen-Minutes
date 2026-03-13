@@ -74,7 +74,7 @@ export async function getCustomerIdFromUserId(userId: string): Promise<string | 
   });
 
   const customerRows = await conn
-    .execute("SELECT stripe_customer_id FROM mg_customers WHERE user_id = ?", [userId])
+    .execute("SELECT stripe_customer_id FROM gc_customers WHERE user_id = ?", [userId])
     .then((result) => result.rows);
 
   if (customerRows.length > 0) {

@@ -53,7 +53,7 @@ export async function processNotesExport(broadcastId: number): Promise<ProcessNo
 
     const conn = getDb();
     await conn.execute(
-      `INSERT INTO mg_artifacts (
+      `INSERT INTO gc_artifacts (
         org_id, portal_settings_id, meeting_id, artifact_type, 
         file_name, file_size, content_type, s3_key, s3_url, is_public
       ) VALUES (?, ?, ?, 'other', ?, ?, ?, ?, ?, 0)`,

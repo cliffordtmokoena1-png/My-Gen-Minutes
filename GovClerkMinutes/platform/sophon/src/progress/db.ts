@@ -28,7 +28,7 @@ export async function createProgressOperation(
 ): Promise<number> {
   const conn = getDb();
   const result = await conn.execute(
-    `INSERT INTO mg_progress_operations (meeting_id, operation_type, status, metadata, started_at)
+    `INSERT INTO gc_progress_operations (meeting_id, operation_type, status, metadata, started_at)
      VALUES (?, ?, 'pending', ?, NOW())`,
     [meetingId, operationType, metadata ? JSON.stringify(metadata) : null]
   );
@@ -52,7 +52,7 @@ export async function updateProgress(
   params.push(operationId);
 
   await conn.execute(
-    `UPDATE mg_progress_operations SET ${updates.join(", ")} WHERE id = ?`,
+    `UPDATE gc_progress_operations SET ${updates.join(", ")} WHERE id = ?`,
     params
   );
 }
@@ -70,7 +70,7 @@ export async function completeOperation(operationId: number, metadata?: object):
   params.push(operationId);
 
   await conn.execute(
-    `UPDATE mg_progress_operations SET ${updates.join(", ")} WHERE id = ?`,
+    `UPDATE gc_progress_operations SET ${updates.join(", ")} WHERE id = ?`,
     params
   );
 }
@@ -78,7 +78,7 @@ export async function completeOperation(operationId: number, metadata?: object):
 export async function failOperation(operationId: number, errorMessage: string): Promise<void> {
   const conn = getDb();
   await conn.execute(
-    `UPDATE mg_progress_operations 
+    `UPDATE gc_progress_operations 
      SET status = 'failed', error_message = ?, completed_at = NOW() 
      WHERE id = ?`,
     [errorMessage, operationId]
@@ -88,7 +88,7 @@ export async function failOperation(operationId: number, errorMessage: string): 
 export async function getActiveOperations(meetingId: number): Promise<ProgressOperation[]> {
   const conn = getDb();
   const result = await conn.execute(
-    `SELECT * FROM mg_progress_operations 
+    `SELECT * FROM gc_progress_operations 
      WHERE meeting_id = ? AND status IN ('pending', 'in_progress')
      ORDER BY created_at DESC`,
     [meetingId]
@@ -131,7 +131,7 @@ export async function findProgressOperation(
 ): Promise<ProgressOperation | null> {
   const conn = getDb();
 
-  let sql = `SELECT * FROM mg_progress_operations 
+  let sql = `SELECT * FROM gc_progress_operations 
              WHERE meeting_id = ? AND operation_type = ?`;
   const params: any[] = [meetingId, operationType];
 

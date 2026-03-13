@@ -154,7 +154,7 @@ async fn update_segments_table(
 ) -> anyhow::Result<()> {
   let mut conn = state.db.get_conn().await?;
 
-  return r"UPDATE mg_segments SET transcript = :transcript, source = :source WHERE transcript_id = :transcript_id AND segment_index = :segment_index;"
+  return r"UPDATE gc_segments SET transcript = :transcript, source = :source WHERE transcript_id = :transcript_id AND segment_index = :segment_index;"
           .with(params! {
               "transcript" => text,
               "transcript_id" => transcript_id,
@@ -162,7 +162,7 @@ async fn update_segments_table(
               "source" => source,
           })
           .ignore(&mut conn)
-          .await.map_err(|e| anyhow!("failed to update mg_segments {}", e));
+          .await.map_err(|e| anyhow!("failed to update gc_segments {}", e));
 }
 
 async fn handle_transcription_request(
@@ -550,7 +550,7 @@ pub async fn transcribe_segments_fast_impl(
   //   })
   //   .await
   //   .map_and_log_err(
-  //     "failed to get from mg_segments",
+  //     "failed to get from gc_segments",
   //     StatusCode::INTERNAL_SERVER_ERROR,
   //   )
   //   .unwrap();

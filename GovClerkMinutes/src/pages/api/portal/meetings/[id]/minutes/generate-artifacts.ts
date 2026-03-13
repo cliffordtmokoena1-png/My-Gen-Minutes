@@ -90,7 +90,7 @@ async function createArtifact(
   const now = convertDateForMysql(new Date());
 
   const insertResult = await conn.execute(
-    `INSERT INTO mg_artifacts (
+    `INSERT INTO gc_artifacts (
       org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
       content_type, s3_key, s3_url, is_public, source_transcript_id, version, created_at, updated_at
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -139,7 +139,7 @@ async function verifyMeetingExistsAndGetDetails(
   orgId: string
 ) {
   const meetingResult = await conn.execute(
-    "SELECT id, portal_settings_id, title, minutes_transcript_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id, portal_settings_id, title, minutes_transcript_id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -171,7 +171,7 @@ async function checkForExistingArtifacts(
       : [orgId, meetingId, transcriptId, ...artifactTypes];
 
   const existingArtifactsResult = await conn.execute(
-    `SELECT artifact_type FROM mg_artifacts 
+    `SELECT artifact_type FROM gc_artifacts 
      WHERE org_id = ? AND meeting_id = ? AND source_transcript_id = ? 
      AND artifact_type IN (${placeholders})${versionClause}`,
     params

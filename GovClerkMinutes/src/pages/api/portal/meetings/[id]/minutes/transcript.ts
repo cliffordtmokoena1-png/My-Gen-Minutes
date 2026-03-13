@@ -101,7 +101,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
 
   try {
     const meetingResult = await conn.execute(
-      "SELECT minutes_transcript_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+      "SELECT minutes_transcript_id FROM gc_meetings WHERE id = ? AND org_id = ?",
       [meetingId, orgId]
     );
 
@@ -140,7 +140,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
     } else {
       // Audio upload - reconstruct from diarized segments
       const segmentResult = await conn.execute(
-        `SELECT speaker, start, stop, transcript FROM mg_segments 
+        `SELECT speaker, start, stop, transcript FROM gc_segments 
          WHERE transcript_id = ? AND is_user_visible = 1 AND fast_mode = 0
          ORDER BY CAST(start AS TIME)`,
         [transcriptId]
@@ -149,7 +149,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
       if (segmentResult.rows.length === 0) {
         // Fallback to fast_mode segments
         const fastResult = await conn.execute(
-          `SELECT speaker, start, stop, transcript FROM mg_segments 
+          `SELECT speaker, start, stop, transcript FROM gc_segments 
            WHERE transcript_id = ? AND fast_mode = 1
            ORDER BY CAST(start AS TIME)`,
           [transcriptId]

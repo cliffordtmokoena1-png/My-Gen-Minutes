@@ -4,7 +4,7 @@ export async function endBroadcastByStreamKey(streamKey: string): Promise<void> 
   const conn = getDb();
 
   const result = await conn.execute(
-    `UPDATE mg_broadcasts 
+    `UPDATE gc_broadcasts 
      SET status = 'ended', ended_at = NOW() 
      WHERE stream_key = ? AND status IN ('setup', 'live', 'paused')`,
     [streamKey]
@@ -19,7 +19,7 @@ export async function endStaleBroadcasts(staleThresholdMinutes: number = 5): Pro
   const conn = getDb();
 
   const result = await conn.execute(
-    `UPDATE mg_broadcasts 
+    `UPDATE gc_broadcasts 
      SET status = 'ended', ended_at = NOW() 
      WHERE status IN ('setup', 'live', 'paused') 
      AND updated_at < DATE_SUB(NOW(), INTERVAL ? MINUTE)`,
@@ -39,7 +39,7 @@ export async function endStaleBroadcasts(staleThresholdMinutes: number = 5): Pro
 export async function getStreamKeyByBroadcastId(broadcastId: number): Promise<string | null> {
   const conn = getDb();
 
-  const result = await conn.execute(`SELECT stream_key FROM mg_broadcasts WHERE id = ?`, [
+  const result = await conn.execute(`SELECT stream_key FROM gc_broadcasts WHERE id = ?`, [
     broadcastId,
   ]);
 
@@ -59,8 +59,8 @@ export async function getBroadcastByStreamKey(streamKey: string): Promise<{
   const conn = getDb();
   const result = await conn.execute(
     `SELECT b.id, b.meeting_id, b.org_id, m.portal_settings_id
-     FROM mg_broadcasts b
-     JOIN mg_meetings m ON m.id = b.meeting_id
+     FROM gc_broadcasts b
+     JOIN gc_meetings m ON m.id = b.meeting_id
      WHERE b.stream_key = ? AND b.status IN ('setup', 'live', 'paused')
      LIMIT 1`,
     [streamKey]

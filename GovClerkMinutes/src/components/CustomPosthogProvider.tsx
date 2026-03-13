@@ -96,7 +96,7 @@ export default function CustomPosthogProvider({ children }: { children: React.Re
       return;
     }
 
-    const utmParams = JSON.parse(Cookies.get("mg_utm_params") ?? "{}");
+    const utmParams = JSON.parse(Cookies.get("gc_utm_params") ?? "{}");
     const utmProperties = {
       $initial_utm_source: utmParams?.utm_source,
       $initial_utm_medium: utmParams?.utm_medium,

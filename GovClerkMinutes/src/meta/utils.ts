@@ -85,7 +85,7 @@ export async function readMetaConversionData(userId: string): Promise<MetaConver
   });
 
   const res = await conn.execute(
-    "SELECT fbc, fbp, ip, user_agent, email, sent_complete_registration FROM mg_meta_conversions WHERE user_id = ?",
+    "SELECT fbc, fbp, ip, user_agent, email, sent_complete_registration FROM gc_meta_conversions WHERE user_id = ?",
     [userId]
   );
 
@@ -130,7 +130,7 @@ export async function writeMetaConversionData(
   } = metaConversionData;
 
   await conn.execute(
-    "INSERT INTO mg_meta_conversions (user_id, fbc, fbp, ip, user_agent, email, ad_id, utm_params, discount_code, first_name, minutes_freq, due_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+    "INSERT INTO gc_meta_conversions (user_id, fbc, fbp, ip, user_agent, email, ad_id, utm_params, discount_code, first_name, minutes_freq, due_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
     [
       userId,
       fbc,
@@ -233,7 +233,7 @@ export async function updateMetaConversionData(
   values.push(userId);
 
   const sql = `
-    UPDATE mg_meta_conversions
+    UPDATE gc_meta_conversions
     SET ${setList.join(", ")}
     WHERE user_id = ?;
   `;

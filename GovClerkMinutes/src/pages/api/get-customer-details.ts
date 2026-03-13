@@ -51,10 +51,10 @@ export async function getCustomerDetails(
   let params: string[];
 
   if (orgId) {
-    query = "SELECT stripe_customer_id, billing_model FROM mg_customers WHERE org_id = ?";
+    query = "SELECT stripe_customer_id, billing_model FROM gc_customers WHERE org_id = ?";
     params = [orgId];
   } else {
-    query = "SELECT stripe_customer_id, billing_model FROM mg_customers WHERE user_id = ?";
+    query = "SELECT stripe_customer_id, billing_model FROM gc_customers WHERE user_id = ?";
     params = [userId];
   }
 

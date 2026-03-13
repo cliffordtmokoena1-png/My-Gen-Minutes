@@ -22,7 +22,7 @@ export async function processRecording(recordingId: number): Promise<void> {
 
   await updateRecordingStatus(recordingId, "processing");
 
-  const broadcast = await getDb().execute("SELECT meeting_id FROM mg_broadcasts WHERE id = ?", [
+  const broadcast = await getDb().execute("SELECT meeting_id FROM gc_broadcasts WHERE id = ?", [
     recording.broadcastId,
   ]);
   const meetingId = (broadcast.rows[0] as any)?.meeting_id;
@@ -100,7 +100,7 @@ async function createRecordingArtifact(
   const conn = getDb();
 
   const broadcastRes = await conn.execute(
-    "SELECT meeting_id, org_id FROM mg_broadcasts WHERE id = ?",
+    "SELECT meeting_id, org_id FROM gc_broadcasts WHERE id = ?",
     [recording.broadcastId]
   );
 
@@ -110,7 +110,7 @@ async function createRecordingArtifact(
 
   const broadcast = broadcastRes.rows[0] as { meeting_id: number; org_id: string };
 
-  const meetingRes = await conn.execute("SELECT portal_settings_id FROM mg_meetings WHERE id = ?", [
+  const meetingRes = await conn.execute("SELECT portal_settings_id FROM gc_meetings WHERE id = ?", [
     broadcast.meeting_id,
   ]);
 
@@ -125,7 +125,7 @@ async function createRecordingArtifact(
   const s3Url = `https://transcriptsummaryaudioupload.s3.us-east-2.amazonaws.com/${recording.s3Key}`;
 
   await conn.execute(
-    `INSERT INTO mg_artifacts (
+    `INSERT INTO gc_artifacts (
       org_id, portal_settings_id, meeting_id, artifact_type, 
       file_name, file_size, content_type, s3_key, s3_url, is_public
     ) VALUES (?, ?, ?, 'meeting_recording', ?, ?, 'video/mp4', ?, ?, 0)`,

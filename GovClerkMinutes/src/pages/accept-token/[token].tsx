@@ -26,14 +26,14 @@ async function getUtmCookieValue(userId: string): Promise<string | undefined> {
   });
 
   const rows = await conn
-    .execute("SELECT utm_params FROM mg_meta_conversions WHERE user_id = ?;", [userId])
+    .execute("SELECT utm_params FROM gc_meta_conversions WHERE user_id = ?;", [userId])
     .then((res) => res.rows);
 
   if (rows.length === 0) {
     return undefined;
   }
 
-  return serialize("mg_utm_params", JSON.stringify(rows[0].utm_params ?? {}), {
+  return serialize("gc_utm_params", JSON.stringify(rows[0].utm_params ?? {}), {
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
     secure: process.env.NODE_ENV === "production",

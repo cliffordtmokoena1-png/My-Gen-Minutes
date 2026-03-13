@@ -24,11 +24,11 @@ async function handler(req: NextRequest): Promise<Response> {
 
   // If orgId provided, exclude it from the check (allow org's own slug)
   const result = orgId
-    ? await conn.execute("SELECT id FROM mg_portal_settings WHERE slug = ? AND org_id != ?", [
+    ? await conn.execute("SELECT id FROM gc_portal_settings WHERE slug = ? AND org_id != ?", [
         slug,
         orgId,
       ])
-    : await conn.execute("SELECT id FROM mg_portal_settings WHERE slug = ?", [slug]);
+    : await conn.execute("SELECT id FROM gc_portal_settings WHERE slug = ?", [slug]);
 
   const available = result.rows.length === 0;
 

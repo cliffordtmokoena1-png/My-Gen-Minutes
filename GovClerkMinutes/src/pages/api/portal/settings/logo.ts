@@ -132,7 +132,7 @@ async function logoHandler(
 
   // Verify settings belong to org
   const settingsResult = await conn.execute(
-    "SELECT id FROM mg_portal_settings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_portal_settings WHERE id = ? AND org_id = ?",
     [settingsId, orgId]
   );
 
@@ -172,8 +172,8 @@ async function logoHandler(
 
   const uploadUrl = formatUrl(uploadRequest);
 
-  // Update mg_portal_settings with the new logo URL
-  await conn.execute("UPDATE mg_portal_settings SET logo_url = ? WHERE id = ? AND org_id = ?", [
+  // Update gc_portal_settings with the new logo URL
+  await conn.execute("UPDATE gc_portal_settings SET logo_url = ? WHERE id = ? AND org_id = ?", [
     logoUrl,
     settingsId,
     orgId,

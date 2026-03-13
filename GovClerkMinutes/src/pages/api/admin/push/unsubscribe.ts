@@ -26,7 +26,7 @@ async function handler(req: Request): Promise<Response> {
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  await conn.execute("DELETE FROM mg_push_subscriptions WHERE user_id = ? AND device_id = ?", [
+  await conn.execute("DELETE FROM gc_push_subscriptions WHERE user_id = ? AND device_id = ?", [
     userId,
     deviceId,
   ]);

@@ -160,7 +160,7 @@ async function getTemplateSegments(transcriptId: number, conn: Connection): Prom
       `SELECT 
         transcript_id, start, stop, speaker, transcript,
         segment_index, fast_mode, is_user_visible
-      FROM mg_segments 
+      FROM gc_segments 
       WHERE transcript_id = ?`,
       [transcriptId]
     );
@@ -243,8 +243,8 @@ async function writeTemplateFiles(templateData: TemplateData): Promise<void> {
         content: `export const speakers = ${JSON.stringify(templateData.speakers, null, 2)};`,
       },
       {
-        name: "mg_segments.ts",
-        content: `export const mg_segments = ${JSON.stringify(templateData.mg_segments, null, 2)};`,
+        name: "gc_segments.ts",
+        content: `export const gc_segments = ${JSON.stringify(templateData.gc_segments, null, 2)};`,
       },
       {
         name: "changes.ts",
@@ -290,7 +290,7 @@ async function updateTemplate(transcriptId: number): Promise<void> {
       transcripts: [transcript],
       minutes: minutes,
       speakers: speakers,
-      mg_segments: segments,
+      gc_segments: segments,
       changes: changes,
     };
 

@@ -41,9 +41,9 @@ export async function runPostSignupTasks(): Promise<void> {
         WHEN wc.id IS NOT NULL THEN 1
         ELSE 0
       END AS has_whatsapp_inbound
-      FROM mg_emails e
+      FROM gc_emails e
       JOIN gc_leads l ON e.user_id = l.user_id
-      LEFT JOIN mg_whatsapp_contacts wc ON wc.user_id = l.user_id
+      LEFT JOIN gc_whatsapp_contacts wc ON wc.user_id = l.user_id
       WHERE TIMESTAMPDIFF(MINUTE, e.created_at, UTC_TIMESTAMP()) >= 5
         AND e.should_email = 1
         AND e.campaign = 'signup_urgent'
@@ -59,7 +59,7 @@ export async function runPostSignupTasks(): Promise<void> {
   for (const lead of leads) {
     try {
       // Mark this so we only process the lead once
-      await conn.execute("UPDATE mg_emails SET should_email = 0 WHERE id = ?", [lead.id]);
+      await conn.execute("UPDATE gc_emails SET should_email = 0 WHERE id = ?", [lead.id]);
 
       // Send meta conversion event
       await sendCompleteRegistrationConversionEvent(lead.user_id);

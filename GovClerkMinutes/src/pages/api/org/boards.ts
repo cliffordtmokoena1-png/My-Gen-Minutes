@@ -22,7 +22,7 @@ export default async function handler(req: NextRequest) {
 
   if (req.method === "GET") {
     try {
-      const { rows: boards } = await conn.execute("SELECT * FROM mg_boards WHERE org_id = ?", [
+      const { rows: boards } = await conn.execute("SELECT * FROM gc_boards WHERE org_id = ?", [
         orgId,
       ]);
 
@@ -34,14 +34,14 @@ export default async function handler(req: NextRequest) {
         // Construct placeholders for IN clause
         const placeholders = boardIds.map(() => "?").join(",");
         const { rows: memberRows } = await conn.execute(
-          `SELECT * FROM mg_board_members WHERE board_id IN (${placeholders}) AND org_id = ?`,
+          `SELECT * FROM gc_board_members WHERE board_id IN (${placeholders}) AND org_id = ?`,
           [...boardIds, orgId]
         );
         members = memberRows;
 
         // Fetch meetings linked to these boards
         const { rows: meetingRows } = await conn.execute(
-          `SELECT id, board_id, title, meeting_date FROM mg_meetings WHERE board_id IN (${placeholders}) AND org_id = ?`,
+          `SELECT id, board_id, title, meeting_date FROM gc_meetings WHERE board_id IN (${placeholders}) AND org_id = ?`,
           [...boardIds, orgId]
         );
         meetings = meetingRows;
@@ -95,7 +95,7 @@ export default async function handler(req: NextRequest) {
             id: m.id.toString(),
             title: m.title || "",
             date: m.meeting_date || "",
-            time: "", // Not stored separately in mg_meetings
+            time: "", // Not stored separately in gc_meetings
           }));
 
         return {
@@ -119,7 +119,7 @@ export default async function handler(req: NextRequest) {
       const { name, members } = body;
 
       const { insertId } = await conn.execute(
-        "INSERT INTO mg_boards (org_id, name) VALUES (?, ?)",
+        "INSERT INTO gc_boards (org_id, name) VALUES (?, ?)",
         [orgId, name]
       );
       const newBoardId = insertId;
@@ -128,7 +128,7 @@ export default async function handler(req: NextRequest) {
         for (const member of members) {
           // Use member.userId
           await conn.execute(
-            "INSERT INTO mg_board_members (board_id, org_id, user_id, title, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO gc_board_members (board_id, org_id, user_id, title, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)",
             [newBoardId, orgId, member.userId, member.title, member.startDate, member.endDate]
           );
         }
@@ -148,22 +148,22 @@ export default async function handler(req: NextRequest) {
 
       // Verify ownership
       const { rows: existing } = await conn.execute(
-        "SELECT * FROM mg_boards WHERE id = ? AND org_id = ?",
+        "SELECT * FROM gc_boards WHERE id = ? AND org_id = ?",
         [id, orgId]
       );
       if (existing.length === 0) {
         return new Response("Not found or unauthorized", { status: 404 });
       }
 
-      await conn.execute("UPDATE mg_boards SET name = ? WHERE id = ?", [name, id]);
+      await conn.execute("UPDATE gc_boards SET name = ? WHERE id = ?", [name, id]);
 
       // Replace members
-      await conn.execute("DELETE FROM mg_board_members WHERE board_id = ?", [id]);
+      await conn.execute("DELETE FROM gc_board_members WHERE board_id = ?", [id]);
 
       if (members && members.length > 0) {
         for (const member of members) {
           await conn.execute(
-            "INSERT INTO mg_board_members (board_id, org_id, user_id, title, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)",
+            "INSERT INTO gc_board_members (board_id, org_id, user_id, title, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?)",
             [id, orgId, member.userId, member.title, member.startDate, member.endDate]
           );
         }
@@ -186,15 +186,15 @@ export default async function handler(req: NextRequest) {
 
       // Verify ownership
       const { rows: existing } = await conn.execute(
-        "SELECT * FROM mg_boards WHERE id = ? AND org_id = ?",
+        "SELECT * FROM gc_boards WHERE id = ? AND org_id = ?",
         [id, orgId]
       );
       if (existing.length === 0) {
         return new Response("Not found or unauthorized", { status: 404 });
       }
 
-      await conn.execute("DELETE FROM mg_board_members WHERE board_id = ?", [id]);
-      await conn.execute("DELETE FROM mg_boards WHERE id = ?", [id]);
+      await conn.execute("DELETE FROM gc_board_members WHERE board_id = ?", [id]);
+      await conn.execute("DELETE FROM gc_boards WHERE id = ?", [id]);
 
       return NextResponse.json({ success: true });
     } catch (error) {

@@ -37,11 +37,11 @@ async function startPaywallAbandonmentEmailSequence(
   const customerCount = await conn
     .execute<{
       cnt: number;
-    }>("SELECT COUNT(*) AS cnt FROM mg_customers WHERE user_id = ?", [lead.userId])
+    }>("SELECT COUNT(*) AS cnt FROM gc_customers WHERE user_id = ?", [lead.userId])
     .then((r) => Number(r.rows?.[0]?.cnt ?? 0));
 
   if (customerCount > 0) {
-    console.warn(`user ${lead.userId} already exists in mg_customers, skipping lead addition`);
+    console.warn(`user ${lead.userId} already exists in gc_customers, skipping lead addition`);
     return;
   }
 
@@ -129,7 +129,7 @@ export async function handlePaywallAbandoners(): Promise<void> {
     transcript_id: number;
   };
 
-  // Get mg_emails for paywall_abandonment older than >= 2 hours and still should_email
+  // Get gc_emails for paywall_abandonment older than >= 2 hours and still should_email
   const emailRows = await conn
     .execute<EmailRow>(
       `
@@ -139,7 +139,7 @@ export async function handlePaywallAbandoners(): Promise<void> {
         e.user_id,
         e.campaign,
         e.transcript_id
-      FROM mg_emails e
+      FROM gc_emails e
       WHERE TIMESTAMPDIFF(HOUR, e.created_at, UTC_TIMESTAMP()) >= 2
         AND e.should_email = 1
         AND e.campaign = 'paywall_abandonment'
@@ -154,7 +154,7 @@ export async function handlePaywallAbandoners(): Promise<void> {
   for (const emailInfo of emailRows) {
     try {
       // Mark as processed regardless of outcome to avoid repeats
-      await conn.execute("UPDATE mg_emails SET should_email = 0 WHERE id = ?", [emailInfo.id]);
+      await conn.execute("UPDATE gc_emails SET should_email = 0 WHERE id = ?", [emailInfo.id]);
 
       const lead = await getLeadFromDb(emailInfo.user_id);
       if (!lead) {

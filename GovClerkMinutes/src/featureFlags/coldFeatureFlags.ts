@@ -1,9 +1,9 @@
 import { serialize } from "cookie";
 
-export const COLD_FEATURE_FLAG_COOKIE_NAME = "mg_cold_feature_flags";
+export const COLD_FEATURE_FLAG_COOKIE_NAME = "gc_cold_feature_flags";
 
 export type ColdFeatureFlags = {
-  mg_cold_new_landing_page: boolean;
+  gc_cold_new_landing_page: boolean;
   landing_page_v2: boolean;
 };
 

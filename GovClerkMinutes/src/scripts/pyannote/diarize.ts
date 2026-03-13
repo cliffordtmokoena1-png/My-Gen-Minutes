@@ -106,7 +106,7 @@ async function getOriginalDiarization(transcriptId: number): Promise<Diarization
 
   try {
     const result = await conn.execute(
-      "SELECT start, stop, speaker, transcript, segment_index FROM mg_segments WHERE transcript_id = ? ORDER BY CAST(start AS TIME);",
+      "SELECT start, stop, speaker, transcript, segment_index FROM gc_segments WHERE transcript_id = ? ORDER BY CAST(start AS TIME);",
       [transcriptId]
     );
 

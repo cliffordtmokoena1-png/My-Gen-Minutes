@@ -39,11 +39,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DeleteTemplateR
   let deleteParams: string[];
 
   if (orgId) {
-    deleteQuery = "DELETE FROM mg_templating WHERE template_id = ? AND org_id = ?";
+    deleteQuery = "DELETE FROM gc_templating WHERE template_id = ? AND org_id = ?";
     deleteParams = [templateId, orgId];
   } else {
     deleteQuery =
-      "DELETE FROM mg_templating WHERE template_id = ? AND user_id = ? AND org_id IS NULL";
+      "DELETE FROM gc_templating WHERE template_id = ? AND user_id = ? AND org_id IS NULL";
     deleteParams = [templateId, userId];
   }
 
@@ -54,7 +54,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DeleteTemplateR
   }
 
   const settingsResult = await conn.execute<{ setting_value: string }>(
-    "SELECT setting_value FROM mg_settings WHERE user_id = ? AND setting_key = 'selected-template-id' LIMIT 1",
+    "SELECT setting_value FROM gc_settings WHERE user_id = ? AND setting_key = 'selected-template-id' LIMIT 1",
     [userId]
   );
 
@@ -73,7 +73,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse<DeleteTemplateR
   if (shouldResetSelection) {
     const defaultTemplateValue = JSON.stringify("GovClerkMinutes-template");
     await conn.execute(
-      `INSERT INTO mg_settings (user_id, setting_key, setting_value)
+      `INSERT INTO gc_settings (user_id, setting_key, setting_value)
        VALUES (?, 'selected-template-id', ?)
        ON DUPLICATE KEY UPDATE
          setting_value = VALUES(setting_value),

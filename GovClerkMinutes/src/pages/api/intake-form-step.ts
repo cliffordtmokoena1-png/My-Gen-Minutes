@@ -64,7 +64,7 @@ async function handleEmailStep(body: IntakeFormEmailStepBody, req: NextRequest):
       hubspot.createContact({
         userId,
         email,
-        lead_source: "mg_landing_page",
+        lead_source: "gc_landing_page",
       }),
     ]);
   } else {

@@ -358,7 +358,7 @@ pub async fn run_post_speaker_segmentation(
 
   values.extend(orphaned_rows);
 
-  db::insert_mg_segments_batch(&mut conn, &values).await?;
+  db::insert_gc_segments_batch(&mut conn, &values).await?;
 
   timer.stop(TimeSpanEvent::GetDiarizationInsertSegments);
 

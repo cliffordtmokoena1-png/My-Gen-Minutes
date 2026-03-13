@@ -82,8 +82,8 @@ async function handleGet(
     const result = await conn.execute(
       `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
               m.description as meeting_description, m.meeting_date
-       FROM mg_broadcasts b
-       JOIN mg_meetings m ON b.meeting_id = m.id
+       FROM gc_broadcasts b
+       JOIN gc_meetings m ON b.meeting_id = m.id
        WHERE b.meeting_id = ? AND b.org_id = ? AND b.status != 'ended'
        ORDER BY b.created_at DESC LIMIT 1`,
       [meetingId, orgId]
@@ -113,8 +113,8 @@ async function handleGet(
   const result = await conn.execute(
     `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
             m.description as meeting_description, m.meeting_date
-     FROM mg_broadcasts b
-     JOIN mg_meetings m ON b.meeting_id = m.id
+     FROM gc_broadcasts b
+     JOIN gc_meetings m ON b.meeting_id = m.id
      WHERE b.org_id = ? AND b.status IN ('setup', 'live', 'paused')
      ORDER BY b.created_at DESC LIMIT 1`,
     [orgId]
@@ -149,7 +149,7 @@ async function handlePost(
   const conn = getPortalDbConnection();
 
   const meetingCheck = await conn.execute(
-    "SELECT id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [body.mgMeetingId, orgId]
   );
 
@@ -158,7 +158,7 @@ async function handlePost(
   }
 
   const existingBroadcast = await conn.execute(
-    "SELECT id FROM mg_broadcasts WHERE org_id = ? AND status IN ('setup', 'live', 'paused')",
+    "SELECT id FROM gc_broadcasts WHERE org_id = ? AND status IN ('setup', 'live', 'paused')",
     [orgId]
   );
 
@@ -171,7 +171,7 @@ async function handlePost(
   const result = await conn.transaction(async (tx) => {
     // Check for existing broadcasts for this meeting and delete their segments
     const previousBroadcasts = await tx.execute(
-      "SELECT id FROM mg_broadcasts WHERE meeting_id = ?",
+      "SELECT id FROM gc_broadcasts WHERE meeting_id = ?",
       [body.mgMeetingId]
     );
 
@@ -179,13 +179,13 @@ async function handlePost(
       const broadcastIds = previousBroadcasts.rows.map((row: any) => Number(row.id));
       const placeholders = broadcastIds.map(() => "?").join(",");
       await tx.execute(
-        `DELETE FROM mg_broadcast_transcript_segments WHERE broadcast_id IN (${placeholders})`,
+        `DELETE FROM gc_broadcast_transcript_segments WHERE broadcast_id IN (${placeholders})`,
         broadcastIds
       );
     }
 
     await tx.execute(
-      `INSERT INTO mg_broadcasts (org_id, meeting_id, started_by_user_id, stream_key, status)
+      `INSERT INTO gc_broadcasts (org_id, meeting_id, started_by_user_id, stream_key, status)
        VALUES (?, ?, ?, ?, 'setup')`,
       [orgId, body.mgMeetingId, userId, streamKey]
     );
@@ -196,8 +196,8 @@ async function handlePost(
     return tx.execute(
       `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
               m.description as meeting_description, m.meeting_date
-       FROM mg_broadcasts b
-       JOIN mg_meetings m ON b.meeting_id = m.id
+       FROM gc_broadcasts b
+       JOIN gc_meetings m ON b.meeting_id = m.id
        WHERE b.id = ?`,
       [id]
     );

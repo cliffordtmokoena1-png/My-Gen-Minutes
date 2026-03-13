@@ -25,8 +25,8 @@ async function handlePut(
 
   // Verify agenda item belongs to the meeting and org
   const itemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE ai.id = ? AND a.meeting_id = ? AND ai.org_id = ?`,
     [itemId, meetingId, orgId]
   );
@@ -37,7 +37,7 @@ async function handlePut(
 
   // Verify the attachment exists
   const attachmentCheck = await conn.execute(
-    "SELECT id, ordinal FROM mg_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
+    "SELECT id, ordinal FROM gc_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
     [itemId, artifactId]
   );
 
@@ -61,12 +61,12 @@ async function handlePut(
   values.push(itemId, artifactId);
 
   await conn.execute(
-    `UPDATE mg_agenda_artifacts_group SET ${updates.join(", ")} WHERE agenda_item_id = ? AND artifact_id = ?`,
+    `UPDATE gc_agenda_artifacts_group SET ${updates.join(", ")} WHERE agenda_item_id = ? AND artifact_id = ?`,
     values
   );
 
   // Fetch and return the artifact
-  const artifactResult = await conn.execute("SELECT * FROM mg_artifacts WHERE id = ?", [
+  const artifactResult = await conn.execute("SELECT * FROM gc_artifacts WHERE id = ?", [
     artifactId,
   ]);
 
@@ -83,8 +83,8 @@ async function handleDelete(
 
   // Verify agenda item belongs to the meeting and org
   const itemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE ai.id = ? AND a.meeting_id = ? AND ai.org_id = ?`,
     [itemId, meetingId, orgId]
   );
@@ -95,7 +95,7 @@ async function handleDelete(
 
   // Remove the junction record only (detach artifact from agenda item)
   const deleteResult = await conn.execute(
-    "DELETE FROM mg_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
+    "DELETE FROM gc_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
     [itemId, artifactId]
   );
 

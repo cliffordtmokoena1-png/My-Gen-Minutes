@@ -4,7 +4,7 @@ use mysql_async::{prelude::Queryable, Conn, Error, Value};
 use std::sync::Arc;
 use tracing::info;
 
-/// Represents an update to a segment in the mg_segments database.
+/// Represents an update to a segment in the gc_segments database.
 pub struct SegmentUpdate {
   pub segment_index: usize,
   pub source: String,
@@ -12,8 +12,8 @@ pub struct SegmentUpdate {
   pub transcript: Option<String>,
 }
 
-/// Inserts rows into `mg_segments` in batches of 50.
-pub async fn insert_mg_segments_batch(
+/// Inserts rows into `gc_segments` in batches of 50.
+pub async fn insert_gc_segments_batch(
   conn: &mut Conn,
   rows: &[MgSegmentsRow],
 ) -> Result<(), Error> {
@@ -26,7 +26,7 @@ pub async fn insert_mg_segments_batch(
       .join(", ");
 
     let sql = format!(
-            "INSERT INTO mg_segments \
+            "INSERT INTO gc_segments \
              (transcript_id, start, stop, speaker, transcript, segment_index, fast_mode, is_user_visible, is_orphan) \
              VALUES {}",
             values_clause
@@ -59,7 +59,7 @@ pub async fn insert_mg_segments_batch(
   Ok(())
 }
 
-/// Updates rows in `mg_segments` in batches of 50. (for segment_update)
+/// Updates rows in `gc_segments` in batches of 50. (for segment_update)
 pub async fn update_segments_table(
   transcript_id: u64,
   state: Arc<SharedRequestState>,
@@ -117,7 +117,7 @@ pub async fn update_segments_table(
 
     let query = format!(
       "
-        UPDATE mg_segments
+        UPDATE gc_segments
         SET 
           transcript = {}
           is_user_visible = CASE 

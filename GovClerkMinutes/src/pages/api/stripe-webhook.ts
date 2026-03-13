@@ -71,7 +71,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // Add a row to be able to later lookup user_id from stripe_customer_id
     await conn.execute(
       `
-      INSERT INTO mg_customers (user_id, org_id, stripe_customer_id, referral, billing_model)
+      INSERT INTO gc_customers (user_id, org_id, stripe_customer_id, referral, billing_model)
       VALUES (?, ?, ?, ?, 'self_service');
       `,
       [orgId ? null : userId, orgId, customerId, referralId]
@@ -116,7 +116,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     );
 
     await conn.execute(
-      "UPDATE mg_emails SET should_email = 0 WHERE (campaign = 'paywall_abandonment' AND user_id = ?) OR transcript_id = ?;",
+      "UPDATE gc_emails SET should_email = 0 WHERE (campaign = 'paywall_abandonment' AND user_id = ?) OR transcript_id = ?;",
       [userId, transcriptId]
     );
 
@@ -183,7 +183,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     const customerId = assertString(evt.customer);
     const customerData: { user_id: string | null; org_id: string | null } | null = await conn
-      .execute("SELECT user_id, org_id FROM mg_customers WHERE stripe_customer_id = ?;", [
+      .execute("SELECT user_id, org_id FROM gc_customers WHERE stripe_customer_id = ?;", [
         customerId,
       ])
       .then((r) => (r.rows?.[0] as any) ?? null);
@@ -262,7 +262,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     await conn.execute(
       `
-      INSERT INTO mg_customers (user_id, stripe_customer_id, billing_model)
+      INSERT INTO gc_customers (user_id, stripe_customer_id, billing_model)
       VALUES (?, ?, ?);
       `,
       [userId, customerId, billingModel]

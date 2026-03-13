@@ -38,7 +38,7 @@ async function handler(req: NextRequest) {
       [msWordClick ? 1 : 0, copyClick ? 1 : 0, transcriptId, userId]
     ),
     conn
-      .execute("SELECT COUNT(1) as cnt FROM mg_reviews WHERE user_id = ?;", [userId])
+      .execute("SELECT COUNT(1) as cnt FROM gc_reviews WHERE user_id = ?;", [userId])
       .then((res) => res.rows[0].cnt > 0),
   ]);
 

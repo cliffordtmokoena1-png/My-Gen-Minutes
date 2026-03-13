@@ -39,7 +39,7 @@ export async function getWebinarLeadFromDb(email: string): Promise<WebinarLead |
         event_time,
         is_registered,
         is_reminded
-      FROM mg_webinar_leads
+      FROM gc_webinar_leads
       WHERE email = ?;
       `,
       [email]
@@ -112,7 +112,7 @@ export async function updateWebinarLeadInDb({
 
   const setListStr = setList.join(", ");
 
-  await conn.execute(`UPDATE mg_webinar_leads SET ${setListStr} WHERE email = ?;`, [
+  await conn.execute(`UPDATE gc_webinar_leads SET ${setListStr} WHERE email = ?;`, [
     ...values,
     email,
   ]);
@@ -133,7 +133,7 @@ export async function addWebinarLeadToDb({
 
   await conn.execute(
     `
-    INSERT INTO mg_webinar_leads (email, user_id, first_name, event_url, event_time, is_registered, is_reminded)
+    INSERT INTO gc_webinar_leads (email, user_id, first_name, event_url, event_time, is_registered, is_reminded)
     VALUES (?, ?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE
       user_id = VALUES(user_id),

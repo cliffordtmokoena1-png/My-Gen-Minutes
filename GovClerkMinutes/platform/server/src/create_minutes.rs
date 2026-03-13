@@ -1115,7 +1115,7 @@ pub async fn get_transcript_str(
 
     let html_transcript = String::from_utf8(html_bytes)?;
 
-    let html_transcript_without_imgs = remove_img_tags(&html_transcript)?;
+    let html_transcript_without_imgs = remove_igc_tags(&html_transcript)?;
 
     info!(html_transcript_without_imgs);
 

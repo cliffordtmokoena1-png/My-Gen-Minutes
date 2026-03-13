@@ -1,7 +1,7 @@
 import { transcripts } from "@/templates/example-minutes/transcripts";
 import { minutes } from "@/templates/example-minutes/minutes";
 import { speakers } from "@/templates/example-minutes/speakers";
-import { mg_segments } from "@/templates/example-minutes/mg_segments";
+import { gc_segments } from "@/templates/example-minutes/gc_segments";
 import { changes } from "@/templates/example-minutes/changes";
 import { TemplateData, Minute, Speaker, Segment, Change } from "@/templates/types";
 import { connect } from "@planetscale/database";
@@ -11,7 +11,7 @@ export async function loadTemplateData(): Promise<TemplateData> {
     transcripts,
     minutes,
     speakers,
-    mg_segments,
+    gc_segments,
     changes,
   };
 }
@@ -172,26 +172,26 @@ export async function insertTemplateSegments(
   newTranscriptId: number,
   connection: any
 ): Promise<void> {
-  if (!data.mg_segments || data.mg_segments.length === 0) {
+  if (!data.gc_segments || data.gc_segments.length === 0) {
     return;
   }
 
   // Check if we have both fast_mode types
-  const hasFastMode0 = data.mg_segments.some((s) => s.fast_mode === 0);
-  const hasFastMode1 = data.mg_segments.some((s) => s.fast_mode === 1);
+  const hasFastMode0 = data.gc_segments.some((s) => s.fast_mode === 0);
+  const hasFastMode1 = data.gc_segments.some((s) => s.fast_mode === 1);
 
   // Create a copy of segments to modify
-  let segmentsToInsert = [...data.mg_segments];
+  let segmentsToInsert = [...data.gc_segments];
 
   // If missing fast_mode 0, duplicate some segments with fast_mode 0
   if (!hasFastMode0 && hasFastMode1) {
-    const fast1Segments = data.mg_segments.filter((s) => s.fast_mode === 1);
+    const fast1Segments = data.gc_segments.filter((s) => s.fast_mode === 1);
     const fast0Segments = fast1Segments.map((s) => ({ ...s, fast_mode: 0 }));
     segmentsToInsert = [...segmentsToInsert, ...fast0Segments];
   }
   // If missing fast_mode 1, duplicate some segments with fast_mode 1
   else if (hasFastMode0 && !hasFastMode1) {
-    const fast0Segments = data.mg_segments.filter((s) => s.fast_mode === 0);
+    const fast0Segments = data.gc_segments.filter((s) => s.fast_mode === 0);
     const fast1Segments = fast0Segments.map((s) => ({ ...s, fast_mode: 1 }));
     segmentsToInsert = [...segmentsToInsert, ...fast1Segments];
   }
@@ -207,7 +207,7 @@ export async function insertTemplateSegments(
     const promises = batch.map((segment) =>
       connection.execute(
         `
-        INSERT INTO mg_segments (
+        INSERT INTO gc_segments (
           transcript_id, start, stop, speaker, transcript,
           segment_index, fast_mode, is_user_visible
         ) VALUES (

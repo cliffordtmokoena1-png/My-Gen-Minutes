@@ -11,7 +11,7 @@ export async function getBoardMembersForMeeting(
   orgId: string
 ): Promise<BoardMember[]> {
   const meetingResult = await conn.execute(
-    "SELECT board_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT board_id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [meetingId, orgId]
   );
 
@@ -26,7 +26,7 @@ export async function getBoardMembersForMeeting(
 
   const membersResult = await conn.execute(
     `SELECT user_id, title, start_date, end_date
-     FROM mg_board_members WHERE board_id = ? AND org_id = ?`,
+     FROM gc_board_members WHERE board_id = ? AND org_id = ?`,
     [boardId, orgId]
   );
 

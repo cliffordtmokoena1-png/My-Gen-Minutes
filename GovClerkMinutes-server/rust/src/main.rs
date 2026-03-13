@@ -202,13 +202,13 @@ async fn run_email_lead_adder(state: Arc<SharedRequestState>) -> anyhow::Result<
 
 async fn add_signup_no_upload_leads(conn: &mut mysql_async::Conn, state: &Arc<SharedRequestState>) -> anyhow::Result<()> {
   let leads_to_add: Vec<(u64, String, String, String, Option<u64>)> = conn
-      .query(r"SELECT id, email, user_id, campaign, transcript_id FROM mg_emails WHERE TIMESTAMPDIFF(HOUR, created_at, NOW()) >= 48 AND should_email = 1 AND campaign = 'signup_no_upload'")
+      .query(r"SELECT id, email, user_id, campaign, transcript_id FROM gc_emails WHERE TIMESTAMPDIFF(HOUR, created_at, NOW()) >= 48 AND should_email = 1 AND campaign = 'signup_no_upload'")
       .await?;
   
   for (id, email, user_id, campaign, transcript_id) in leads_to_add {
       warn!("adding lead to signup_no_upload campaign: {}", email);
       
-      conn.exec_drop(r"UPDATE mg_emails SET should_email = 0 WHERE id = :id", params! { "id" => id }).await?;
+      conn.exec_drop(r"UPDATE gc_emails SET should_email = 0 WHERE id = :id", params! { "id" => id }).await?;
       
       let mut variables = HashMap::new();
       let sign_in_token = create_signin_token(user_id.clone(), state.clone()).await?;
@@ -240,19 +240,19 @@ async fn add_signup_no_upload_leads(conn: &mut mysql_async::Conn, state: &Arc<Sh
 
 async fn add_paywall_abandonment_leads(conn: &mut mysql_async::Conn, state: &Arc<SharedRequestState>) -> anyhow::Result<()> {
   let leads_to_add: Vec<(u64, String, String, String, Option<u64>)> = conn
-      .query(r"SELECT id, email, user_id, campaign, transcript_id FROM mg_emails WHERE TIMESTAMPDIFF(HOUR, created_at, NOW()) >= 2 AND should_email = 1 AND campaign = 'paywall_abandonment'")
+      .query(r"SELECT id, email, user_id, campaign, transcript_id FROM gc_emails WHERE TIMESTAMPDIFF(HOUR, created_at, NOW()) >= 2 AND should_email = 1 AND campaign = 'paywall_abandonment'")
       .await?;
   
   for (id, email, user_id, campaign, transcript_id) in leads_to_add {
-      let customer_exists: Option<u64> = conn.exec_first(r"SELECT id FROM mg_customers WHERE user_id = :user_id", params! { "user_id" => user_id.clone() }).await?;
+      let customer_exists: Option<u64> = conn.exec_first(r"SELECT id FROM gc_customers WHERE user_id = :user_id", params! { "user_id" => user_id.clone() }).await?;
         
       if customer_exists.is_some() {
-          warn!("user {} already exists in mg_customers, skipping lead addition", user_id);
+          warn!("user {} already exists in gc_customers, skipping lead addition", user_id);
           continue;
       }
       warn!("adding lead to paywall_abandonment campaign: {}", email);
       
-      conn.exec_drop(r"UPDATE mg_emails SET should_email = 0 WHERE id = :id", params! { "id" => id }).await?;
+      conn.exec_drop(r"UPDATE gc_emails SET should_email = 0 WHERE id = :id", params! { "id" => id }).await?;
       
       let mut variables = HashMap::new();
       let sign_in_token = create_signin_token(user_id.clone(), state.clone()).await?;

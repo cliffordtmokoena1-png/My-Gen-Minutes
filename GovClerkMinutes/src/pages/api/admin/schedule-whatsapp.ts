@@ -82,7 +82,7 @@ async function handler(req: NextRequest) {
   if (mode === "freeform") {
     await conn.execute(
       `
-      INSERT INTO mg_scheduled_whatsapps
+      INSERT INTO gc_scheduled_whatsapps
       (whatsapp_id, business_whatsapp_id, freeform, send_at, sender_user_id, mode, cancel_on_reply, source)
       VALUES (?, ?, ?, ?, ?, "freeform_tool", ?, ?)
       `,
@@ -104,7 +104,7 @@ async function handler(req: NextRequest) {
 
     await conn.execute(
       `
-    INSERT INTO mg_scheduled_whatsapps
+    INSERT INTO gc_scheduled_whatsapps
     (whatsapp_id, business_whatsapp_id, template_id, variables, send_at, sender_user_id, mode, cancel_on_reply, source, language, template_body)
     VALUES (?, ?, ?, ?, ?, ?, "tool", ?, ?, ?, ?)
     `,

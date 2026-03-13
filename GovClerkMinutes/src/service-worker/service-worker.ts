@@ -316,15 +316,15 @@ async function handleShareTarget(request: Request): Promise<Response> {
 self.addEventListener("message", (event: any) => {
   const { kind, token } = event.data;
 
-  if (kind === "mg_shared_file_request") {
+  if (kind === "gc_shared_file_request") {
     const file = sharedFiles.get(token);
     event.ports[0]?.postMessage({
-      kind: "mg_shared_file_response",
+      kind: "gc_shared_file_response",
       token,
       ok: !!file,
       file: file || null,
     });
-  } else if (kind === "mg_shared_file_discard") {
+  } else if (kind === "gc_shared_file_discard") {
     sharedFiles.delete(token);
   }
 });

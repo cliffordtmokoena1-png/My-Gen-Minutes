@@ -94,7 +94,7 @@ export async function upsertOrganizationFromWebhook(org: OrganizationJSON): Prom
     if (org.slug) {
       // id is auto-generated
       await conn.execute(
-        `INSERT INTO mg_portal_settings (
+        `INSERT INTO gc_portal_settings (
           org_id, slug, header_bg_color, header_text_color, accent_color, is_enabled
         ) VALUES (?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE id = id`,

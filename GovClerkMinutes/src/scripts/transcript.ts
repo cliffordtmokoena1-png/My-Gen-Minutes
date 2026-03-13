@@ -93,7 +93,7 @@ async function fixWebmFileDuration(bytes: Uint8Array, filePath: string): Promise
 }
 
 async function setupOutputDir(transcriptId: number): Promise<string> {
-  const dirName = `mg_transcript_${transcriptId}`;
+  const dirName = `gc_transcript_${transcriptId}`;
   await fs.mkdir(dirName);
   return dirName;
 }

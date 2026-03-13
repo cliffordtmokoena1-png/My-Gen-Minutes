@@ -38,7 +38,7 @@ async function handler(req: NextRequest): Promise<Response> {
 
   const result = await conn.execute(
     `SELECT id, slug, page_title, page_description, logo_url, header_bg_color, header_text_color, accent_color, nav_links
-     FROM mg_portal_settings
+     FROM gc_portal_settings
      WHERE slug = ? AND is_enabled = true`,
     [slug]
   );

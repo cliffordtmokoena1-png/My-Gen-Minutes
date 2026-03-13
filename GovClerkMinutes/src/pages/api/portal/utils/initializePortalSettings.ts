@@ -54,7 +54,7 @@ export async function getOrCreatePortalSettings(
   orgSlug: string
 ): Promise<PortalSettings> {
   // Check for existing settings
-  const existing = await conn.execute("SELECT * FROM mg_portal_settings WHERE org_id = ?", [orgId]);
+  const existing = await conn.execute("SELECT * FROM gc_portal_settings WHERE org_id = ?", [orgId]);
 
   if (existing.rows.length > 0) {
     return rowToPortalSettings(existing.rows[0] as PortalSettingsRow);
@@ -62,7 +62,7 @@ export async function getOrCreatePortalSettings(
 
   // Create default settings (id is auto-generated)
   await conn.execute(
-    `INSERT INTO mg_portal_settings (
+    `INSERT INTO gc_portal_settings (
       org_id, slug, header_bg_color, header_text_color, accent_color, is_enabled
     ) VALUES (?, ?, ?, ?, ?, ?)
     ON DUPLICATE KEY UPDATE id = id`,
@@ -79,6 +79,6 @@ export async function getOrCreatePortalSettings(
   console.info(`Auto-created portal settings for organization: ${orgId} with slug: ${orgSlug}`);
 
   // Fetch the newly created settings
-  const created = await conn.execute("SELECT * FROM mg_portal_settings WHERE org_id = ?", [orgId]);
+  const created = await conn.execute("SELECT * FROM gc_portal_settings WHERE org_id = ?", [orgId]);
   return rowToPortalSettings(created.rows[0] as PortalSettingsRow);
 }

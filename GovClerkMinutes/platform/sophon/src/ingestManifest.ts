@@ -48,7 +48,7 @@ export async function ingestManifest(manifest: Manifest, orgId: number): Promise
   for (const [key, m] of uniqueMeetings) {
     // Try to find existing meeting first
     const res = await conn.execute(
-      "SELECT id FROM mg_meetings WHERE org_id = ? AND title = ? AND kind = ? AND date = ? LIMIT 1",
+      "SELECT id FROM gc_meetings WHERE org_id = ? AND title = ? AND kind = ? AND date = ? LIMIT 1",
       [orgId, m.title, m.kind, new Date(m.date).toISOString()]
     );
     const rows = res.rows as any[];
@@ -57,7 +57,7 @@ export async function ingestManifest(manifest: Manifest, orgId: number): Promise
       continue;
     }
     const ins = await conn.execute(
-      "INSERT INTO mg_meetings (org_id, title, kind, date, location) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO gc_meetings (org_id, title, kind, date, location) VALUES (?, ?, ?, ?, ?)",
       [orgId, m.title, m.kind, new Date(m.date).toISOString(), m.location || null]
     );
     meetingIdByKey.set(key, Number((ins as any).insertId));
@@ -81,7 +81,7 @@ export async function ingestManifest(manifest: Manifest, orgId: number): Promise
 
     // Check if artifact exists (by meeting_id + kind + name)
     const existingRes = await conn.execute(
-      "SELECT id FROM mg_artifacts WHERE org_id = ? AND meeting_id = ? AND kind = ? AND name = ? LIMIT 1",
+      "SELECT id FROM gc_artifacts WHERE org_id = ? AND meeting_id = ? AND kind = ? AND name = ? LIMIT 1",
       [orgId, meetingId, art.kind, art.name]
     );
     const existing = existingRes.rows as any[];
@@ -91,7 +91,7 @@ export async function ingestManifest(manifest: Manifest, orgId: number): Promise
     }
 
     const ins2 = await conn.execute(
-      "INSERT INTO mg_artifacts (org_id, meeting_id, kind, name, bucket, mime, s3_key) VALUES (?, ?, ?, ?, NULL, ?, NULL)",
+      "INSERT INTO gc_artifacts (org_id, meeting_id, kind, name, bucket, mime, s3_key) VALUES (?, ?, ?, ?, NULL, ?, NULL)",
       [orgId, meetingId, art.kind, art.name, art.mime]
     );
     artifactRows.push({ ...art, id: Number((ins2 as any).insertId) });
@@ -113,7 +113,7 @@ export async function ingestManifest(manifest: Manifest, orgId: number): Promise
 
       await putObject({ key: s3Key, body, contentType: mime });
 
-      await conn.execute("UPDATE mg_artifacts SET s3_key = ?, mime = ? WHERE id = ?", [
+      await conn.execute("UPDATE gc_artifacts SET s3_key = ?, mime = ? WHERE id = ?", [
         s3Key,
         mime || null,
         row.id,

@@ -78,7 +78,7 @@ impl Transcript {
     transcript_id: u64,
     user_id: &str,
   ) -> anyhow::Result<Transcript> {
-    let segments = r"SELECT start, stop, speaker, transcript FROM mg_segments WHERE transcript_id = :transcript_id ORDER BY segment_index;"
+    let segments = r"SELECT start, stop, speaker, transcript FROM gc_segments WHERE transcript_id = :transcript_id ORDER BY segment_index;"
       .with(params! {
         "transcript_id" => transcript_id,
       })

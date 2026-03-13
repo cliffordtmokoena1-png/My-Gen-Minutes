@@ -16,7 +16,7 @@ export async function getSubscriptionContext(userId: string): Promise<Subscripti
   const rows = await conn
     .execute(
       `SELECT mc.org_id, o.name as org_name
-       FROM mg_customers mc
+       FROM gc_customers mc
        LEFT JOIN organizations o ON mc.org_id = o.id
        WHERE mc.user_id = ?
        LIMIT 1`,

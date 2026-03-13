@@ -83,12 +83,12 @@ fn patch_nginx_config_and_reload() -> anyhow::Result<()> {
     return Ok(());
 }
 
-fn backup_mg_prod() -> anyhow::Result<()> {
+fn backup_gc_prod() -> anyhow::Result<()> {
     std::fs::copy("/home/ec2-user/mg.prod", "/home/ec2-user/mg.prod.backup")?;
     return Ok(());
 }
 
-fn copy_mg_staging_to_prod() -> anyhow::Result<String> {
+fn copy_gc_staging_to_prod() -> anyhow::Result<String> {
     let start = SystemTime::now();
     let since_the_epoch = start
         .duration_since(UNIX_EPOCH)
@@ -105,7 +105,7 @@ fn copy_mg_staging_to_prod() -> anyhow::Result<String> {
     return Ok(destination_path);
 }
 
-fn update_mg_prod_symlink(new_mg_prod: &str) -> anyhow::Result<()> {
+fn update_gc_prod_symlink(new_gc_prod: &str) -> anyhow::Result<()> {
     let symlink_path = PathBuf::from("/home/ec2-user/mg.prod");
 
     // If the symlink already exists, remove it
@@ -114,7 +114,7 @@ fn update_mg_prod_symlink(new_mg_prod: &str) -> anyhow::Result<()> {
     }
 
     // Create a new symlink
-    std::os::unix::fs::symlink(new_mg_prod, &symlink_path)?;
+    std::os::unix::fs::symlink(new_gc_prod, &symlink_path)?;
 
     Ok(())
 }
@@ -249,7 +249,7 @@ async fn main() {
     }
 
     println!("Backing up mg.prod -> mg.prod.backup...");
-    match backup_mg_prod() {
+    match backup_gc_prod() {
         Ok(_) => println!("mg.prod backed up to mg.prod.backup"),
         Err(e) => {
             todo!("handle error {}", e);
@@ -257,7 +257,7 @@ async fn main() {
     }
 
     println!("Copying mg.staging -> mg-TS.prod...");
-    let mg_prod_path = match copy_mg_staging_to_prod() {
+    let gc_prod_path = match copy_gc_staging_to_prod() {
         Ok(dst) => {
             println!("mg.staging copied to {}", dst);
             dst
@@ -268,7 +268,7 @@ async fn main() {
     };
 
     println!("Updating mg.prod symlink...");
-    match update_mg_prod_symlink(&mg_prod_path) {
+    match update_gc_prod_symlink(&gc_prod_path) {
         Ok(_) => println!("mg.prod symlink updated!"),
         Err(e) => {
             todo!("handle error {}", e);

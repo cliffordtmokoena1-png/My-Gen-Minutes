@@ -1,6 +1,6 @@
 import { connect } from "@planetscale/database";
 
-// Call this from a server cotext to map `mg_...` auth tokens to a user ID, or
+// Call this from a server cotext to map `gc_...` auth tokens to a user ID, or
 // return undefined if no mapping exists or is expired.
 export default async function getUserIdFromToken(token: string): Promise<string | undefined> {
   const conn = connect({
@@ -11,7 +11,7 @@ export default async function getUserIdFromToken(token: string): Promise<string 
 
   const rows = await conn
     .execute(
-      "SELECT user_id FROM mg_auth_tokens WHERE token = ? AND expires_at > UTC_TIMESTAMP();",
+      "SELECT user_id FROM gc_auth_tokens WHERE token = ? AND expires_at > UTC_TIMESTAMP();",
       [token]
     )
     .then((res) => res.rows);

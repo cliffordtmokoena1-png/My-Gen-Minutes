@@ -153,7 +153,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     let existingSubscription;
     if (orgId) {
       existingSubscription = await conn
-        .execute("SELECT id FROM mg_customers WHERE user_id = ? AND org_id IS NULL", [userId])
+        .execute("SELECT id FROM gc_customers WHERE user_id = ? AND org_id IS NULL", [userId])
         .then((res) => res.rows);
 
       if (existingSubscription.length > 0) {
@@ -164,7 +164,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       }
     } else {
       existingSubscription = await conn
-        .execute("SELECT id FROM mg_customers WHERE user_id = ? AND org_id IS NOT NULL", [userId])
+        .execute("SELECT id FROM gc_customers WHERE user_id = ? AND org_id IS NOT NULL", [userId])
         .then((res) => res.rows);
 
       if (existingSubscription.length > 0) {
@@ -185,7 +185,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     });
 
     const rows = await conn
-      .execute("SELECT discount_code FROM mg_meta_conversions WHERE user_id = ?", [userId])
+      .execute("SELECT discount_code FROM gc_meta_conversions WHERE user_id = ?", [userId])
       .then((res) => res.rows);
 
     promoCode = rows.length > 0 ? rows[0].discount_code : undefined;

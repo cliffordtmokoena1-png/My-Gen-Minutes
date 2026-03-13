@@ -19,8 +19,8 @@ async function handleGet(meetingId: string, itemId: string, orgId: string): Prom
 
   // Verify agenda item belongs to the meeting and org
   const itemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE ai.id = ? AND a.meeting_id = ? AND ai.org_id = ?`,
     [itemId, meetingId, orgId]
   );
@@ -32,8 +32,8 @@ async function handleGet(meetingId: string, itemId: string, orgId: string): Prom
   // Get attached artifacts
   const artifactsResult = await conn.execute(
     `SELECT ma.*, maia.ordinal as attachment_ordinal
-     FROM mg_agenda_artifacts_group maia
-     JOIN mg_artifacts ma ON maia.artifact_id = ma.id
+     FROM gc_agenda_artifacts_group maia
+     JOIN gc_artifacts ma ON maia.artifact_id = ma.id
      WHERE maia.agenda_item_id = ?
      ORDER BY maia.ordinal ASC`,
     [itemId]
@@ -62,8 +62,8 @@ async function handlePost(
 
   // Verify agenda item belongs to the meeting and org
   const itemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE ai.id = ? AND a.meeting_id = ? AND ai.org_id = ?`,
     [itemId, meetingId, orgId]
   );
@@ -74,7 +74,7 @@ async function handlePost(
 
   // Verify artifact exists and belongs to this meeting/org
   const artifactCheck = await conn.execute(
-    "SELECT id FROM mg_artifacts WHERE id = ? AND org_id = ? AND meeting_id = ?",
+    "SELECT id FROM gc_artifacts WHERE id = ? AND org_id = ? AND meeting_id = ?",
     [body.artifactId, orgId, meetingId]
   );
 
@@ -84,7 +84,7 @@ async function handlePost(
 
   // Check if already attached
   const existingLink = await conn.execute(
-    "SELECT id FROM mg_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
+    "SELECT id FROM gc_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
     [itemId, body.artifactId]
   );
 
@@ -94,20 +94,20 @@ async function handlePost(
 
   // Get max ordinal for this agenda item
   const maxOrdinalResult = await conn.execute(
-    "SELECT COALESCE(MAX(ordinal), 0) as max_ordinal FROM mg_agenda_artifacts_group WHERE agenda_item_id = ?",
+    "SELECT COALESCE(MAX(ordinal), 0) as max_ordinal FROM gc_agenda_artifacts_group WHERE agenda_item_id = ?",
     [itemId]
   );
   const maxOrdinal = (maxOrdinalResult.rows[0] as any)?.max_ordinal ?? 0;
 
   // Create junction record
   await conn.execute(
-    `INSERT INTO mg_agenda_artifacts_group (agenda_item_id, artifact_id, ordinal, created_at)
+    `INSERT INTO gc_agenda_artifacts_group (agenda_item_id, artifact_id, ordinal, created_at)
      VALUES (?, ?, ?, NOW())`,
     [itemId, body.artifactId, maxOrdinal + 1]
   );
 
   // Fetch and return the artifact
-  const artifactResult = await conn.execute("SELECT * FROM mg_artifacts WHERE id = ?", [
+  const artifactResult = await conn.execute("SELECT * FROM gc_artifacts WHERE id = ?", [
     body.artifactId,
   ]);
 
@@ -128,8 +128,8 @@ async function handleDelete(
 
   // Verify agenda item belongs to the meeting and org
   const itemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
      WHERE ai.id = ? AND a.meeting_id = ? AND ai.org_id = ?`,
     [itemId, meetingId, orgId]
   );
@@ -140,7 +140,7 @@ async function handleDelete(
 
   // Remove the junction record only
   const deleteResult = await conn.execute(
-    "DELETE FROM mg_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
+    "DELETE FROM gc_agenda_artifacts_group WHERE agenda_item_id = ? AND artifact_id = ?",
     [itemId, body.artifactId]
   );
 

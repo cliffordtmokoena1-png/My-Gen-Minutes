@@ -84,8 +84,8 @@ async function handleGet(id: string, orgId: string): Promise<Response> {
   const result = await conn.execute(
     `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
             m.description as meeting_description, m.meeting_date
-     FROM mg_broadcasts b
-     JOIN mg_meetings m ON b.meeting_id = m.id
+     FROM gc_broadcasts b
+     JOIN gc_meetings m ON b.meeting_id = m.id
      WHERE b.id = ? AND b.org_id = ?`,
     [id, orgId]
   );
@@ -107,7 +107,7 @@ async function handlePut(
   const conn = getPortalDbConnection();
 
   const existing = await conn.execute(
-    "SELECT id, started_by_user_id, agenda_timestamps, stream_key, status FROM mg_broadcasts WHERE id = ? AND org_id = ?",
+    "SELECT id, started_by_user_id, agenda_timestamps, stream_key, status FROM gc_broadcasts WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 
@@ -164,15 +164,15 @@ async function handlePut(
 
   const result = await conn.transaction(async (tx) => {
     await tx.execute(
-      `UPDATE mg_broadcasts SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
+      `UPDATE gc_broadcasts SET ${updates.join(", ")} WHERE id = ? AND org_id = ?`,
       values
     );
 
     return tx.execute(
       `SELECT b.*, m.id as meeting_id, m.title as meeting_title,
               m.description as meeting_description, m.meeting_date
-       FROM mg_broadcasts b
-       JOIN mg_meetings m ON b.meeting_id = m.id
+       FROM gc_broadcasts b
+       JOIN gc_meetings m ON b.meeting_id = m.id
        WHERE b.id = ?`,
       [id]
     );
@@ -206,7 +206,7 @@ async function handleDelete(id: string, orgId: string, userId: string): Promise<
   const conn = getPortalDbConnection();
 
   const existing = await conn.execute(
-    "SELECT id, started_by_user_id, stream_key FROM mg_broadcasts WHERE id = ? AND org_id = ?",
+    "SELECT id, started_by_user_id, stream_key FROM gc_broadcasts WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 
@@ -220,7 +220,7 @@ async function handleDelete(id: string, orgId: string, userId: string): Promise<
   }
 
   await conn.execute(
-    "UPDATE mg_broadcasts SET status = 'ended', ended_at = NOW() WHERE id = ? AND org_id = ?",
+    "UPDATE gc_broadcasts SET status = 'ended', ended_at = NOW() WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 

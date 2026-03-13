@@ -45,8 +45,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
   try {
     const result = await conn.execute(
       `SELECT r.s3_key, r.duration_ms 
-       FROM mg_broadcast_recordings r
-       JOIN mg_broadcasts b ON r.broadcast_id = b.id
+       FROM gc_broadcast_recordings r
+       JOIN gc_broadcasts b ON r.broadcast_id = b.id
        WHERE b.meeting_id = ? AND b.org_id = ? AND r.status = 'completed' AND r.s3_key IS NOT NULL
        ORDER BY r.created_at DESC LIMIT 1`,
       [meetingId, orgId]

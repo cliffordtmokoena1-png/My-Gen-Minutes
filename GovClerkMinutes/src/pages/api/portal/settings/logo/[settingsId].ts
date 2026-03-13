@@ -74,7 +74,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse): Promise<void>
   const conn = getPortalDbConnection();
 
   // Fetch the portal settings to get logo_url
-  const result = await conn.execute("SELECT id, logo_url FROM mg_portal_settings WHERE id = ?", [
+  const result = await conn.execute("SELECT id, logo_url FROM gc_portal_settings WHERE id = ?", [
     settingsId,
   ]);
 

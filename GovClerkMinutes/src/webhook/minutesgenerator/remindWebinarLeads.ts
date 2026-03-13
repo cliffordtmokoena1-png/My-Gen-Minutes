@@ -19,7 +19,7 @@ async function getMostRecentWebinarEventTime(): Promise<Date> {
     }>(
       `
       SELECT event_time
-      FROM mg_events
+      FROM gc_events
       ORDER BY event_time DESC
       LIMIT 1
       `

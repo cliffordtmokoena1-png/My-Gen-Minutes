@@ -70,7 +70,7 @@ async function createAgendaArtifact(
   const now = new Date().toISOString().slice(0, 19).replace("T", " ");
 
   const insertResult = await conn.execute(
-    `INSERT INTO mg_artifacts (
+    `INSERT INTO gc_artifacts (
       org_id, portal_settings_id, meeting_id, artifact_type, file_name, file_size,
       content_type, s3_key, s3_url, is_public, version, created_at, updated_at
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -231,7 +231,7 @@ async function handlePost(
 
   // Verify meeting exists and get portal settings ID
   const meetingResult = await conn.execute(
-    "SELECT id, portal_settings_id FROM mg_meetings WHERE id = ? AND org_id = ?",
+    "SELECT id, portal_settings_id FROM gc_meetings WHERE id = ? AND org_id = ?",
     [id, orgId]
   );
 

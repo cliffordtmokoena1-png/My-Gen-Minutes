@@ -21,10 +21,10 @@ async function getMotionWithVotes(
   const motionResult = await conn.execute(
     `SELECT m.id, m.org_id, m.agenda_item_id, m.title, m.description, m.mover, m.seconder,
      m.is_withdrawn, m.is_tabled, m.ordinal, m.created_at, m.updated_at,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
-     FROM mg_motions m WHERE m.id = ? AND m.org_id = ?`,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
+     FROM gc_motions m WHERE m.id = ? AND m.org_id = ?`,
     [motionId, orgId]
   );
 
@@ -37,7 +37,7 @@ async function getMotionWithVotes(
   // Get votes for this motion
   const votesResult = await conn.execute(
     `SELECT id, org_id, motion_id, user_id, board_member_id, vote_value, created_at, updated_at
-     FROM mg_votes WHERE motion_id = ? AND org_id = ?`,
+     FROM gc_votes WHERE motion_id = ? AND org_id = ?`,
     [motionId, orgId]
   );
 
@@ -66,9 +66,9 @@ async function handleGet(
 
   // Verify agenda item exists and belongs to org
   const agendaItemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m ON a.meeting_id = m.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m ON a.meeting_id = m.id
      WHERE ai.id = ? AND a.meeting_id = ? AND a.org_id = ? AND m.org_id = ?`,
     [agendaItemId, meetingId, orgId, orgId]
   );
@@ -81,10 +81,10 @@ async function handleGet(
   const motionsResult = await conn.execute(
     `SELECT m.id, m.org_id, m.agenda_item_id, m.title, m.description, m.mover, m.seconder,
      m.is_withdrawn, m.is_tabled, m.ordinal, m.created_at, m.updated_at,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
-     (SELECT COUNT(*) FROM mg_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
-     FROM mg_motions m WHERE m.agenda_item_id = ? AND m.org_id = ? ORDER BY m.ordinal ASC`,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'yes') as votes_for,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'no') as votes_against,
+     (SELECT COUNT(*) FROM gc_votes v WHERE v.motion_id = m.id AND v.vote_value = 'abstain') as votes_abstain
+     FROM gc_motions m WHERE m.agenda_item_id = ? AND m.org_id = ? ORDER BY m.ordinal ASC`,
     [agendaItemId, orgId]
   );
 
@@ -103,9 +103,9 @@ async function handlePost(
 
   // Verify agenda item exists and belongs to org
   const agendaItemCheck = await conn.execute(
-    `SELECT ai.id FROM mg_agenda_items ai
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m ON a.meeting_id = m.id
+    `SELECT ai.id FROM gc_agenda_items ai
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m ON a.meeting_id = m.id
      WHERE ai.id = ? AND a.meeting_id = ? AND a.org_id = ? AND m.org_id = ?`,
     [agendaItemId, meetingId, orgId, orgId]
   );
@@ -116,7 +116,7 @@ async function handlePost(
 
   // Get max ordinal for this agenda item
   const maxOrdinalResult = await conn.execute(
-    "SELECT MAX(ordinal) as max_ordinal FROM mg_motions WHERE agenda_item_id = ? AND org_id = ?",
+    "SELECT MAX(ordinal) as max_ordinal FROM gc_motions WHERE agenda_item_id = ? AND org_id = ?",
     [agendaItemId, orgId]
   );
 
@@ -124,7 +124,7 @@ async function handlePost(
   const newOrdinal = body.ordinal || maxOrdinal + 1;
 
   const result = await conn.execute(
-    `INSERT INTO mg_motions (org_id, agenda_item_id, title, description, mover, seconder, is_withdrawn, is_tabled, ordinal, created_at, updated_at)
+    `INSERT INTO gc_motions (org_id, agenda_item_id, title, description, mover, seconder, is_withdrawn, is_tabled, ordinal, created_at, updated_at)
      VALUES (?, ?, ?, ?, ?, ?, 0, 0, ?, NOW(), NOW())`,
     [
       orgId,
@@ -154,10 +154,10 @@ async function handlePut(
 
   // Verify motion exists and belongs to org/agenda item
   const motionCheck = await conn.execute(
-    `SELECT m.id FROM mg_motions m
-     JOIN mg_agenda_items ai ON m.agenda_item_id = ai.id
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m2 ON a.meeting_id = m2.id
+    `SELECT m.id FROM gc_motions m
+     JOIN gc_agenda_items ai ON m.agenda_item_id = ai.id
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m2 ON a.meeting_id = m2.id
      WHERE m.id = ? AND m.agenda_item_id = ? AND a.meeting_id = ? AND m.org_id = ? AND m2.org_id = ?`,
     [motionId, agendaItemId, meetingId, orgId, orgId]
   );
@@ -207,7 +207,7 @@ async function handlePut(
   values.push(motionId, agendaItemId, orgId);
 
   await conn.execute(
-    `UPDATE mg_motions SET ${updates.join(", ")} WHERE id = ? AND agenda_item_id = ? AND org_id = ?`,
+    `UPDATE gc_motions SET ${updates.join(", ")} WHERE id = ? AND agenda_item_id = ? AND org_id = ?`,
     values
   );
 
@@ -226,10 +226,10 @@ async function handleDelete(
 
   // Verify motion exists and belongs to org/agenda item
   const motionCheck = await conn.execute(
-    `SELECT m.id FROM mg_motions m
-     JOIN mg_agenda_items ai ON m.agenda_item_id = ai.id
-     JOIN mg_agendas a ON ai.agenda_id = a.id
-     JOIN mg_meetings m2 ON a.meeting_id = m2.id
+    `SELECT m.id FROM gc_motions m
+     JOIN gc_agenda_items ai ON m.agenda_item_id = ai.id
+     JOIN gc_agendas a ON ai.agenda_id = a.id
+     JOIN gc_meetings m2 ON a.meeting_id = m2.id
      WHERE m.id = ? AND m.agenda_item_id = ? AND a.meeting_id = ? AND m.org_id = ? AND m2.org_id = ?`,
     [motionId, agendaItemId, meetingId, orgId, orgId]
   );
@@ -239,10 +239,10 @@ async function handleDelete(
   }
 
   // Delete votes first (foreign key constraint)
-  await conn.execute("DELETE FROM mg_votes WHERE motion_id = ? AND org_id = ?", [motionId, orgId]);
+  await conn.execute("DELETE FROM gc_votes WHERE motion_id = ? AND org_id = ?", [motionId, orgId]);
 
   // Delete motion
-  await conn.execute("DELETE FROM mg_motions WHERE id = ? AND org_id = ?", [motionId, orgId]);
+  await conn.execute("DELETE FROM gc_motions WHERE id = ? AND org_id = ?", [motionId, orgId]);
 
   return jsonResponse({ success: true });
 }

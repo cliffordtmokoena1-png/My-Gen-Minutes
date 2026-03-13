@@ -64,7 +64,7 @@ async function getAdminPushSubscriptions(): Promise<Subscription[]> {
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  const subs = await conn.execute("SELECT endpoint, p256dh, auth FROM mg_push_subscriptions");
+  const subs = await conn.execute("SELECT endpoint, p256dh, auth FROM gc_push_subscriptions");
   const rows = subs.rows as Array<{
     endpoint: string;
     p256dh?: string | null;
@@ -85,7 +85,7 @@ async function deleteSubscriptionByEndpoint(endpoint: string): Promise<void> {
     });
     await conn.execute(
       `
-      DELETE FROM mg_push_subscriptions
+      DELETE FROM gc_push_subscriptions
       WHERE endpoint = ?
       `,
       [endpoint]

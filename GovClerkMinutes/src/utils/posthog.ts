@@ -4,7 +4,7 @@ import { isDev } from "./dev";
 
 export const TRAINING_REMINDER_ANONYMOUS_ID = "training_reminder";
 export const WATI_WEBHOOK_ANONYMOUS_ID = "wati_webhook";
-export const MG_WEBHOOK_ANONYMOUS_ID = "mg_webhook";
+export const MG_WEBHOOK_ANONYMOUS_ID = "gc_webhook";
 export const CLERK_WEBHOOK_ANONYMOUS_ID = "clerk_webhook";
 export const WHATSAPP_WEBHOOK_ANONYMOUS_ID = "whatsapp_webhook";
 

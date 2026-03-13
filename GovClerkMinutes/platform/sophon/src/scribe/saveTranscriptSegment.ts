@@ -43,7 +43,7 @@ async function doSaveTranscriptSegment(params: SaveSegmentParams): Promise<void>
   const conn = getDb();
 
   const broadcastResult = await conn.execute(
-    "SELECT id FROM mg_broadcasts WHERE stream_key = ? LIMIT 1",
+    "SELECT id FROM gc_broadcasts WHERE stream_key = ? LIMIT 1",
     [streamKey]
   );
 
@@ -59,7 +59,7 @@ async function doSaveTranscriptSegment(params: SaveSegmentParams): Promise<void>
   segmentIndexMap.set(streamKey, segmentIndex);
 
   await conn.execute(
-    `INSERT INTO mg_broadcast_transcript_segments 
+    `INSERT INTO gc_broadcast_transcript_segments 
     (broadcast_id, segment_index, speaker_id, speaker_label, text, start_time, end_time, is_final, created_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
     [broadcastId, segmentIndex, null, speaker, text, startTime ?? 0, endTime, 1]

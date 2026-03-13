@@ -257,7 +257,7 @@ async function getTranscript(
 ): Promise<Transcript[]> {
   return await conn
     .execute<Transcript>(
-      "SELECT speaker, start, stop, transcript, is_user_visible FROM mg_segments WHERE transcript_id = ? AND fast_mode = ? ORDER BY CAST(start AS TIME);",
+      "SELECT speaker, start, stop, transcript, is_user_visible FROM gc_segments WHERE transcript_id = ? AND fast_mode = ? ORDER BY CAST(start AS TIME);",
       [transcriptId, options.fastMode ? 1 : 0]
     )
     .then((result) => result.rows);
