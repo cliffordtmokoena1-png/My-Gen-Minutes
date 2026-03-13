@@ -42,7 +42,7 @@ export default function DesktopLayout({
   );
 
   return (
-    <Flex direction="row" h="100%" w="100%">
+    <Flex direction="row" h="100%" w="100%" bg="gray.50">
       <Flex flexShrink={0}>
         <Sidebar
           selectedTranscript={selectedTranscript}

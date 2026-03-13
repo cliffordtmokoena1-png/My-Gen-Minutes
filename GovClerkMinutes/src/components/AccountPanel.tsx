@@ -38,7 +38,10 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
           !isLoaded ||
           session?.user?.publicMetadata?.isEnterprise ? null : (
             <Button
-              colorScheme="messenger"
+              variant="outline"
+              colorScheme="blue"
+              borderColor="blue.700"
+              color="blue.700"
               size="sm"
               overflow="hidden"
               w="full"
