@@ -340,7 +340,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
           <UserProfile.Link
             label="Get Help"
             labelIcon={<MdOutlineAlternateEmail size={16} />}
-            url="mailto:max@GovClerkMinutes.com"
+            url="mailto:cliff@govclerkminutes.com"
           />
           <UserProfile.Link label="Go Back" labelIcon={<MdArrowBack size={16} />} url="/a" />
         </UserProfile>

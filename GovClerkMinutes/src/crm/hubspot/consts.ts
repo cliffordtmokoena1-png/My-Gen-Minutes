@@ -1,7 +1,7 @@
 export const HUBSPOT_OWNER_IDS = {
   MAX_SHERMAN: {
     id: "80634044",
-    email: "max@GovClerkMinutes.com",
+    email: "cliff@govclerkminutes.com",
     firstname: "Max",
     lastname: "Sherman",
     name(): string {

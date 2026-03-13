@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
 
 # Configurable inputs
 DOMAIN="${DOMAIN:-sophon.GovClerkMinutes.com}"
-EMAIL_DEFAULT="max@GovClerkMinutes.com"
+EMAIL_DEFAULT="cliff@govclerkminutes.com"
 EMAIL="${EMAIL:-${1:-${EMAIL_DEFAULT}}}"
 
 # Load environment variables from colocated .env if present
