@@ -185,11 +185,11 @@ async function getS3DetailsFromDatabase(): Promise<S3Details> {
 
       let bucket: string;
       if (awsRegion === "us-east-2") {
-        bucket = "transcriptsummaryaudioupload";
+        bucket = "govclerk-audio-uploads";
       } else if (awsRegion === "eu-central-1") {
         bucket = "GovClerkMinutesfrankfurt";
       } else {
-        bucket = "transcriptsummaryaudioupload";
+        bucket = "govclerk-audio-uploads";
       }
 
       return {

@@ -43,7 +43,7 @@ pub async fn download_and_get_beginning_snippet(
 
   let object = client
     .get_object()
-    .bucket("transcriptsummaryaudioupload")
+    .bucket("govclerk-audio-uploads")
     .key(audio_key)
     .send()
     .await

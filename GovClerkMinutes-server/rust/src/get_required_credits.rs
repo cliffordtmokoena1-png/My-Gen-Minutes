@@ -47,7 +47,7 @@ pub async fn get_required_credits(
 
   let object = client
     .get_object()
-    .bucket("transcriptsummaryaudioupload")
+    .bucket("govclerk-audio-uploads")
     .key(audio_key)
     .send()
     .await
