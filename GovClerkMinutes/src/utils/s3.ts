@@ -22,13 +22,13 @@ export function getUploadKey(transcriptId: number, options?: { env?: Env }): str
 
 export type Region = "us-east-2" | "eu-central-1";
 export type BucketName =
-  | "transcriptsummaryaudioupload"
+  | "govclerk-audio-uploads"
   | "GovClerkMinutesfrankfurt"
   | "GovClerkMinuteswhatsapp";
 
 export function getTranscriptBucketNameByRegion(region: Region | null | undefined): BucketName {
   if (region == null || region === "us-east-2") {
-    return "transcriptsummaryaudioupload";
+    return "govclerk-audio-uploads";
   } else {
     return "GovClerkMinutesfrankfurt";
   }
