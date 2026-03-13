@@ -6,4 +6,4 @@ python3 -m pip install -r requirements.txt
 # sudo yum install certbot
 # Renew certs, setup nginx, proxy https to localhost:8000
 
-PATH=$PATH:/home/ec2-user/minutes-generator-service/ffmpeg/ffmpeg-6.0-i686-static gunicorn -w 1 -k uvicorn.workers.UvicornWorker main:app
+PATH=$PATH:/home/ec2-user/govclerk-minutes-service/ffmpeg/ffmpeg-6.0-i686-static gunicorn -w 1 -k uvicorn.workers.UvicornWorker main:app

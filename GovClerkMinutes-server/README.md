@@ -15,8 +15,8 @@ The Minutes Generator Service is a Rust-based server designed to generate minute
 
 First, clone the repository to your local machine:
 ```
-git clone git@github.com:johnislarry/minutes-generator-service.git
-cd minutes-generator-service/rust/
+git clone git@github.com:johnislarry/govclerk-minutes-service.git
+cd govclerk-minutes-service/rust/
 ```
 
 ## Install Rust
@@ -39,6 +39,6 @@ This will start the server on port 8000.
 curl -X POST "http://humdinger.GovClerkMinutes.com/api/transcribe-segments" \
 -H  "accept: application/json" \
 -H  "Content-Type: application/json" \
--d "{\"prompt\": \"This is a conversation from the Lex Fridman podcast\",\"audio_key\":\"/Users/johnislarry/projects/minutes-generator-service/lexconvo2.m4a\",\"transcript_key\":\"/Users/johnislarry/projects/minutes-generator-service/lexconvo2diar.json\"}"
+-d "{\"prompt\": \"This is a conversation from the Lex Fridman podcast\",\"audio_key\":\"/Users/johnislarry/projects/govclerk-minutes-service/lexconvo2.m4a\",\"transcript_key\":\"/Users/johnislarry/projects/govclerk-minutes-service/lexconvo2diar.json\"}"
 ```
 

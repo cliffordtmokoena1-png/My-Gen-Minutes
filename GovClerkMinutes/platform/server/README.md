@@ -11,7 +11,7 @@
 
    - `RUNPOD_API_KEY`: Your Runpod API key for server deployment
    - `CF_API_KEY`: The Cloudflare API key for tunnel management
-   - `CF_ACCOUNT_ID`: The Cloudflare Account ID for minutes-generator
+   - `CF_ACCOUNT_ID`: The Cloudflare Account ID for govclerk-minutes
 
 2. **Deploy the Server**: Use npm for deployment:
 

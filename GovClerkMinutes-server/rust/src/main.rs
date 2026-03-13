@@ -369,7 +369,7 @@ async fn main() {
     python_process::PythonProcess::new_dummy().await.unwrap()
   } else {
     match python_process::PythonProcess::new(if cfg!(target_os = "macos") {
-      "minutes-generator-server"
+      "govclerk-minutes-server"
     } else {
       "myenv"
     })

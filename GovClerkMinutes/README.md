@@ -1,6 +1,6 @@
 # GovClerkMinutes
 
-Welcome to the monorepo! This repository is divided into two sections: the `minutes-generator` for the frontend and everything under `./platform` for the backend.
+Welcome to the monorepo! This repository is divided into two sections: the `govclerk-minutes` for the frontend and everything under `./platform` for the backend.
 
 ## Running the Project
 
@@ -22,7 +22,7 @@ npm run dev
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/GovClerkMinutes/minutes-generator.git
+   git clone https://github.com/GovClerkMinutes/govclerk-minutes.git
    ```
 
 ### Windows Prerequisite
@@ -78,7 +78,7 @@ npm run dev
    ```
 
    - **Log in to Vercel**: Select your preferred method.
-   - **Set up “minutes-generator”**: Confirm the setup for the cloned directory.
+   - **Set up “govclerk-minutes”**: Confirm the setup for the cloned directory.
    - **Which scope should contain your project?**: Max Sherman's projects
    - **Link to existing project?**: yes
    - **What’s the name of your existing project?**: transcribe-summary
@@ -88,4 +88,4 @@ npm run dev
    vercel env pull .env
    ```
 
-Congratulations! You are now ready to start developing on the minutes-generator project.
+Congratulations! You are now ready to start developing on the govclerk-minutes project.

@@ -2158,7 +2158,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "minutes-generator-service"
+name = "govclerk-minutes-service"
 version = "0.1.0"
 dependencies = [
  "anyhow",

@@ -16,7 +16,7 @@ Incorporating this advanced meeting minutes tool into your daily workflow elimin
 
 ## Step 1: Uploading Your Meeting Recording to the Meeting Minutes Tool
 
-![image of GovClerkMinutes.com upload flow](/blog/images/minutes-generator-upload-screen-618x356.png)
+![image of GovClerkMinutes.com upload flow](/blog/images/govclerk-minutes-upload-screen-618x356.png)
 
 The journey to professional meeting minutes begins with a simple upload. Your meeting recording, sourced from platforms like Zoom, Microsoft Teams, Google Meet, or even directly recorded from your phone, serves as the raw material for GovClerkMinutes.
 
@@ -28,7 +28,7 @@ With the description finalized, you're ready to move onto transcription. Just cl
 
 ## Step 2: Receiving Your AI-Powered Transcript from the Meeting Minutes Tool
 
-![image of GovClerkMinutes.com transcript](/blog/images/minutes-generator-transcript-659x356.png)
+![image of GovClerkMinutes.com transcript](/blog/images/govclerk-minutes-transcript-659x356.png)
 
 Once you activate the transcription process, the meeting minutes tool will need a few minutes to generate the transcript. This brief waiting period allows the AI-driven tool to convert your meeting recording into a well-structured, written format.
 
@@ -38,7 +38,7 @@ The AI-powered transcript also includes timestamps for each line of dialogue, en
 
 ## Step 3: Labeling Speakers with the Meeting Minutes Tool
 
-![image of GovClerkMinutes.com speaker labeler](/blog/images/minutes-generator-speaker-labeler-630x345.png)
+![image of GovClerkMinutes.com speaker labeler](/blog/images/govclerk-minutes-speaker-labeler-630x345.png)
 
 Having a transcript is great, but to generate truly professional meeting minutes, it's essential to assign names to each speaker in the transcript. Our meeting minutes tool offers an easy-to-use labeling feature for this purpose.
 
@@ -46,7 +46,7 @@ This critical step allows the meeting minutes tool to accurately attribute quote
 
 ## Step 4: Receiving Comprehensive Meeting Minutes from the Meeting Minutes Tool
 
-![image of GovClerkMinutes.com generated minutes](/blog/images/minutes-generator-minutes-731x407.png)
+![image of GovClerkMinutes.com generated minutes](/blog/images/govclerk-minutes-minutes-731x407.png)
 
 After initializing the generation process, our meeting minutes tool will once again use its AI capabilities to summarize the discussion and extract key points from the transcript. The result is a comprehensive set of professional meeting minutes, highlighting the most significant takeaways, data, and quotes from your meeting.
 

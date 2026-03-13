@@ -11,7 +11,7 @@ To successfully follow this guide, ensure the following are available and config
 - **OpenAI Account:** An active account with API access and permissions for model fine-tuning.
 - **Development Environment:**
   - Node.js and npm (Node Package Manager) installed.
-  - Access to the `minutes-generator` project codebase, including all necessary scripts.
+  - Access to the `govclerk-minutes` project codebase, including all necessary scripts.
 - **Software Tools:**
   - A code editor supporting `.jsonl` (JSON Lines) format (e.g., VS Code).
   - Panwriter or a similar Pandoc-based editor for manual Markdown document manipulation.

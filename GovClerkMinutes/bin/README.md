@@ -6,5 +6,5 @@ repositories) and standalone (doesn't need transpilers or other toolchains).
 I recommend adding this to your path by appending to `~/.zshrc` like:
 
 ```sh
-export PATH="/Users/$USER/minutes-generator/bin:$PATH"
+export PATH="/Users/$USER/govclerk-minutes/bin:$PATH"
 ```
