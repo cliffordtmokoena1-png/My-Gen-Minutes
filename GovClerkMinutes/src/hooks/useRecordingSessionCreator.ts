@@ -38,7 +38,7 @@ export default function useRecordingSessionCreator({
       const now = new Date();
       const dateStr = now.toLocaleDateString();
       const timeStr = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
-      const title = `MG Recording (${dateStr} ${timeStr}).webm`;
+      const title = `GC Recording (${dateStr} ${timeStr}).webm`;
 
       const createIdResponse = await fetch("/api/create-id", {
         method: "POST",
