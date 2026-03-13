@@ -39,9 +39,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
       top={`${announcementBarHeight}px`}
       h={minibarHeight}
       w="60px"
-      bg="white"
+      bg="gray.800"
       borderRight="1px solid"
-      borderRightColor="gray.200"
+      borderRightColor="gray.700"
       color="white"
       flexDirection="column"
       alignItems="center"
@@ -65,9 +65,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
             onClick={toggleSidebar}
             variant="ghost"
             size="md"
-            color={stableIsCollapsed ? "gray.500" : "blue.400"}
-            bg={stableIsCollapsed ? "transparent" : "blue.100"}
-            _hover={{ color: "blue.400", bg: "blue.50" }}
+            color={stableIsCollapsed ? "gray.400" : "white"}
+            bg={stableIsCollapsed ? "transparent" : "gray.600"}
+            _hover={{ color: "white", bg: "gray.600" }}
             suppressHydrationWarning
           />
         </Tooltip>
@@ -79,9 +79,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
             onClick={() => router.push("/recordings")}
             variant="ghost"
             size="md"
-            color={router.pathname === "/recordings" ? "green.400" : "gray.500"}
-            bg={router.pathname === "/recordings" ? "green.100" : "transparent"}
-            _hover={{ color: "green.400", bg: "green.50" }}
+            color={router.pathname === "/recordings" ? "white" : "gray.400"}
+            bg={router.pathname === "/recordings" ? "gray.600" : "transparent"}
+            _hover={{ color: "white", bg: "gray.600" }}
           />
         </Tooltip>
 
@@ -92,9 +92,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
             onClick={() => router.push("/templates")}
             variant="ghost"
             size="md"
-            color={router.pathname === "/templates" ? "orange.400" : "gray.500"}
-            bg={router.pathname === "/templates" ? "orange.100" : "transparent"}
-            _hover={{ color: "orange.400", bg: "orange.50" }}
+            color={router.pathname === "/templates" ? "white" : "gray.400"}
+            bg={router.pathname === "/templates" ? "gray.600" : "transparent"}
+            _hover={{ color: "white", bg: "gray.600" }}
           />
         </Tooltip>
 
@@ -105,9 +105,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
             onClick={() => router.push("/agendas")}
             variant="ghost"
             size="md"
-            color={router.pathname === "/agendas" ? "purple.400" : "gray.500"}
-            bg={router.pathname === "/agendas" ? "purple.100" : "transparent"}
-            _hover={{ color: "purple.400", bg: "purple.50" }}
+            color={router.pathname === "/agendas" ? "white" : "gray.400"}
+            bg={router.pathname === "/agendas" ? "gray.600" : "transparent"}
+            _hover={{ color: "white", bg: "gray.600" }}
           />
         </Tooltip>
 
@@ -119,9 +119,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
               onClick={() => router.push("/admin")}
               variant="ghost"
               size="md"
-              color={router.pathname.startsWith("/admin") ? "purple.400" : "gray.500"}
-              bg={router.pathname.startsWith("/admin") ? "purple.100" : "transparent"}
-              _hover={{ color: "purple.400", bg: "purple.50" }}
+              color={router.pathname.startsWith("/admin") ? "white" : "gray.400"}
+              bg={router.pathname.startsWith("/admin") ? "gray.600" : "transparent"}
+              _hover={{ color: "white", bg: "gray.600" }}
             />
           </Tooltip>
         )}
@@ -134,9 +134,9 @@ const Minibar = ({ toggleSidebar, isCollapsed, layoutKind }: MinibarProps) => {
               onClick={() => router.push("/dashboard")}
               variant="ghost"
               size="md"
-              color="blue.400"
-              bg="blue.100"
-              _hover={{ color: "blue.500", bg: "blue.200" }}
+              color="white"
+              bg="gray.600"
+              _hover={{ color: "white", bg: "gray.500" }}
             />
           </Tooltip>
         )}
