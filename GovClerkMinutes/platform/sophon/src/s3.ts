@@ -29,7 +29,7 @@ export async function putObject(args: {
   const client = getS3();
   await client.send(
     new PutObjectCommand({
-      Bucket: "transcriptsummaryaudioupload",
+      Bucket: "govclerk-audio-uploads",
       Key: args.key,
       Body: args.body,
       ContentType: args.contentType,
@@ -48,7 +48,7 @@ export function createStreamingUpload(args: { key: string; contentType: string }
   const upload = new Upload({
     client,
     params: {
-      Bucket: "transcriptsummaryaudioupload",
+      Bucket: "govclerk-audio-uploads",
       Key: args.key,
       Body: passThrough,
       ContentType: args.contentType,

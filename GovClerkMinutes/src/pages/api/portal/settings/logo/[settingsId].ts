@@ -12,7 +12,7 @@ export const config = {
 };
 
 // Same bucket used for logo uploads
-const PUBLIC_BUCKET = "transcriptsummaryaudioupload";
+const PUBLIC_BUCKET = "govclerk-audio-uploads";
 const PUBLIC_BUCKET_REGION = "us-east-2";
 const DOWNLOAD_URL_TTL = 3600; // 1 hour
 

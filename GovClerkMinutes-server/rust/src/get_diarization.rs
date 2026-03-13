@@ -339,7 +339,7 @@ pub async fn process_diarization(
   let object = state
     .s3_client
     .get_object()
-    .bucket("transcriptsummaryaudioupload")
+    .bucket("govclerk-audio-uploads")
     .key(&s3_audio_key)
     .send()
     .await?;
