@@ -43,16 +43,9 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
   const router = useRouter();
   const discount = router.query.discount;
   
-  // 1. Existing site state
   const [site] = useState<Site>(() => ssrSite ?? getSiteFromWindow());
 
-  // 2. ADD THIS: The "Pause Button" state
-  const [isMounted, setIsMounted] = useState(false);
-
   useEffect(() => {
-    // This tells the app: "The browser is now ready!"
-    setIsMounted(true);
-
     if (discount === "valuedcustomer") {
       Cookies.set("mgdiscount", "true", { expires: 30 });
     }
@@ -98,11 +91,6 @@ function MyApp({ Component, pageProps, site: ssrSite }: MyAppProps) {
         .catch((err) => console.error("Service Worker failed: ", err));
     }
   }, []);
-
-  // 3. ADD THIS: If not ready, show nothing (prevents crashes)
-  if (!isMounted) {
-    return null;
-  }
 
   const clerkPublishableKey = getClerkKeys(site)?.publishableKey || process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
