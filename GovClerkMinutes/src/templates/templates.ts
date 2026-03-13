@@ -1,7 +1,7 @@
 import { transcripts } from "@/templates/example-minutes/transcripts";
 import { minutes } from "@/templates/example-minutes/minutes";
 import { speakers } from "@/templates/example-minutes/speakers";
-import { gc_segments } from "@/templates/example-minutes/gc_segments";
+import { gc_segments } from "@/templates/example-minutes/mg_segments";
 import { changes } from "@/templates/example-minutes/changes";
 import { TemplateData, Minute, Speaker, Segment, Change } from "@/templates/types";
 import { connect } from "@planetscale/database";
