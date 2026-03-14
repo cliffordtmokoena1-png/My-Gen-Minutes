@@ -54,5 +54,5 @@ const nextConfig = {
   },
 };
 
-// Trigger Vercel redeploy - 2026-03-14
+// Trigger redeployment: SQL column references fixed in PR #60 (2026-03-14)
 module.exports = nextConfig;
