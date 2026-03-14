@@ -1,5 +1,4 @@
 // We removed 'posthog-node' because it crashes Vercel Edge builds
-import { assertString } from "./assert";
 import { isDev } from "./dev";
 
 export const TRAINING_REMINDER_ANONYMOUS_ID = "training_reminder";
@@ -59,7 +58,13 @@ export type PostHogEvent =
   | "quote_request_hcaptcha_failed";
 
 export async function capture(event: PostHogEvent, properties: any, distinctId: string) {
-  const apiKey = assertString(process.env.NEXT_PUBLIC_POSTHOG_KEY);
+  const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
+  if (!apiKey) {
+    if (isDev()) {
+      console.warn("[posthog] NEXT_PUBLIC_POSTHOG_KEY is not set, skipping capture");
+    }
+    return;
+  }
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://app.posthog.com";
 
   // We use 'fetch' here because it works on Vercel Edge (Middleware)
