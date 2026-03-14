@@ -17,7 +17,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
 
   const plan =
     customerDetails?.subscriptionStatus === "cancel_at_period_end"
-      ? "Free"
+      ? getPrettyPlanName("Free")
       : getPrettyPlanName(customerDetails?.planName);
   return (
     <Flex
@@ -89,7 +89,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
               <Text fontSize="sm" fontWeight="semibold">
                 Plan:
               </Text>
-              <Text fontSize="sm">{plan || "Free"}</Text>
+              <Text fontSize="sm">{plan || getPrettyPlanName("Free")}</Text>
             </Flex>
           </Flex>
         ) : (
