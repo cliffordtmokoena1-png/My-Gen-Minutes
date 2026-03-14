@@ -26,7 +26,7 @@ import RenameTranscriptModal from "./RenameTranscriptModal";
 import { useOrgContext } from "@/contexts/OrgContext";
 
 type ApiGetCreditsResponse = {
-  credits: number;
+  credits: number | null;
 };
 
 export type SidebarItem = {

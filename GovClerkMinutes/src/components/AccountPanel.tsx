@@ -8,7 +8,7 @@ import { getPrettyPlanName, isPlanBasic, isPlanPro } from "@/utils/price";
 type AccountPanelProps = {
   layoutKind: LayoutKind;
   customerDetails?: ApiGetCustomerDetailsResponse;
-  creditData?: { credits: number };
+  creditData?: { credits: number | null };
   onOpen: (modalType: ModalType) => void;
 };
 
@@ -67,16 +67,16 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
         w="full"
         alignItems="center"
       >
-        {creditData?.credits != null ? (
+        {creditData != null ? (
           <Flex flexDirection="column">
             <Flex alignItems="center" gap={1}>
               <Text fontSize="sm" fontWeight="semibold">
                 Credits:
               </Text>
-              <Text fontSize="sm">{creditData.credits}</Text>
+              <Text fontSize="sm">{creditData.credits ?? 0}</Text>
               <Flex alignItems="center" ml={1}>
                 <Tooltip
-                  label={`You can transcribe up to ${creditData.credits} minutes of recorded meetings`}
+                  label={`You can transcribe up to ${creditData.credits ?? 0} minutes of recorded meetings`}
                   fontSize="md"
                 >
                   <span>
@@ -89,7 +89,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
               <Text fontSize="sm" fontWeight="semibold">
                 Plan:
               </Text>
-              <Text fontSize="sm">{plan}</Text>
+              <Text fontSize="sm">{plan || "Free"}</Text>
             </Flex>
           </Flex>
         ) : (
