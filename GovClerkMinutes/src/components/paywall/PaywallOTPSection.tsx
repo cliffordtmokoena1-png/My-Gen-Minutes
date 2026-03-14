@@ -37,10 +37,10 @@ export default function PaywallOTPSection({
   return (
     <Box mt={4} p={4} borderWidth="1px" borderRadius="md" bg="gray.50" {...containerProps}>
       <Heading size="sm" mb={3}>
-        Buy one-time credits
+        Buy one-time tokens
       </Heading>
       <FormControl mb={3}>
-        <FormLabel fontSize="sm">Select credits</FormLabel>
+        <FormLabel fontSize="sm">Select tokens</FormLabel>
         <Select
           value={selectedCredits}
           onChange={(e) => onChangeSelectedCredits(parseInt(e.target.value))}
@@ -54,7 +54,7 @@ export default function PaywallOTPSection({
       </FormControl>
       <HStack justifyContent="space-between" mb={1}>
         <Text fontSize="xs" color="gray.500">
-          Price per credit
+          Price per token
         </Text>
         <Text fontSize="xs" color="gray.700">
           {getPriceUnit(country)}
@@ -97,7 +97,7 @@ export default function PaywallOTPSection({
       )}
 
       <Button colorScheme="blue" width="full" mt={3} isLoading={isOtpLoading} onClick={onOtp}>
-        Buy Credits
+        Buy Tokens
       </Button>
     </Box>
   );

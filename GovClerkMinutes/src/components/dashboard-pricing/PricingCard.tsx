@@ -279,7 +279,7 @@ export default function PricingCard({
               {credits !== -1 && (
                 <ListItem display="flex" alignItems="flex-start" color="gray.600" fontSize="sm">
                   <ListIcon as={BsCheck} color="blue.500" boxSize={5} mr={3} mt={1} />
-                  <Text>{credits} credits included (1 credit = 1 minute of audio)</Text>
+                  <Text>{credits} tokens included (1 token = 1 minute of audio)</Text>
                 </ListItem>
               )}
               {features.map((feature, index) => (
