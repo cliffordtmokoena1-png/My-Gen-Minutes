@@ -25,17 +25,17 @@ import {
 } from "@chakra-ui/react";
 import { useContactLookup } from "@/admin/whatsapp/hooks/useContactLookup";
 import type { LookupUserApiResponse } from "@/pages/api/admin/lookup-user";
-import CreditSituation from "@/components/admin/credit/CreditSituation";
+import TokenSituation from "@/components/admin/token/TokenSituation";
 
 type Props = {
   onSuccess?: () => void;
   initialWhatsappId?: string;
 };
 
-export default function CreditManagementForm({ onSuccess, initialWhatsappId }: Props) {
+export default function TokenManagementForm({ onSuccess, initialWhatsappId }: Props) {
   const [identifier, setIdentifier] = useState("");
-  const [tokenAmount, setCreditAmount] = useState<number>(100);
-  const [tokenAction, setCreditAction] = useState<"add" | "subtract">("add");
+  const [tokenAmount, setTokenAmount] = useState<number>(100);
+  const [tokenAction, setTokenAction] = useState<"add" | "subtract">("add");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLookingUp, setIsLookingUp] = useState(Boolean(initialWhatsappId));
   const [userInfo, setUserInfo] = useState<LookupUserApiResponse | null>(null);
@@ -106,18 +106,18 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contact?.email, contactLoading]);
 
-  const handleCreditOperation = async () => {
-    await submitCreditOperation(tokenAmount, tokenAction, {
+  const handleTokenOperation = async () => {
+    await submitTokenOperation(tokenAmount, tokenAction, {
       resetAfter: true,
     });
   };
 
   const handleModifyToken = async (amount: number) => {
-    await submitCreditOperation(amount, "add");
+    await submitTokenOperation(amount, "add");
   };
 
   type SubmitOpts = { resetAfter?: boolean; successDescription?: string };
-  const submitCreditOperation = async (
+  const submitTokenOperation = async (
     amount: number,
     action: "add" | "subtract",
     opts: SubmitOpts = {}
@@ -159,7 +159,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
       });
       if (opts.resetAfter) {
         setIdentifier("");
-        setCreditAmount(100);
+        setTokenAmount(100);
         setUserInfo(null);
         if (onSuccess) {
           onSuccess();
@@ -252,7 +252,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         <FormLabel>Action</FormLabel>
         <RadioGroup
           value={tokenAction}
-          onChange={(val) => setCreditAction(val as "add" | "subtract")}
+          onChange={(val) => setTokenAction(val as "add" | "subtract")}
         >
           <HStack spacing={4}>
             <Radio value="add" colorScheme="green">
@@ -270,7 +270,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         <NumberInput
           min={1}
           value={tokenAmount}
-          onChange={(_, val) => setCreditAmount(isNaN(val) ? 0 : val)}
+          onChange={(_, val) => setTokenAmount(isNaN(val) ? 0 : val)}
         >
           <NumberInputField placeholder="100" />
           <NumberInputStepper>
@@ -283,7 +283,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
       <Button
         mt={2}
         colorScheme={tokenAction === "add" ? "green" : "red"}
-        onClick={handleCreditOperation}
+        onClick={handleTokenOperation}
         isLoading={isProcessing}
         loadingText="Processing..."
         isDisabled={!userInfo}
@@ -292,7 +292,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
       </Button>
 
       {userInfo && (
-        <CreditSituation
+        <TokenSituation
           userId={userInfo.userId}
           tokens={userInfo.tokens}
           onModifyToken={handleModifyToken}

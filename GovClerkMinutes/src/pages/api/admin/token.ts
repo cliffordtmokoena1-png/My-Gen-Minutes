@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import withErrorReporting from "@/error/withErrorReporting";
 import { connect } from "@planetscale/database";
 
-type CreditResponse = {
+type TokenResponse = {
   userId: string;
   amount: number;
   id: string;
@@ -28,7 +28,7 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
 
 async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<CreditResponse | { error: string }>
+  res: NextApiResponse<TokenResponse | { error: string }>
 ) {
   const { userId, sessionClaims } = getAuth(req);
 

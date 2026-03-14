@@ -6,7 +6,7 @@ import {
   ModalCloseButton,
   ModalBody,
 } from "@chakra-ui/react";
-import CreditManagementForm from "./CreditManagementForm";
+import TokenManagementForm from "./TokenManagementForm";
 
 type Props = {
   isOpen: boolean;
@@ -15,7 +15,7 @@ type Props = {
   initialWhatsappId?: string;
 };
 
-export default function CreditModal({ isOpen, onClose, onSuccess, initialWhatsappId }: Props) {
+export default function TokenModal({ isOpen, onClose, onSuccess, initialWhatsappId }: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
       <ModalOverlay />
@@ -23,7 +23,7 @@ export default function CreditModal({ isOpen, onClose, onSuccess, initialWhatsap
         <ModalHeader>Manage Tokens</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={10}>
-          <CreditManagementForm
+          <TokenManagementForm
             initialWhatsappId={initialWhatsappId}
             onSuccess={() => {
               if (onSuccess) {

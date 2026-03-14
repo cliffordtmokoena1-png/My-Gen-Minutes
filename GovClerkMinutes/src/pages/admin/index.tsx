@@ -22,7 +22,7 @@ import {
 } from "@chakra-ui/react";
 import DesktopLayout from "@/components/layouts/DesktopLayout";
 import AnnouncementBar, { useAnnouncementBarHeight } from "@/components/AnnouncementBar";
-import CreditManagement from "@/components/admin/CreditManagement";
+import TokenManagement from "@/components/admin/TokenManagement";
 import CheckoutLinkGenerator from "@/components/admin/CheckoutLinkGenerator";
 import LoginLinkGenerator from "@/components/admin/LoginLinkGenerator";
 import AdminUploadManager from "@/components/admin/AdminUploadManager";
@@ -136,7 +136,7 @@ export default function AdminPage({
       case "checkout":
         return <CheckoutLinkGenerator {...tool.props} />;
       case "tokens":
-        return <CreditManagement />;
+        return <TokenManagement />;
       case "login":
         return <LoginLinkGenerator />;
       case "upload":

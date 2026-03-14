@@ -38,7 +38,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
   const { data: customerDetails, isLoading: isLoadingCustomer } =
     useSWR<ApiGetCustomerDetailsResponse>("/api/get-customer-details", fetcher);
   const { data: tokenData, isLoading: isLoadingToken } = useSWR<{ tokens: number }>(
-    "/api/get-credits",
+    "/api/get-tokens",
     fetcher
   );
 
