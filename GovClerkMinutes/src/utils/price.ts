@@ -571,7 +571,7 @@ export function isPlanPro(plan: SubscriptionPlan): boolean {
 export function getPrettyPlanName(plan: SubscriptionPlan | undefined): string {
   switch (plan) {
     case "Free":
-      return "Free";
+      return "Trial";
     case "Basic":
     case "Basic_Annual":
       return "Basic";

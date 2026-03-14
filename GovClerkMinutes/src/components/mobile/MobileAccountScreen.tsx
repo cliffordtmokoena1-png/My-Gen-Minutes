@@ -44,7 +44,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
 
   const plan =
     customerDetails?.subscriptionStatus === "cancel_at_period_end"
-      ? "Free"
+      ? getPrettyPlanName("Free")
       : getPrettyPlanName(customerDetails?.planName);
 
   const handleUpgradeClick = () => {
