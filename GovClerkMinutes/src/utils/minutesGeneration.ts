@@ -190,7 +190,7 @@ export async function createAudioMinutesTranscript(
   const result = await conn.execute(
     `INSERT INTO transcripts
      (userId, org_id, dateCreated, title, file_size, aws_region, upload_kind, recording_state, extension,
-      transcribe_finished, preview_transcribe_finished, upload_complete, tokens_required, transcribe_paused)
+      transcribe_finished, preview_transcribe_finished, upload_complete, credits_required, transcribe_paused)
      VALUES (?, ?, UTC_TIMESTAMP(), ?, 0, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [userId, orgId, title, DEFAULT_REGION, "audio", -1, "mp4", 0, 0, 0, 0, 1]
   );

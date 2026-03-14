@@ -86,14 +86,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         transcript_id,
         checkout_session_id,
         mode,
-        token,
+        credit,
         action,
         billing_subject,
         currency,
         purchase_amount
       ) VALUES (?, ?, ?, ?, ?, ?, 0, 'pending', ?, ?, ?)
       ON DUPLICATE KEY UPDATE
-      -- refresh metadata but never touch token/action here
+      -- refresh metadata but never touch credit/action here
       user_id             = VALUES(user_id),
       org_id              = VALUES(org_id),
       transcript_id       = VALUES(transcript_id),
@@ -214,13 +214,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         invoice_id,
         user_id,
         org_id,
-        token,
+        credit,
         action,
         billing_subject,
         mode
       ) VALUES (?, ?, ?, ?, 'add', ?, ?)
       ON DUPLICATE KEY UPDATE
-        token = VALUES(token),
+        credit = VALUES(credit),
         action = 'add',
         user_id = COALESCE(VALUES(user_id), user_id),
         org_id = COALESCE(VALUES(org_id), org_id),
@@ -270,7 +270,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     // Make sure the user has at least `tokens` tokens, and if not, add the difference to the payments table.
     const rows = await conn
-      .execute("SELECT SUM(token) as balance FROM payments WHERE user_id = ?;", [userId])
+      .execute("SELECT SUM(credit) as balance FROM payments WHERE user_id = ?;", [userId])
       .then((r) => r.rows);
     const balanceVal = (rows?.[0] as any)?.balance;
     const currentBalance = balanceVal ? parseInt(balanceVal) : 0;
@@ -282,7 +282,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       INSERT INTO payments (
         invoice_id,
         user_id,
-        token,
+        credit,
         action,
         billing_subject,
         mode,
