@@ -9,7 +9,7 @@ export const config = {
   runtime: "edge",
 };
 
-export type CreditSituation = {
+export type TokenSituation = {
   transcriptId: number;
   createdAt: string;
   transcribePaused: boolean;
@@ -43,7 +43,7 @@ async function handler(req: NextRequest) {
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  const rows: CreditSituation[] = await conn
+  const rows: TokenSituation[] = await conn
     .execute<Row>(
       `
       SELECT

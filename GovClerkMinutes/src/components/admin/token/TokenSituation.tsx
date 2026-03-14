@@ -16,7 +16,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
-import type { CreditSituation } from "@/pages/api/admin/get-token-situation";
+import type { TokenSituation } from "@/pages/api/admin/get-token-situation";
 
 type Props = {
   userId: string;
@@ -24,9 +24,9 @@ type Props = {
   onModifyToken: (amount: number) => Promise<void> | void;
 };
 
-export default function CreditSituation({ userId, tokens, onModifyToken }: Props) {
+export default function TokenSituation({ userId, tokens, onModifyToken }: Props) {
   const { data, error, isLoading } = useSWR<
-    { rows: CreditSituation[] },
+    { rows: TokenSituation[] },
     any,
     [string, string] | null
   >(
@@ -41,7 +41,7 @@ export default function CreditSituation({ userId, tokens, onModifyToken }: Props
         const payload = await res.json().catch(() => ({}));
         throw new Error(payload.error || `Request failed (${res.status})`);
       }
-      return (await res.json()) as { rows: CreditSituation[] };
+      return (await res.json()) as { rows: TokenSituation[] };
     },
     { revalidateOnFocus: false }
   );

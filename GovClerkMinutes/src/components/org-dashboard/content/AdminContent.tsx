@@ -18,7 +18,7 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
-import CreditManagement from "@/components/admin/CreditManagement";
+import TokenManagement from "@/components/admin/TokenManagement";
 import CheckoutLinkGenerator from "@/components/admin/CheckoutLinkGenerator";
 import LoginLinkGenerator from "@/components/admin/LoginLinkGenerator";
 import AdminUploadManager from "@/components/admin/AdminUploadManager";
@@ -95,7 +95,7 @@ export default function AdminContent({
       case "checkout":
         return <CheckoutLinkGenerator {...tool.props} />;
       case "tokens":
-        return <CreditManagement />;
+        return <TokenManagement />;
       case "login":
         return <LoginLinkGenerator />;
       case "upload":

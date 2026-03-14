@@ -4,7 +4,7 @@ import MessageList from "@/components/admin/whatsapp/MessageList";
 import { useEffect, useMemo, useRef, useState, memo } from "react";
 import useMarkConversationRead from "@/admin/whatsapp/hooks/useMarkConversationRead";
 import SchedulerModal from "@/components/admin/whatsapp/SchedulerModal";
-import CreditModal from "@/components/admin/credit/CreditModal";
+import TokenModal from "@/components/admin/token/TokenModal";
 import ConversationTopBar from "@/components/admin/whatsapp/ConversationTopBar";
 import Composer from "@/components/admin/whatsapp/Composer";
 import type { Message } from "@/admin/whatsapp/types";
@@ -101,7 +101,7 @@ function ConversationCard({
         conversation={conversation}
         revalidateWhatsapps={revalidateWhatsapps}
       />
-      <CreditModal
+      <TokenModal
         isOpen={isCreditOpen}
         onClose={onCloseCredit}
         initialWhatsappId={conversation.whatsappId}
