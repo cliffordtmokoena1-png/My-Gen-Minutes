@@ -22,10 +22,10 @@ export async function getCurrentBalance(
   let params: string[];
 
   if (orgId) {
-    query = "SELECT SUM(credit) FROM payments WHERE org_id = ?;";
+    query = "SELECT SUM(token) FROM payments WHERE org_id = ?;";
     params = [orgId];
   } else {
-    query = "SELECT SUM(credit) FROM payments WHERE user_id = ? AND org_id IS NULL;";
+    query = "SELECT SUM(token) FROM payments WHERE user_id = ? AND org_id IS NULL;";
     params = [userId];
   }
 
@@ -36,7 +36,7 @@ export async function getCurrentBalance(
     throw new Error("Bad balance query result");
   }
 
-  const tokens: null | string = rows[0]["sum(credit)"];
+  const tokens: null | string = rows[0]["sum(token)"];
   if (tokens == null) {
     return tokens;
   }

@@ -139,7 +139,7 @@ export async function checkRenewToken(): Promise<void> {
 
     await tx.execute(
       `
-      INSERT INTO payments (user_id, credit, action, mode, created_at)
+      INSERT INTO payments (user_id, token, action, mode, created_at)
       VALUES ${valueRows.join(",")}
       `,
       [...params]
