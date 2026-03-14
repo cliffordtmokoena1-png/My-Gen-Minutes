@@ -71,7 +71,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
           <Flex flexDirection="column">
             <Flex alignItems="center" gap={1}>
               <Text fontSize="sm" fontWeight="semibold">
-                Credits:
+                Tokens:
               </Text>
               <Text fontSize="sm">{creditData.credits ?? 0}</Text>
               <Flex alignItems="center" ml={1}>

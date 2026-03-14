@@ -62,7 +62,7 @@ export async function getCustomerDetails(
 
   let planName: SubscriptionPlan = "Free";
   let subscriptionStatus: ApiGetCustomerDetailsResponse["subscriptionStatus"] = "free";
-  let creditsPerMonth = 40;
+  let creditsPerMonth = 30;
   let interval: Stripe.Price.Recurring.Interval | null = null;
   let nextBillDate = "";
   let remainingCredits = 0;
@@ -94,7 +94,7 @@ export async function getCustomerDetails(
 
           if (planName === "Free") {
             subscriptionStatus = "free";
-            creditsPerMonth = 40;
+            creditsPerMonth = 30;
             interval = null;
           } else {
             subscriptionStatus = latestSubscription.cancel_at_period_end
@@ -107,7 +107,7 @@ export async function getCustomerDetails(
         case "canceled":
           subscriptionStatus = "canceled";
           planName = "Free";
-          creditsPerMonth = 40;
+          creditsPerMonth = 30;
           break;
         case "incomplete":
         case "incomplete_expired":
@@ -115,7 +115,7 @@ export async function getCustomerDetails(
         case "unpaid":
           subscriptionStatus = "delinquent";
           planName = "Free";
-          creditsPerMonth = 40;
+          creditsPerMonth = 30;
           break;
       }
 

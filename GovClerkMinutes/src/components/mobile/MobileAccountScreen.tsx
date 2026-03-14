@@ -146,7 +146,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
                   textTransform="uppercase"
                   letterSpacing="wide"
                 >
-                  Credits
+                  Tokens
                 </Text>
                 <Flex alignItems="center" gap={1.5}>
                   <Text fontSize="xl" fontWeight="bold" color="gray.900">

@@ -154,7 +154,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         title: "Success",
         description:
           opts.successDescription ??
-          `Successfully ${action === "subtract" ? "deducted" : "added"} ${Math.abs(amount)} credits`,
+          `Successfully ${action === "subtract" ? "deducted" : "added"} ${Math.abs(amount)} tokens`,
         duration: 4000,
       });
       if (opts.resetAfter) {
@@ -226,7 +226,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
                 </Text>
               </Box>
               <Box textAlign="right">
-                <Text fontWeight="bold">Current Credits:</Text>
+                <Text fontWeight="bold">Current Tokens:</Text>
                 <Text
                   fontSize="xl"
                   fontWeight="bold"
@@ -256,10 +256,10 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         >
           <HStack spacing={4}>
             <Radio value="add" colorScheme="green">
-              Add Credits
+              Add Tokens
             </Radio>
             <Radio value="subtract" colorScheme="red">
-              Remove Credits
+              Remove Tokens
             </Radio>
           </HStack>
         </RadioGroup>
@@ -288,7 +288,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         loadingText="Processing..."
         isDisabled={!userInfo}
       >
-        {creditAction === "add" ? "Add Credits" : "Remove Credits"}
+        {creditAction === "add" ? "Add Tokens" : "Remove Tokens"}
       </Button>
 
       {userInfo && (

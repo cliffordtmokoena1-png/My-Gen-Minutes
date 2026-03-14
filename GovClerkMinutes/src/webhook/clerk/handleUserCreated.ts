@@ -57,7 +57,7 @@ export async function handleUserCreated(body: UserJSON, site: Site): Promise<voi
     userId
   );
 
-  await conn.execute('INSERT INTO payments (user_id, credit, action) VALUES (?, 40, "add");', [
+  await conn.execute('INSERT INTO payments (user_id, credit, action) VALUES (?, 30, "add");', [
     userId,
   ]);
 

@@ -20,7 +20,7 @@ export default function CreditModal({ isOpen, onClose, onSuccess, initialWhatsap
     <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Manage Credits</ModalHeader>
+        <ModalHeader>Manage Tokens</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={10}>
           <CreditManagementForm

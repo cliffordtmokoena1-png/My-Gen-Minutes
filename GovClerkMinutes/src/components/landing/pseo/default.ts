@@ -95,8 +95,8 @@ export const defaultContent: LandingPageContent = {
       a: "Our AI currently supports English, Spanish, French, and German with plans for more languages in the future. We can also output minutes in languages other than English.",
     },
     {
-      q: "When do credits renew?",
-      a: "Credits renew every month on the date of your first purchase. The renewal cadence is the same as the monthly billing cycle.",
+      q: "When do tokens renew?",
+      a: "Tokens renew every month on the date of your first purchase. The renewal cadence is the same as the monthly billing cycle.",
     },
     {
       q: "Is payment secure?",

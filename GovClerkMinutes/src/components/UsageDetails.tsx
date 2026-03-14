@@ -46,7 +46,7 @@ export default function UsageDetails({
     <VStack align="stretch" spacing={4}>
       {subscriptionPaused || subscriptionCanceled || isFreeUser ? (
         <Text fontSize="sm" color="gray.600">
-          Need more credits? Please upgrade to a paid plan in the{" "}
+          Need more tokens? Please upgrade to a paid plan in the{" "}
           <NextLink href="/dashboard" passHref>
             <Link color="blue.500">Dashboard</Link>
           </NextLink>
@@ -54,7 +54,7 @@ export default function UsageDetails({
         </Text>
       ) : (
         <Text fontSize="sm" color="gray.600">
-          Your credit usage will reset in{" "}
+          Your token usage will reset in{" "}
           <strong>
             {daysUntilReset} day{daysUntilReset > 1 && "s"}
           </strong>
@@ -73,9 +73,9 @@ export default function UsageDetails({
             <Flex justify="space-between" align="center" mb={2}>
               <HStack>
                 <Text fontSize="sm" fontWeight="bold">
-                  One-Time Credits
+                  One-Time Tokens
                 </Text>
-                <Tooltip label="One-Time credits will be used first before your plan credits">
+                <Tooltip label="One-Time tokens will be used first before your plan tokens">
                   <span>
                     <Icon as={MdHelpOutline} boxSize={4} color="gray.500" />
                   </span>
@@ -105,7 +105,7 @@ export default function UsageDetails({
           isLoading={isLoadingCreditDetails}
           loadingText="Generating detailed report..."
         >
-          View Detailed Credit Usage
+          View Detailed Token Usage
         </Button>
       </Box>
     </VStack>

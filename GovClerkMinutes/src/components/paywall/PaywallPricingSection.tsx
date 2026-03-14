@@ -58,7 +58,7 @@ export default function PaywallPricingSection({
       priceUnit,
       credits: 0,
       features: [
-        { text: "Minutes and transcripts for 40 minutes of meetings (40 credits)", included: true },
+        { text: "Minutes and transcripts for 30 minutes of meetings (30 tokens)", included: true },
         { text: "Basic support", included: false },
         { text: "Save minutes to Microsoft Word", included: false },
       ],
@@ -69,7 +69,7 @@ export default function PaywallPricingSection({
       priceUnit,
       credits: 300,
       features: [
-        { text: "Minutes and transcripts for 5 hours of meetings (300 credits)", included: true },
+        { text: "Minutes and transcripts for 5 hours of meetings (300 tokens)", included: true },
         { text: "Basic support", included: true },
         { text: "Save minutes to Microsoft Word", included: true },
         { text: "14 day money back guarantee", included: true },
@@ -81,7 +81,7 @@ export default function PaywallPricingSection({
       priceUnit,
       credits: 1200,
       features: [
-        { text: "Minutes and transcripts for 20 hours of meetings (1200 credits)", included: true },
+        { text: "Minutes and transcripts for 20 hours of meetings (1200 tokens)", included: true },
         { text: "Priority support", included: true },
         { text: "Save minutes to Microsoft Word", included: true },
         { text: "14 day money back guarantee", included: true },

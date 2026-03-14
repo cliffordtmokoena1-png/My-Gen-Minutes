@@ -660,7 +660,7 @@ export function generateCreditOptions() {
   return creditPacks.map((credits) => {
     const hours = Math.floor(credits / 60);
     const minutes = credits % 60;
-    let label = `${credits} credits (${
+    let label = `${credits} tokens (${
       hours > 0 ? `${hours} hour${hours > 1 ? "s" : ""}` : ""
     }${hours > 0 && minutes > 0 ? " and " : ""}${
       minutes > 0 ? `${minutes} minute${minutes > 1 ? "s" : ""}` : ""

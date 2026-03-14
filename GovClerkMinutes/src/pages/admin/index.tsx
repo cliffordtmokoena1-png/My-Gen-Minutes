@@ -42,7 +42,7 @@ type Tool =
     }
   | {
       kind: "credits";
-      label: "User Credits";
+      label: "User Tokens";
     }
   | {
       kind: "login";
@@ -109,7 +109,7 @@ export default function AdminPage({
   // Define the tools as a discriminated union array
   const tools: Tool[] = [
     { kind: "checkout", label: "Sales / Checkout", props: { env } },
-    { kind: "credits", label: "User Credits" },
+    { kind: "credits", label: "User Tokens" },
     { kind: "login", label: "Login Links" },
     { kind: "upload", label: "Upload for User" },
     {
