@@ -8,7 +8,7 @@ export default function CreditManagement({}: Props) {
   return (
     <>
       <Heading size="md" mb={5} color="purple.600">
-        Manage User Credits
+        Manage User Tokens
       </Heading>
       <Divider mb={5} />
       <CreditManagementForm />

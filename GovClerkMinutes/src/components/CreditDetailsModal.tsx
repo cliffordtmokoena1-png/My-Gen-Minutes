@@ -74,7 +74,7 @@ export default function CreditDetailsModal({
     <Modal isOpen={isOpen} onClose={onClose} size="4xl">
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Credit History</ModalHeader>
+        <ModalHeader>Token History</ModalHeader>
         <ModalCloseButton />
         <ModalBody p={2}>
           <Table variant="simple" size="sm">
@@ -111,7 +111,7 @@ export default function CreditDetailsModal({
                           Download Invoice
                         </Button>
                       ) : (
-                        "Complimentary credits"
+                        "Complimentary tokens"
                       )
                     ) : detail.transcript_title ? (
                       `Transcript: ${detail.transcript_title.replace(/\.mp3$/, "")}`

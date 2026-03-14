@@ -71,7 +71,7 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
   return (
     <Box mt={6} borderTopWidth={1} pt={4}>
       <Heading size="sm" mb={3}>
-        Credit situation
+        Token situation
       </Heading>
       {isLoading ? (
         <Spinner />
@@ -87,7 +87,7 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
               <Th>Created</Th>
               <Th>Paused</Th>
               <Th>Finished</Th>
-              <Th isNumeric>Credits required</Th>
+              <Th isNumeric>Tokens required</Th>
               <Th>Action</Th>
             </Tr>
           </Thead>
@@ -126,7 +126,7 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
                         colorScheme="green"
                         onClick={() => onModifyCredits(deficit)}
                       >
-                        Add {deficit} credits
+                        Add {deficit} tokens
                       </Button>
                     ) : (
                       <Text color="gray.400">—</Text>

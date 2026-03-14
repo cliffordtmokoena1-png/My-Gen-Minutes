@@ -172,7 +172,7 @@ export default function AdminUploadManager({}: AdminUploadManagerProps) {
                   </Text>
                 </Box>
                 <Box textAlign="right">
-                  <Text fontWeight="bold">Current Credits:</Text>
+                  <Text fontWeight="bold">Current Tokens:</Text>
                   <Text
                     fontSize="xl"
                     fontWeight="bold"
