@@ -27,7 +27,7 @@ const SimpleModal = ({ isOpen, onClose, country, customerDetails, transcriptId }
       <Modal isOpen={isOpen} onClose={onClose} size={["full", "6xl"]} scrollBehavior="outside">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Buy Credits</ModalHeader>
+          <ModalHeader>Buy Tokens</ModalHeader>
           <ModalCloseButton />
           <ModalBody w="full">
             <Flex w="full" alignItems="center" justifyContent="center">

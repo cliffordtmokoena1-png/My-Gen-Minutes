@@ -117,7 +117,7 @@ export const PricingCard = ({
           )}
           {credits && credits !== -1 && (
             <Text color="gray.500" fontSize="sm">
-              {credits} credits included
+              {credits} tokens included
             </Text>
           )}
         </VStack>
