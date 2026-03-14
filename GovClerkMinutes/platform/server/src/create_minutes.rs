@@ -217,11 +217,11 @@ async fn refund_tokens(
   user_id: &str,
   token: i32,
 ) -> anyhow::Result<()> {
-  return r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'refund')"
+  return r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'refund')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id,
-      "token" => token,
+      "credit" => token,
     })
     .ignore(&mut *conn)
     .await
@@ -641,14 +641,14 @@ pub async fn start_minutes_creation(
 
     r"
       UPDATE transcripts SET
-        tokens_required = :tokens_required,
+        credits_required = :credits_required,
         transcribe_paused = :transcribe_paused, 
         insufficient_tokens = :insufficient_tokens,
         was_paywalled = :was_paywalled
       WHERE id = :transcript_id
     "
     .with(params! {
-      "tokens_required" => tokens_required,
+      "credits_required" => tokens_required,
       "transcribe_paused" => insufficient_tokens,
       "insufficient_tokens" => insufficient_tokens,
       "was_paywalled" => insufficient_tokens,
@@ -728,7 +728,7 @@ pub async fn start_minutes_creation(
 
   let rows = "
     SELECT
-      tokens_required,
+      credits_required,
       aws_region,
       extension
     FROM transcripts
@@ -768,11 +768,11 @@ pub async fn start_minutes_creation(
     // If we made it here, the user has enough token, so deduct from their
     // balance and generate their minutes
 
-    r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'sub')"
+    r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'sub')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id.clone(),
-      "token" => -tokens_required,
+      "credit" => -tokens_required,
     })
     .ignore(&mut conn)
     .await

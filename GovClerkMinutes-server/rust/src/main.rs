@@ -261,7 +261,7 @@ async fn add_paywall_abandonment_leads(conn: &mut mysql_async::Conn, state: &Arc
       let campaign_id = std::env::var("INSTANTLY_CAMPAIGN_PAYWALL_ABANDONERS")
           .expect("Bad INSTANTLY_CAMPAIGN_PAYWALL_ABANDONERS");
       
-      let rows: Vec<i32> = conn.exec(r"SELECT tokens_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id", params! { "transcript_id" => transcript_id, "user_id" => user_id.clone() }).await?;
+      let rows: Vec<i32> = conn.exec(r"SELECT credits_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id", params! { "transcript_id" => transcript_id, "user_id" => user_id.clone() }).await?;
       
       if let Some(tokens_required) = rows.first() {
           let recording_length_snippet = format_recording_length(*tokens_required);

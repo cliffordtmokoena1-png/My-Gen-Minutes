@@ -173,11 +173,11 @@ async fn refund_tokens(
   user_id: &str,
   token: i32,
 ) -> anyhow::Result<()> {
-  return r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'refund')"
+  return r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'refund')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id,
-      "token" => token,
+      "credit" => token,
     })
     .ignore(&mut *conn)
     .await
@@ -474,7 +474,7 @@ pub async fn create_minutes_handler(
       )?;
 
     let rows =
-      r"SELECT tokens_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id;"
+      r"SELECT credits_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id;"
         .with(params! {
           "transcript_id" => transcript_id,
           "user_id" => user_id.clone(),
@@ -500,11 +500,11 @@ pub async fn create_minutes_handler(
     // If we made it here, the user has enough token, so deduct from their
     // balance and generate their minutes
 
-    r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'sub')"
+    r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'sub')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id.clone(),
-      "token" => -tokens_required.unwrap(),
+      "credit" => -tokens_required.unwrap(),
     })
     .ignore(&mut conn)
     .await
