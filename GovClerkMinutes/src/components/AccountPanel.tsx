@@ -71,9 +71,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
         alignItems="center"
         h={`${USER_PROFILE_HEIGHT_PX}px`}
       >
-        {layoutKind === "past-meetings" && (
-          <UserButton userProfileUrl="/profile" userProfileMode="navigation" />
-        )}
+        <UserButton userProfileUrl="/profile" userProfileMode="navigation" />
         {creditData?.credits != null ? (
           <Flex flexDirection="column">
             <Flex alignItems="center" gap={1}>
