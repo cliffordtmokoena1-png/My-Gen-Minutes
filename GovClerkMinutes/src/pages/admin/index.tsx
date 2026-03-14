@@ -69,15 +69,21 @@ export const getServerSideProps: GetServerSideProps = withGsspErrorHandling(asyn
     toolIndex = 0;
   }
 
-  const whatsappMessageTemplates = await whatsapp.getTemplates({
-    status: "APPROVED",
-    fetchAll: true,
-  });
+  let whatsappTemplates: Template[] = [];
+  try {
+    const result = await whatsapp.getTemplates({
+      status: "APPROVED",
+      fetchAll: true,
+    });
+    whatsappTemplates = result.templates;
+  } catch (err) {
+    console.warn("Failed to fetch WhatsApp templates (META_WHATSAPP_BUSINESS_API_KEY may not be configured):", err);
+  }
 
   return {
     props: {
       toolIndex,
-      whatsappMessageTemplates: whatsappMessageTemplates.templates,
+      whatsappMessageTemplates: whatsappTemplates,
     },
   };
 });
