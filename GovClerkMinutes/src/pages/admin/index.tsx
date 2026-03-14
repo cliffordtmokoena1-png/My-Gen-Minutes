@@ -147,7 +147,7 @@ export default function AdminPage({
   return (
     <>
       <Head>
-        <title>MG Admin Panel</title>
+        <title>GC Admin Panel</title>
         <meta name="description" content="Admin management panel for GovClerkMinutes" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
