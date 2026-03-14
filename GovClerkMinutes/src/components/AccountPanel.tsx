@@ -2,7 +2,7 @@ import { Button, Flex, Text, Tooltip, Skeleton } from "@chakra-ui/react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { LayoutKind, ModalType } from "@/pages/dashboard/[[...slug]]";
 import { ApiGetCustomerDetailsResponse } from "@/pages/api/get-customer-details";
-import { UserButton, useSession } from "@clerk/nextjs";
+import { useSession } from "@clerk/nextjs";
 import { getPrettyPlanName, isPlanBasic, isPlanPro } from "@/utils/price";
 
 type AccountPanelProps = {
@@ -11,8 +11,6 @@ type AccountPanelProps = {
   creditData?: { credits: number };
   onOpen: (modalType: ModalType) => void;
 };
-
-const USER_PROFILE_HEIGHT_PX = 42;
 
 const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: AccountPanelProps) => {
   const { session, isLoaded } = useSession();
@@ -67,11 +65,8 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
       )}
       <Flex
         w="full"
-        justifyContent="space-between"
         alignItems="center"
-        h={`${USER_PROFILE_HEIGHT_PX}px`}
       >
-        <UserButton userProfileUrl="/profile" userProfileMode="navigation" />
         {creditData?.credits != null ? (
           <Flex flexDirection="column">
             <Flex alignItems="center" gap={1}>
