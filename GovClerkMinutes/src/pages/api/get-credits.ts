@@ -55,7 +55,7 @@ async function handler(req: NextRequest) {
   const credits = await getCurrentBalance(userId, orgId);
 
   // NOTE: credits can be null if the user first logs in, and it takes a minute for the webhook to fire.
-  // The sum() returns null, and the UI won't show credits. But it will revalidate and show 40 after a few seconds.
+  // The sum() returns null, and the UI won't show credits. But it will revalidate and show 30 after a few seconds.
   return new Response(JSON.stringify({ credits }), {
     status: 200,
     headers: {

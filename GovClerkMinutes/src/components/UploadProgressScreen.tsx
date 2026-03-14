@@ -70,7 +70,7 @@ export default function UploadProgressScreen({
 
   const getStatusMessage = () => {
     if (isRetryInProgress) {
-      return "Retrying Upload";
+      return "Retrying upload...";
     }
 
     if (transcribeFailed) {
@@ -82,14 +82,14 @@ export default function UploadProgressScreen({
     }
 
     if (!uploadComplete) {
-      return "Uploading";
+      return "Uploading recording...";
     }
 
     if (!transcribeFinished) {
-      return "Transcribing";
+      return "Processing your recording...";
     }
 
-    return "Processing";
+    return "Finalizing document...";
   };
 
   // Check if the file exists in IndexedDB
@@ -241,14 +241,23 @@ export default function UploadProgressScreen({
             </VStack>
           </Box>
         ) : (
-          <Box w="full" py={6}>
+          <Box
+            w="full"
+            py={8}
+            px={8}
+            bg="white"
+            border="1px solid"
+            borderColor="gray.200"
+            borderRadius="lg"
+            boxShadow="sm"
+          >
             <VStack spacing={8} align="center">
               {/* Display filename prominently */}
               <VStack spacing={1}>
-                <Heading size="md" color="gray.700" fontWeight="semibold">
+                <Heading size="md" color="gray.800" fontWeight="bold">
                   {fileName}
                 </Heading>
-                <Text color="gray.500" fontSize="sm">
+                <Text color="gray.600" fontSize="sm" fontWeight="medium">
                   {getStatusMessage()}
                 </Text>
               </VStack>
@@ -264,16 +273,16 @@ export default function UploadProgressScreen({
                       colorScheme="blue"
                       borderRadius="full"
                       boxShadow="sm"
-                      bg="blue.50"
+                      bg="gray.200"
                     />
-                    <Text fontSize="sm" color="blue.600" alignSelf="flex-end" fontWeight="medium">
+                    <Text fontSize="sm" color="blue.700" alignSelf="flex-end" fontWeight="medium">
                       {percentComplete}%
                     </Text>
                   </VStack>
                 ) : !uploadComplete || isRetryInProgress ? null : ( // Skip this case during retry in progress - handled above
                   <VStack spacing={3} w="full">
                     <Flex gap={3} alignItems="center" justifyContent="center">
-                      <Spinner size="md" color="blue.500" thickness="3px" />
+                      <Spinner size="md" color="blue.700" thickness="3px" />
                     </Flex>
                     <Text fontSize="sm" color="gray.600" textAlign="center">
                       {transcribeFinished &&
@@ -283,9 +292,22 @@ export default function UploadProgressScreen({
                 )}
               </Box>
               {!transcribeFinished && (
-                <Text fontSize="xs" color="gray.400" textAlign="center" maxW="sm">
-                  Please keep this tab open while we process your file.
-                </Text>
+                <Flex
+                  bg="blue.50"
+                  border="1px solid"
+                  borderColor="blue.200"
+                  borderRadius="md"
+                  px={4}
+                  py={3}
+                  w="full"
+                  maxW="md"
+                  alignItems="center"
+                  gap={2}
+                >
+                  <Text fontSize="xs" color="blue.700" textAlign="center" w="full">
+                    Please keep this tab open while we process your file.
+                  </Text>
+                </Flex>
               )}
             </VStack>
           </Box>

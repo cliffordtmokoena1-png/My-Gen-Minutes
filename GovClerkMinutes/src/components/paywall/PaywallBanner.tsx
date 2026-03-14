@@ -50,11 +50,11 @@ export default function PaywallBanner({
         <Text as="span" fontWeight="bold">
           {creditsRequired}
         </Text>{" "}
-        credits, but you only have{" "}
+        tokens, but you only have{" "}
         <Text as="span" fontWeight="bold">
           {currentBalance}
         </Text>{" "}
-        credit{currentBalance === 1 ? "" : "s"}
+        token{currentBalance === 1 ? "" : "s"}
       </Text>
     </VStack>
   );
@@ -65,11 +65,11 @@ export default function PaywallBanner({
       <Text as="span" fontWeight="bold">
         {creditsRequired}
       </Text>{" "}
-      credits, but you only have{" "}
+      tokens, but you only have{" "}
       <Text as="span" fontWeight="bold">
         {currentBalance}
       </Text>{" "}
-      credit{currentBalance === 1 ? "" : "s"}.
+      token{currentBalance === 1 ? "" : "s"}.
     </Text>
   );
 

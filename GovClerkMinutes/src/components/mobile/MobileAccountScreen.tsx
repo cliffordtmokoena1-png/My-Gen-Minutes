@@ -44,7 +44,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
 
   const plan =
     customerDetails?.subscriptionStatus === "cancel_at_period_end"
-      ? "Free"
+      ? getPrettyPlanName("Free")
       : getPrettyPlanName(customerDetails?.planName);
 
   const handleUpgradeClick = () => {
@@ -146,7 +146,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
                   textTransform="uppercase"
                   letterSpacing="wide"
                 >
-                  Credits
+                  Tokens
                 </Text>
                 <Flex alignItems="center" gap={1.5}>
                   <Text fontSize="xl" fontWeight="bold" color="gray.900">

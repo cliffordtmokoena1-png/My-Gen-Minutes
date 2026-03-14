@@ -2,24 +2,22 @@ import { Button, Flex, Text, Tooltip, Skeleton } from "@chakra-ui/react";
 import { BsQuestionCircle } from "react-icons/bs";
 import { LayoutKind, ModalType } from "@/pages/dashboard/[[...slug]]";
 import { ApiGetCustomerDetailsResponse } from "@/pages/api/get-customer-details";
-import { UserButton, useSession } from "@clerk/nextjs";
+import { useSession } from "@clerk/nextjs";
 import { getPrettyPlanName, isPlanBasic, isPlanPro } from "@/utils/price";
 
 type AccountPanelProps = {
   layoutKind: LayoutKind;
   customerDetails?: ApiGetCustomerDetailsResponse;
-  creditData?: { credits: number };
+  creditData?: { credits: number | null };
   onOpen: (modalType: ModalType) => void;
 };
-
-const USER_PROFILE_HEIGHT_PX = 42;
 
 const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: AccountPanelProps) => {
   const { session, isLoaded } = useSession();
 
   const plan =
     customerDetails?.subscriptionStatus === "cancel_at_period_end"
-      ? "Free"
+      ? getPrettyPlanName("Free")
       : getPrettyPlanName(customerDetails?.planName);
   return (
     <Flex
@@ -38,7 +36,10 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
           !isLoaded ||
           session?.user?.publicMetadata?.isEnterprise ? null : (
             <Button
-              colorScheme="messenger"
+              variant="outline"
+              colorScheme="blue"
+              borderColor="blue.700"
+              color="blue.700"
               size="sm"
               overflow="hidden"
               w="full"
@@ -64,23 +65,18 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
       )}
       <Flex
         w="full"
-        justifyContent="space-between"
         alignItems="center"
-        h={`${USER_PROFILE_HEIGHT_PX}px`}
       >
-        {layoutKind === "past-meetings" && (
-          <UserButton userProfileUrl="/profile" userProfileMode="navigation" />
-        )}
-        {creditData?.credits != null ? (
+        {creditData != null ? (
           <Flex flexDirection="column">
             <Flex alignItems="center" gap={1}>
               <Text fontSize="sm" fontWeight="semibold">
-                Credits:
+                Tokens:
               </Text>
-              <Text fontSize="sm">{creditData.credits}</Text>
+              <Text fontSize="sm">{creditData.credits ?? 0}</Text>
               <Flex alignItems="center" ml={1}>
                 <Tooltip
-                  label={`You can transcribe up to ${creditData.credits} minutes of recorded meetings`}
+                  label={`You can transcribe up to ${creditData.credits ?? 0} minutes of recorded meetings`}
                   fontSize="md"
                 >
                   <span>
@@ -93,7 +89,7 @@ const AccountPanel = ({ layoutKind, customerDetails, creditData, onOpen }: Accou
               <Text fontSize="sm" fontWeight="semibold">
                 Plan:
               </Text>
-              <Text fontSize="sm">{plan}</Text>
+              <Text fontSize="sm">{plan || getPrettyPlanName("Free")}</Text>
             </Flex>
           </Flex>
         ) : (

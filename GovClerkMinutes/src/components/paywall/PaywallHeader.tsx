@@ -211,11 +211,11 @@ export default function PaywallHeader({
             <Text as="span" fontWeight="extrabold" color="blue.600">
               {creditsRequired}
             </Text>{" "}
-            credits, but you only have{" "}
+            tokens, but you only have{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
               {currentBalance}
             </Text>{" "}
-            credit{currentBalance === 1 ? "" : "s"}.
+            token{currentBalance === 1 ? "" : "s"}.
           </Text>
         </Box>
       </Box>
@@ -241,34 +241,34 @@ export default function PaywallHeader({
             <Text as="span" fontWeight="extrabold" color="blue.600">
               {creditsRequired}
             </Text>{" "}
-            credits, but you only have{" "}
+            tokens, but you only have{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
               {currentBalance}
             </Text>{" "}
-            credit{currentBalance === 1 ? "" : "s"}.
+            token{currentBalance === 1 ? "" : "s"}.
           </Text>
         </Box>
         {isMobile ? (
           <Box bg="gray.50" p={3} borderRadius="lg" my={3}>
             <Text fontSize="sm" color="gray.700">
-              The Basic plan gives you enough credits for 6 transcripts per month.
+              The Basic plan gives you enough tokens for 6 transcripts per month.
             </Text>
           </Box>
         ) : (
           <>
             <Box>
               <Heading size={subHeadingSize} fontWeight="normal" color="gray.600">
-                Purchase a plan below to get more credits.
+                Purchase a plan below to get more tokens.
               </Heading>
             </Box>
             <Box bg="gray.50" p={3} borderRadius="lg" my={3}>
               <Heading size={subHeadingSize} fontWeight="normal" color="gray.700">
-                Generating meeting minutes from a document always costs 50 credits. The{" "}
+                Generating meeting minutes from a document always costs 50 tokens. The{" "}
                 <Text as="span" fontWeight="semibold" color="blue.600">
                   Basic
                 </Text>{" "}
-                plan is perfect for this. It gives you enough credits to upload 6 documents per
-                month. (50 x 6 = 300 credits, renewing monthly)
+                plan is perfect for this. It gives you enough tokens to upload 6 documents per
+                month. (50 x 6 = 300 tokens, renewing monthly)
               </Heading>
             </Box>
             <Box>
@@ -440,9 +440,9 @@ export default function PaywallHeader({
                           color="gray.700"
                           fontSize={{ base: "sm", md: "md" }}
                         >
-                          <ListItem fontSize="md">Cancel anytime. Keep your credits.</ListItem>
+                          <ListItem fontSize="md">Cancel anytime. Keep your tokens.</ListItem>
                           <ListItem fontSize="md">
-                            You will get {nextPlan && isPlanPro(nextPlan) ? "1200" : "300"} credits
+                            You will get {nextPlan && isPlanPro(nextPlan) ? "1200" : "300"} tokens
                             per {nextPlan?.includes("Annual") ? "year" : "month"}.
                           </ListItem>
                           <ListItem fontSize="md">14 day money back guarantee.</ListItem>

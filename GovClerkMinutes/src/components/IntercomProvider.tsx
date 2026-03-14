@@ -28,6 +28,20 @@ export const IntercomContext = createContext<IntercomContextValues>({
   hideDefaultLauncher: () => {},
 });
 
+const MOBILE_BREAKPOINT = 768;
+const INTERCOM_MAX_RETRIES = 10;
+const INTERCOM_RETRY_DELAY_MS = 300;
+
+function retryUntilIntercomLoaded(callback: () => void, retries = INTERCOM_MAX_RETRIES) {
+  if (window.Intercom) {
+    callback();
+    return;
+  }
+  if (retries > 0) {
+    setTimeout(() => retryUntilIntercomLoaded(callback, retries - 1), INTERCOM_RETRY_DELAY_MS);
+  }
+}
+
 export function IntercomProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const { userId, getToken } = useAuth();
@@ -35,7 +49,7 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const checkMobile = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -46,6 +60,14 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
     async (_) => {
       await getToken();
       return await fetch("/api/get-email").then((res) => res.json());
+    }
+  );
+
+  const { data: intercomIdentity } = useSWR<{ user_hash: string; name: string | null }>(
+    userId == null ? null : ["/api/intercom-identity", userId],
+    async (_) => {
+      await getToken();
+      return await fetch("/api/intercom-identity").then((res) => res.json());
     }
   );
 
@@ -69,10 +91,12 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== "undefined" && window.Intercom && customerDetails) {
       window.Intercom("update", {
         plan: customerDetails.planName || "Free",
+        name: intercomIdentity?.name ?? undefined,
+        user_hash: intercomIdentity?.user_hash ?? undefined,
         hide_default_launcher: isMobile,
       });
     }
-  }, [customerDetails, isMobile]);
+  }, [customerDetails, intercomIdentity, isMobile]);
 
   useEffect(() => {
     const loadIntercomScript = () => {
@@ -82,17 +106,26 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
       }
 
       const script = document.createElement("script");
-      script.src = "https://widget.intercom.io/widget/g4e5ghsx";
+      script.src = "https://widget.intercom.io/widget/efoxc8ye";
       script.async = true;
 
       script.onload = () => {
         window.Intercom("boot", {
-          app_id: "g4e5ghsx",
+          app_id: "efoxc8ye",
           api_base: "https://api-iam.intercom.io",
           user_id: userId ?? undefined,
           email: userData?.email,
+          name: intercomIdentity?.name ?? undefined,
+          user_hash: intercomIdentity?.user_hash ?? undefined,
           plan: customerDetails?.planName || "Free",
           hide_default_launcher: isMobile,
+        });
+        window.Intercom("onShow", () => setIsChatOpen(true));
+        window.Intercom("onHide", () => {
+          setIsChatOpen(false);
+          if (window.innerWidth < MOBILE_BREAKPOINT) {
+            window.Intercom("update", { hide_default_launcher: true });
+          }
         });
       };
 
@@ -104,14 +137,19 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
     };
 
     loadIntercomScript();
-  }, [userId, userData?.email, customerDetails, isMobile]);
+  }, [userId, userData?.email, intercomIdentity, customerDetails, isMobile]);
 
   useEffect(() => {
     if (typeof window === "undefined" || !window.Intercom) {
       return;
     }
     window.Intercom("onShow", () => setIsChatOpen(true));
-    window.Intercom("onHide", () => setIsChatOpen(false));
+    window.Intercom("onHide", () => {
+      setIsChatOpen(false);
+      if (window.innerWidth < MOBILE_BREAKPOINT) {
+        window.Intercom("update", { hide_default_launcher: true });
+      }
+    });
   }, []);
 
   const boot = useCallback((settings?: Record<string, any>) => {
@@ -136,10 +174,11 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const show = useCallback(() => {
-    if (!window.Intercom) {
-      return;
-    }
-    window.Intercom("show");
+    retryUntilIntercomLoaded(() => {
+      // Temporarily unhide the launcher so show() works on mobile
+      window.Intercom("update", { hide_default_launcher: false });
+      window.Intercom("show");
+    });
   }, []);
 
   const hide = useCallback(() => {
@@ -150,14 +189,15 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const showNewMessage = useCallback((content?: string) => {
-    if (!window.Intercom) {
-      return;
-    }
-    if (content) {
-      window.Intercom("showNewMessage", content);
-    } else {
-      window.Intercom("showNewMessage");
-    }
+    retryUntilIntercomLoaded(() => {
+      // Temporarily unhide the launcher so showNewMessage() works on mobile
+      window.Intercom("update", { hide_default_launcher: false });
+      if (content) {
+        window.Intercom("showNewMessage", content);
+      } else {
+        window.Intercom("showNewMessage");
+      }
+    });
   }, []);
 
   const hideDefaultLauncher = useCallback((hide?: boolean) => {
@@ -176,6 +216,8 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
       window.Intercom("update", {
         user_id: userId ?? undefined,
         email: userData?.email,
+        name: intercomIdentity?.name ?? undefined,
+        user_hash: intercomIdentity?.user_hash ?? undefined,
         plan: customerDetails?.planName || "Free",
         path: url,
         hide_default_launcher: isMobile,
@@ -186,7 +228,7 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router.events, userData?.email, userId, customerDetails?.planName, isMobile]);
+  }, [router.events, userData?.email, userId, intercomIdentity, customerDetails?.planName, isMobile]);
 
   return (
     <IntercomContext.Provider

@@ -26,7 +26,7 @@ import RenameTranscriptModal from "./RenameTranscriptModal";
 import { useOrgContext } from "@/contexts/OrgContext";
 
 type ApiGetCreditsResponse = {
-  credits: number;
+  credits: number | null;
 };
 
 export type SidebarItem = {
@@ -176,15 +176,15 @@ const SidebarItemComponent = memo(
         px={3}
         userSelect="none"
         cursor="pointer"
-        border="1px solid"
-        borderColor={item.transcriptId === selectedTranscript ? "blue.200" : "transparent"}
-        borderRadius="lg"
+        borderLeft="3px solid"
+        borderLeftColor={item.transcriptId === selectedTranscript ? "blue.700" : "transparent"}
+        borderRadius="sm"
         transition="all 0.15s"
         _hover={{
-          bg: "gray.50",
-          borderColor: "gray.200",
+          bg: "gray.100",
+          borderLeftColor: item.transcriptId === selectedTranscript ? "blue.700" : "gray.300",
         }}
-        bg={item.transcriptId === selectedTranscript ? "blue.50" : "white"}
+        bg={item.transcriptId === selectedTranscript ? "gray.100" : "transparent"}
         justifyContent="space-between"
         position="relative"
         onClick={() => onItemClick(item)}
@@ -212,8 +212,8 @@ const SidebarItemComponent = memo(
             <Text
               fontSize="2xs"
               fontWeight="semibold"
-              color={item.type === "agenda" ? "purple.600" : "blue.600"}
-              bg={item.type === "agenda" ? "purple.50" : "blue.50"}
+              color={item.type === "agenda" ? "gray.100" : "gray.100"}
+              bg={item.type === "agenda" ? "gray.600" : "blue.800"}
               px={1.5}
               py={0.5}
               borderRadius="sm"
@@ -248,7 +248,7 @@ const SidebarItemComponent = memo(
           <SidebarEllipses
             pageTranscriptId={selectedTranscript}
             itemTranscriptId={item.transcriptId}
-            bgColor="inherit"
+            bgColor={item.transcriptId === selectedTranscript ? "gray.100" : "gray.50"}
             onDelete={onDelete}
             onRename={onRename}
           />
@@ -436,14 +436,15 @@ const Sidebar = ({
         transition="margin-left 0.3s ease, width 0.3s ease"
         borderRight="1px solid"
         borderRightColor="gray.200"
+        bg="gray.50"
       >
         {layoutKind !== "past-meetings" && (
-          <Box position="sticky" top="0" zIndex="10" bg="white">
+          <Box position="sticky" top="0" zIndex="10" bg="gray.50">
             <Flex
               flexDirection="column"
               justifyContent="center"
               alignItems="flex-start"
-              bgColor="white"
+              bgColor="gray.50"
               gap={3}
               mb={3}
               px={4}
@@ -453,14 +454,16 @@ const Sidebar = ({
               <Text
                 fontSize="md"
                 fontWeight="bold"
-                color="gray.900"
+                color="gray.700"
                 whiteSpace="nowrap"
                 isTruncated
               >
                 Agendas & Minutes
               </Text>
               <Button
-                colorScheme="gray"
+                colorScheme="blue"
+                bg="blue.700"
+                color="white"
                 size="sm"
                 w="full"
                 onClick={() => {
@@ -474,7 +477,7 @@ const Sidebar = ({
                 leftIcon={<PlusIcon />}
                 borderRadius="lg"
                 fontWeight="semibold"
-                _hover={{ transform: "translateY(-1px)", shadow: "sm" }}
+                _hover={{ bg: "blue.800", transform: "translateY(-1px)", shadow: "sm" }}
                 transition="all 0.2s"
               >
                 New Upload
