@@ -22,7 +22,7 @@ type Row = {
   dateCreated: string;
   transcribe_paused: number;
   transcribe_finished: number;
-  tokens_required: number;
+  credits_required: number;
 };
 
 async function handler(req: NextRequest) {
@@ -51,7 +51,7 @@ async function handler(req: NextRequest) {
         dateCreated,
         transcribe_paused,
         transcribe_finished,
-        tokens_required
+        credits_required
       FROM transcripts
       WHERE userId = ?
       ORDER BY dateCreated DESC
@@ -64,7 +64,7 @@ async function handler(req: NextRequest) {
         createdAt: convertIsoTimestampFromMysql(row.dateCreated),
         transcribePaused: Boolean(row.transcribe_paused),
         transcribeFinished: Boolean(row.transcribe_finished),
-        tokensRequired: Number(row.tokens_required),
+        tokensRequired: Number(row.credits_required),
       }))
     );
 

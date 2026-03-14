@@ -19,7 +19,7 @@ async function getTemplateTranscriptData(
     const result = await conn.execute(
       `SELECT 
         id, userId, s3AudioKey, title, file_size, aws_region, upload_kind,
-        transcribe_finished, transcribe_paused, transcribe_failed, tokens_required, 
+        transcribe_finished, transcribe_paused, transcribe_failed, credits_required, 
         client_corruption, deleted, preview_transcribe_finished, snippet
       FROM transcripts 
       WHERE id = ?`,
@@ -43,7 +43,7 @@ async function getTemplateTranscriptData(
       transcribe_finished: Number(row.transcribe_finished),
       transcribe_paused: Number(row.transcribe_paused),
       transcribe_failed: Number(row.transcribe_failed),
-      tokens_required: Number(row.tokens_required),
+      tokens_required: Number(row.credits_required),
       client_corruption: Number(row.client_corruption),
       deleted: Number(row.deleted),
       preview_transcribe_finished: Number(row.preview_transcribe_finished),
