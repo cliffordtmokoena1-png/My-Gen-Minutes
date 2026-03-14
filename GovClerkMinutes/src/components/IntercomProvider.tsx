@@ -82,12 +82,12 @@ export function IntercomProvider({ children }: { children: React.ReactNode }) {
       }
 
       const script = document.createElement("script");
-      script.src = "https://widget.intercom.io/widget/g4e5ghsx";
+      script.src = "https://widget.intercom.io/widget/efoxc8ye";
       script.async = true;
 
       script.onload = () => {
         window.Intercom("boot", {
-          app_id: "g4e5ghsx",
+          app_id: "efoxc8ye",
           api_base: "https://api-iam.intercom.io",
           user_id: userId ?? undefined,
           email: userData?.email,
