@@ -312,7 +312,7 @@ pub async fn process_diarization(
 
   if upload_kind != "audio" {
     // For text transcript upload we charge flat 50 token rate.
-    r"UPDATE transcripts SET tokens_required = 50, transcribe_finished = 1, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
+    r"UPDATE transcripts SET credits_required = 50, transcribe_finished = 1, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
       .with(params! {
         "transcript_id" => transcript_id,
       })
@@ -384,9 +384,9 @@ pub async fn process_diarization(
 
   info!("tokens required: {}", tokens_required);
 
-  r"UPDATE transcripts SET tokens_required = :tokens_required, snippet = :snippet, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
+  r"UPDATE transcripts SET credits_required = :credits_required, snippet = :snippet, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
     .with(params! {
-      "tokens_required" => tokens_required,
+      "credits_required" => tokens_required,
       "transcript_id" => transcript_id,
       "snippet" => snippet.clone(),
     })

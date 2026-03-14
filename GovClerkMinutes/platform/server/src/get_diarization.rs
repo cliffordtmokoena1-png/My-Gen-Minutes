@@ -576,12 +576,12 @@ async fn start_holder_initialization(
 
   // Initialize the rest if we have the tokens.
   if !insufficient_tokens {
-    r"INSERT INTO payments (user_id, org_id, transcript_id, token, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :token, 'sub', :billing_subject);"
+    r"INSERT INTO payments (user_id, org_id, transcript_id, credit, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :credit, 'sub', :billing_subject);"
       .with(params! {
         "user_id" => user_id.clone(),
         "org_id" => org_id.clone(),
         "transcript_id" => transcript_id,
-        "token" => -tokens_required,
+        "credit" => -tokens_required,
         "billing_subject" => if org_id.is_some() { "org" } else { "user" },
       })
       .ignore(&mut conn)
@@ -696,7 +696,7 @@ pub async fn process_diarization(
 
   if upload_kind != "audio" {
     // For text transcript upload we charge flat 50 token rate.
-    r"UPDATE transcripts SET tokens_required = 50, preview_transcribe_finished = 1, transcribe_finished = 1 WHERE id = :transcript_id;"
+    r"UPDATE transcripts SET credits_required = 50, preview_transcribe_finished = 1, transcribe_finished = 1 WHERE id = :transcript_id;"
       .with(params! {
         "transcript_id" => transcript_id,
       })
@@ -847,9 +847,9 @@ pub async fn process_diarization(
 
   timer.start(TimeSpanEvent::GetDiarizationTokenRequiredUpdate);
 
-  r"UPDATE transcripts SET tokens_required = :tokens_required, transcribe_paused = :transcribe_paused, was_paywalled = :was_paywalled WHERE id = :transcript_id;"
+  r"UPDATE transcripts SET credits_required = :credits_required, transcribe_paused = :transcribe_paused, was_paywalled = :was_paywalled WHERE id = :transcript_id;"
     .with(params! {
-      "tokens_required" => tokens_required,
+      "credits_required" => tokens_required,
       "transcript_id" => transcript_id,
       "transcribe_paused" => insufficient_tokens,
       "was_paywalled" => insufficient_tokens,

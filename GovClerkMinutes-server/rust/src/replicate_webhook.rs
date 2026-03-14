@@ -601,7 +601,7 @@ pub async fn replicate_webhook_handler_impl(
 ) -> anyhow::Result<()> {
   let mut conn = state.db.get_conn().await?;
 
-  let rows = r"SELECT diarization_ready, insufficient_tokens, tokens_required, userId, upload_kind FROM transcripts WHERE id = :id;"
+  let rows = r"SELECT diarization_ready, insufficient_tokens, credits_required, userId, upload_kind FROM transcripts WHERE id = :id;"
     .with(params! {
       "id" => transcript_id,
     })
@@ -648,11 +648,11 @@ pub async fn replicate_webhook_handler_impl(
     return Ok(());
   }
 
-  r"INSERT INTO payments (user_id, transcript_id, token, action) VALUES (:user_id, :transcript_id, :token, 'sub');"
+  r"INSERT INTO payments (user_id, transcript_id, credit, action) VALUES (:user_id, :transcript_id, :credit, 'sub');"
     .with(params! {
       user_id,
       transcript_id,
-      "token" => -tokens_required,
+      "credit" => -tokens_required,
     })
     .ignore(&mut conn)
     .await?;
