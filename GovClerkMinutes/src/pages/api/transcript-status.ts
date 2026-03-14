@@ -95,7 +95,7 @@ export async function getTranscriptStatus(
           transcribe_failed,
           diarization_ready,
           insufficient_tokens,
-          credits_required,
+          tokens_required,
           upload_complete,
           transcribe_finished,
           preview_transcribe_finished,
@@ -124,7 +124,7 @@ export async function getTranscriptStatus(
   const transcribe_failed = row["transcribe_failed"];
   const diarization_ready = row["diarization_ready"];
   const insufficient_tokens = row["insufficient_tokens"];
-  const tokens_required = row["credits_required"];
+  const tokens_required = row["tokens_required"];
   const upload_complete = row["upload_complete"];
   const transcribe_finished = row["transcribe_finished"];
   const preview_transcribe_finished = row["preview_transcribe_finished"];

@@ -14,7 +14,7 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
   });
 
   const transcriptResult = await conn.execute(
-    "SELECT credits_required FROM transcripts WHERE id = ? AND userId = ?;",
+    "SELECT tokens_required FROM transcripts WHERE id = ? AND userId = ?;",
     [transcriptId, userId]
   );
 
@@ -23,7 +23,7 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
     return;
   }
 
-  const tokensRequired = assertNumber(transcriptResult.rows[0].credits_required);
+  const tokensRequired = assertNumber(transcriptResult.rows[0].tokens_required);
 
   if (!tokensRequired) {
     console.log(`No tokens to refund for transcript ${transcriptId}`);
@@ -31,7 +31,7 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
   }
 
   const paymentResult = await conn.execute(
-    "INSERT INTO payments (user_id, credit, action, transcript_id) VALUES (?, ?, 'refund', ?);",
+    "INSERT INTO payments (user_id, token, action, transcript_id) VALUES (?, ?, 'refund', ?);",
     [userId, tokensRequired, transcriptId]
   );
 

@@ -23,13 +23,13 @@ async function token(id: string, amount: number): Promise<void> {
   let res;
   if (isOrg) {
     res = await conn.execute(
-      "INSERT INTO payments (user_id, org_id, credit, action, billing_subject) VALUES (NULL, ?, ?, 'script', 'org');",
+      "INSERT INTO payments (user_id, org_id, token, action, billing_subject) VALUES (NULL, ?, ?, 'script', 'org');",
       [id, amount]
     );
     console.log(`Credited org ${id} with amount ${amount} tokens!\n\n(id: ${res.insertId})`);
   } else {
     res = await conn.execute(
-      "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, 'script');",
+      "INSERT INTO payments (user_id, token, action) VALUES (?, ?, 'script');",
       [id, amount]
     );
     console.log(`Credited user ${id} with amount ${amount} tokens!\n\n(id: ${res.insertId})`);

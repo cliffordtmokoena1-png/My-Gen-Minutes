@@ -78,9 +78,9 @@ async function startPaywallAbandonmentEmailSequence(
   // Add recording length snippet and uploadName if available
   const transcriptRow = await conn
     .execute<{
-      credits_required: number;
+      tokens_required: number;
       title: string;
-    }>("SELECT credits_required, title FROM transcripts WHERE id = ? AND userId = ?", [
+    }>("SELECT tokens_required, title FROM transcripts WHERE id = ? AND userId = ?", [
       transcriptId,
       lead.userId,
     ])
@@ -88,7 +88,7 @@ async function startPaywallAbandonmentEmailSequence(
 
   if (transcriptRow) {
     variables.recordingLengthSnippet = formatRecordingLength(
-      Number(transcriptRow.credits_required)
+      Number(transcriptRow.tokens_required)
     );
     variables.uploadName = transcriptRow.title;
   }
