@@ -3,7 +3,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getClerkKeysFromEnv, ClerkEnvironment } from "@/utils/clerk";
 import withErrorReporting from "@/error/withErrorReporting";
-import { getCurrentBalance } from "../get-tokens";
+import { getCurrentBalance } from "../get-credits";
 import type { Site } from "@/utils/site";
 
 export type LookupUserApiResponse = {

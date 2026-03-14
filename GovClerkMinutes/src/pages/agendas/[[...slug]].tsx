@@ -10,7 +10,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { withGsspErrorHandling } from "@/error/withErrorReporting";
 import { getSidebarItems } from "../api/sidebar";
 import { getCustomerDetails } from "../api/get-customer-details";
-import { getCurrentBalance } from "../api/get-tokens";
+import { getCurrentBalance } from "../api/get-credits";
 import { ModalType, LayoutKind } from "../dashboard/[[...slug]]";
 import SimplePricingModal from "@/components/SimplePricingModal";
 import ReferralModal from "@/components/ReferralModal";

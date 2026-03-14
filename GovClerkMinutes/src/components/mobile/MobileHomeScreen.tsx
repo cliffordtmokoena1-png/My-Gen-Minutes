@@ -268,10 +268,10 @@ export default function MobileHomeScreen({
   );
 
   const { data: tokenData } = useSWR<ApiGetTokenResponse>(
-    ["/api/get-tokens", orgId],
+    ["/api/get-credits", orgId],
     async (_) => {
       await getToken();
-      return await fetch("/api/get-tokens", {
+      return await fetch("/api/get-credits", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
