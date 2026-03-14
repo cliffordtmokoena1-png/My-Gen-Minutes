@@ -137,7 +137,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     ) {
       return res
         .status(412)
-        .json({ error: "One-time credit purchases are only available to subscribers." });
+        .json({ error: "One-time token purchases are only available to subscribers." });
     }
   }
 

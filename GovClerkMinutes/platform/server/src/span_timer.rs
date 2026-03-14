@@ -7,8 +7,8 @@ use std::time::{Duration, Instant};
 pub enum TimeSpanEvent {
   GetDiarizationInitialQuery,
   GetDiarizationFileDownload,
-  GetDiarizationParallelSliceSnippetCredits,
-  GetDiarizationCreditsRequiredUpdate,
+  GetDiarizationParallelSliceSnippetToken,
+  GetDiarizationTokenRequiredUpdate,
   GetDiarizationInsertSegments,
   GetDiarizationPreview,
   GetDiarization,

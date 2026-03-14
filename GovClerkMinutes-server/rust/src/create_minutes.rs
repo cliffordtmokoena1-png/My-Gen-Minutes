@@ -167,21 +167,21 @@ async fn delete_record_from_minutes_db(
     .map_err(|e| anyhow::anyhow!("failed to delete from minutes: {}", e));
 }
 
-async fn refund_credits(
+async fn refund_tokens(
   conn: &mut Conn,
   transcript_id: u64,
   user_id: &str,
-  credit: i32,
+  token: i32,
 ) -> anyhow::Result<()> {
-  return r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'refund')"
+  return r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'refund')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id,
-      "credit" => credit,
+      "token" => token,
     })
     .ignore(&mut *conn)
     .await
-    .map_err(|e| anyhow::anyhow!("failed to refund credits: {}", e));
+    .map_err(|e| anyhow::anyhow!("failed to refund tokens: {}", e));
 }
 
 
@@ -461,9 +461,9 @@ pub async fn create_minutes_handler(
     return Err(StatusCode::BAD_REQUEST);
   }
 
-  // Credits are deducted when minutes generated for non-audio uploads only.
-  // For audio uploads, credits are deducted when the transcript is created.
-  let mut credits_required = None;
+  // Token are deducted when minutes generated for non-audio uploads only.
+  // For audio uploads, tokens are deducted when the transcript is created.
+  let mut tokens_required = None;
 
   if upload_kind != "audio" {
     let balance = get_current_balance(&mut conn, user_id.clone())
@@ -474,37 +474,37 @@ pub async fn create_minutes_handler(
       )?;
 
     let rows =
-      r"SELECT credits_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id;"
+      r"SELECT tokens_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id;"
         .with(params! {
           "transcript_id" => transcript_id,
           "user_id" => user_id.clone(),
         })
-        .map(&mut conn, |credits_required: i32| credits_required)
+        .map(&mut conn, |tokens_required: i32| tokens_required)
         .await
         .map_and_log_err(
-          "failed to get credits required",
+          "failed to get tokens required",
           StatusCode::INTERNAL_SERVER_ERROR,
         )?;
 
-    credits_required = Some(rows[0]);
+    tokens_required = Some(rows[0]);
 
-    if credits_required.unwrap() > balance {
+    if tokens_required.unwrap() > balance {
       warn!(
-        "user {} does not have enough credits to create minutes for transcript {}",
+        "user {} does not have enough tokens to create minutes for transcript {}",
         user_id.clone(),
         transcript_id
       );
       return Err(StatusCode::BAD_REQUEST);
     }
 
-    // If we made it here, the user has enough credit, so deduct from their
+    // If we made it here, the user has enough token, so deduct from their
     // balance and generate their minutes
 
-    r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'sub')"
+    r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'sub')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id.clone(),
-      "credit" => -credits_required.unwrap(),
+      "token" => -tokens_required.unwrap(),
     })
     .ignore(&mut conn)
     .await
@@ -566,16 +566,16 @@ pub async fn create_minutes_handler(
     }
 
     // Execution reaches here when all retries are exhausted.  Then we need to refund.
-    if credits_required.is_some() {
-      if let Err(e) = refund_credits(
+    if tokens_required.is_some() {
+      if let Err(e) = refund_tokens(
         &mut conn,
         transcript_id,
         &user_id,
-        credits_required.unwrap(),
+        tokens_required.unwrap(),
       )
       .await
       {
-        error!("Failed to refund credits: {}", e);
+        error!("Failed to refund tokens: {}", e);
       }
     }
 

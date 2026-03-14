@@ -263,7 +263,7 @@ const TranscriptController = ({
               layoutKind={layoutKind}
               isPreviewTranscriptDone={isPreviewTranscriptDone}
               transcriptionPaused={transcriptionStatus?.transcribePaused}
-              insufficientCredits={transcriptionStatus?.insufficientCredits}
+              insufficientToken={transcriptionStatus?.insufficientToken}
               hideVersionTabs
               externalSelectedVersion={selectedMinutesVersion}
               onVersionChange={handleMinutesVersionChange}
@@ -406,7 +406,7 @@ const TranscriptController = ({
             layoutKind={layoutKind}
             isPreviewTranscriptDone={isPreviewTranscriptDone}
             transcriptionPaused={transcriptionStatus?.transcribePaused}
-            insufficientCredits={transcriptionStatus?.insufficientCredits}
+            insufficientToken={transcriptionStatus?.insufficientToken}
             triggerSpeakerLabel={triggerSpeakerLabel}
           />
         </Flex>

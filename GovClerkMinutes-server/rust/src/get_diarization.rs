@@ -44,7 +44,7 @@ pub struct GetDiarizationQueryParam {
 
 const TEST_SPEAKER_SEGMENTATION_JSON: &str = include_str!("../assets/small_test_segmentation.json");
 
-pub async fn get_required_credits(audio_path: &str) -> anyhow::Result<i32> {
+pub async fn get_required_tokens(audio_path: &str) -> anyhow::Result<i32> {
   // ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 input.mp4
   let mut ffprobe_command = tokio::process::Command::new("ffprobe");
   ffprobe_command
@@ -183,11 +183,11 @@ fn transcribe_first_n_segments(
 
 /// Uses a transaction to ensure no races and that this endpoint is idempotent
 /// AKA resilient to duplicate uploads from the client.  We want this to ensure
-/// we don't double-deduct credits if an upload is retried e.g. as part of a
+/// we don't double-deduct tokens if an upload is retried e.g. as part of a
 /// background sync API retry in Chrome
 ///
 /// Also returns true if the job was failed e.g. by a timeout, which is nice
-/// because then we won't deduct credits from the user for an upload that is
+/// because then we won't deduct tokens from the user for an upload that is
 /// retried after it's marked timed out.
 async fn upload_already_happened(
   conn: &mut mysql_async::Conn,
@@ -226,7 +226,7 @@ async fn run_speaker_segmentation(
   user_id: String,
   transcript_id: u64,
   snippet: String,
-  credits_required: i32,
+  tokens_required: i32,
   s3_audio_key: String,
 ) -> anyhow::Result<String> {
   let start = chrono::Utc::now();
@@ -237,7 +237,7 @@ async fn run_speaker_segmentation(
     json!({
       "transcript_id": transcript_id,
       "snippet": snippet,
-      "credits_required": credits_required,
+      "tokens_required": tokens_required,
       "duration": (chrono::Utc::now() - start).num_milliseconds(),
     }),
   );
@@ -311,8 +311,8 @@ pub async fn process_diarization(
   }
 
   if upload_kind != "audio" {
-    // For text transcript upload we charge flat 50 credit rate.
-    r"UPDATE transcripts SET credits_required = 50, transcribe_finished = 1, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
+    // For text transcript upload we charge flat 50 token rate.
+    r"UPDATE transcripts SET tokens_required = 50, transcribe_finished = 1, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
       .with(params! {
         "transcript_id" => transcript_id,
       })
@@ -323,7 +323,7 @@ pub async fn process_diarization(
       user_id.clone(),
       json!({
         "transcript_id": transcript_id,
-        "credits_required": 50,
+        "tokens_required": 50,
         "upload_kind": upload_kind,
       }),
     );
@@ -380,13 +380,13 @@ pub async fn process_diarization(
 
   info!("Got snippet: {}", snippet);
 
-  let credits_required = get_required_credits(&audio_path).await?;
+  let tokens_required = get_required_tokens(&audio_path).await?;
 
-  info!("credits required: {}", credits_required);
+  info!("tokens required: {}", tokens_required);
 
-  r"UPDATE transcripts SET credits_required = :credits_required, snippet = :snippet, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
+  r"UPDATE transcripts SET tokens_required = :tokens_required, snippet = :snippet, ts_upload = UTC_TIMESTAMP() WHERE id = :transcript_id;"
     .with(params! {
-      "credits_required" => credits_required,
+      "tokens_required" => tokens_required,
       "transcript_id" => transcript_id,
       "snippet" => snippet.clone(),
     })
@@ -398,7 +398,7 @@ pub async fn process_diarization(
     json!({
       "transcript_id": transcript_id,
       "snippet": snippet,
-      "credits_required": credits_required,
+      "tokens_required": tokens_required,
       "upload_kind": upload_kind,
     }),
   );
@@ -415,7 +415,7 @@ pub async fn process_diarization(
       user_id.clone(),
       transcript_id,
       snippet,
-      credits_required,
+      tokens_required,
       s3_audio_key,
     )
     .await?
@@ -472,12 +472,12 @@ pub async fn process_diarization(
 
   let current_balance = get_current_balance(&mut conn, user_id.clone()).await?;
 
-  let insufficient_credits = if current_balance < credits_required {
+  let insufficient_tokens = if current_balance < tokens_required {
     1
   } else {
     0
   };
-  let transcribe_paused = insufficient_credits;
+  let transcribe_paused = insufficient_tokens;
 
   if transcribe_paused == 1 {
     PostHogEventType::TranscribePaused.capture(
@@ -531,9 +531,9 @@ pub async fn process_diarization(
     }
   }
 
-  r"UPDATE transcripts SET diarization_ready = 1, insufficient_credits = :insufficient_credits, transcribe_paused = :transcribe_paused, ts_diarization = UTC_TIMESTAMP() WHERE id = :transcript_id AND userId = :user_id;"
+  r"UPDATE transcripts SET diarization_ready = 1, insufficient_tokens = :insufficient_tokens, transcribe_paused = :transcribe_paused, ts_diarization = UTC_TIMESTAMP() WHERE id = :transcript_id AND userId = :user_id;"
       .with(params! {
-        "insufficient_credits" => insufficient_credits,
+        "insufficient_tokens" => insufficient_tokens,
         "transcribe_paused" => transcribe_paused,
         "transcript_id" => transcript_id,
         "user_id" => user_id.clone(),
@@ -545,7 +545,7 @@ pub async fn process_diarization(
     user_id.clone(),
     json!({
       "transcript_id": transcript_id,
-      "insufficient_credits": insufficient_credits,
+      "insufficient_tokens": insufficient_tokens,
       "current_balance": current_balance,
     }),
   );

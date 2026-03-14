@@ -3,7 +3,7 @@ use reqwest::Client;
 use serde_json::json;
 
 pub enum GcWebhookEvent {
-  CheckRenewCredits,
+  CheckRenewToken,
   CheckWhatsapps,
   RunPostSignupTasks,
   #[allow(dead_code)]
@@ -16,8 +16,8 @@ pub enum GcWebhookEvent {
 
 pub async fn send_request(event: GcWebhookEvent) -> anyhow::Result<()> {
   let body = match event {
-    GcWebhookEvent::CheckRenewCredits => json!({
-      "event": "check_renew_credits"
+    GcWebhookEvent::CheckRenewToken => json!({
+      "event": "check_renew_tokens"
     }),
     GcWebhookEvent::CheckWhatsapps => json!({
       "event": "check_whatsapps"

@@ -22,32 +22,32 @@ export function isSubscriptionCanceled(subscriptionStatus: string): boolean {
 export function calculateUsage(subscriptionData: ApiGetCustomerDetailsResponse) {
   const currentUsage = Math.max(
     0,
-    subscriptionData.creditsPerMonth - subscriptionData.remainingCredits
+    subscriptionData.tokensPerMonth - subscriptionData.remainingToken
   );
-  const creditUsagePercentage = (currentUsage / subscriptionData.creditsPerMonth) * 100;
-  const excessCredits = Math.max(
+  const tokenUsagePercentage = (currentUsage / subscriptionData.tokensPerMonth) * 100;
+  const excessToken = Math.max(
     0,
-    subscriptionData.remainingCredits - subscriptionData.creditsPerMonth
+    subscriptionData.remainingToken - subscriptionData.tokensPerMonth
   );
 
   return {
     currentUsage,
-    creditUsagePercentage,
-    excessCredits,
-    hasExcessCredits: excessCredits > 0,
+    tokenUsagePercentage,
+    excessToken,
+    hasExcessToken: excessToken > 0,
   };
 }
 
 export function calculateDaysUntilCreditReset(
   subscriptionData: ApiGetCustomerDetailsResponse
 ): number {
-  // Credits always reset monthly, regardless of billing interval
+  // Token always reset monthly, regardless of billing interval
   // For annual subscribers, we need to calculate the next monthly reset, not the annual billing date
 
   const today = new Date();
 
   if (subscriptionData.interval === "year") {
-    // For annual subscribers, credits reset monthly from the subscription start date
+    // For annual subscribers, tokens reset monthly from the subscription start date
     // Parse the next bill date to get the original subscription day
     const nextBillDate = new Date(subscriptionData.nextBillDate);
     const subscriptionDay = nextBillDate.getDate();

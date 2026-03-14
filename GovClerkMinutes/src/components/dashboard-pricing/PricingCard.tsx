@@ -38,7 +38,7 @@ interface Props {
   clientReferenceId: string;
   priceId: string;
   isPopular?: boolean;
-  credits: number;
+  tokens: number;
   isAnnual: boolean;
   country?: string; // For calculating annual pricing
   onToggleBilling: () => void; // Function to toggle between monthly/annual
@@ -132,7 +132,7 @@ export default function PricingCard({
   clientReferenceId,
   priceId,
   isPopular,
-  credits,
+  tokens,
   isAnnual,
   country,
   onToggleBilling,
@@ -276,10 +276,10 @@ export default function PricingCard({
 
           <Box pt={4}>
             <List spacing={3} textAlign="left">
-              {credits !== -1 && (
+              {tokens !== -1 && (
                 <ListItem display="flex" alignItems="flex-start" color="gray.600" fontSize="sm">
                   <ListIcon as={BsCheck} color="blue.500" boxSize={5} mr={3} mt={1} />
-                  <Text>{credits} tokens included (1 token = 1 minute of audio)</Text>
+                  <Text>{tokens} tokens included (1 token = 1 minute of audio)</Text>
                 </ListItem>
               )}
               {features.map((feature, index) => (

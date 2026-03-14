@@ -9,7 +9,7 @@ type CreditResponse = {
   id: string;
 };
 
-async function modifyUserCredits(userId: string, amount: number, isAdd: boolean): Promise<string> {
+async function modifyUserToken(userId: string, amount: number, isAdd: boolean): Promise<string> {
   const finalAmount = isAdd ? Math.abs(amount) : -Math.abs(amount);
 
   const conn = connect({
@@ -19,7 +19,7 @@ async function modifyUserCredits(userId: string, amount: number, isAdd: boolean)
   });
 
   const result = await conn.execute(
-    "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, ?)",
+    "INSERT INTO payments (user_id, token, action) VALUES (?, ?, ?)",
     [userId, finalAmount, "admin"]
   );
 
@@ -46,7 +46,7 @@ async function handler(
     return res.status(400).json({ error: "Amount must be greater than zero" });
   }
 
-  const transactionId = await modifyUserCredits(targetUserId, amount, action === "add");
+  const transactionId = await modifyUserToken(targetUserId, amount, action === "add");
 
   return res.status(200).json({
     userId: targetUserId,

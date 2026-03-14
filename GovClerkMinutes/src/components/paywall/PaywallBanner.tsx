@@ -14,7 +14,7 @@ import { UploadKind } from "@/uploadKind/uploadKind";
 
 type Props = {
   showPaywall: boolean;
-  creditsRequired: number;
+  tokensRequired: number;
   currentBalance: number;
   uploadKind: UploadKind;
   onUpgradeClick: () => void;
@@ -25,7 +25,7 @@ type Props = {
 
 export default function PaywallBanner({
   showPaywall,
-  creditsRequired,
+  tokensRequired,
   currentBalance,
   uploadKind,
   onUpgradeClick,
@@ -48,7 +48,7 @@ export default function PaywallBanner({
       <Text fontSize="sm" textAlign="center">
         This {uploadKind === "audio" ? "recording" : "transcript"} requires{" "}
         <Text as="span" fontWeight="bold">
-          {creditsRequired}
+          {tokensRequired}
         </Text>{" "}
         tokens, but you only have{" "}
         <Text as="span" fontWeight="bold">
@@ -63,7 +63,7 @@ export default function PaywallBanner({
     <Text fontSize="sm">
       This {uploadKind === "audio" ? "recording" : "transcript"} requires{" "}
       <Text as="span" fontWeight="bold">
-        {creditsRequired}
+        {tokensRequired}
       </Text>{" "}
       tokens, but you only have{" "}
       <Text as="span" fontWeight="bold">
@@ -120,7 +120,7 @@ export default function PaywallBanner({
       <PaywallHeader
         isOpen={isOpen}
         onClose={handleModalClose}
-        creditsRequired={creditsRequired}
+        tokensRequired={tokensRequired}
         currentBalance={currentBalance}
         uploadKind={uploadKind}
         country={country}

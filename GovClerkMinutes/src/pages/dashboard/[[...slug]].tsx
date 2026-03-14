@@ -51,7 +51,7 @@ type Props = {
   country: string | null;
   sidebarItems: ApiSidebarResponse | null;
   customerDetails: ApiGetCustomerDetailsResponse | null;
-  credits: number | null;
+  tokens: number | null;
   isMobile: boolean;
 };
 
@@ -107,7 +107,7 @@ export const getServerSideProps = withGsspErrorHandling(async (context) => {
       country,
       sidebarItems: null,
       customerDetails: null,
-      credits: null,
+      tokens: null,
       isMobile: isMobile(context.req.headers),
     },
   };
@@ -119,7 +119,7 @@ const Home = ({
   country,
   sidebarItems,
   customerDetails,
-  credits,
+  tokens,
   isMobile,
 }: Props) => {
   const [highlightGetMinutesButton, setHighlightGetMinutesButton] = useState<boolean>(false);
@@ -211,7 +211,7 @@ const Home = ({
               selectedTranscript={transcriptId}
               initialSidebarItems={sidebarItems}
               initialCustomerDetails={customerDetails}
-              initialCredits={credits}
+              initialToken={tokens}
               onOpen={openModal}
               filePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
             >
@@ -233,7 +233,7 @@ const Home = ({
               selectedTranscript={transcriptId}
               initialSidebarItems={sidebarItems}
               initialCustomerDetails={customerDetails}
-              initialCredits={credits}
+              initialToken={tokens}
               onOpen={openModal}
               filePickerTrigger={transcriptId == null ? filePickerTriggerRef : undefined}
               modalType={modalType}

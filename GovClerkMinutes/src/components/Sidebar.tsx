@@ -25,8 +25,8 @@ import { useNavigationPerfAnalytics } from "./NavigationPerfAnalyticsProvider";
 import RenameTranscriptModal from "./RenameTranscriptModal";
 import { useOrgContext } from "@/contexts/OrgContext";
 
-type ApiGetCreditsResponse = {
-  credits: number | null;
+type ApiGetTokenResponse = {
+  tokens: number | null;
 };
 
 export type SidebarItem = {
@@ -144,7 +144,7 @@ type Props = {
   layoutKind: LayoutKind;
   initialSidebarItems?: ApiSidebarResponse | null;
   initialCustomerDetails?: ApiGetCustomerDetailsResponse | null;
-  initialCredits?: number | null;
+  initialToken?: number | null;
   toggleSidebar: () => void;
   isCollapsed: boolean;
   filePickerTrigger?: React.MutableRefObject<(() => void) | null>;
@@ -268,7 +268,7 @@ const Sidebar = ({
   layoutKind,
   initialSidebarItems,
   initialCustomerDetails,
-  initialCredits,
+  initialToken,
   filePickerTrigger,
 }: Props) => {
   const router = useRouter();
@@ -399,11 +399,11 @@ const Sidebar = ({
     mutate();
   }, [mutate, selectedTranscript]);
 
-  let { data: creditData } = useSWR<ApiGetCreditsResponse>(
-    ["/api/get-credits", userId, orgId],
+  let { data: tokenData } = useSWR<ApiGetTokenResponse>(
+    ["/api/get-tokens", userId, orgId],
     async (_) => {
       await getToken();
-      return await fetch("/api/get-credits", {
+      return await fetch("/api/get-tokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -417,7 +417,7 @@ const Sidebar = ({
     }
   );
 
-  creditData = creditData || (initialCredits != null ? { credits: initialCredits } : undefined);
+  tokenData = tokenData || (initialToken != null ? { tokens: initialToken } : undefined);
 
   // Prevent SSR/client hydration mismatches: assume not-collapsed until after mount
   const [mounted, setMounted] = useState(false);
@@ -524,7 +524,7 @@ const Sidebar = ({
           <AccountPanel
             layoutKind={layoutKind}
             customerDetails={customerDetails}
-            creditData={creditData}
+            tokenData={tokenData}
             onOpen={onOpen}
           />
         </Box>

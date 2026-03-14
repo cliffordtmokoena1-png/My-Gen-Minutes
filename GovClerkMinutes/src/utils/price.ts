@@ -312,20 +312,20 @@ function getCountryCode(country: string | null | undefined): CountryCode {
 export function getPayAsYouGoPriceId(
   country: string,
   plan: PayAsYouGoPlan,
-  credits: CreditPack
+  tokens: CreditPack
 ): string {
   const env: Env = isDev() ? "dev" : "prod";
   const countryCode: CountryCode = getCountryCode(country);
-  return PRICE_IDS[env].PayAsYouGo[countryCode][plan][credits];
+  return PRICE_IDS[env].PayAsYouGo[countryCode][plan][tokens];
 }
 
 export function getPayAsYouGoPackPrice(
   country: string | null | undefined,
   plan: PayAsYouGoPlan,
-  credits: CreditPack
+  tokens: CreditPack
 ): number {
   const c = country ?? "US";
-  const pack = credits as CreditPack;
+  const pack = tokens as CreditPack;
   if (plan === "Basic") {
     switch (c) {
       case "PH": {
@@ -492,8 +492,8 @@ export function isPayAsYouGoPriceId(priceId: string): boolean {
     const plans = Object.keys(PRICE_IDS[env].PayAsYouGo[country]) as PayAsYouGoPlan[];
     for (const plan of plans) {
       const packs = PRICE_IDS[env].PayAsYouGo[country][plan];
-      for (const credits of [60, 120, 180, 240] as CreditPack[]) {
-        if (packs[credits] === priceId) {
+      for (const tokens of [60, 120, 180, 240] as CreditPack[]) {
+        if (packs[tokens] === priceId) {
           return true;
         }
       }
@@ -655,25 +655,25 @@ export function getAnnualSavings(
 }
 
 export function generateCreditOptions() {
-  const creditPacks = [60, 120, 180, 240];
+  const tokenPacks = [60, 120, 180, 240];
 
-  return creditPacks.map((credits) => {
-    const hours = Math.floor(credits / 60);
-    const minutes = credits % 60;
-    let label = `${credits} tokens (${
+  return tokenPacks.map((tokens) => {
+    const hours = Math.floor(tokens / 60);
+    const minutes = tokens % 60;
+    let label = `${tokens} tokens (${
       hours > 0 ? `${hours} hour${hours > 1 ? "s" : ""}` : ""
     }${hours > 0 && minutes > 0 ? " and " : ""}${
       minutes > 0 ? `${minutes} minute${minutes > 1 ? "s" : ""}` : ""
     })`;
 
     return {
-      value: credits,
+      value: tokens,
       label: label,
     };
   });
 }
 
-export function getNearestCredits(credits: number): number {
+export function getNearestToken(tokens: number): number {
   const base = 60;
-  return Math.ceil(credits / base) * base;
+  return Math.ceil(tokens / base) * base;
 }

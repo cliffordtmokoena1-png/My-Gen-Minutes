@@ -68,7 +68,7 @@ const TIPS = [
 interface AnimatedStatusTextProps {
   activeStep: number;
   isPaused?: boolean;
-  pauseReason?: "insufficient_credits" | "paused";
+  pauseReason?: "insufficient_tokens" | "paused";
   useFinetuned?: boolean;
 }
 

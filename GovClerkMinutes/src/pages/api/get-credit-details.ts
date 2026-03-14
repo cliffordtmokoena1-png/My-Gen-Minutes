@@ -13,9 +13,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const creditDetails = await dbQuery(
+    const tokenDetails = await dbQuery(
       `
-      SELECT p.id, p.credit, p.action, p.checkout_session_id, p.transcript_id, p.invoice_id, p.created_at, p.mode,
+      SELECT p.id, p.token, p.action, p.checkout_session_id, p.transcript_id, p.invoice_id, p.created_at, p.mode,
              t.title as transcript_title
       FROM payments p
       LEFT JOIN transcripts t ON p.transcript_id = t.id
@@ -26,9 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       [userId]
     );
 
-    return res.status(200).json(creditDetails);
+    return res.status(200).json(tokenDetails);
   } catch (error) {
-    console.error("Error fetching credit details:", error);
+    console.error("Error fetching token details:", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 }

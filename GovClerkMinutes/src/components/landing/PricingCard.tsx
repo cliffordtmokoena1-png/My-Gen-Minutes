@@ -20,7 +20,7 @@ interface PricingCardProps {
   priceUnit: string;
   features: string[];
   isPopular?: boolean;
-  credits?: number;
+  tokens?: number;
   isAnnual: boolean;
   buttonText?: string;
   buttonLink?: string;
@@ -33,7 +33,7 @@ export const PricingCard = ({
   priceUnit,
   features,
   isPopular = false,
-  credits,
+  tokens,
   isAnnual,
   buttonText = "Get Started",
   buttonLink = "/sign-up",
@@ -115,9 +115,9 @@ export const PricingCard = ({
               </Text>
             </VStack>
           )}
-          {credits && credits !== -1 && (
+          {tokens && tokens !== -1 && (
             <Text color="gray.500" fontSize="sm">
-              {credits} tokens included
+              {tokens} tokens included
             </Text>
           )}
         </VStack>

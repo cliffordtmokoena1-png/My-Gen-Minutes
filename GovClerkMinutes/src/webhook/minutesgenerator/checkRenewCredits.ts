@@ -32,7 +32,7 @@ async function getAnnualPlanCustomerData(): Promise<CustomerIdToRenewalAmount> {
           product = await stripe.products.retrieve(product);
         }
 
-        const renewalAmount = parseInt((product as Stripe.Product).metadata["credits"] || "0");
+        const renewalAmount = parseInt((product as Stripe.Product).metadata["tokens"] || "0");
         if (renewalAmount === 0) {
           console.error(`Skipping subscription ${sub.id} with no renewal amount`);
           continue;
@@ -54,7 +54,7 @@ async function getAnnualPlanCustomerData(): Promise<CustomerIdToRenewalAmount> {
   return customerData;
 }
 
-export async function checkRenewCredits(): Promise<void> {
+export async function checkRenewToken(): Promise<void> {
   const customerData = await getAnnualPlanCustomerData();
 
   const conn = connect({
@@ -119,9 +119,9 @@ export async function checkRenewCredits(): Promise<void> {
     const params: any[] = [];
 
     for (const row of due) {
-      const credit = customerData[row.stripe_customer_id];
+      const token = customerData[row.stripe_customer_id];
 
-      if (credit == null) {
+      if (token == null) {
         console.warn(`No renewal amount for customer ${row.stripe_customer_id}`);
         continue;
       }
@@ -131,7 +131,7 @@ export async function checkRenewCredits(): Promise<void> {
       valueRows.push(
         `(?, ?, 'add', 'subscription', ${lastCreated ? "DATE_ADD(?, INTERVAL 1 MONTH)" : "NOW()"})`
       );
-      params.push(row.user_id, credit);
+      params.push(row.user_id, token);
       if (lastCreated) {
         params.push(lastCreated);
       }
@@ -139,7 +139,7 @@ export async function checkRenewCredits(): Promise<void> {
 
     await tx.execute(
       `
-      INSERT INTO payments (user_id, credit, action, mode, created_at)
+      INSERT INTO payments (user_id, token, action, mode, created_at)
       VALUES ${valueRows.join(",")}
       `,
       [...params]

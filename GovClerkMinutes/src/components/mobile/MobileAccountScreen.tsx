@@ -37,8 +37,8 @@ export default function MobileAccountScreen({ onOpen }: Props) {
   const { show: showIntercom } = useContext(IntercomContext);
   const { data: customerDetails, isLoading: isLoadingCustomer } =
     useSWR<ApiGetCustomerDetailsResponse>("/api/get-customer-details", fetcher);
-  const { data: creditData, isLoading: isLoadingCredits } = useSWR<{ credits: number }>(
-    "/api/get-credits",
+  const { data: tokenData, isLoading: isLoadingToken } = useSWR<{ tokens: number }>(
+    "/api/get-tokens",
     fetcher
   );
 
@@ -88,7 +88,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
     router.push("/");
   };
 
-  const isLoading = isLoadingCustomer || isLoadingCredits;
+  const isLoading = isLoadingCustomer || isLoadingToken;
 
   return (
     <Flex direction="column" h="100%" w="100%" bg="white" overflow="hidden">
@@ -150,10 +150,10 @@ export default function MobileAccountScreen({ onOpen }: Props) {
                 </Text>
                 <Flex alignItems="center" gap={1.5}>
                   <Text fontSize="xl" fontWeight="bold" color="gray.900">
-                    {creditData?.credits ?? 0}
+                    {tokenData?.tokens ?? 0}
                   </Text>
                   <Tooltip
-                    label={`You can transcribe up to ${creditData?.credits ?? 0} minutes of recorded meetings`}
+                    label={`You can transcribe up to ${tokenData?.tokens ?? 0} minutes of recorded meetings`}
                     fontSize="xs"
                   >
                     <span>

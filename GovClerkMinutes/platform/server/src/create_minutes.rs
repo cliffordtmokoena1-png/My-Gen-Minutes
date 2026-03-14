@@ -211,21 +211,21 @@ async fn delete_record_from_minutes_db(
     .map_err(|e| anyhow::anyhow!("failed to delete from minutes: {}", e));
 }
 
-async fn refund_credits(
+async fn refund_tokens(
   conn: &mut Conn,
   transcript_id: u64,
   user_id: &str,
-  credit: i32,
+  token: i32,
 ) -> anyhow::Result<()> {
-  return r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'refund')"
+  return r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'refund')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id,
-      "credit" => credit,
+      "token" => token,
     })
     .ignore(&mut *conn)
     .await
-    .map_err(|e| anyhow::anyhow!("failed to refund credits: {}", e));
+    .map_err(|e| anyhow::anyhow!("failed to refund tokens: {}", e));
 }
 
 pub async fn call_llm(
@@ -624,10 +624,10 @@ pub async fn start_minutes_creation(
     .map_and_log_err("failed to connect to db", StatusCode::INTERNAL_SERVER_ERROR)?;
 
   if upload_kind != "audio" {
-    // TODO: Re-enable credit check for text uploads once billing is set up for portal
-    let skip_credit_check = upload_kind == "text";
+    // TODO: Re-enable token check for text uploads once billing is set up for portal
+    let skip_token_check = upload_kind == "text";
 
-    let credits_required = if skip_credit_check { 0 } else { 50 };
+    let tokens_required = if skip_token_check { 0 } else { 50 };
 
     let current_balance = match get_current_balance(&mut conn, user_id.clone()).await {
       Ok(balance) => balance,
@@ -637,33 +637,33 @@ pub async fn start_minutes_creation(
       }
     };
 
-    let insufficient_credits = !skip_credit_check && credits_required > current_balance;
+    let insufficient_tokens = !skip_token_check && tokens_required > current_balance;
 
     r"
       UPDATE transcripts SET
-        credits_required = :credits_required,
+        tokens_required = :tokens_required,
         transcribe_paused = :transcribe_paused, 
-        insufficient_credits = :insufficient_credits,
+        insufficient_tokens = :insufficient_tokens,
         was_paywalled = :was_paywalled
       WHERE id = :transcript_id
     "
     .with(params! {
-      "credits_required" => credits_required,
-      "transcribe_paused" => insufficient_credits,
-      "insufficient_credits" => insufficient_credits,
-      "was_paywalled" => insufficient_credits,
+      "tokens_required" => tokens_required,
+      "transcribe_paused" => insufficient_tokens,
+      "insufficient_tokens" => insufficient_tokens,
+      "was_paywalled" => insufficient_tokens,
       "transcript_id" => transcript_id,
     })
     .ignore(&mut conn)
     .await
-    .map_and_log_err("failed to update credit requirements", StatusCode::OK)?;
+    .map_and_log_err("failed to update token requirements", StatusCode::OK)?;
 
-    if insufficient_credits {
+    if insufficient_tokens {
       PostHogEventType::TranscribePaused.capture(
         user_id.clone(),
         json!({
           "transcript_id": transcript_id,
-          "credits_required": credits_required,
+          "tokens_required": tokens_required,
           "current_balance": current_balance,
           "upload_kind": upload_kind,
         }),
@@ -728,7 +728,7 @@ pub async fn start_minutes_creation(
 
   let rows = "
     SELECT
-      credits_required,
+      tokens_required,
       aws_region,
       extension
     FROM transcripts
@@ -741,38 +741,38 @@ pub async fn start_minutes_creation(
   })
   .map(
     &mut conn,
-    |(credits_required, aws_region, extension): (i32, String, Option<String>)| {
-      (credits_required, aws_region, extension)
+    |(tokens_required, aws_region, extension): (i32, String, Option<String>)| {
+      (tokens_required, aws_region, extension)
     },
   )
   .await
   .map_and_log_err(
-    "failed to get credits required",
+    "failed to get tokens required",
     StatusCode::INTERNAL_SERVER_ERROR,
   )?;
 
-  let (credits_required, _region, extension) = rows[0].clone();
+  let (tokens_required, _region, extension) = rows[0].clone();
 
-  // Credits are deducted when minutes generated for non-audio uploads only.
-  // For audio uploads, credits are deducted when the transcript is created.
+  // Token are deducted when minutes generated for non-audio uploads only.
+  // For audio uploads, tokens are deducted when the transcript is created.
   if upload_kind != "audio" {
-    if credits_required > balance {
+    if tokens_required > balance {
       warn!(
-        "user {} does not have enough credits to create minutes for transcript {}",
+        "user {} does not have enough tokens to create minutes for transcript {}",
         user_id.clone(),
         transcript_id
       );
-      return Ok(false); // Not enough credits, skip auto-creation
+      return Ok(false); // Not enough tokens, skip auto-creation
     }
 
-    // If we made it here, the user has enough credit, so deduct from their
+    // If we made it here, the user has enough token, so deduct from their
     // balance and generate their minutes
 
-    r"INSERT INTO payments (transcript_id, user_id, credit, action) VALUES (:transcript_id, :user_id, :credit, 'sub')"
+    r"INSERT INTO payments (transcript_id, user_id, token, action) VALUES (:transcript_id, :user_id, :token, 'sub')"
     .with(params! {
       "transcript_id" => transcript_id,
       "user_id" => user_id.clone(),
-      "credit" => -credits_required,
+      "token" => -tokens_required,
     })
     .ignore(&mut conn)
     .await
@@ -781,9 +781,9 @@ pub async fn start_minutes_creation(
       StatusCode::INTERNAL_SERVER_ERROR,
     )?;
   }
-  // Note: For audio uploads, we don't need a separate credit check here
-  // because insufficient_credits flag in get_diarization.rs already prevents
-  // on_transcribe_finished from being called if credits are insufficient
+  // Note: For audio uploads, we don't need a separate token check here
+  // because insufficient_tokens flag in get_diarization.rs already prevents
+  // on_transcribe_finished from being called if tokens are insufficient
 
   let extension = extension.unwrap_or_default();
 
@@ -869,9 +869,9 @@ pub async fn start_minutes_creation(
     }
 
     // Execution reaches here when all retries are exhausted.  Then we need to refund.
-    if let Err(e) = refund_credits(&mut conn, transcript_id, &user_id_clone, credits_required).await
+    if let Err(e) = refund_tokens(&mut conn, transcript_id, &user_id_clone, tokens_required).await
     {
-      error!("Failed to refund credits: {}", e);
+      error!("Failed to refund tokens: {}", e);
     }
 
     if let Err(e) = delete_record_from_minutes_db(&mut conn, transcript_id, &user_id_clone).await {

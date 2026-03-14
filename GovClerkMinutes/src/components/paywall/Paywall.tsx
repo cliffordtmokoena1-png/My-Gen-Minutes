@@ -7,7 +7,7 @@ type Props = {
   showPaywall: boolean;
   transcriptId?: number;
   country?: string;
-  creditsRequired?: number;
+  tokensRequired?: number;
   currentBalance?: number;
   uploadKind?: UploadKind;
   planName?: SubscriptionPlan;
@@ -18,7 +18,7 @@ export default function Paywall({
   showPaywall,
   transcriptId,
   country,
-  creditsRequired,
+  tokensRequired,
   currentBalance,
   uploadKind,
   planName,
@@ -26,8 +26,8 @@ export default function Paywall({
 }: Props) {
   if (
     currentBalance == null ||
-    creditsRequired == null ||
-    currentBalance >= creditsRequired ||
+    tokensRequired == null ||
+    currentBalance >= tokensRequired ||
     uploadKind == null
   ) {
     return null;
@@ -45,7 +45,7 @@ export default function Paywall({
     >
       <PaywallBanner
         showPaywall={showPaywall}
-        creditsRequired={creditsRequired}
+        tokensRequired={tokensRequired}
         currentBalance={currentBalance}
         uploadKind={uploadKind}
         onUpgradeClick={() => {}}

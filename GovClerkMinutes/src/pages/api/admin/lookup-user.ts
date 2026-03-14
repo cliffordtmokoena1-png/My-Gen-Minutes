@@ -3,14 +3,14 @@ import { getAuth } from "@clerk/nextjs/server";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getClerkKeysFromEnv, ClerkEnvironment } from "@/utils/clerk";
 import withErrorReporting from "@/error/withErrorReporting";
-import { getCurrentBalance } from "../get-credits";
+import { getCurrentBalance } from "../get-tokens";
 import type { Site } from "@/utils/site";
 
 export type LookupUserApiResponse = {
   userId: string;
   email: string;
   displayName?: string;
-  credits: number;
+  tokens: number;
 };
 
 async function tryClient(
@@ -89,13 +89,13 @@ async function handler(
 
   const { user } = lookupResult;
 
-  const credits = (await getCurrentBalance(user.id)) || 0;
+  const tokens = (await getCurrentBalance(user.id)) || 0;
 
   return res.status(200).json({
     userId: user.id,
     email: user.emailAddresses[0]?.emailAddress || "",
     displayName: [user.firstName, user.lastName].filter(Boolean).join(" ") || undefined,
-    credits: credits,
+    tokens: tokens,
   });
 }
 

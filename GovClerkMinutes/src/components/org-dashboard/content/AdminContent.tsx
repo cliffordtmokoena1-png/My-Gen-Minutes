@@ -34,8 +34,8 @@ type Tool =
       props: { env: Environment };
     }
   | {
-      kind: "credits";
-      label: "User Credits";
+      kind: "tokens";
+      label: "User Token";
     }
   | {
       kind: "login";
@@ -75,7 +75,7 @@ export default function AdminContent({
 
   const tools: Tool[] = [
     { kind: "checkout", label: "Sales / Checkout", props: { env } },
-    { kind: "credits", label: "User Credits" },
+    { kind: "tokens", label: "User Token" },
     { kind: "login", label: "Login Links" },
     { kind: "upload", label: "Upload for User" },
     {
@@ -94,7 +94,7 @@ export default function AdminContent({
     switch (tool.kind) {
       case "checkout":
         return <CheckoutLinkGenerator {...tool.props} />;
-      case "credits":
+      case "tokens":
         return <CreditManagement />;
       case "login":
         return <LoginLinkGenerator />;

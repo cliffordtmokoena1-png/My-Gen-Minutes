@@ -3,7 +3,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { connect } from "@planetscale/database";
 import withErrorReporting from "@/error/withErrorReporting";
 import { getStripe } from "@/utils/stripe";
-import { getCurrentBalance } from "./get-credits";
+import { getCurrentBalance } from "./get-tokens";
 import { getCountryFromPriceId, getPlanFromPriceId, SubscriptionPlan } from "@/utils/price";
 import type { Stripe } from "stripe";
 import { resolveRequestContext } from "@/utils/resolveRequestContext";
@@ -28,10 +28,10 @@ export type BillingModel = "self_service" | "contract";
 export type ApiGetCustomerDetailsResponse = {
   subscriptionStatus: SubscriptionStatus;
   planName: SubscriptionPlan;
-  creditsPerMonth: number;
+  tokensPerMonth: number;
   interval: Stripe.Price.Recurring.Interval | null;
   nextBillDate: string;
-  remainingCredits: number;
+  remainingToken: number;
   isFreeUser: boolean;
   country: string | null;
   billingModel: BillingModel;
@@ -62,10 +62,10 @@ export async function getCustomerDetails(
 
   let planName: SubscriptionPlan = "Free";
   let subscriptionStatus: ApiGetCustomerDetailsResponse["subscriptionStatus"] = "free";
-  let creditsPerMonth = 30;
+  let tokensPerMonth = 30;
   let interval: Stripe.Price.Recurring.Interval | null = null;
   let nextBillDate = "";
-  let remainingCredits = 0;
+  let remainingToken = 0;
   let isFreeUser = true;
   let country = null;
   let billingModel: BillingModel = "self_service";
@@ -94,20 +94,20 @@ export async function getCustomerDetails(
 
           if (planName === "Free") {
             subscriptionStatus = "free";
-            creditsPerMonth = 30;
+            tokensPerMonth = 30;
             interval = null;
           } else {
             subscriptionStatus = latestSubscription.cancel_at_period_end
               ? "cancel_at_period_end"
               : "active";
-            creditsPerMonth = parseInt(product.metadata["credits"] || "0");
+            tokensPerMonth = parseInt(product.metadata["tokens"] || "0");
             interval = subscriptionItem.price.recurring?.interval ?? null;
           }
           break;
         case "canceled":
           subscriptionStatus = "canceled";
           planName = "Free";
-          creditsPerMonth = 30;
+          tokensPerMonth = 30;
           break;
         case "incomplete":
         case "incomplete_expired":
@@ -115,7 +115,7 @@ export async function getCustomerDetails(
         case "unpaid":
           subscriptionStatus = "delinquent";
           planName = "Free";
-          creditsPerMonth = 30;
+          tokensPerMonth = 30;
           break;
       }
 
@@ -126,15 +126,15 @@ export async function getCustomerDetails(
     }
   }
 
-  remainingCredits = (await getCurrentBalance(userId, orgId)) ?? 0;
+  remainingToken = (await getCurrentBalance(userId, orgId)) ?? 0;
 
   return {
     subscriptionStatus,
     planName,
-    creditsPerMonth,
+    tokensPerMonth,
     interval,
     nextBillDate,
-    remainingCredits,
+    remainingToken,
     isFreeUser,
     country,
     billingModel,

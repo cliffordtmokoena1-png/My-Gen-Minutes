@@ -86,10 +86,10 @@ export async function upsertOrganizationFromWebhook(org: OrganizationJSON): Prom
 
   if (isNewOrg) {
     await conn.execute(
-      "INSERT INTO payments (user_id, org_id, credit, action, billing_subject) VALUES (NULL, ?, 30, 'add', 'org') ON DUPLICATE KEY UPDATE credit = credit;",
+      "INSERT INTO payments (user_id, org_id, token, action, billing_subject) VALUES (NULL, ?, 30, 'add', 'org') ON DUPLICATE KEY UPDATE token = token;",
       [org.id]
     );
-    console.info(`Initialized 30 free credits for new organization: ${org.id}`);
+    console.info(`Initialized 30 free tokens for new organization: ${org.id}`);
 
     if (org.slug) {
       // id is auto-generated

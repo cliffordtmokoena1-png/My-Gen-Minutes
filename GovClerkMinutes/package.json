@@ -24,7 +24,7 @@
         "user:transcripts": "tsx src/scripts/transcripts.ts",
         "user:refund": "tsx src/scripts/refund.ts",
         "minutes": "tsx src/scripts/minutes.ts",
-        "credit": "tsx src/scripts/credit.ts",
+        "token": "tsx src/scripts/token.ts",
         "test:instantly": "tsx --require ./src/scripts/loadenv.ts src/scripts/testInstantly.ts",
         "test:push": "tsx --require ./src/scripts/loadenv.ts src/scripts/testPush.ts",
         "transcript": "tsx --require ./src/scripts/loadenv.ts src/scripts/transcript.ts",

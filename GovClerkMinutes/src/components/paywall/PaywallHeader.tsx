@@ -46,7 +46,7 @@ import { getClientReferenceId } from "@/utils/getClientReferenceId";
 import { UploadKind } from "@/uploadKind/uploadKind";
 
 type Props = {
-  creditsRequired?: number;
+  tokensRequired?: number;
   currentBalance?: number;
   uploadKind?: UploadKind;
   isOpen: boolean;
@@ -57,7 +57,7 @@ type Props = {
 };
 
 export default function PaywallHeader({
-  creditsRequired,
+  tokensRequired,
   currentBalance,
   uploadKind,
   isOpen,
@@ -73,9 +73,9 @@ export default function PaywallHeader({
   const contentWidth = useBreakpointValue({ base: "full", md: "md" });
   const headingSize = useBreakpointValue({ base: "md", md: "lg" });
   const subHeadingSize = useBreakpointValue({ base: "xs", md: "sm" });
-  const [selectedCredits, setSelectedCredits] = useState<number>(60);
+  const [selectedToken, setSelectedToken] = useState<number>(60);
   const paygSku = isPlanPro(planName) ? "Pro" : "Basic";
-  const nearestPack = Math.max(60, Math.min(240, Math.round(selectedCredits / 60) * 60)) as
+  const nearestPack = Math.max(60, Math.min(240, Math.round(selectedToken / 60) * 60)) as
     | 60
     | 120
     | 180
@@ -99,7 +99,7 @@ export default function PaywallHeader({
   const { upgradeKind, targetSubscriptionPlan, nextPlan, proratedData, upgradePlan } =
     useUpgradePlan(planName, billingPeriod, country);
 
-  if (creditsRequired == null || currentBalance == null || uploadKind == null) {
+  if (tokensRequired == null || currentBalance == null || uploadKind == null) {
     return null;
   }
 
@@ -107,7 +107,7 @@ export default function PaywallHeader({
     const start = performance.now();
     try {
       setIsOtpLoading(true);
-      posthog.capture("payg_button_click", { click_type: "payment", credits: selectedCredits });
+      posthog.capture("payg_button_click", { click_type: "payment", tokens: selectedToken });
       const res = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -209,7 +209,7 @@ export default function PaywallHeader({
           <Text fontSize={isMobile ? "sm" : "md"} fontWeight="normal" color="gray.700">
             This recording requires{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
-              {creditsRequired}
+              {tokensRequired}
             </Text>{" "}
             tokens, but you only have{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
@@ -239,7 +239,7 @@ export default function PaywallHeader({
           <Text fontSize={isMobile ? "sm" : "md"} fontWeight="normal" color="gray.700">
             Generating minutes requires{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
-              {creditsRequired}
+              {tokensRequired}
             </Text>{" "}
             tokens, but you only have{" "}
             <Text as="span" fontWeight="extrabold" color="blue.600">
@@ -311,7 +311,7 @@ export default function PaywallHeader({
                 <Box>
                   <PaywallPricingSection
                     currentPlan={planName}
-                    requiredCredits={creditsRequired}
+                    requiredToken={tokensRequired}
                     country={country ?? "US"}
                     billingPeriod={billingPeriod}
                     onToggleBillingPeriod={setBillingPeriod}
@@ -372,13 +372,13 @@ export default function PaywallHeader({
                   {planName !== "Free" && (
                     <PaywallOTPSection
                       country={country ?? "US"}
-                      selectedCredits={selectedCredits}
-                      onChangeSelectedCredits={(v) => setSelectedCredits(v)}
+                      selectedToken={selectedToken}
+                      onChangeSelectedToken={(v) => setSelectedToken(v)}
                       paygTotalPrice={paygTotalPrice}
                       pricePerCredit={pricePerCredit}
                       savingsAmount={Math.max(
                         0,
-                        (baselinePerCredit - pricePerCredit) * selectedCredits
+                        (baselinePerCredit - pricePerCredit) * selectedToken
                       )}
                       isOtpLoading={isOtpLoading}
                       onOtp={handleOtp}
@@ -394,7 +394,7 @@ export default function PaywallHeader({
                 <Box flex="1">
                   <PaywallPricingSection
                     currentPlan={planName}
-                    requiredCredits={creditsRequired}
+                    requiredToken={tokensRequired}
                     country={country ?? "US"}
                     billingPeriod={billingPeriod}
                     onToggleBillingPeriod={setBillingPeriod}
@@ -504,13 +504,13 @@ export default function PaywallHeader({
                         </HStack>
                         <PaywallOTPSection
                           country={country ?? "US"}
-                          selectedCredits={selectedCredits}
-                          onChangeSelectedCredits={(v) => setSelectedCredits(v)}
+                          selectedToken={selectedToken}
+                          onChangeSelectedToken={(v) => setSelectedToken(v)}
                           paygTotalPrice={paygTotalPrice}
                           pricePerCredit={pricePerCredit}
                           savingsAmount={Math.max(
                             0,
-                            (baselinePerCredit - pricePerCredit) * selectedCredits
+                            (baselinePerCredit - pricePerCredit) * selectedToken
                           )}
                           isOtpLoading={isOtpLoading}
                           onOtp={handleOtp}

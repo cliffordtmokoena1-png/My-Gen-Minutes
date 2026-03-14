@@ -50,7 +50,7 @@ Michael reported that the defense made a settlement offer of $450,000. Client is
 **Status:** Plan confirmation
 **Lead Attorney:** Lisa Anderson
 
-Lisa reported that the reorganization plan was filed with the court on March 8. Creditor meeting is scheduled for March 28. Two creditors have indicated potential objections to the plan. Lisa is preparing responses and negotiating modifications.
+Lisa reported that the reorganization plan was filed with the court on March 8. Creditor meeting is scheduled for March 28. Two tokenors have indicated potential objections to the plan. Lisa is preparing responses and negotiating modifications.
 
 ## New Client Matters
 
@@ -65,7 +65,7 @@ David Park completed research on recent changes to non-compete enforceability in
 ## Action Items
 - Sarah: File opposition to extension request in TechCorp case (Due: March 15)
 - Michael: Prepare settlement recommendation memo for Johnson client (Due: March 14)
-- Lisa: Finalize creditor negotiation strategy for Riverside Retail (Due: March 20)
+- Lisa: Finalize tokenor negotiation strategy for Riverside Retail (Due: March 20)
 - David: Update firm's non-compete agreement template (Due: March 25)
 
 ## Next Meeting
@@ -274,7 +274,7 @@ David Park completed research on recent changes to non-compete enforceability in
 
 ### Professional Conduct
 **Compliance matters:**
-- [Bar requirements] - **Status:** [CLE credits, dues, reporting]
+- [Bar requirements] - **Status:** [CLE tokens, dues, reporting]
 - [Trust account reconciliation] - **Status:** [Current/Issues identified]
 
 ## Knowledge Management

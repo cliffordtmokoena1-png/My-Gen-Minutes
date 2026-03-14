@@ -158,8 +158,8 @@ export default function SubscriptionInfo({
           </Flex>
           <Text fontSize="sm" color="gray.600" mb={4}>
             {subscriptionCanceled
-              ? `By subscribing, you'll get premium features, ${subscriptionData.creditsPerMonth} credits per month, and additional benefits.`
-              : `You have premium features, ${subscriptionData.creditsPerMonth} credits per month, and additional benefits.`}
+              ? `By subscribing, you'll get premium features, ${subscriptionData.tokensPerMonth} tokens per month, and additional benefits.`
+              : `You have premium features, ${subscriptionData.tokensPerMonth} tokens per month, and additional benefits.`}
           </Text>
         </Box>
       )}

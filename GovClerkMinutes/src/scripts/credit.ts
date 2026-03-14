@@ -6,7 +6,7 @@ import { hideBin } from "yargs/helpers";
 
 dotenv.config({ path: ".env" });
 
-async function credit(id: string, amount: number): Promise<void> {
+async function token(id: string, amount: number): Promise<void> {
   const isOrg = id.startsWith("org_");
   const isUser = id.startsWith("user_");
 
@@ -23,55 +23,55 @@ async function credit(id: string, amount: number): Promise<void> {
   let res;
   if (isOrg) {
     res = await conn.execute(
-      "INSERT INTO payments (user_id, org_id, credit, action, billing_subject) VALUES (NULL, ?, ?, 'script', 'org');",
+      "INSERT INTO payments (user_id, org_id, token, action, billing_subject) VALUES (NULL, ?, ?, 'script', 'org');",
       [id, amount]
     );
-    console.log(`Credited org ${id} with amount ${amount} credits!\n\n(id: ${res.insertId})`);
+    console.log(`Credited org ${id} with amount ${amount} tokens!\n\n(id: ${res.insertId})`);
   } else {
     res = await conn.execute(
-      "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, 'script');",
+      "INSERT INTO payments (user_id, token, action) VALUES (?, ?, 'script');",
       [id, amount]
     );
-    console.log(`Credited user ${id} with amount ${amount} credits!\n\n(id: ${res.insertId})`);
+    console.log(`Credited user ${id} with amount ${amount} tokens!\n\n(id: ${res.insertId})`);
   }
 }
 
 yargs(hideBin(process.argv))
   .command(
     "add <id> <amount>",
-    "Add credits to an org or user account",
+    "Add tokens to an org or user account",
     (yargs) => {
       return yargs
         .positional("id", {
-          describe: "The org or user ID to credit (must start with 'org_' or 'user_')",
+          describe: "The org or user ID to token (must start with 'org_' or 'user_')",
           type: "string",
         })
         .positional("amount", {
-          describe: "The amount to credit",
+          describe: "The amount to token",
           type: "number",
         });
     },
     async (argv) => {
-      await credit(assertString(argv.id), assertNumber(argv.amount));
+      await token(assertString(argv.id), assertNumber(argv.amount));
     }
   )
   .command(
     "sub <id> <amount>",
-    "Deduct credits from an org or user account",
+    "Deduct tokens from an org or user account",
     (yargs) => {
       return yargs
         .positional("id", {
           describe:
-            "The org or user ID from which to deduct credits (must start with 'org_' or 'user_')",
+            "The org or user ID from which to deduct tokens (must start with 'org_' or 'user_')",
           type: "string",
         })
         .positional("amount", {
-          describe: "The amount of credits to deduct (positive number)",
+          describe: "The amount of tokens to deduct (positive number)",
           type: "number",
         });
     },
     async (argv) => {
-      await credit(assertString(argv.id), -assertNumber(argv.amount));
+      await token(assertString(argv.id), -assertNumber(argv.amount));
     }
   )
   .help()

@@ -13,8 +13,8 @@ import { formatPrice, generateCreditOptions, getPriceUnit } from "@/utils/price"
 
 type Props = {
   country: string;
-  selectedCredits: number;
-  onChangeSelectedCredits: (value: number) => void;
+  selectedToken: number;
+  onChangeSelectedToken: (value: number) => void;
   paygTotalPrice: number;
   pricePerCredit: number;
   savingsAmount: number;
@@ -25,8 +25,8 @@ type Props = {
 
 export default function PaywallOTPSection({
   country,
-  selectedCredits,
-  onChangeSelectedCredits,
+  selectedToken,
+  onChangeSelectedToken,
   paygTotalPrice,
   pricePerCredit,
   savingsAmount,
@@ -42,8 +42,8 @@ export default function PaywallOTPSection({
       <FormControl mb={3}>
         <FormLabel fontSize="sm">Select tokens</FormLabel>
         <Select
-          value={selectedCredits}
-          onChange={(e) => onChangeSelectedCredits(parseInt(e.target.value))}
+          value={selectedToken}
+          onChange={(e) => onChangeSelectedToken(parseInt(e.target.value))}
         >
           {generateCreditOptions().map(({ value, label }) => (
             <option key={value} value={value}>

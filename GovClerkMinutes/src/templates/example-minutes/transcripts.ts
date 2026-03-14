@@ -10,7 +10,7 @@ export const transcripts = [
     transcribe_finished: 1,
     transcribe_paused: 0,
     transcribe_failed: 0,
-    credits_required: 49,
+    tokens_required: 49,
     client_corruption: 0,
     deleted: 0,
     preview_transcribe_finished: 1,

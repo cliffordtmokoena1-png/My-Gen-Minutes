@@ -50,7 +50,7 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
     useState<ApiGetCustomerDetailsResponse>(initialSubscriptionData);
   const [isRenewing, setIsRenewing] = useState(false);
   const [isTerminating, setIsTerminating] = useState(false);
-  const [creditDetails, setCreditDetails] = useState<CreditDetail[]>([]);
+  const [tokenDetails, setCreditDetails] = useState<CreditDetail[]>([]);
   const [isLoadingCreditDetails, setIsLoadingCreditDetails] = useState(false);
 
   const fetchSubscriptionData = useCallback(async () => {
@@ -76,16 +76,16 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
   const fetchCreditDetails = async () => {
     setIsLoadingCreditDetails(true);
     try {
-      const response = await fetch("/api/get-credit-details");
+      const response = await fetch("/api/get-token-details");
       if (!response.ok) {
-        throw new Error("Failed to get credit details");
+        throw new Error("Failed to get token details");
       }
       const data = await response.json();
       setCreditDetails(data);
       onCreditDetailsModalOpen();
     } catch (error) {
-      console.error("Error fetching credit details:", error);
-      toast.error("Failed to fetch credit details. Please try again.");
+      console.error("Error fetching token details:", error);
+      toast.error("Failed to fetch token details. Please try again.");
     } finally {
       setIsLoadingCreditDetails(false);
     }
@@ -163,7 +163,7 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
   const price = getPrice(subscriptionData.country, planName === "Free" ? "Basic" : planName);
   const priceUnit = getPriceUnit(subscriptionData.country);
 
-  const { currentUsage, creditUsagePercentage, excessCredits, hasExcessCredits } =
+  const { currentUsage, tokenUsagePercentage, excessToken, hasExcessToken } =
     calculateUsage(subscriptionData);
   const daysUntilReset = calculateDaysUntilCreditReset(subscriptionData);
 
@@ -252,9 +252,9 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
                 subscriptionCanceled={subscriptionCanceled}
                 isFreeUser={isFreeUser}
                 currentUsage={currentUsage}
-                creditUsagePercentage={creditUsagePercentage}
-                excessCredits={excessCredits}
-                hasExcessCredits={hasExcessCredits}
+                tokenUsagePercentage={tokenUsagePercentage}
+                excessToken={excessToken}
+                hasExcessToken={hasExcessToken}
                 daysUntilReset={daysUntilReset}
                 isLoadingCreditDetails={isLoadingCreditDetails}
                 fetchCreditDetails={fetchCreditDetails}
@@ -300,7 +300,7 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
         onClose={onResubscribeModalClose}
         onConfirm={handleRenewSubscription}
         planName={planName}
-        creditsPerMonth={subscriptionData.creditsPerMonth}
+        tokensPerMonth={subscriptionData.tokensPerMonth}
         price={price.toString()}
         priceUnit={priceUnit}
         nextBillDate={subscriptionData.nextBillDate}
@@ -309,7 +309,7 @@ export function AccountContent({ initialSubscriptionData }: Readonly<AccountCont
       <CreditDetailsModal
         isOpen={isCreditDetailsModalOpen}
         onClose={onCreditDetailsModalClose}
-        creditDetails={creditDetails}
+        tokenDetails={tokenDetails}
       />
     </>
   );

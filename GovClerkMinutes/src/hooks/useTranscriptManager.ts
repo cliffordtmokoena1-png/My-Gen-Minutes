@@ -226,9 +226,9 @@ export default function useTranscriptManager({
 
   // Calculate paywall visibility
   let showPaywall =
-    transcriptStatus?.creditsRequired != null &&
+    transcriptStatus?.tokensRequired != null &&
     transcriptStatus.currentBalance != null &&
-    transcriptStatus.creditsRequired > transcriptStatus.currentBalance;
+    transcriptStatus.tokensRequired > transcriptStatus.currentBalance;
 
   if (transcriptStatus?.uploadKind === "audio") {
     showPaywall = Boolean(
@@ -251,9 +251,9 @@ export default function useTranscriptManager({
   const showFinishTranscribingButton = Boolean(
     !redirectFromPurchase &&
       transcriptStatus?.transcribePaused &&
-      transcriptStatus?.creditsRequired != null &&
+      transcriptStatus?.tokensRequired != null &&
       transcriptStatus?.currentBalance != null &&
-      transcriptStatus?.creditsRequired <= transcriptStatus.currentBalance &&
+      transcriptStatus?.tokensRequired <= transcriptStatus.currentBalance &&
       (transcriptStatus?.uploadKind === "audio" ||
         transcriptStatus?.uploadKind === "text" ||
         transcriptStatus?.uploadKind === "word")
@@ -280,7 +280,7 @@ export default function useTranscriptManager({
         country,
         transcript_id: transcriptId,
         upload_kind: transcriptStatus?.uploadKind,
-        credits_required: transcriptStatus?.creditsRequired,
+        tokens_required: transcriptStatus?.tokensRequired,
         current_balance: transcriptStatus?.currentBalance,
       });
     }

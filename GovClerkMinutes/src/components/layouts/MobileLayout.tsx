@@ -15,7 +15,7 @@ type Props = Readonly<{
   selectedTranscript?: number | null;
   initialSidebarItems?: ApiSidebarResponse | null;
   initialCustomerDetails?: ApiGetCustomerDetailsResponse | null;
-  initialCredits?: number | null;
+  initialToken?: number | null;
   onOpen?: (modalType: ModalType) => void;
   filePickerTrigger?: React.RefObject<(() => void) | null>;
   modalType: ModalType;
@@ -30,7 +30,7 @@ export default function MobileLayout({
   selectedTranscript,
   initialSidebarItems,
   initialCustomerDetails,
-  initialCredits,
+  initialToken,
   onOpen,
   filePickerTrigger,
   modalType,
@@ -73,7 +73,7 @@ export default function MobileLayout({
             selectedTranscript={selectedTranscript}
             initialSidebarItems={initialSidebarItems}
             initialCustomerDetails={initialCustomerDetails}
-            initialCredits={initialCredits}
+            initialToken={initialToken}
             onOpen={handleModalOpen}
             filePickerTrigger={showFilePickerTrigger}
           />

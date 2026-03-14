@@ -113,7 +113,7 @@ export const PricingSection = ({
                 price={basicInfo.price}
                 priceUnit={priceUnit}
                 features={basicInfo.features}
-                credits={300}
+                tokens={300}
                 isAnnual={isAnnual}
                 buttonLink="#intake-form"
               />
@@ -123,7 +123,7 @@ export const PricingSection = ({
                 price={proInfo.price}
                 priceUnit={priceUnit}
                 features={proInfo.features}
-                credits={1200}
+                tokens={1200}
                 isAnnual={isAnnual}
                 isPopular
                 buttonLink="#intake-form"
@@ -135,13 +135,13 @@ export const PricingSection = ({
                 priceUnit={priceUnit}
                 features={[
                   "Everything in Pro",
-                  "Unlimited credits",
+                  "Unlimited tokens",
                   "Priority support",
                   "Custom integrations",
                   "Dedicated account manager",
                   "SLA guarantee",
                 ]}
-                credits={-1}
+                tokens={-1}
                 isAnnual={isAnnual}
                 buttonText="Contact Sales"
                 buttonLink="mailto:max@mail.GovClerkMinutes.com"

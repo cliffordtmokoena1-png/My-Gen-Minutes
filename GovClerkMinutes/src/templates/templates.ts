@@ -46,9 +46,9 @@ export async function insertTemplateTranscript(userId: string): Promise<number |
       `
       INSERT INTO transcripts (
         userId, dateCreated, title, file_size, aws_region, upload_kind, s3AudioKey,
-        transcribe_finished, transcribe_paused, transcribe_failed, credits_required,
+        transcribe_finished, transcribe_paused, transcribe_failed, tokens_required,
         client_corruption, deleted, preview_transcribe_finished, snippet,
-        diarization_ready, upload_complete, transcript_requested, insufficient_credits
+        diarization_ready, upload_complete, transcript_requested, insufficient_tokens
       ) VALUES (
         ?, ?, ?, ?, ?, ?, ?,
         ?, ?, ?, ?, 
@@ -66,7 +66,7 @@ export async function insertTemplateTranscript(userId: string): Promise<number |
         templateTranscript.transcribe_finished,
         templateTranscript.transcribe_paused,
         templateTranscript.transcribe_failed,
-        templateTranscript.credits_required,
+        templateTranscript.tokens_required,
         templateTranscript.client_corruption,
         templateTranscript.deleted,
         templateTranscript.preview_transcribe_finished,

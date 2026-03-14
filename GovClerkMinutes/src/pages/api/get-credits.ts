@@ -22,10 +22,10 @@ export async function getCurrentBalance(
   let params: string[];
 
   if (orgId) {
-    query = "SELECT SUM(credit) FROM payments WHERE org_id = ?;";
+    query = "SELECT SUM(token) FROM payments WHERE org_id = ?;";
     params = [orgId];
   } else {
-    query = "SELECT SUM(credit) FROM payments WHERE user_id = ? AND org_id IS NULL;";
+    query = "SELECT SUM(token) FROM payments WHERE user_id = ? AND org_id IS NULL;";
     params = [userId];
   }
 
@@ -36,11 +36,11 @@ export async function getCurrentBalance(
     throw new Error("Bad balance query result");
   }
 
-  const credits: null | string = rows[0]["sum(credit)"];
-  if (credits == null) {
-    return credits;
+  const tokens: null | string = rows[0]["sum(token)"];
+  if (tokens == null) {
+    return tokens;
   }
-  return parseInt(credits);
+  return parseInt(tokens);
 }
 
 async function handler(req: NextRequest) {
@@ -52,11 +52,11 @@ async function handler(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const { userId, orgId } = await resolveRequestContext(auth.userId, body.orgId, req.headers);
 
-  const credits = await getCurrentBalance(userId, orgId);
+  const tokens = await getCurrentBalance(userId, orgId);
 
-  // NOTE: credits can be null if the user first logs in, and it takes a minute for the webhook to fire.
-  // The sum() returns null, and the UI won't show credits. But it will revalidate and show 30 after a few seconds.
-  return new Response(JSON.stringify({ credits }), {
+  // NOTE: tokens can be null if the user first logs in, and it takes a minute for the webhook to fire.
+  // The sum() returns null, and the UI won't show tokens. But it will revalidate and show 30 after a few seconds.
+  return new Response(JSON.stringify({ tokens }), {
     status: 200,
     headers: {
       "Content-Type": "application/json",

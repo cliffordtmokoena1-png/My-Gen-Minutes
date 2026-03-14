@@ -400,9 +400,9 @@ async fn main() {
   });
 
   start_cron_job(
-    "renewal_credit_granter",
+    "renewal_token_granter",
     Duration::from_secs(60 * 60), // 1 hour
-    async || GovClerkMinutes_webhook::send_request(gcWebhookEvent::CheckRenewCredits).await,
+    async || GovClerkMinutes_webhook::send_request(gcWebhookEvent::CheckRenewToken).await,
   )
   .await;
 

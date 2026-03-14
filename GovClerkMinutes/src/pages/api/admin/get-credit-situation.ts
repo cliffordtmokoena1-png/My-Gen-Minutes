@@ -14,7 +14,7 @@ export type CreditSituation = {
   createdAt: string;
   transcribePaused: boolean;
   transcribeFinished: boolean;
-  creditsRequired: number;
+  tokensRequired: number;
 };
 
 type Row = {
@@ -22,7 +22,7 @@ type Row = {
   dateCreated: string;
   transcribe_paused: number;
   transcribe_finished: number;
-  credits_required: number;
+  tokens_required: number;
 };
 
 async function handler(req: NextRequest) {
@@ -51,7 +51,7 @@ async function handler(req: NextRequest) {
         dateCreated,
         transcribe_paused,
         transcribe_finished,
-        credits_required
+        tokens_required
       FROM transcripts
       WHERE userId = ?
       ORDER BY dateCreated DESC
@@ -64,7 +64,7 @@ async function handler(req: NextRequest) {
         createdAt: convertIsoTimestampFromMysql(row.dateCreated),
         transcribePaused: Boolean(row.transcribe_paused),
         transcribeFinished: Boolean(row.transcribe_finished),
-        creditsRequired: Number(row.credits_required),
+        tokensRequired: Number(row.tokens_required),
       }))
     );
 

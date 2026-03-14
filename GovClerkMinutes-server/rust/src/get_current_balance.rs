@@ -5,7 +5,7 @@ use mysql_async::{
 };
 
 pub async fn get_current_balance(conn: &mut Conn, user_id: String) -> anyhow::Result<i32> {
-  let payment_rows = r"SELECT SUM(credit) FROM payments WHERE user_id = :user_id;"
+  let payment_rows = r"SELECT SUM(token) FROM payments WHERE user_id = :user_id;"
     .with(params! {
       "user_id" => user_id.clone(),
     })

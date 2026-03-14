@@ -230,7 +230,7 @@ export default function TextTranscriptController({
               layoutKind={layoutKind}
               isPreviewTranscriptDone
               transcriptionPaused={transcriptionStatus?.transcribePaused || paywallIsShowing}
-              insufficientCredits={transcriptionStatus?.insufficientCredits || paywallIsShowing}
+              insufficientToken={transcriptionStatus?.insufficientToken || paywallIsShowing}
               hideVersionTabs
               externalSelectedVersion={selectedMinutesVersion}
               onVersionChange={handleMinutesVersionChange}
@@ -316,7 +316,7 @@ export default function TextTranscriptController({
             layoutKind={layoutKind}
             isPreviewTranscriptDone
             transcriptionPaused={transcriptionStatus?.transcribePaused || paywallIsShowing}
-            insufficientCredits={transcriptionStatus?.insufficientCredits || paywallIsShowing}
+            insufficientToken={transcriptionStatus?.insufficientToken || paywallIsShowing}
           />
         </Flex>
       </Flex>

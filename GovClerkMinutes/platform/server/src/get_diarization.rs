@@ -58,7 +58,7 @@ pub struct GetDiarizationQueryParam {
   afterlanguage: Option<String>,
 }
 
-async fn get_required_credits(media_file: &MediaFile) -> anyhow::Result<i32> {
+async fn get_required_tokens(media_file: &MediaFile) -> anyhow::Result<i32> {
   // Get number of minutes and then round down to nearest int. If 0, round up to 1.
   return Ok(max((media_file.duration / 60.0).floor() as i32, 1_i32));
 }
@@ -91,11 +91,11 @@ async fn get_snippet(
 
 /// Uses a transaction to ensure no races and that this endpoint is idempotent
 /// AKA resilient to duplicate uploads from the client.  We want this to ensure
-/// we don't double-deduct credits if an upload is retried e.g. as part of a
+/// we don't double-deduct tokens if an upload is retried e.g. as part of a
 /// background sync API retry in Chrome
 ///
 /// Also returns true if the job was failed e.g. by a timeout, which is nice
-/// because then we won't deduct credits from the user for an upload that is
+/// because then we won't deduct tokens from the user for an upload that is
 /// retried after it's marked timed out.
 async fn upload_already_happened(
   conn: &mut mysql_async::Conn,
@@ -252,7 +252,7 @@ pub async fn run_post_speaker_segmentation(
   state: Arc<SharedRequestState>,
   holder_initializer: transcribed_ranges::HolderInitializer,
   media_file: MediaFile,
-  insufficient_credits: bool,
+  insufficient_tokens: bool,
   test_mode: bool,
   fast_mode: bool,
   timer: Arc<SpanTimer<TimeSpanEvent>>,
@@ -282,7 +282,7 @@ pub async fn run_post_speaker_segmentation(
       &holder_initializer,
       &mut transcript,
       transcript_id,
-      insufficient_credits,
+      insufficient_tokens,
       fast_mode,
     )
     .await?
@@ -340,7 +340,7 @@ pub async fn run_post_speaker_segmentation(
     .enumerate()
     .map(|(i, seg)| {
       let end_secs = time::timestamp_to_seconds(&seg.stop).unwrap_or(0.0);
-      let should_show_transcript = !insufficient_credits || end_secs <= 600.0;
+      let should_show_transcript = !insufficient_tokens || end_secs <= 600.0;
       let is_user_visible = should_show_transcript;
       MgSegmentsRow {
         transcript_id,
@@ -389,7 +389,7 @@ pub async fn run_post_speaker_segmentation(
   };
 
   // Only mark transcribe_finished = 1 if we fully transcribed the audio.
-  if fast_mode || !insufficient_credits {
+  if fast_mode || !insufficient_tokens {
     on_transcribe_finished(
       transcript_id,
       user_id,
@@ -410,7 +410,7 @@ async fn fill_text_and_collect_orphans(
   holder_initializer: &transcribed_ranges::HolderInitializer,
   transcript: &mut Transcript,
   transcript_id: u64,
-  insufficient_credits: bool,
+  insufficient_tokens: bool,
   fast_mode: bool,
 ) -> anyhow::Result<Vec<MgSegmentsRow>> {
   tracing::info!(
@@ -428,7 +428,7 @@ async fn fill_text_and_collect_orphans(
     for segment in &mut transcript.segments {
       let start = time::timestamp_to_seconds(&segment.start)?;
       let stop = time::timestamp_to_seconds(&segment.stop)?;
-      if (!insufficient_credits || stop <= 600.0) && segment.transcript.is_none() {
+      if (!insufficient_tokens || stop <= 600.0) && segment.transcript.is_none() {
         segment.transcript = guard.get_segment(start.into(), stop.into())?;
       }
     }
@@ -439,7 +439,7 @@ async fn fill_text_and_collect_orphans(
     .into_iter()
     .map(|seg| {
       let end_secs = time::timestamp_to_seconds(&seg.stop).unwrap_or(0.0);
-      let show = !insufficient_credits || end_secs <= 600.0;
+      let show = !insufficient_tokens || end_secs <= 600.0;
       MgSegmentsRow {
         transcript_id,
         start: seg.start,
@@ -548,12 +548,12 @@ pub async fn on_transcribe_finished(
 
 async fn start_holder_initialization(
   mut holder_initializer: transcribed_ranges::HolderInitializer,
-  credits_required: i32,
+  tokens_required: i32,
   state: Arc<SharedRequestState>,
   transcript_id: u64,
   user_id: String,
   org_id: Option<String>,
-  insufficient_credits: bool,
+  insufficient_tokens: bool,
   timer: Arc<SpanTimer<TimeSpanEvent>>,
   transcribe_started_datetime: DateTime<Utc>,
 ) -> anyhow::Result<()> {
@@ -574,14 +574,14 @@ async fn start_holder_initialization(
     }),
   );
 
-  // Initialize the rest if we have the credits.
-  if !insufficient_credits {
-    r"INSERT INTO payments (user_id, org_id, transcript_id, credit, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :credit, 'sub', :billing_subject);"
+  // Initialize the rest if we have the tokens.
+  if !insufficient_tokens {
+    r"INSERT INTO payments (user_id, org_id, transcript_id, token, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :token, 'sub', :billing_subject);"
       .with(params! {
         "user_id" => user_id.clone(),
         "org_id" => org_id.clone(),
         "transcript_id" => transcript_id,
-        "credit" => -credits_required,
+        "token" => -tokens_required,
         "billing_subject" => if org_id.is_some() { "org" } else { "user" },
       })
       .ignore(&mut conn)
@@ -603,7 +603,7 @@ async fn start_holder_initialization(
       user_id.clone(),
       json!({
         "transcript_id": transcript_id,
-        "credits_required": credits_required,
+        "tokens_required": tokens_required,
         "duration_since_transcribe_started": Utc::now().signed_duration_since(transcribe_started_datetime).num_milliseconds(),
       }),
     );
@@ -617,24 +617,24 @@ async fn start_holder_initialization(
 
 fn start_holder_initialization_in_bg(
   holder_initializer: transcribed_ranges::HolderInitializer,
-  credits_required: i32,
+  tokens_required: i32,
   state: Arc<SharedRequestState>,
   transcript_id: u64,
   user_id: String,
   org_id: Option<String>,
-  insufficient_credits: bool,
+  insufficient_tokens: bool,
   timer: Arc<SpanTimer<TimeSpanEvent>>,
   transcribe_started_millis: DateTime<Utc>,
 ) {
   tokio::spawn(async move {
     match start_holder_initialization(
       holder_initializer,
-      credits_required,
+      tokens_required,
       state.clone(),
       transcript_id,
       user_id.clone(),
       org_id,
-      insufficient_credits,
+      insufficient_tokens,
       timer,
       transcribe_started_millis,
     )
@@ -695,8 +695,8 @@ pub async fn process_diarization(
   let mut conn = state.db.get_conn().await?;
 
   if upload_kind != "audio" {
-    // For text transcript upload we charge flat 50 credit rate.
-    r"UPDATE transcripts SET credits_required = 50, preview_transcribe_finished = 1, transcribe_finished = 1 WHERE id = :transcript_id;"
+    // For text transcript upload we charge flat 50 token rate.
+    r"UPDATE transcripts SET tokens_required = 50, preview_transcribe_finished = 1, transcribe_finished = 1 WHERE id = :transcript_id;"
       .with(params! {
         "transcript_id" => transcript_id,
       })
@@ -707,7 +707,7 @@ pub async fn process_diarization(
       user_id.clone(),
       json!({
         "transcript_id": transcript_id,
-        "credits_required": 50,
+        "tokens_required": 50,
         "upload_kind": upload_kind,
       }),
     );
@@ -809,7 +809,7 @@ pub async fn process_diarization(
     }
   };
 
-  timer.start(TimeSpanEvent::GetDiarizationParallelSliceSnippetCredits);
+  timer.start(TimeSpanEvent::GetDiarizationParallelSliceSnippetToken);
 
   // TODO use STT strategy here
   if language.is_none() {
@@ -826,51 +826,51 @@ pub async fn process_diarization(
     });
   }
 
-  let credits_required = get_required_credits(&media_file).await?;
-  info!("credits required: {}", credits_required);
+  let tokens_required = get_required_tokens(&media_file).await?;
+  info!("tokens required: {}", tokens_required);
 
-  let insufficient_credits = credits_required > current_balance;
+  let insufficient_tokens = tokens_required > current_balance;
 
   start_holder_initialization_in_bg(
     holder_initializer.clone(),
-    credits_required,
+    tokens_required,
     state.clone(),
     transcript_id,
     user_id.clone(),
     org_id.clone(),
-    insufficient_credits,
+    insufficient_tokens,
     timer.clone(),
     transcribe_started_datetime,
   );
 
-  timer.stop(TimeSpanEvent::GetDiarizationParallelSliceSnippetCredits);
+  timer.stop(TimeSpanEvent::GetDiarizationParallelSliceSnippetToken);
 
-  timer.start(TimeSpanEvent::GetDiarizationCreditsRequiredUpdate);
+  timer.start(TimeSpanEvent::GetDiarizationTokenRequiredUpdate);
 
-  r"UPDATE transcripts SET credits_required = :credits_required, transcribe_paused = :transcribe_paused, was_paywalled = :was_paywalled WHERE id = :transcript_id;"
+  r"UPDATE transcripts SET tokens_required = :tokens_required, transcribe_paused = :transcribe_paused, was_paywalled = :was_paywalled WHERE id = :transcript_id;"
     .with(params! {
-      "credits_required" => credits_required,
+      "tokens_required" => tokens_required,
       "transcript_id" => transcript_id,
-      "transcribe_paused" => insufficient_credits,
-      "was_paywalled" => insufficient_credits,
+      "transcribe_paused" => insufficient_tokens,
+      "was_paywalled" => insufficient_tokens,
     })
     .ignore(&mut conn)
     .await?;
 
-  timer.stop(TimeSpanEvent::GetDiarizationCreditsRequiredUpdate);
+  timer.stop(TimeSpanEvent::GetDiarizationTokenRequiredUpdate);
 
   PostHogEventType::FileUploaded.capture(
     user_id.clone(),
     json!({
       "transcript_id": transcript_id,
-      "credits_required": credits_required,
+      "tokens_required": tokens_required,
       "upload_kind": upload_kind,
       "file_size": file_size,
       "region": region,
       "get_diarization_initial_query_duration_ms": timer.get(TimeSpanEvent::GetDiarizationInitialQuery).map(|d| d.as_millis()),
       "get_diarization_file_download_duration_ms": timer.get(TimeSpanEvent::GetDiarizationFileDownload).map(|d| d.as_millis()),
-      "get_diarization_pssc_duration_ms": timer.get(TimeSpanEvent::GetDiarizationParallelSliceSnippetCredits).map(|d| d.as_millis()),
-      "get_diarization_credits_required_update_duration_ms": timer.get(TimeSpanEvent::GetDiarizationCreditsRequiredUpdate).map(|d| d.as_millis()),
+      "get_diarization_pssc_duration_ms": timer.get(TimeSpanEvent::GetDiarizationParallelSliceSnippetToken).map(|d| d.as_millis()),
+      "get_diarization_tokens_required_update_duration_ms": timer.get(TimeSpanEvent::GetDiarizationTokenRequiredUpdate).map(|d| d.as_millis()),
     }),
   );
 
@@ -887,7 +887,7 @@ pub async fn process_diarization(
     state,
     holder_initializer.clone(),
     media_file,
-    insufficient_credits,
+    insufficient_tokens,
     test_mode,
     false,
     timer,
@@ -968,8 +968,8 @@ pub async fn get_diarization_handler(
             t.language,
             t.org_id,
             CASE
-              WHEN t.org_id IS NOT NULL THEN (SELECT SUM(p.credit) FROM payments p WHERE p.org_id = t.org_id)
-              ELSE (SELECT SUM(p.credit) FROM payments p WHERE p.user_id = t.userId AND p.org_id IS NULL)
+              WHEN t.org_id IS NOT NULL THEN (SELECT SUM(p.token) FROM payments p WHERE p.org_id = t.org_id)
+              ELSE (SELECT SUM(p.token) FROM payments p WHERE p.user_id = t.userId AND p.org_id IS NULL)
             END AS current_balance
         FROM 
             transcripts t 

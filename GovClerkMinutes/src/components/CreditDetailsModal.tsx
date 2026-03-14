@@ -21,13 +21,13 @@ import { CreditDetail } from "@/types/subscription";
 interface CreditDetailsModalProps {
   isOpen: boolean;
   onClose: () => void;
-  creditDetails: CreditDetail[];
+  tokenDetails: CreditDetail[];
 }
 
 export default function CreditDetailsModal({
   isOpen,
   onClose,
-  creditDetails,
+  tokenDetails,
 }: CreditDetailsModalProps) {
   const toast = useToast();
   const [loadingIds, setLoadingIds] = useState<string[]>([]);
@@ -87,13 +87,13 @@ export default function CreditDetailsModal({
               </Tr>
             </Thead>
             <Tbody overflowY="auto">
-              {creditDetails.map((detail) => (
+              {tokenDetails.map((detail) => (
                 <Tr key={detail.id}>
                   <Td>{new Date(detail.created_at).toLocaleDateString()}</Td>
                   <Td>{detail.action === "add" ? "Payment" : "Usage"}</Td>
                   <Td color={detail.action === "add" ? "green.500" : "red.500"}>
                     {detail.action === "add" ? "+" : ""}
-                    {detail.credit}
+                    {detail.token}
                   </Td>
                   <Td>
                     {detail.action === "add" ? (

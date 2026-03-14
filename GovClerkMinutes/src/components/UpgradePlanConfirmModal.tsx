@@ -89,7 +89,7 @@ export default function UpgradePlanConfirmModal({
             {data != null && !isMutating ? (
               <Flex flexDir="column">
                 <UnorderedList spacing={3}>
-                  <ListItem>You will receive 1200 credits per month</ListItem>
+                  <ListItem>You will receive 1200 tokens per month</ListItem>
                   <ListItem>
                     You will be charged {getPriceUnit(country)}
                     {formatPrice(Math.max(data.proratedCost / 100, 0))}

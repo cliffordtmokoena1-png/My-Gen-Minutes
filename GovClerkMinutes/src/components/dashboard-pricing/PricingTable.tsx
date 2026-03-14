@@ -46,7 +46,7 @@ export default function PricingTable({ country, transcriptId, customerDetails }:
           features={basicInfo.features}
           clientReferenceId={getClientReferenceId(transcriptId, user?.id)}
           priceId={basicInfo.priceId}
-          credits={300}
+          tokens={300}
           isAnnual={isAnnual}
           country={country ?? "US"}
           onToggleBilling={toggleBilling}
@@ -60,7 +60,7 @@ export default function PricingTable({ country, transcriptId, customerDetails }:
           clientReferenceId={getClientReferenceId(transcriptId, user?.id)}
           priceId={proInfo.priceId}
           isPopular
-          credits={1200}
+          tokens={1200}
           isAnnual={isAnnual}
           country={country ?? "US"}
           onToggleBilling={toggleBilling}
@@ -73,7 +73,7 @@ export default function PricingTable({ country, transcriptId, customerDetails }:
           features={CUSTOM_FEATURES}
           clientReferenceId={getClientReferenceId(transcriptId, user?.id)}
           priceId={getPriceId(country, "Pro")}
-          credits={-1}
+          tokens={-1}
           isAnnual={isAnnual}
           onToggleBilling={toggleBilling}
         />

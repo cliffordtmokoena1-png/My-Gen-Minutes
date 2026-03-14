@@ -21,9 +21,9 @@ interface UsageDetailsProps {
   subscriptionCanceled: boolean;
   isFreeUser: boolean;
   currentUsage: number;
-  creditUsagePercentage: number;
-  excessCredits: number;
-  hasExcessCredits: boolean;
+  tokenUsagePercentage: number;
+  excessToken: number;
+  hasExcessToken: boolean;
   daysUntilReset: number;
   isLoadingCreditDetails: boolean;
   fetchCreditDetails: () => void;
@@ -35,9 +35,9 @@ export default function UsageDetails({
   subscriptionCanceled,
   isFreeUser,
   currentUsage,
-  creditUsagePercentage,
-  excessCredits,
-  hasExcessCredits,
+  tokenUsagePercentage,
+  excessToken,
+  hasExcessToken,
   daysUntilReset,
   isLoadingCreditDetails,
   fetchCreditDetails,
@@ -64,11 +64,11 @@ export default function UsageDetails({
 
       <Box borderWidth={1} borderColor="gray.200" p={4} borderRadius="md" boxShadow="sm">
         <Text fontSize="sm" color="gray.600" mb={4}>
-          You can transcribe up to <strong>{subscriptionData.remainingCredits} minutes</strong> of
+          You can transcribe up to <strong>{subscriptionData.remainingToken} minutes</strong> of
           media.
         </Text>
 
-        {hasExcessCredits && (
+        {hasExcessToken && (
           <Box mb={4}>
             <Flex justify="space-between" align="center" mb={2}>
               <HStack>
@@ -81,7 +81,7 @@ export default function UsageDetails({
                   </span>
                 </Tooltip>
               </HStack>
-              <Text fontSize="sm">{excessCredits}</Text>
+              <Text fontSize="sm">{excessToken}</Text>
             </Flex>
             <Progress value={100} colorScheme="purple" size="sm" borderRadius="md" />
           </Box>
@@ -92,10 +92,10 @@ export default function UsageDetails({
             {subscriptionPaused || subscriptionCanceled ? "Previous" : "Current"} Plan
           </Text>
           <Text fontSize="sm">
-            {currentUsage} of {subscriptionData.creditsPerMonth} used
+            {currentUsage} of {subscriptionData.tokensPerMonth} used
           </Text>
         </Flex>
-        <Progress value={creditUsagePercentage} colorScheme="green" size="sm" borderRadius="md" />
+        <Progress value={tokenUsagePercentage} colorScheme="green" size="sm" borderRadius="md" />
 
         <Button
           mt={4}

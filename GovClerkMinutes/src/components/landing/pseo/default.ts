@@ -100,7 +100,7 @@ export const defaultContent: LandingPageContent = {
     },
     {
       q: "Is payment secure?",
-      a: "Yes, we use Stripe for payment. We do not store any of your credit card information.",
+      a: "Yes, we use Stripe for payment. We do not store any of your token card information.",
     },
     {
       q: "Where is GovClerkMinutes located?",

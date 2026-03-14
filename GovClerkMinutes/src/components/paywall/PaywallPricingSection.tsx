@@ -16,7 +16,7 @@ import {
 
 type Props = {
   currentPlan: SubscriptionPlan;
-  requiredCredits: number;
+  requiredToken: number;
   country: string;
   billingPeriod: BillingPeriod;
   onToggleBillingPeriod: (billingPeriod: BillingPeriod) => void;
@@ -27,7 +27,7 @@ type Plan = {
   plan: SubscriptionPlan | "Custom";
   price: number;
   priceUnit: string;
-  credits: number;
+  tokens: number;
   features: Array<{
     text: string;
     included: boolean;
@@ -36,7 +36,7 @@ type Plan = {
 
 export default function PaywallPricingSection({
   currentPlan,
-  requiredCredits,
+  requiredToken,
   country,
   billingPeriod,
   onToggleBillingPeriod,
@@ -56,7 +56,7 @@ export default function PaywallPricingSection({
       plan: "Free",
       price: 0,
       priceUnit,
-      credits: 0,
+      tokens: 0,
       features: [
         { text: "Minutes and transcripts for 30 minutes of meetings (30 tokens)", included: true },
         { text: "Basic support", included: false },
@@ -67,7 +67,7 @@ export default function PaywallPricingSection({
       plan: "Basic",
       price: getPrice(country, getPlanForBillingPeriod("Basic", pricingBillingPeriod)),
       priceUnit,
-      credits: 300,
+      tokens: 300,
       features: [
         { text: "Minutes and transcripts for 5 hours of meetings (300 tokens)", included: true },
         { text: "Basic support", included: true },
@@ -79,7 +79,7 @@ export default function PaywallPricingSection({
       plan: "Pro",
       price: getPrice(country, getPlanForBillingPeriod("Pro", pricingBillingPeriod)),
       priceUnit,
-      credits: 1200,
+      tokens: 1200,
       features: [
         { text: "Minutes and transcripts for 20 hours of meetings (1200 tokens)", included: true },
         { text: "Priority support", included: true },
@@ -91,7 +91,7 @@ export default function PaywallPricingSection({
       plan: "Custom",
       price: -1, // Special value to indicate "Price upon request"
       priceUnit,
-      credits: -1, // Special value to hide credits display
+      tokens: -1, // Special value to hide tokens display
       features: [
         { text: "Custom minutes and transcripts volume", included: true },
         { text: "Save minutes to Microsoft Word", included: true },
@@ -100,13 +100,13 @@ export default function PaywallPricingSection({
     },
   ];
 
-  // Determine which plan to recommend based on required credits
+  // Determine which plan to recommend based on required tokens
   let recommendedBasePlan: string;
   if (isPlanPro(currentPlan)) {
     recommendedBasePlan = "Custom";
   } else if (isPlanBasic(currentPlan)) {
     recommendedBasePlan = "Pro";
-  } else if (requiredCredits > 300) {
+  } else if (requiredToken > 300) {
     recommendedBasePlan = "Pro";
   } else {
     recommendedBasePlan = "Basic";

@@ -41,16 +41,16 @@ const FAQS = [
   },
   {
     question: "Is payment secure?",
-    answer: "Yes, we use Stripe for payment. We do not store any of your credit card information.",
+    answer: "Yes, we use Stripe for payment. We do not store any of your token card information.",
   },
   {
     question: "Where is GovClerkMinutes located?",
     answer: "We are located in New York City, USA",
   },
   {
-    question: "When do credits renew?",
+    question: "When do tokens renew?",
     answer:
-      "Credits renew every month on the date of your first purchase. The renewal cadence is the same as the monthly billing cycle.",
+      "Token renew every month on the date of your first purchase. The renewal cadence is the same as the monthly billing cycle.",
   },
   {
     question: "Can it output minutes in languages other than English?",

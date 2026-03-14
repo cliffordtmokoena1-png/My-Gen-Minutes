@@ -11,7 +11,7 @@ export const healthcareMeetingTemplate: Template = {
   advantages: [
     "Ensures patient safety protocols and clinical decisions are properly documented for quality assurance and legal compliance",
     "Facilitates interdisciplinary communication between medical specialties for comprehensive patient care coordination",
-    "Tracks medical policy updates and regulatory compliance matters essential for healthcare accreditation and standards",
+    "Tracks medical policy updates and regulatory compliance matters essential for healthcare actokenation and standards",
   ],
   preview: `# Medical Staff Quality Assurance Committee
 
@@ -104,7 +104,7 @@ Patricia Johnson presented hand hygiene audit results showing 89% compliance (ta
 - [Medical staff credentialing updates] 
 - [Quality and safety indicators]
 - [Regulatory compliance matters]
-- [Upcoming accreditation activities]
+- [Upcoming actokenation activities]
 
 **Questions/Discussion:**
 - [Question raised] - [Response provided]
@@ -236,7 +236,7 @@ Patricia Johnson presented hand hygiene audit results showing 89% compliance (ta
 **Continuing medical education:**
 - [Recent CME sessions held]
 - [Upcoming educational offerings]
-- [Accreditation requirements met]
+- [Actokenation requirements met]
 
 **Residency/fellowship updates:**
 - [Training program status]
@@ -263,7 +263,7 @@ Patricia Johnson presented hand hygiene audit results showing 89% compliance (ta
 
 ## Compliance and Regulatory Matters
 
-### Joint Commission/Accreditation
+### Joint Commission/Actokenation
 **Recent survey results:** [If applicable]  
 **Action plans:** [Required improvements and timelines]  
 **Compliance monitoring:** [Ongoing monitoring activities]

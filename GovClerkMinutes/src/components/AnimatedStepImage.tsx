@@ -36,7 +36,7 @@ interface AnimatedStepImageProps {
   keyProp?: string | number;
   boxWidth?: string;
   isPaused?: boolean;
-  pauseReason?: "insufficient_credits" | "paused";
+  pauseReason?: "insufficient_tokens" | "paused";
 }
 
 const ANIMATION_INTERVAL = 10000;

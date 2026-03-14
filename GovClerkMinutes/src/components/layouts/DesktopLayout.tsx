@@ -11,7 +11,7 @@ type Props = {
   selectedTranscript?: number | null;
   initialSidebarItems?: ApiSidebarResponse | null;
   initialCustomerDetails?: ApiGetCustomerDetailsResponse | null;
-  initialCredits?: number | null;
+  initialToken?: number | null;
   onOpen?: (modalType: ModalType) => void;
   filePickerTrigger?: React.MutableRefObject<(() => void) | null>;
 };
@@ -21,7 +21,7 @@ export default function DesktopLayout({
   selectedTranscript,
   initialSidebarItems,
   initialCustomerDetails,
-  initialCredits,
+  initialToken,
   onOpen,
   filePickerTrigger,
 }: Props) {
@@ -50,7 +50,7 @@ export default function DesktopLayout({
           layoutKind="desktop"
           initialSidebarItems={initialSidebarItems}
           initialCustomerDetails={initialCustomerDetails}
-          initialCredits={initialCredits}
+          initialToken={initialToken}
           toggleSidebar={toggleSidebar}
           isCollapsed={isSidebarCollapsed}
           filePickerTrigger={filePickerTrigger}

@@ -60,7 +60,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
     useState<ApiGetCustomerDetailsResponse>(initialSubscriptionData);
   const [isRenewing, setIsRenewing] = useState(false);
   const [isTerminating, setIsTerminating] = useState(false);
-  const [creditDetails, setCreditDetails] = useState<CreditDetail[]>([]);
+  const [tokenDetails, setCreditDetails] = useState<CreditDetail[]>([]);
   const [isLoadingCreditDetails, setIsLoadingCreditDetails] = useState(false);
   const toast = useToast();
 
@@ -93,18 +93,18 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
   const fetchCreditDetails = async () => {
     setIsLoadingCreditDetails(true);
     try {
-      const response = await fetch("/api/get-credit-details");
+      const response = await fetch("/api/get-token-details");
       if (!response.ok) {
-        throw new Error("Failed to get credit details");
+        throw new Error("Failed to get token details");
       }
       const data = await response.json();
       setCreditDetails(data);
       onCreditDetailsModalOpen();
     } catch (error) {
-      console.error("Error fetching credit details:", error);
+      console.error("Error fetching token details:", error);
       toast({
         title: "Error",
-        description: "Failed to fetch credit details. Please try again.",
+        description: "Failed to fetch token details. Please try again.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -210,7 +210,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
   const price = getPrice(subscriptionData.country, planName === "Free" ? "Basic" : planName);
   const priceUnit = getPriceUnit(subscriptionData.country);
 
-  const { currentUsage, creditUsagePercentage, excessCredits, hasExcessCredits } =
+  const { currentUsage, tokenUsagePercentage, excessToken, hasExcessToken } =
     calculateUsage(subscriptionData);
   const daysUntilReset = calculateDaysUntilCreditReset(subscriptionData);
 
@@ -306,9 +306,9 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
                 subscriptionCanceled={subscriptionCanceled}
                 isFreeUser={isFreeUser}
                 currentUsage={currentUsage}
-                creditUsagePercentage={creditUsagePercentage}
-                excessCredits={excessCredits}
-                hasExcessCredits={hasExcessCredits}
+                tokenUsagePercentage={tokenUsagePercentage}
+                excessToken={excessToken}
+                hasExcessToken={hasExcessToken}
                 daysUntilReset={daysUntilReset}
                 isLoadingCreditDetails={isLoadingCreditDetails}
                 fetchCreditDetails={fetchCreditDetails}
@@ -354,7 +354,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
           onClose={onResubscribeModalClose}
           onConfirm={handleRenewSubscription}
           planName={planName}
-          creditsPerMonth={subscriptionData.creditsPerMonth}
+          tokensPerMonth={subscriptionData.tokensPerMonth}
           price={price.toString()}
           priceUnit={priceUnit}
           nextBillDate={subscriptionData.nextBillDate}
@@ -363,7 +363,7 @@ export default function Profile({ initialSubscriptionData }: ProfileProps) {
         <CreditDetailsModal
           isOpen={isCreditDetailsModalOpen}
           onClose={onCreditDetailsModalClose}
-          creditDetails={creditDetails}
+          tokenDetails={tokenDetails}
         />
       </Flex>
     </>

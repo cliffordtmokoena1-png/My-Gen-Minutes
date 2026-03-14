@@ -24,7 +24,7 @@ export const content: LandingPageContent = {
     {
       title: "Compliance & Record Keeping",
       description:
-        "Meet educational compliance requirements with secure archival, audit trails, and formatted documentation ready for accreditation reviews.",
+        "Meet educational compliance requirements with secure archival, audit trails, and formatted documentation ready for actokenation reviews.",
       iconName: "LuShield",
     },
     {

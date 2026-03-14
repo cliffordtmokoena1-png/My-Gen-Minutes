@@ -16,21 +16,21 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
-import type { CreditSituation } from "@/pages/api/admin/get-credit-situation";
+import type { CreditSituation } from "@/pages/api/admin/get-token-situation";
 
 type Props = {
   userId: string;
-  credits: number;
-  onModifyCredits: (amount: number) => Promise<void> | void;
+  tokens: number;
+  onModifyToken: (amount: number) => Promise<void> | void;
 };
 
-export default function CreditSituation({ userId, credits, onModifyCredits }: Props) {
+export default function CreditSituation({ userId, tokens, onModifyToken }: Props) {
   const { data, error, isLoading } = useSWR<
     { rows: CreditSituation[] },
     any,
     [string, string] | null
   >(
-    userId ? ["/api/admin/get-credit-situation", userId] : null,
+    userId ? ["/api/admin/get-token-situation", userId] : null,
     async ([url, id]) => {
       const res = await fetch(url as string, {
         method: "POST",
@@ -93,7 +93,7 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
           </Thead>
           <Tbody>
             {rows.map((r) => {
-              const deficit = Math.max(0, r.creditsRequired - credits);
+              const deficit = Math.max(0, r.tokensRequired - tokens);
               const canAdd = r.transcribePaused && deficit > 0;
               return (
                 <Tr key={r.transcriptId}>
@@ -118,13 +118,13 @@ export default function CreditSituation({ userId, credits, onModifyCredits }: Pr
                   <Td>{new Date(r.createdAt).toLocaleString()}</Td>
                   <Td>{r.transcribePaused ? "Yes" : "No"}</Td>
                   <Td>{r.transcribeFinished ? "Yes" : "No"}</Td>
-                  <Td isNumeric>{r.creditsRequired.toLocaleString()}</Td>
+                  <Td isNumeric>{r.tokensRequired.toLocaleString()}</Td>
                   <Td>
                     {canAdd ? (
                       <Button
                         size="sm"
                         colorScheme="green"
-                        onClick={() => onModifyCredits(deficit)}
+                        onClick={() => onModifyToken(deficit)}
                       >
                         Add {deficit} tokens
                       </Button>

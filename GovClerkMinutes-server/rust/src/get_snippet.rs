@@ -83,7 +83,7 @@ pub async fn get_snippet_handler(
   Json(GetSnippetBody { audio_key }): Json<GetSnippetBody>,
 ) -> Result<impl IntoResponse, StatusCode> {
   if auth.token() != env::var("UPLOAD_COMPLETE_WEBHOOK_SECRET").unwrap() {
-    error!("unauthorized get required credits handler");
+    error!("unauthorized get required tokens handler");
     return Err(StatusCode::UNAUTHORIZED);
   }
 
@@ -111,11 +111,11 @@ pub async fn get_snippet_handler(
 
   let TranscribeInput { s3_audio_key } = &rows[0];
 
-  let credits_required = get_required_credits(&state.s3_client, s3_audio_key).await?;
+  let tokens_required = get_required_tokens(&state.s3_client, s3_audio_key).await?;
 
-  info!("credits required: {}", credits_required);
+  info!("tokens required: {}", tokens_required);
 
-  return Ok(axum::response::Json(GetRequiredCreditsResponse {
-    credits_required,
+  return Ok(axum::response::Json(GetRequiredTokenResponse {
+    tokens_required,
   }));
 }

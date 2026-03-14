@@ -125,7 +125,7 @@ export default function AdminUploadManager({}: AdminUploadManagerProps) {
       </Heading>
 
       <Text mb={6} color="gray.600">
-        Upload files on behalf of users without deducting their credits. This is useful for
+        Upload files on behalf of users without deducting their tokens. This is useful for
         providing customer support or handling special cases.
       </Text>
 
@@ -176,9 +176,9 @@ export default function AdminUploadManager({}: AdminUploadManagerProps) {
                   <Text
                     fontSize="xl"
                     fontWeight="bold"
-                    color={userInfo.credits && userInfo.credits > 0 ? "green.500" : "red.500"}
+                    color={userInfo.tokens && userInfo.tokens > 0 ? "green.500" : "red.500"}
                   >
-                    {userInfo.credits !== undefined ? userInfo.credits.toLocaleString() : "--"}
+                    {userInfo.tokens !== undefined ? userInfo.tokens.toLocaleString() : "--"}
                   </Text>
                 </Box>
               </Flex>

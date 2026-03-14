@@ -417,7 +417,7 @@ export default function AgendaPage({ agendaId }: Props) {
               </Text>
 
               <Text fontSize="xs" color="gray.400" textAlign="center" mt={2} maxW="sm">
-                No credits were applied for this failed generation.
+                No tokens were applied for this failed generation.
                 <br />
                 If you need help,{" "}
                 <Link

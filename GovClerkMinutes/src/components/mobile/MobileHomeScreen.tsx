@@ -32,8 +32,8 @@ type SidebarItem = {
   seriesId?: string;
 };
 
-type ApiGetCreditsResponse = {
-  credits: number;
+type ApiGetTokenResponse = {
+  tokens: number;
 };
 
 type MobileHomeItemProps = {
@@ -162,7 +162,7 @@ type Props = {
   selectedTranscript?: number | null;
   initialSidebarItems?: ApiSidebarResponse | null;
   initialCustomerDetails?: ApiGetCustomerDetailsResponse | null;
-  initialCredits?: number | null;
+  initialToken?: number | null;
   onOpen: (modalType: ModalType) => void;
   filePickerTrigger?: React.MutableRefObject<(() => void) | null>;
 };
@@ -171,7 +171,7 @@ export default function MobileHomeScreen({
   selectedTranscript,
   initialSidebarItems,
   initialCustomerDetails,
-  initialCredits,
+  initialToken,
   onOpen,
   filePickerTrigger,
 }: Props) {
@@ -267,11 +267,11 @@ export default function MobileHomeScreen({
     }
   );
 
-  const { data: creditData } = useSWR<ApiGetCreditsResponse>(
-    ["/api/get-credits", orgId],
+  const { data: tokenData } = useSWR<ApiGetTokenResponse>(
+    ["/api/get-tokens", orgId],
     async (_) => {
       await getToken();
-      return await fetch("/api/get-credits", {
+      return await fetch("/api/get-tokens", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -285,7 +285,7 @@ export default function MobileHomeScreen({
       revalidateOnFocus: false,
       dedupingInterval: 30000,
       keepPreviousData: true,
-      fallbackData: initialCredits != null ? { credits: initialCredits } : undefined,
+      fallbackData: initialToken != null ? { tokens: initialToken } : undefined,
     }
   );
 

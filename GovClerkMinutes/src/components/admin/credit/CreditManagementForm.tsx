@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { useContactLookup } from "@/admin/whatsapp/hooks/useContactLookup";
 import type { LookupUserApiResponse } from "@/pages/api/admin/lookup-user";
-import CreditSituation from "@/components/admin/credit/CreditSituation";
+import CreditSituation from "@/components/admin/token/CreditSituation";
 
 type Props = {
   onSuccess?: () => void;
@@ -34,8 +34,8 @@ type Props = {
 
 export default function CreditManagementForm({ onSuccess, initialWhatsappId }: Props) {
   const [identifier, setIdentifier] = useState("");
-  const [creditAmount, setCreditAmount] = useState<number>(100);
-  const [creditAction, setCreditAction] = useState<"add" | "subtract">("add");
+  const [tokenAmount, setCreditAmount] = useState<number>(100);
+  const [tokenAction, setCreditAction] = useState<"add" | "subtract">("add");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isLookingUp, setIsLookingUp] = useState(Boolean(initialWhatsappId));
   const [userInfo, setUserInfo] = useState<LookupUserApiResponse | null>(null);
@@ -107,12 +107,12 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
   }, [contact?.email, contactLoading]);
 
   const handleCreditOperation = async () => {
-    await submitCreditOperation(creditAmount, creditAction, {
+    await submitCreditOperation(tokenAmount, tokenAction, {
       resetAfter: true,
     });
   };
 
-  const handleModifyCredits = async (amount: number) => {
+  const handleModifyToken = async (amount: number) => {
     await submitCreditOperation(amount, "add");
   };
 
@@ -140,14 +140,14 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
     }
     setIsProcessing(true);
     try {
-      const res = await fetch("/api/admin/credit", {
+      const res = await fetch("/api/admin/token", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userInfo.userId, amount, action }),
       });
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.error || "Failed to process credit operation");
+        throw new Error(data.error || "Failed to process token operation");
       }
       toast({
         status: "success",
@@ -230,9 +230,9 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
                 <Text
                   fontSize="xl"
                   fontWeight="bold"
-                  color={userInfo.credits && userInfo.credits > 0 ? "green.500" : "red.500"}
+                  color={userInfo.tokens && userInfo.tokens > 0 ? "green.500" : "red.500"}
                 >
-                  {userInfo.credits !== undefined ? userInfo.credits.toLocaleString() : "--"}
+                  {userInfo.tokens !== undefined ? userInfo.tokens.toLocaleString() : "--"}
                 </Text>
               </Box>
             </Flex>
@@ -251,7 +251,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
       <FormControl isRequired>
         <FormLabel>Action</FormLabel>
         <RadioGroup
-          value={creditAction}
+          value={tokenAction}
           onChange={(val) => setCreditAction(val as "add" | "subtract")}
         >
           <HStack spacing={4}>
@@ -269,7 +269,7 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
         <FormLabel>Amount</FormLabel>
         <NumberInput
           min={1}
-          value={creditAmount}
+          value={tokenAmount}
           onChange={(_, val) => setCreditAmount(isNaN(val) ? 0 : val)}
         >
           <NumberInputField placeholder="100" />
@@ -282,20 +282,20 @@ export default function CreditManagementForm({ onSuccess, initialWhatsappId }: P
 
       <Button
         mt={2}
-        colorScheme={creditAction === "add" ? "green" : "red"}
+        colorScheme={tokenAction === "add" ? "green" : "red"}
         onClick={handleCreditOperation}
         isLoading={isProcessing}
         loadingText="Processing..."
         isDisabled={!userInfo}
       >
-        {creditAction === "add" ? "Add Tokens" : "Remove Tokens"}
+        {tokenAction === "add" ? "Add Tokens" : "Remove Tokens"}
       </Button>
 
       {userInfo && (
         <CreditSituation
           userId={userInfo.userId}
-          credits={userInfo.credits}
-          onModifyCredits={handleModifyCredits}
+          tokens={userInfo.tokens}
+          onModifyToken={handleModifyToken}
         />
       )}
     </Stack>

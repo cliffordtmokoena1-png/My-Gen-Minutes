@@ -1,6 +1,6 @@
 export namespace MgWebhook {
   export type Event =
-    | CheckRenewCreditsEvent
+    | CheckRenewTokenEvent
     | CheckWhatsappsEvent
     | RunPostSignupTasks
     | RemindWebinarLeads
@@ -8,7 +8,7 @@ export namespace MgWebhook {
     | HandlePaywallAbandonersEvent;
 
   type EventType =
-    | "check_renew_credits"
+    | "check_renew_tokens"
     | "check_whatsapps"
     | "run_post_signup_tasks"
     | "remind_webinar_leads"
@@ -19,8 +19,8 @@ export namespace MgWebhook {
     event: EventType;
   }
 
-  interface CheckRenewCreditsEvent extends BaseEvent {
-    event: "check_renew_credits";
+  interface CheckRenewTokenEvent extends BaseEvent {
+    event: "check_renew_tokens";
   }
 
   interface CheckWhatsappsEvent extends BaseEvent {

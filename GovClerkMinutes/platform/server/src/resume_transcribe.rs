@@ -256,7 +256,7 @@ struct TranscriptionData {
 
 type TranscriptRow = (
   String,         // userId
-  Option<i32>,    // credits_required
+  Option<i32>,    // tokens_required
   String,         // aws_region
   String,         // upload_kind
   Option<String>, // language
@@ -288,15 +288,15 @@ pub async fn resume_transcribe_handler(
       r#"
       SELECT 
           t.userId, 
-          t.credits_required,
+          t.tokens_required,
           t.aws_region,
           t.upload_kind,
           t.language,
           t.org_id,
           COALESCE(
             CASE
-              WHEN t.org_id IS NOT NULL THEN (SELECT SUM(p.credit) FROM payments p WHERE p.org_id = t.org_id)
-              ELSE (SELECT SUM(p.credit) FROM payments p WHERE p.user_id = t.userId AND p.org_id IS NULL)
+              WHEN t.org_id IS NOT NULL THEN (SELECT SUM(p.token) FROM payments p WHERE p.org_id = t.org_id)
+              ELSE (SELECT SUM(p.token) FROM payments p WHERE p.user_id = t.userId AND p.org_id IS NULL)
             END,
             0
           ) AS current_balance
@@ -315,7 +315,7 @@ pub async fn resume_transcribe_handler(
       StatusCode::INTERNAL_SERVER_ERROR,
     )?;
 
-  let (user_id, credits_required, region, upload_kind, language, org_id, current_balance) =
+  let (user_id, tokens_required, region, upload_kind, language, org_id, current_balance) =
     rows.first().cloned().ok_or(StatusCode::NOT_FOUND)?;
 
   if upload_kind != "audio" {
@@ -357,7 +357,7 @@ pub async fn resume_transcribe_handler(
     user_id,
     org_id,
     language,
-    credits_required.ok_or(StatusCode::INTERNAL_SERVER_ERROR)?,
+    tokens_required.ok_or(StatusCode::INTERNAL_SERVER_ERROR)?,
     current_balance,
     timer,
     test_mode,
@@ -412,7 +412,7 @@ async fn resume_transcribe_handler_impl(
   user_id: String,
   org_id: Option<String>,
   language: Option<String>,
-  credits_required: i32,
+  tokens_required: i32,
   current_balance: i32,
   timer: Arc<SpanTimer<TimeSpanEvent>>,
   test_mode: bool,
@@ -421,13 +421,13 @@ async fn resume_transcribe_handler_impl(
   timer.start(TimeSpanEvent::TranscribeSegments);
 
   info!(
-    "resume transcribe handler for transcript {}, test_mode: {}, current_balance: {}, credits_required: {}",
-    transcript_id, test_mode, current_balance, credits_required
+    "resume transcribe handler for transcript {}, test_mode: {}, current_balance: {}, tokens_required: {}",
+    transcript_id, test_mode, current_balance, tokens_required
   );
 
-  let insufficient_credits = current_balance < credits_required;
+  let insufficient_tokens = current_balance < tokens_required;
 
-  if insufficient_credits {
+  if insufficient_tokens {
     return Ok(());
   }
 
@@ -438,12 +438,12 @@ async fn resume_transcribe_handler_impl(
     return Ok(());
   }
 
-  r"INSERT INTO payments (user_id, org_id, transcript_id, credit, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :credit, 'sub', :billing_subject);"
+  r"INSERT INTO payments (user_id, org_id, transcript_id, token, action, billing_subject) VALUES (:user_id, :org_id, :transcript_id, :token, 'sub', :billing_subject);"
     .with(params! {
       "user_id" => user_id.clone(),
       "org_id" => org_id.clone(),
       "transcript_id" => transcript_id,
-      "credit" => -credits_required,
+      "token" => -tokens_required,
       "billing_subject" => if org_id.is_some() { "org" } else { "user" },
     })
     .ignore(&mut conn)

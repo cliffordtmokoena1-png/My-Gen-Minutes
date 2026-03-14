@@ -21,7 +21,7 @@ interface ResubscribeModalProps {
   onClose: () => void;
   onConfirm: () => void;
   planName: SubscriptionPlan;
-  creditsPerMonth: number;
+  tokensPerMonth: number;
   price: string;
   priceUnit: string;
   nextBillDate: string;
@@ -33,7 +33,7 @@ const ResubscribeModal: React.FC<ResubscribeModalProps> = ({
   onClose,
   onConfirm,
   planName,
-  creditsPerMonth,
+  tokensPerMonth,
   price,
   priceUnit,
   nextBillDate,
@@ -57,7 +57,7 @@ const ResubscribeModal: React.FC<ResubscribeModalProps> = ({
                 On that date, you will be charged {priceUnit}
                 {price} for the {billingPeriod}
               </ListItem>
-              <ListItem>On that date, you will get {creditsPerMonth} credits</ListItem>
+              <ListItem>On that date, you will get {tokensPerMonth} tokens</ListItem>
             </UnorderedList>
           </VStack>
         </ModalBody>

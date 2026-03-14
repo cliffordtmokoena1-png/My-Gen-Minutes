@@ -21,7 +21,7 @@ export type StepProgress = {
 interface MinutesProgressStepperProps {
   steps?: StepProgress[];
   isPaused?: boolean;
-  pauseReason?: "insufficient_credits" | "paused";
+  pauseReason?: "insufficient_tokens" | "paused";
 }
 
 const getStepIndex = (steps?: StepProgress[]) => {

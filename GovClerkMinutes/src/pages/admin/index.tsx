@@ -41,7 +41,7 @@ type Tool =
       props: { env: Environment };
     }
   | {
-      kind: "credits";
+      kind: "tokens";
       label: "User Tokens";
     }
   | {
@@ -115,7 +115,7 @@ export default function AdminPage({
   // Define the tools as a discriminated union array
   const tools: Tool[] = [
     { kind: "checkout", label: "Sales / Checkout", props: { env } },
-    { kind: "credits", label: "User Tokens" },
+    { kind: "tokens", label: "User Tokens" },
     { kind: "login", label: "Login Links" },
     { kind: "upload", label: "Upload for User" },
     {
@@ -135,7 +135,7 @@ export default function AdminPage({
     switch (tool.kind) {
       case "checkout":
         return <CheckoutLinkGenerator {...tool.props} />;
-      case "credits":
+      case "tokens":
         return <CreditManagement />;
       case "login":
         return <LoginLinkGenerator />;

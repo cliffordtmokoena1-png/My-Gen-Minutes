@@ -601,14 +601,14 @@ pub async fn replicate_webhook_handler_impl(
 ) -> anyhow::Result<()> {
   let mut conn = state.db.get_conn().await?;
 
-  let rows = r"SELECT diarization_ready, insufficient_credits, credits_required, userId, upload_kind FROM transcripts WHERE id = :id;"
+  let rows = r"SELECT diarization_ready, insufficient_tokens, tokens_required, userId, upload_kind FROM transcripts WHERE id = :id;"
     .with(params! {
       "id" => transcript_id,
     })
     .map(
       &mut conn,
-      |(diarization_ready, insufficient_credits, credits_required, user_id, upload_kind): (i32, i32, i32, String, String)| {
-        (diarization_ready, insufficient_credits, credits_required, user_id, upload_kind)
+      |(diarization_ready, insufficient_tokens, tokens_required, user_id, upload_kind): (i32, i32, i32, String, String)| {
+        (diarization_ready, insufficient_tokens, tokens_required, user_id, upload_kind)
       },
     )
     .await?;
@@ -621,19 +621,19 @@ pub async fn replicate_webhook_handler_impl(
     ));
   }
 
-  // TODO: don't rely on insufficient_credits to gate here
+  // TODO: don't rely on insufficient_tokens to gate here
   // Instead compute it fresh because we could be called from after a payment
-  // In which case we need to set insufficient_credits to 0 (if it changed)
+  // In which case we need to set insufficient_tokens to 0 (if it changed)
 
-  let (diarization_ready, insufficient_credits, credits_required, user_id, upload_kind) =
+  let (diarization_ready, insufficient_tokens, tokens_required, user_id, upload_kind) =
     rows[0].clone();
 
   let current_balance = get_current_balance(&mut conn, user_id.clone()).await?;
 
-  if diarization_ready == 0 || current_balance < credits_required {
+  if diarization_ready == 0 || current_balance < tokens_required {
     warn!(
-      "diarization_ready {} or insufficient_credits {} is false",
-      diarization_ready, insufficient_credits
+      "diarization_ready {} or insufficient_tokens {} is false",
+      diarization_ready, insufficient_tokens
     );
 
     r"UPDATE transcripts SET was_paywalled = 1 WHERE id = :id;"
@@ -648,17 +648,17 @@ pub async fn replicate_webhook_handler_impl(
     return Ok(());
   }
 
-  r"INSERT INTO payments (user_id, transcript_id, credit, action) VALUES (:user_id, :transcript_id, :credit, 'sub');"
+  r"INSERT INTO payments (user_id, transcript_id, token, action) VALUES (:user_id, :transcript_id, :token, 'sub');"
     .with(params! {
       user_id,
       transcript_id,
-      "credit" => -credits_required,
+      "token" => -tokens_required,
     })
     .ignore(&mut conn)
     .await?;
 
-  // Update transcribe_paused = 0 and insufficient_credits = 0 because we've paid and we're going through with it
-  r"UPDATE transcripts SET transcribe_paused = 0, insufficient_credits = 0 WHERE id = :id;"
+  // Update transcribe_paused = 0 and insufficient_tokens = 0 because we've paid and we're going through with it
+  r"UPDATE transcripts SET transcribe_paused = 0, insufficient_tokens = 0 WHERE id = :id;"
     .with(params! {
       "id" => transcript_id,
     })

@@ -1,6 +1,6 @@
 export interface CreditDetail {
   id: number;
-  credit: number;
+  token: number;
   action: string;
   checkout_session_id: string | null;
   transcript_id: number | null;

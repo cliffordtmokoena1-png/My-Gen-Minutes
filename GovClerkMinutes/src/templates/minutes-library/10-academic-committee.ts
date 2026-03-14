@@ -9,7 +9,7 @@ export const academicCommitteeTemplate: Template = {
   useCase:
     "Perfect for university committees, academic departments, faculty senates, and educational boards. Includes sections for curriculum review, student affairs, and academic policy development.",
   advantages: [
-    "Ensures academic decisions and curriculum changes are properly documented for accreditation and institutional compliance",
+    "Ensures academic decisions and curriculum changes are properly documented for actokenation and institutional compliance",
     "Facilitates transparent governance processes essential for academic freedom and institutional credibility",
     "Tracks student academic progress and faculty development initiatives for quality assurance and continuous improvement",
   ],
@@ -44,7 +44,7 @@ Dr. Chen presented a proposal for a new senior-level course focusing on producti
 **Result:** APPROVED
 
 ### Course Modification: ME 310 - Thermodynamics
-Dr. Martinez proposed updating ME 310 to include renewable energy applications and modern computational tools. The credit hours would remain unchanged at 3 credits.
+Dr. Martinez proposed updating ME 310 to include renewable energy applications and modern computational tools. The token hours would remain unchanged at 3 tokens.
 
 **Motion:** To approve the modification of ME 310 course content.
 **Moved by:** Dr. Anderson
@@ -57,8 +57,8 @@ Patricia Williams presented assessment data for the 2022-2023 academic year. Stu
 
 The committee discussed strategies to enhance communication skills including more writing assignments and presentation requirements across the curriculum.
 
-## Accreditation Update
-The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed the self-study timeline and assigned sections to committee members for review.
+## Actokenation Update
+The ABET actokenation visit is scheduled for October 2024. Dr. Chen reviewed the self-study timeline and assigned sections to committee members for review.
 
 ## Action Items
 - Dr. Chen: Update course catalog with approved changes (Due: March 31)
@@ -122,7 +122,7 @@ The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed th
 
 **Committee activities since last meeting:**
 - [Inter-committee collaboration activity]
-- [External accreditation or review participation]
+- [External actokenation or review participation]
 - [Policy development contribution]
 
 **Administrative updates:**
@@ -171,7 +171,7 @@ The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed th
 #### Course Modifications
 **Course:** [Course prefix and number] - [Current title]  
 **Proposed changes:**
-- [Specific modifications: title, credit hours, prerequisites, description]
+- [Specific modifications: title, token hours, prerequisites, description]
 - **Effective date:** [When changes take effect]
 
 **Justification:** [Reason for changes]  
@@ -184,7 +184,7 @@ The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed th
 ### Program Review
 
 #### [Department/Program Name] Program Review
-**Review Type:** [Regular cycle/Special review/Accreditation preparation]  
+**Review Type:** [Regular cycle/Special review/Actokenation preparation]  
 **Review Committee:** [Names of reviewers]  
 **Presented by:** [Department chair/Program director]
 
@@ -284,7 +284,7 @@ The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed th
 - [Changes to graduate requirements]
 - [New graduate course approvals]
 
-## Assessment and Accreditation
+## Assessment and Actokenation
 
 ### Learning Outcomes Assessment
 **Assessment activities:**
@@ -296,9 +296,9 @@ The ABET accreditation visit is scheduled for October 2024. Dr. Chen reviewed th
 - [Upcoming assessment activities scheduled]
 - [Assessment tools being developed or revised]
 
-### Accreditation Matters
-**Accrediting body:** [Name of accreditation organization]  
-**Status:** [Current accreditation standing]  
+### Actokenation Matters
+**Actokening body:** [Name of actokenation organization]  
+**Status:** [Current actokenation standing]  
 **Upcoming activities:**
 - [Site visit preparation] - **Date:** [When visit scheduled]
 - [Self-study progress] - **Timeline:** [Key milestones]

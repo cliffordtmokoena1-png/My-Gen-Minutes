@@ -86,14 +86,14 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         transcript_id,
         checkout_session_id,
         mode,
-        credit,
+        token,
         action,
         billing_subject,
         currency,
         purchase_amount
       ) VALUES (?, ?, ?, ?, ?, ?, 0, 'pending', ?, ?, ?)
       ON DUPLICATE KEY UPDATE
-      -- refresh metadata but never touch credit/action here
+      -- refresh metadata but never touch token/action here
       user_id             = VALUES(user_id),
       org_id              = VALUES(org_id),
       transcript_id       = VALUES(transcript_id),
@@ -170,7 +170,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     }
 
     // If this is a subscription upgrade, there will be two products, and we
-    // need the second one to get the right number of credits.  The first one is
+    // need the second one to get the right number of tokens.  The first one is
     // the original product.
     const productIdIdx = evt.billing_reason === "subscription_update" ? 1 : 0;
 
@@ -179,7 +179,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const productDetails = await stripe.products.retrieve(productId as any);
     const metadata = productDetails.metadata;
     console.info("Metadata:", metadata);
-    const credit = parseInt(metadata["credits"] || "0");
+    const token = parseInt(metadata["tokens"] || "0");
 
     const customerId = assertString(evt.customer);
     const customerData: { user_id: string | null; org_id: string | null } | null = await conn
@@ -214,13 +214,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         invoice_id,
         user_id,
         org_id,
-        credit,
+        token,
         action,
         billing_subject,
         mode
       ) VALUES (?, ?, ?, ?, 'add', ?, ?)
       ON DUPLICATE KEY UPDATE
-        credit = VALUES(credit),
+        token = VALUES(token),
         action = 'add',
         user_id = COALESCE(VALUES(user_id), user_id),
         org_id = COALESCE(VALUES(org_id), org_id),
@@ -229,7 +229,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         evt.id,
         upsertUserId, // May be null for first-time checkout, and later set in checkout.session.completed
         upsertOrgId,
-        credit,
+        token,
         upsertOrgId ? "org" : "user",
         evt.subscription ? "subscription" : "payment",
       ]
@@ -247,7 +247,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const metadata = evt.metadata || {};
     const userId = metadata.user_id;
     const billingModel = metadata.billing_model;
-    const creditsTarget = parseInt(metadata.credits || "0");
+    const tokensTarget = parseInt(metadata.tokens || "0");
 
     if (billingModel !== "contract") {
       return res.status(200).end();
@@ -268,21 +268,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       [userId, customerId, billingModel]
     );
 
-    // Make sure the user has at least `credits` credits, and if not, add the difference to the payments table.
+    // Make sure the user has at least `tokens` tokens, and if not, add the difference to the payments table.
     const rows = await conn
-      .execute("SELECT SUM(credit) as balance FROM payments WHERE user_id = ?;", [userId])
+      .execute("SELECT SUM(token) as balance FROM payments WHERE user_id = ?;", [userId])
       .then((r) => r.rows);
     const balanceVal = (rows?.[0] as any)?.balance;
     const currentBalance = balanceVal ? parseInt(balanceVal) : 0;
 
-    const diff = creditsTarget - currentBalance;
+    const diff = tokensTarget - currentBalance;
 
     await conn.execute(
       `
       INSERT INTO payments (
         invoice_id,
         user_id,
-        credit,
+        token,
         action,
         billing_subject,
         mode,

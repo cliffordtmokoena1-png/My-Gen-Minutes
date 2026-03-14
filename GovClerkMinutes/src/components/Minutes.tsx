@@ -34,7 +34,7 @@ type Props = {
   layoutKind: LayoutKind;
   isPreviewTranscriptDone: boolean;
   transcriptionPaused?: boolean;
-  insufficientCredits?: boolean;
+  insufficientToken?: boolean;
   hideVersionTabs?: boolean; // Hide version tabs for mobile tabbed view
   bottomSpacing?: number; // Custom bottom spacing for mobile tabbed view
   externalSelectedVersion?: number; // External control of selected version for mobile
@@ -49,7 +49,7 @@ const Minutes = ({
   speakerData,
   uploadKind,
   transcriptionPaused = false,
-  insufficientCredits = false,
+  insufficientToken = false,
   hideVersionTabs = false,
   externalSelectedVersion,
   onVersionChange,
@@ -341,7 +341,7 @@ const Minutes = ({
       >
         {(() => {
           // Show paused indicator regardless of other conditions when transcription is paused
-          if (transcriptionPaused || insufficientCredits) {
+          if (transcriptionPaused || insufficientToken) {
             return (
               <Flex
                 direction="column"
@@ -365,7 +365,7 @@ const Minutes = ({
                   <MinutesProgressStepper
                     steps={minutesData?.steps}
                     isPaused
-                    pauseReason={insufficientCredits ? "insufficient_credits" : "paused"}
+                    pauseReason={insufficientToken ? "insufficient_tokens" : "paused"}
                   />
                 </Box>
               </Flex>
@@ -398,8 +398,8 @@ const Minutes = ({
                 >
                   <MinutesProgressStepper
                     steps={minutesData?.steps}
-                    isPaused={transcriptionPaused || insufficientCredits}
-                    pauseReason={insufficientCredits ? "insufficient_credits" : "paused"}
+                    isPaused={transcriptionPaused || insufficientToken}
+                    pauseReason={insufficientToken ? "insufficient_tokens" : "paused"}
                   />
                 </Box>
               </Flex>

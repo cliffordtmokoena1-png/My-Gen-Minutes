@@ -311,14 +311,14 @@ const ProductPage = ({
       transcriptId != null &&
       showPaywall &&
       transcriptStatus?.currentBalance != null &&
-      transcriptStatus?.creditsRequired != null &&
-      transcriptStatus.currentBalance < transcriptStatus.creditsRequired;
+      transcriptStatus?.tokensRequired != null &&
+      transcriptStatus.currentBalance < transcriptStatus.tokensRequired;
 
     if (shouldShowPaywall && paywallAnnouncementIdRef.current == null) {
       const uploadKindText = transcriptStatus.uploadKind === "audio" ? "recording" : "transcript";
-      const creditText = transcriptStatus.currentBalance === 1 ? "credit" : "credits";
+      const tokenText = transcriptStatus.currentBalance === 1 ? "token" : "tokens";
       const id = addAnnouncement({
-        text: `This ${uploadKindText} requires **${transcriptStatus.creditsRequired}** credits, but you only have **${transcriptStatus.currentBalance}** ${creditText}.`,
+        text: `This ${uploadKindText} requires **${transcriptStatus.tokensRequired}** tokens, but you only have **${transcriptStatus.currentBalance}** ${tokenText}.`,
         variant: "warning",
         action: onPaywallOpen,
         actionText: "Upgrade Now",
@@ -334,7 +334,7 @@ const ProductPage = ({
     transcriptId,
     showPaywall,
     transcriptStatus?.currentBalance,
-    transcriptStatus?.creditsRequired,
+    transcriptStatus?.tokensRequired,
     transcriptStatus?.uploadKind,
     addAnnouncement,
     dismissAnnouncement,
@@ -391,12 +391,12 @@ const ProductPage = ({
 
       {showPaywall &&
         transcriptStatus?.currentBalance != null &&
-        transcriptStatus?.creditsRequired != null &&
-        transcriptStatus.currentBalance < transcriptStatus.creditsRequired && (
+        transcriptStatus?.tokensRequired != null &&
+        transcriptStatus.currentBalance < transcriptStatus.tokensRequired && (
           <PaywallHeader
             isOpen={isPaywallOpen}
             onClose={onPaywallClose}
-            creditsRequired={transcriptStatus.creditsRequired}
+            tokensRequired={transcriptStatus.tokensRequired}
             currentBalance={transcriptStatus.currentBalance}
             uploadKind={transcriptStatus.uploadKind}
             country={country ?? undefined}

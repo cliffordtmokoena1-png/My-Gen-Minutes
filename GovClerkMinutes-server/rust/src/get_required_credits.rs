@@ -20,20 +20,20 @@ use crate::{error::LogError, SharedRequestState};
 // TODO: write middleware here where we write transcribe_failed = 1 if we have non-200 status code
 
 #[derive(Deserialize, Serialize)]
-pub struct GetRequiredCreditsBody {
+pub struct GetRequiredTokenBody {
   transcript_id: u64,
 }
 
 #[derive(Deserialize, Serialize)]
-pub struct GetRequiredCreditsResponse {
-  credits_required: i32,
+pub struct GetRequiredTokenResponse {
+  tokens_required: i32,
 }
 
 struct TranscribeInput {
   s3_audio_key: String,
 }
 
-pub async fn get_required_credits(
+pub async fn get_required_tokens(
   client: &aws_sdk_s3::Client,
   audio_key: &str,
 ) -> Result<i32, StatusCode> {
@@ -110,13 +110,13 @@ pub async fn get_required_credits(
   return Ok(max((seconds / 60.0).floor() as i32, 1_i32));
 }
 
-pub async fn get_required_credits_handler(
+pub async fn get_required_tokens_handler(
   TypedHeader(auth): TypedHeader<Authorization<Bearer>>,
   State(state): State<Arc<SharedRequestState>>,
-  Json(GetRequiredCreditsBody { transcript_id }): Json<GetRequiredCreditsBody>,
+  Json(GetRequiredTokenBody { transcript_id }): Json<GetRequiredTokenBody>,
 ) -> Result<impl IntoResponse, StatusCode> {
   if auth.token() != env::var("UPLOAD_COMPLETE_WEBHOOK_SECRET").unwrap() {
-    error!("unauthorized get required credits handler");
+    error!("unauthorized get required tokens handler");
     return Err(StatusCode::UNAUTHORIZED);
   }
 
@@ -144,11 +144,11 @@ pub async fn get_required_credits_handler(
 
   let TranscribeInput { s3_audio_key } = &rows[0];
 
-  let credits_required = get_required_credits(&state.s3_client, s3_audio_key).await?;
+  let tokens_required = get_required_tokens(&state.s3_client, s3_audio_key).await?;
 
-  info!("credits required: {}", credits_required);
+  info!("tokens required: {}", tokens_required);
 
-  return Ok(axum::response::Json(GetRequiredCreditsResponse {
-    credits_required,
+  return Ok(axum::response::Json(GetRequiredTokenResponse {
+    tokens_required,
   }));
 }

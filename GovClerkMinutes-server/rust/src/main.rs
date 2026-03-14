@@ -14,7 +14,7 @@ use create_signin_token::create_signin_token;
 use dotenv::dotenv;
 use get_diarization::get_diarization_handler;
 use get_pending_tasks::get_pending_tasks_handler;
-use get_required_credits::get_required_credits_handler;
+use get_required_tokens::get_required_tokens_handler;
 use jsonwebtoken::{decode, Algorithm, DecodingKey, Validation};
 use monitor::monitor_handler;
 use mysql::DbManager;
@@ -53,7 +53,7 @@ mod error;
 mod get_current_balance;
 mod get_diarization;
 mod get_pending_tasks;
-mod get_required_credits;
+mod get_required_tokens;
 mod instantly;
 mod monitor;
 mod mysql;
@@ -170,9 +170,9 @@ async fn run_transcript_reaper(state: Arc<SharedRequestState>) -> anyhow::Result
   Ok(())
 }
 
-fn format_recording_length(credits_required: i32) -> String {
-  let hours = credits_required / 60;
-  let minutes = credits_required % 60;
+fn format_recording_length(tokens_required: i32) -> String {
+  let hours = tokens_required / 60;
+  let minutes = tokens_required % 60;
 
   if minutes < 15 {
       if hours == 1 {
@@ -261,10 +261,10 @@ async fn add_paywall_abandonment_leads(conn: &mut mysql_async::Conn, state: &Arc
       let campaign_id = std::env::var("INSTANTLY_CAMPAIGN_PAYWALL_ABANDONERS")
           .expect("Bad INSTANTLY_CAMPAIGN_PAYWALL_ABANDONERS");
       
-      let rows: Vec<i32> = conn.exec(r"SELECT credits_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id", params! { "transcript_id" => transcript_id, "user_id" => user_id.clone() }).await?;
+      let rows: Vec<i32> = conn.exec(r"SELECT tokens_required FROM transcripts WHERE id = :transcript_id AND userId = :user_id", params! { "transcript_id" => transcript_id, "user_id" => user_id.clone() }).await?;
       
-      if let Some(credits_required) = rows.first() {
-          let recording_length_snippet = format_recording_length(*credits_required);
+      if let Some(tokens_required) = rows.first() {
+          let recording_length_snippet = format_recording_length(*tokens_required);
           variables.insert("recordingLengthSnippet".to_string(), recording_length_snippet);
       }
       
@@ -505,10 +505,10 @@ async fn main() {
         .allow_headers(vec![header::AUTHORIZATION, header::CONTENT_TYPE]),
     );
 
-  let get_required_credits_router = Router::new()
+  let get_required_tokens_router = Router::new()
     .route(
-      "/api/get-required-credits",
-      post(get_required_credits_handler),
+      "/api/get-required-tokens",
+      post(get_required_tokens_handler),
     )
     .layer(
       CorsLayer::new()
@@ -548,7 +548,7 @@ async fn main() {
     .merge(create_minutes_router)
     .merge(regenerate_minutes_router)
     .merge(get_pending_tasks_router)
-    .merge(get_required_credits_router)
+    .merge(get_required_tokens_router)
     .merge(get_diarization_router)
     .merge(monitor_router)
     .layer(TraceLayer::new_for_http())

@@ -12,8 +12,8 @@ export const content: LandingPageContent = {
   },
   features: [
     {
-      title: "Accreditation Compliance",
-      description: "Document academic decisions for accreditation and institutional compliance",
+      title: "Actokenation Compliance",
+      description: "Document academic decisions for actokenation and institutional compliance",
       iconName: "MdVerifiedUser",
     },
     {
@@ -34,7 +34,7 @@ export const content: LandingPageContent = {
   ],
   featuresHeading: {
     title: "Why the Academic Committee Minutes template?",
-    subtitle: "Ensures accreditation compliance and transparency for educational governance",
+    subtitle: "Ensures actokenation compliance and transparency for educational governance",
   },
   faqs: [
     {
@@ -42,8 +42,8 @@ export const content: LandingPageContent = {
       a: "Yes, this template is perfect for university committees, academic departments, faculty senates, and educational boards at all levels.",
     },
     {
-      q: "Does it help with accreditation compliance?",
-      a: "Absolutely. The template ensures academic decisions and curriculum changes are properly documented to meet accreditation requirements.",
+      q: "Does it help with actokenation compliance?",
+      a: "Absolutely. The template ensures academic decisions and curriculum changes are properly documented to meet actokenation requirements.",
     },
     {
       q: "Can it track curriculum changes?",
@@ -65,9 +65,9 @@ export const content: LandingPageContent = {
   seo: {
     title: "Academic Committee Minutes Template - University & Educational Governance",
     description:
-      "Free academic committee minutes template for university committees with curriculum tracking and accreditation compliance. Perfect for faculty senates and departments.",
+      "Free academic committee minutes template for university committees with curriculum tracking and actokenation compliance. Perfect for faculty senates and departments.",
     keywords:
-      "academic committee minutes, university governance, curriculum committee, faculty senate, accreditation compliance",
+      "academic committee minutes, university governance, curriculum committee, faculty senate, actokenation compliance",
     canonical: "https://GovClerkMinutes.com/academic-committee-minutes-template",
   },
 };

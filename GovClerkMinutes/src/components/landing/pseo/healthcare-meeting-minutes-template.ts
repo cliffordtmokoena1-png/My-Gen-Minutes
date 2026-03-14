@@ -23,7 +23,7 @@ export const content: LandingPageContent = {
     },
     {
       title: "Regulatory Compliance",
-      description: "Track medical policy updates and compliance for healthcare accreditation",
+      description: "Track medical policy updates and compliance for healthcare actokenation",
       iconName: "MdVerifiedUser",
     },
     {
@@ -42,8 +42,8 @@ export const content: LandingPageContent = {
       a: "Yes, this template is specifically designed for medical staff meetings, healthcare committees, clinical reviews, and interdisciplinary care team meetings.",
     },
     {
-      q: "Does it help with accreditation compliance?",
-      a: "Absolutely. The template includes sections for documenting quality metrics, policy updates, and regulatory compliance matters required for healthcare accreditation.",
+      q: "Does it help with actokenation compliance?",
+      a: "Absolutely. The template includes sections for documenting quality metrics, policy updates, and regulatory compliance matters required for healthcare actokenation.",
     },
     {
       q: "Is it HIPAA-compliant?",

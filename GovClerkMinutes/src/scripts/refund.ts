@@ -14,7 +14,7 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
   });
 
   const transcriptResult = await conn.execute(
-    "SELECT credits_required FROM transcripts WHERE id = ? AND userId = ?;",
+    "SELECT tokens_required FROM transcripts WHERE id = ? AND userId = ?;",
     [transcriptId, userId]
   );
 
@@ -23,20 +23,20 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
     return;
   }
 
-  const creditsRequired = assertNumber(transcriptResult.rows[0].credits_required);
+  const tokensRequired = assertNumber(transcriptResult.rows[0].tokens_required);
 
-  if (!creditsRequired) {
-    console.log(`No credits to refund for transcript ${transcriptId}`);
+  if (!tokensRequired) {
+    console.log(`No tokens to refund for transcript ${transcriptId}`);
     return;
   }
 
   const paymentResult = await conn.execute(
-    "INSERT INTO payments (user_id, credit, action, transcript_id) VALUES (?, ?, 'refund', ?);",
-    [userId, creditsRequired, transcriptId]
+    "INSERT INTO payments (user_id, token, action, transcript_id) VALUES (?, ?, 'refund', ?);",
+    [userId, tokensRequired, transcriptId]
   );
 
   console.log(
-    `Refunded ${creditsRequired} credits to user ${userId} for transcript ${transcriptId}!`
+    `Refunded ${tokensRequired} tokens to user ${userId} for transcript ${transcriptId}!`
   );
   console.log(`Payment ID: ${paymentResult.insertId}`);
 }
@@ -44,15 +44,15 @@ async function refundTranscript(userId: string, transcriptId: number): Promise<v
 yargs(hideBin(process.argv))
   .command(
     "$0 <user_id> <transcript_id>",
-    "Refund credits for a transcript",
+    "Refund tokens for a transcript",
     (yargs) => {
       return yargs
         .positional("user_id", {
-          describe: "The user ID to refund credits to",
+          describe: "The user ID to refund tokens to",
           type: "string",
         })
         .positional("transcript_id", {
-          describe: "The transcript ID to refund credits for",
+          describe: "The transcript ID to refund tokens for",
           type: "number",
         });
     },

@@ -10,7 +10,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { withGsspErrorHandling } from "@/error/withErrorReporting";
 import { getSidebarItems } from "../api/sidebar";
 import { getCustomerDetails } from "../api/get-customer-details";
-import { getCurrentBalance } from "../api/get-credits";
+import { getCurrentBalance } from "../api/get-tokens";
 import { ModalType, LayoutKind } from "../dashboard/[[...slug]]";
 import SimplePricingModal from "@/components/SimplePricingModal";
 import ReferralModal from "@/components/ReferralModal";
@@ -23,7 +23,7 @@ type Props = {
   agendaId: number | null;
   sidebarItems: any;
   customerDetails: any;
-  credits: number | null;
+  tokens: number | null;
   country: string | null;
 };
 
@@ -37,7 +37,7 @@ export const getServerSideProps = withGsspErrorHandling(async (context) => {
     };
   }
 
-  const [sidebarItems, customerDetails, credits] = await Promise.all([
+  const [sidebarItems, customerDetails, tokens] = await Promise.all([
     getSidebarItems(userId),
     getCustomerDetails(userId),
     getCurrentBalance(userId),
@@ -48,7 +48,7 @@ export const getServerSideProps = withGsspErrorHandling(async (context) => {
       agendaId,
       sidebarItems,
       customerDetails,
-      credits,
+      tokens,
       country: "US",
     },
   };
@@ -58,7 +58,7 @@ export default function AgendasDashboardPage({
   agendaId,
   sidebarItems,
   customerDetails,
-  credits,
+  tokens,
   country,
 }: Props) {
   const router = useRouter();
@@ -141,7 +141,7 @@ export default function AgendasDashboardPage({
             selectedTranscript={agendaId}
             initialSidebarItems={sidebarItems}
             initialCustomerDetails={customerDetails}
-            initialCredits={credits}
+            initialToken={tokens}
             onOpen={openModal}
           >
             {agendaId ? <AgendaPage agendaId={agendaId} /> : <AgendaHomePage />}
