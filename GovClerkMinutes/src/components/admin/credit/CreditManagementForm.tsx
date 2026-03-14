@@ -25,7 +25,7 @@ import {
 } from "@chakra-ui/react";
 import { useContactLookup } from "@/admin/whatsapp/hooks/useContactLookup";
 import type { LookupUserApiResponse } from "@/pages/api/admin/lookup-user";
-import CreditSituation from "@/components/admin/token/CreditSituation";
+import CreditSituation from "@/components/admin/credit/CreditSituation";
 
 type Props = {
   onSuccess?: () => void;

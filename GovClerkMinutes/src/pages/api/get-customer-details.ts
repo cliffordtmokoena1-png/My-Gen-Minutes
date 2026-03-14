@@ -3,7 +3,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { connect } from "@planetscale/database";
 import withErrorReporting from "@/error/withErrorReporting";
 import { getStripe } from "@/utils/stripe";
-import { getCurrentBalance } from "./get-tokens";
+import { getCurrentBalance } from "./get-credits";
 import { getCountryFromPriceId, getPlanFromPriceId, SubscriptionPlan } from "@/utils/price";
 import type { Stripe } from "stripe";
 import { resolveRequestContext } from "@/utils/resolveRequestContext";

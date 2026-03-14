@@ -400,10 +400,10 @@ const Sidebar = ({
   }, [mutate, selectedTranscript]);
 
   let { data: tokenData } = useSWR<ApiGetTokenResponse>(
-    ["/api/get-tokens", userId, orgId],
+    ["/api/get-credits", userId, orgId],
     async (_) => {
       await getToken();
-      return await fetch("/api/get-tokens", {
+      return await fetch("/api/get-credits", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

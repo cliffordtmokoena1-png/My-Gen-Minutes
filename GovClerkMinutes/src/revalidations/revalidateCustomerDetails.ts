@@ -8,7 +8,7 @@ export async function revalidateCustomerDetails(
     mutate(
       transcriptId == null ? "/api/transcript-status" : `/api/transcript-status?tid=${transcriptId}`
     ),
-    mutate(["/api/get-tokens", userId]),
+    mutate(["/api/get-credits", userId]),
     mutate("/api/get-customer-details"),
   ]);
 }

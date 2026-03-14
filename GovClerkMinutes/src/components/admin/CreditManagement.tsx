@@ -1,6 +1,6 @@
 import { Divider, Heading } from "@chakra-ui/react";
 import { Environment } from "@/utils/environment";
-import CreditManagementForm from "@/components/admin/token/CreditManagementForm";
+import CreditManagementForm from "@/components/admin/credit/CreditManagementForm";
 
 type Props = {};
 

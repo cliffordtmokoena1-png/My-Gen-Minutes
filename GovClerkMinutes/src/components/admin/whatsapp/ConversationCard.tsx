@@ -4,7 +4,7 @@ import MessageList from "@/components/admin/whatsapp/MessageList";
 import { useEffect, useMemo, useRef, useState, memo } from "react";
 import useMarkConversationRead from "@/admin/whatsapp/hooks/useMarkConversationRead";
 import SchedulerModal from "@/components/admin/whatsapp/SchedulerModal";
-import CreditModal from "@/components/admin/token/CreditModal";
+import CreditModal from "@/components/admin/credit/CreditModal";
 import ConversationTopBar from "@/components/admin/whatsapp/ConversationTopBar";
 import Composer from "@/components/admin/whatsapp/Composer";
 import type { Message } from "@/admin/whatsapp/types";

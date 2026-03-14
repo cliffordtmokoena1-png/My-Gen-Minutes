@@ -1,6 +1,6 @@
 import { assert, assertString } from "@/utils/assert";
 import { getAuth } from "@clerk/nextjs/server";
-import { getCurrentBalance } from "./get-tokens";
+import { getCurrentBalance } from "./get-credits";
 import { connect } from "@planetscale/database";
 import withErrorReporting from "@/error/withErrorReporting";
 import { NextRequest } from "next/server";
