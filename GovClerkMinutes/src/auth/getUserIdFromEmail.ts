@@ -1,7 +1,5 @@
-import { assertString } from "@/utils/assert";
 import { ClerkEnvironment, getClerkKeysFromEnv } from "@/utils/clerk";
 import type { Site } from "@/utils/site";
-import { UserResource } from "@clerk/types";
 
 export type GetUserIdFromEmailParams = {
   email: string;
@@ -14,20 +12,37 @@ export async function getUserIdFromEmail({
   env,
   site,
 }: GetUserIdFromEmailParams): Promise<string | null> {
-  const keys = getClerkKeysFromEnv(env, site);
-
-  const res: Array<UserResource> = await fetch(
-    `https://api.clerk.com/v1/users?email_address=${encodeURIComponent(email)}`,
-    {
-      headers: {
-        Authorization: `Bearer ${keys.secretKey}`,
-      },
+  try {
+    const keys = getClerkKeysFromEnv(env, site);
+    if (!keys?.secretKey) {
+      console.error(`[getUserIdFromEmail] Configuration error: missing Clerk secret key for env=${env}, site=${site}`);
+      return null;
     }
-  ).then((r) => r.json());
 
-  if (res.length === 0) {
+    const response = await fetch(
+      `https://api.clerk.com/v1/users?email_address=${encodeURIComponent(email)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${keys.secretKey}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error(`[getUserIdFromEmail] Clerk API error: ${response.status}`);
+      return null;
+    }
+
+    const res = await response.json();
+
+    if (!Array.isArray(res) || res.length === 0) {
+      return null;
+    }
+
+    const id = res[0].id;
+    return typeof id === "string" ? id : null;
+  } catch (error) {
+    console.error(`[getUserIdFromEmail] Error looking up ${email}:`, error);
     return null;
   }
-
-  return assertString(res[0].id);
 }
