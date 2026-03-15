@@ -117,7 +117,7 @@ export default function AdminPage({
 
   useEffect(() => {
     fetch("/api/admin/token", { method: "GET" })
-      .then((r) => setApiHealthy(r.ok))
+      .then((r) => setApiHealthy(r.status < 500))
       .catch(() => setApiHealthy(false));
   }, []);
 
