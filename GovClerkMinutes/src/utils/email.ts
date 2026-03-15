@@ -2,11 +2,18 @@ import { getClerkKeys } from "./clerk";
 import type { Site } from "./site";
 
 export default async function getPrimaryEmail(userId: string, site?: Site): Promise<string | null> {
-  const emailIdResponse = await fetch(`https://api.clerk.com/v1/users/${userId}`, {
+  const userRes = await fetch(`https://api.clerk.com/v1/users/${userId}`, {
     headers: {
       Authorization: `Bearer ${getClerkKeys(site).secretKey}`,
     },
-  }).then((r) => r.json());
+  });
+
+  if (!userRes.ok) {
+    console.error(`Failed to fetch user from Clerk (userId=${userId}):`, userRes.status);
+    return null;
+  }
+
+  const emailIdResponse = await userRes.json();
 
   const primaryEmailId = emailIdResponse.primary_email_address_id;
   if (!primaryEmailId) {
@@ -14,11 +21,18 @@ export default async function getPrimaryEmail(userId: string, site?: Site): Prom
     return null;
   }
 
-  const emailResponse = await fetch(`https://api.clerk.com/v1/email_addresses/${primaryEmailId}`, {
+  const emailRes = await fetch(`https://api.clerk.com/v1/email_addresses/${primaryEmailId}`, {
     headers: {
       Authorization: `Bearer ${getClerkKeys(site).secretKey}`,
     },
-  }).then((r) => r.json());
+  });
+
+  if (!emailRes.ok) {
+    console.error(`Failed to fetch email address from Clerk (emailId=${primaryEmailId}):`, emailRes.status);
+    return null;
+  }
+
+  const emailResponse = await emailRes.json();
 
   const email = emailResponse.email_address;
 

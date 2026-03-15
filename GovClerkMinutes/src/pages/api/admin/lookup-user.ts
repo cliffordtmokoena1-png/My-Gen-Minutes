@@ -71,7 +71,7 @@ async function handler(
 ) {
   const { userId, sessionClaims } = getAuth(req);
 
-  if (!userId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!userId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return res.status(401).json({ error: "Unauthorized" });
   }
 
