@@ -149,7 +149,7 @@ export default function MobileAccountScreen({ onOpen }: Props) {
                   Tokens
                 </Text>
                 <Flex alignItems="center" gap={1.5}>
-                  <Text fontSize="xl" fontWeight="bold" color="gray.900">
+                  <Text fontSize="xl" fontWeight="bold" color={(tokenData?.tokens ?? 0) > 0 ? "green.600" : "red.500"}>
                     {tokenData?.tokens ?? 0}
                   </Text>
                   <Tooltip

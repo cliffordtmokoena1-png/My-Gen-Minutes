@@ -19,6 +19,7 @@ const AccountPanel = ({ layoutKind, customerDetails, tokenData, onOpen }: Accoun
     customerDetails?.subscriptionStatus === "cancel_at_period_end"
       ? getPrettyPlanName("Free")
       : getPrettyPlanName(customerDetails?.planName);
+  const tokenCount = tokenData?.tokens ?? 0;
   return (
     <Flex
       bg="gray.50"
@@ -73,14 +74,16 @@ const AccountPanel = ({ layoutKind, customerDetails, tokenData, onOpen }: Accoun
               <Text fontSize="sm" fontWeight="semibold">
                 Tokens:
               </Text>
-              {tokenData.tokens != null ? (
-                <Text fontSize="sm">{tokenData.tokens}</Text>
-              ) : (
-                <Skeleton height="14px" width="24px" />
-              )}
+              <Text
+                fontSize="sm"
+                fontWeight="bold"
+                color={tokenCount > 0 ? "green.600" : "red.500"}
+              >
+                {tokenCount}
+              </Text>
               <Flex alignItems="center" ml={1}>
                 <Tooltip
-                  label={tokenData.tokens != null ? `You can transcribe up to ${tokenData.tokens} minutes of recorded meetings` : "Loading token balance..."}
+                  label={`You can transcribe up to ${tokenCount} minutes of recorded meetings`}
                   fontSize="md"
                 >
                   <span>
@@ -97,9 +100,19 @@ const AccountPanel = ({ layoutKind, customerDetails, tokenData, onOpen }: Accoun
             </Flex>
           </Flex>
         ) : (
-          <Flex flexDirection="column" gap={2} w="full">
-            <Skeleton height="14px" width="60%" />
-            <Skeleton height="14px" width="50%" />
+          <Flex flexDirection="column">
+            <Flex alignItems="center" gap={1}>
+              <Text fontSize="sm" fontWeight="semibold">
+                Tokens:
+              </Text>
+              <Skeleton height="14px" width="30px" />
+            </Flex>
+            <Flex alignItems="center" gap={1}>
+              <Text fontSize="sm" fontWeight="semibold">
+                Plan:
+              </Text>
+              <Skeleton height="14px" width="40px" />
+            </Flex>
           </Flex>
         )}
       </Flex>

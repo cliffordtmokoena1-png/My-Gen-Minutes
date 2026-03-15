@@ -414,6 +414,8 @@ const Sidebar = ({
     {
       revalidateOnMount: true,
       refreshWhenHidden: true,
+      revalidateOnFocus: true,
+      refreshInterval: 30000,
     }
   );
 
