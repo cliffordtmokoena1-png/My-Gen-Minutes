@@ -19,8 +19,8 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
   });
 
   const result = await conn.execute(
-    "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, ?)",
-    [userId, finalAmount, "admin"]
+    "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, 'admin')",
+    [userId, finalAmount]
   );
 
   return result.insertId.toString();
