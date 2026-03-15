@@ -4,6 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import {
   Box,
+  Circle,
   Flex,
   Heading,
   useColorModeValue,
@@ -11,6 +12,7 @@ import {
   FormControl,
   FormLabel,
   Text,
+  Tooltip,
   useBreakpointValue,
   Accordion,
   AccordionItem,
@@ -54,7 +56,7 @@ type Tool =
     }
   | {
       kind: "whatsapp";
-      label: "WhatsApp Followup Scheduler";
+      label: "Automated Follow-up Scheduler";
       props: { whatsappMessageTemplates: Template[] };
     }
   | {
@@ -101,6 +103,7 @@ export default function AdminPage({
 
   const [env, setEnv] = useState<Environment>("prod");
   let [toolIndex, setToolIndex] = useState(initialToolIndex);
+  const [apiHealthy, setApiHealthy] = useState<boolean | null>(null);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
   const announcementBarHeight = useAnnouncementBarHeight();
@@ -112,6 +115,12 @@ export default function AdminPage({
     }
   }, [isSignedIn, user, router]);
 
+  useEffect(() => {
+    fetch("/api/admin/token", { method: "GET" })
+      .then((r) => setApiHealthy(r.ok))
+      .catch(() => setApiHealthy(false));
+  }, []);
+
   // Define the tools as a discriminated union array
   const tools: Tool[] = [
     { kind: "checkout", label: "Sales / Checkout", props: { env } },
@@ -120,7 +129,7 @@ export default function AdminPage({
     { kind: "upload", label: "Upload for User" },
     {
       kind: "whatsapp",
-      label: "WhatsApp Followup Scheduler",
+      label: "Automated Follow-up Scheduler",
       props: { whatsappMessageTemplates },
     },
     {
@@ -129,6 +138,16 @@ export default function AdminPage({
       props: { whatsappMessageTemplates },
     },
   ];
+
+  // Icons for each tool kind in the sidebar
+  const toolIcons: Record<Tool["kind"], string> = {
+    checkout: "💰",
+    tokens: "🎟️",
+    login: "🔗",
+    upload: "📤",
+    whatsapp: "📅",
+    whatsapps: "💬",
+  };
 
   // Helper to render the correct tool
   function renderTool(tool: Tool) {
@@ -153,7 +172,7 @@ export default function AdminPage({
   return (
     <>
       <Head>
-        <title>GC Admin Panel</title>
+        <title>🛡️ GovClerk Admin Panel</title>
         <meta name="description" content="Admin management panel for GovClerkMinutes" />
         <meta name="robots" content="noindex, nofollow" />
       </Head>
@@ -174,9 +193,28 @@ export default function AdminPage({
               direction={{ base: "column", md: "row" }}
               gap={2}
             >
-              <Heading as="h1" size="lg" color="purple.700">
-                ⚙️ Admin Panel
-              </Heading>
+              <Flex alignItems="center" gap={3}>
+                <Heading as="h1" size="lg" color="purple.700">
+                  🛡️ GovClerk Admin Panel
+                </Heading>
+                <Tooltip
+                  label={
+                    apiHealthy === null
+                      ? "Checking API…"
+                      : apiHealthy
+                      ? "API healthy"
+                      : "API unhealthy – check server logs"
+                  }
+                  hasArrow
+                >
+                  <Circle
+                    size="10px"
+                    bg={
+                      apiHealthy === null ? "gray.300" : apiHealthy ? "green.400" : "red.500"
+                    }
+                  />
+                </Tooltip>
+              </Flex>
               <Flex
                 alignItems="center"
                 bg="white"
@@ -222,7 +260,7 @@ export default function AdminPage({
                         }}
                       >
                         <Box flex="1" textAlign="left" fontWeight="semibold">
-                          {tool.label}
+                          {toolIcons[tool.kind]} {tool.label}
                         </Box>
                         <AccordionIcon />
                       </AccordionButton>
@@ -266,7 +304,7 @@ export default function AdminPage({
                       borderRadius="md"
                       size="lg"
                     >
-                      {tool.label}
+                      {toolIcons[tool.kind]} {tool.label}
                     </Button>
                   ))}
                 </VStack>

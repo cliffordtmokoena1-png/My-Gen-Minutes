@@ -48,7 +48,12 @@ export default function LoginLinkGenerator() {
         body: JSON.stringify({ email }),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        throw new Error(`Server error (${res.status}): ${e instanceof Error ? e.message : "Invalid JSON"}`);
+      }
 
       if (!res.ok) {
         throw new Error(data.error || "Failed to send login link");
