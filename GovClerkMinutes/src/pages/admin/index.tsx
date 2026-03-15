@@ -13,14 +13,12 @@ import {
   FormLabel,
   Text,
   Tooltip,
-  useBreakpointValue,
   Accordion,
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
   Button,
-  VStack,
 } from "@chakra-ui/react";
 import DesktopLayout from "@/components/layouts/DesktopLayout";
 import AnnouncementBar, { useAnnouncementBarHeight } from "@/components/AnnouncementBar";
@@ -105,7 +103,6 @@ export default function AdminPage({
   let [toolIndex, setToolIndex] = useState(initialToolIndex);
   const [apiHealthy, setApiHealthy] = useState<boolean | null>(null);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const announcementBarHeight = useAnnouncementBarHeight();
   const mainContainerHeight = `calc(100dvh - ${announcementBarHeight}px)`;
 
@@ -185,13 +182,13 @@ export default function AdminPage({
         bg={useColorModeValue("gray.50", "gray.900")}
       >
         <DesktopLayout>
-          <Box w="100%" p={{ base: 2, md: 8 }} flexGrow={1} overflowY="auto">
+          <Box maxW="1000px" mx="auto" p={4} flexGrow={1} overflowY="auto">
             <Flex
-              justifyContent="space-between"
-              alignItems={{ base: "flex-start", md: "center" }}
+              justify="space-between"
+              align="center"
               mb={6}
-              direction={{ base: "column", md: "row" }}
-              gap={2}
+              wrap="wrap"
+              gap={3}
             >
               <Flex alignItems="center" gap={3}>
                 <Heading as="h1" size="lg" color="purple.700">
@@ -218,12 +215,11 @@ export default function AdminPage({
               <Flex
                 alignItems="center"
                 bg="white"
-                p={2}
-                borderRadius="md"
-                boxShadow="sm"
-                borderWidth="1px"
+                px={4}
+                py={2}
+                borderRadius="full"
+                border="1px solid"
                 borderColor="gray.200"
-                mt={{ base: 2, md: 0 }}
               >
                 <FormControl display="flex" alignItems="center" mb={0}>
                   <FormLabel htmlFor="dev-mode" mb={0} mr={2}>
@@ -237,7 +233,7 @@ export default function AdminPage({
                   </FormLabel>
                   <Switch
                     id="dev-mode"
-                    colorScheme="orange"
+                    colorScheme="purple"
                     isChecked={env === "dev"}
                     onChange={() => setEnv(env === "dev" ? "prod" : "dev")}
                   />
@@ -245,82 +241,54 @@ export default function AdminPage({
               </Flex>
             </Flex>
 
-            {isMobile ? (
-              <Accordion allowToggle allowMultiple defaultIndex={[0]}>
-                {[
-                  ...tools.map((tool, i) => (
-                    <AccordionItem key={tool.label} border="none">
-                      <AccordionButton
-                        px={4}
-                        py={3}
-                        _expanded={{ bg: "purple.50", color: "purple.700" }}
-                        onClick={() => {
-                          router.replace(`/admin?tool=${i}`);
-                          setToolIndex(i);
-                        }}
-                      >
-                        <Box flex="1" textAlign="left" fontWeight="semibold">
-                          {toolIcons[tool.kind]} {tool.label}
-                        </Box>
-                        <AccordionIcon />
-                      </AccordionButton>
-                      <AccordionPanel px={2} pb={4} overflow="visible">
-                        {renderTool(tool)}
-                      </AccordionPanel>
-                    </AccordionItem>
-                  )),
-                  <Button
-                    key="last"
-                    variant="link"
-                    colorScheme="purple"
-                    onClick={() => router.push("/admin/whatsapp")}
-                  >
-                    Whatsapp Inbox
-                  </Button>,
-                ]}
-              </Accordion>
-            ) : (
-              <Flex direction="row" gap={8} overflow="visible">
-                <VStack
-                  align="stretch"
-                  minW="220px"
-                  bg="white"
+            <Accordion
+              index={toolIndex}
+              onChange={(i) => {
+                const idx = i as number;
+                setToolIndex(idx);
+                router.replace(`/admin?tool=${idx}`, undefined, { shallow: true });
+              }}
+              allowToggle
+            >
+              {tools.map((tool, i) => (
+                <AccordionItem
+                  key={tool.kind}
+                  mb={3}
+                  border="1px solid"
+                  borderColor="gray.200"
                   borderRadius="lg"
-                  boxShadow="sm"
-                  p={3}
-                  spacing={2}
+                  overflow="hidden"
                 >
-                  {tools.map((tool, i) => (
-                    <Button
-                      key={tool.label}
-                      variant={toolIndex === i ? "solid" : "ghost"}
-                      colorScheme={toolIndex === i ? "purple" : "gray"}
-                      onClick={() => {
-                        router.replace(`/admin?tool=${i}`, undefined, { shallow: true });
-                        setToolIndex(i);
-                      }}
-                      justifyContent="flex-start"
-                      fontWeight="medium"
-                      borderRadius="md"
-                      size="lg"
+                  <h2>
+                    <AccordionButton
+                      py={4}
+                      px={5}
+                      bg={toolIndex === i ? "purple.600" : "white"}
+                      color={toolIndex === i ? "white" : "gray.700"}
+                      _hover={{ bg: toolIndex === i ? "purple.700" : "gray.50" }}
                     >
-                      {toolIcons[tool.kind]} {tool.label}
-                    </Button>
-                  ))}
-                </VStack>
-                <Box
-                  flex={1}
-                  minW={0}
-                  bg="white"
-                  borderRadius="lg"
-                  boxShadow="sm"
-                  p={6}
-                  overflow="visible"
-                >
-                  {renderTool(tools[toolIndex])}
-                </Box>
-              </Flex>
-            )}
+                      <Box flex="1" textAlign="left" fontWeight="semibold" fontSize="md">
+                        {toolIcons[tool.kind]} {tool.label}
+                      </Box>
+                      <AccordionIcon />
+                    </AccordionButton>
+                  </h2>
+                  <AccordionPanel pb={6} pt={4} bg="white">
+                    {renderTool(tool)}
+                  </AccordionPanel>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
+            <Flex justify="center" mt={4}>
+              <Button
+                variant="link"
+                colorScheme="purple"
+                onClick={() => router.push("/admin/whatsapp")}
+              >
+                WhatsApp Inbox
+              </Button>
+            </Flex>
           </Box>
         </DesktopLayout>
       </Flex>

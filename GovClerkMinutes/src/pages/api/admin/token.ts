@@ -18,12 +18,24 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  const result = await conn.execute(
-    "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, 'admin')",
-    [userId, finalAmount]
-  );
-
-  return result.insertId.toString();
+  try {
+    const result = await conn.execute(
+      "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, ?)",
+      [userId, finalAmount, "admin"]
+    );
+    return result.insertId.toString();
+  } catch (error: any) {
+    // Fallback for DB branches that don't have the 'action' column (errno 1054)
+    if (error?.errno === 1054 || error?.message?.includes("1054") || error?.message?.includes("Unknown column")) {
+      console.warn("[admin/token] 'action' column not found, retrying without it");
+      const result = await conn.execute(
+        "INSERT INTO payments (user_id, credit) VALUES (?, ?)",
+        [userId, finalAmount]
+      );
+      return result.insertId.toString();
+    }
+    throw error;
+  }
 }
 
 async function handler(
