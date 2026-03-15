@@ -5,20 +5,25 @@ import withErrorReporting from "@/error/withErrorReporting";
 import { getSiteFromRequest } from "@/utils/site";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = getAuth(req);
-  if (userId == null) {
-    res.status(401).json({});
-    return;
+  try {
+    const { userId } = getAuth(req);
+    if (userId == null) {
+      res.status(401).json({});
+      return;
+    }
+
+    const site = getSiteFromRequest(req.headers);
+    const email = await getPrimaryEmail(userId, site);
+
+    if (email == null) {
+      return res.status(400).json({ error: "Bad request" });
+    }
+
+    return res.status(200).json({ email });
+  } catch (err) {
+    console.error("[api/get-email] Unexpected error:", err);
+    return res.status(500).json({ error: "Internal server error" });
   }
-
-  const site = getSiteFromRequest(req.headers);
-  const email = await getPrimaryEmail(userId, site);
-
-  if (email == null) {
-    return res.status(400).json({ error: "Bad request" });
-  }
-
-  return res.status(200).json({ email });
 }
 
 export default withErrorReporting(handler);

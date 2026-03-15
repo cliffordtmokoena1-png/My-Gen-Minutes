@@ -11,6 +11,7 @@ import {
   countTotalFiltered,
   encodeCursor,
   fetchKeysetBatch,
+  isMissingTableError,
 } from "@/admin/whatsapp/query";
 
 export const config = {
@@ -126,6 +127,14 @@ async function handler(req: NextRequest) {
   } catch (error) {
     console.error("[admin/get-whatsapp-conversations] Handler error:", error);
     const message = error instanceof Error ? error.message : "Internal server error";
+    // If the table doesn't exist yet (errno 1146), return an empty result set instead of 500
+    if (isMissingTableError(error)) {
+      console.warn("[admin/get-whatsapp-conversations] WhatsApp table(s) not yet created — returning empty result");
+      return new Response(JSON.stringify({ conversations: [], nextCursor: null, limit: 30, total: 0 }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
     return new Response(JSON.stringify({ error: message }), {
       status: 500,
       headers: { "Content-Type": "application/json" },

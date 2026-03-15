@@ -2,6 +2,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { NextRequest } from "next/server";
 import withErrorReporting from "@/error/withErrorReporting";
 import { connect } from "@planetscale/database";
+import { isMissingTableError } from "@/admin/whatsapp/query";
 
 export const config = {
   runtime: "edge",
@@ -40,6 +41,14 @@ async function handler(req: NextRequest) {
     });
   } catch (error) {
     console.error("[admin/get-scheduled-whatsapps] Handler error:", error);
+    // If the table doesn't exist yet (errno 1146), return an empty array instead of 500
+    if (isMissingTableError(error)) {
+      console.warn("[admin/get-scheduled-whatsapps] gc_scheduled_whatsapps table not yet created — returning empty result");
+      return new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
     const message = error instanceof Error ? error.message : "Internal server error";
     return new Response(JSON.stringify({ error: message }), {
       status: 500,

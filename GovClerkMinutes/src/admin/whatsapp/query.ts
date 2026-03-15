@@ -3,6 +3,22 @@ import { Conversation, MessageType, SortOption } from "@/admin/whatsapp/types";
 import { convertDateForMysql, convertIsoTimestampFromMysql } from "@/utils/date";
 import { assertSource } from "./utils";
 
+/**
+ * Returns true if the error indicates a missing MySQL/PlanetScale table (errno 1146).
+ * This happens when the gc_whatsapps / gc_scheduled_whatsapps tables haven't been
+ * created in PlanetScale yet.
+ */
+export function isMissingTableError(error: unknown): boolean {
+  if (error == null) return false;
+  // Check for a numeric errno property (PlanetScale/MySQL client may expose this)
+  if (typeof (error as any).errno === "number" && (error as any).errno === 1146) return true;
+  // Check for MySQL error code string (e.g. ER_NO_SUCH_TABLE)
+  if (typeof (error as any).code === "string" && (error as any).code === "ER_NO_SUCH_TABLE") return true;
+  // Fall back to message substring matching
+  const msg = error instanceof Error ? error.message : String(error);
+  return msg.includes("doesn't exist") || msg.includes("1146") || msg.includes("ER_NO_SUCH_TABLE");
+}
+
 type WhatsappRow = {
   id: number;
   created_at: string;
@@ -359,32 +375,40 @@ export async function fetchKeysetBatch(
 
   params.push(batchSize);
 
-  const rows = await conn
-    .transaction(async (tx) =>
-      tx.execute<{ conversation_id: string; sort_ts: string }>(
-        `
-        SELECT
-          w.conversation_id,
-          ${sortPlan.aggExpr} AS sort_ts
-        FROM gc_whatsapps w
-        ${sqlParts.joinClause}
-        ${sqlParts.whereClause}
-        GROUP BY w.conversation_id
-        ${sqlParts.havingClause}${cursorHaving}
-        ORDER BY sort_ts ${sortPlan.orderDir}, w.conversation_id ${sortPlan.tiebreakDir}
-        LIMIT ?;
-        `,
-        params
+  try {
+    const rows = await conn
+      .transaction(async (tx) =>
+        tx.execute<{ conversation_id: string; sort_ts: string }>(
+          `
+          SELECT
+            w.conversation_id,
+            ${sortPlan.aggExpr} AS sort_ts
+          FROM gc_whatsapps w
+          ${sqlParts.joinClause}
+          ${sqlParts.whereClause}
+          GROUP BY w.conversation_id
+          ${sqlParts.havingClause}${cursorHaving}
+          ORDER BY sort_ts ${sortPlan.orderDir}, w.conversation_id ${sortPlan.tiebreakDir}
+          LIMIT ?;
+          `,
+          params
+        )
       )
-    )
-    .then((res) =>
-      res.rows.map((r) => ({
-        conversation_id: r.conversation_id,
-        sort_ts: convertIsoTimestampFromMysql(r.sort_ts),
-      }))
-    );
+      .then((res) =>
+        res.rows.map((r) => ({
+          conversation_id: r.conversation_id,
+          sort_ts: convertIsoTimestampFromMysql(r.sort_ts),
+        }))
+      );
 
-  return rows;
+    return rows;
+  } catch (err) {
+    if (isMissingTableError(err)) {
+      console.warn("[fetchKeysetBatch] WhatsApp table(s) not yet created — returning empty batch");
+      return [];
+    }
+    throw err;
+  }
 }
 
 export async function buildConversationsFor(
@@ -397,53 +421,62 @@ export async function buildConversationsFor(
   }
 
   const placeholders = conversationIds.map(() => "?").join(",");
-  const rows = await conn
-    .transaction(async (tx) =>
-      tx.execute<WhatsappRow>(
-        `
-        SELECT
-          w.id,
-          w.created_at,
-          w.operator_email,
-          w.sender,
-          w.whatsapp_id,
-          w.business_whatsapp_id,
-          w.conversation_id,
-          w.type,
-          w.text,
-          w.direction,
-          w.source,
-          w.message_id,
-          w.sent_at,
-          w.delivered_at,
-          w.read_at,
-          w.error,
-          c.user_id,
-          l.first_name,
-          l.email,
-          l.minutes_freq,
-          l.minutes_due,
-          r.last_read_at
-        FROM gc_whatsapps w
-        LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
-        LEFT JOIN gc_leads l ON c.user_id = l.user_id
-        LEFT JOIN gc_whatsapp_reads r ON r.user_id = ? AND w.conversation_id = r.conversation_id
-        WHERE w.conversation_id IN (${placeholders})
-        ORDER BY w.conversation_id, w.created_at;
-        `,
-        [userId, ...conversationIds]
+  let rows: WhatsappRow[];
+  try {
+    rows = await conn
+      .transaction(async (tx) =>
+        tx.execute<WhatsappRow>(
+          `
+          SELECT
+            w.id,
+            w.created_at,
+            w.operator_email,
+            w.sender,
+            w.whatsapp_id,
+            w.business_whatsapp_id,
+            w.conversation_id,
+            w.type,
+            w.text,
+            w.direction,
+            w.source,
+            w.message_id,
+            w.sent_at,
+            w.delivered_at,
+            w.read_at,
+            w.error,
+            c.user_id,
+            l.first_name,
+            l.email,
+            l.minutes_freq,
+            l.minutes_due,
+            r.last_read_at
+          FROM gc_whatsapps w
+          LEFT JOIN gc_whatsapp_contacts c ON w.whatsapp_id = c.whatsapp_id
+          LEFT JOIN gc_leads l ON c.user_id = l.user_id
+          LEFT JOIN gc_whatsapp_reads r ON r.user_id = ? AND w.conversation_id = r.conversation_id
+          WHERE w.conversation_id IN (${placeholders})
+          ORDER BY w.conversation_id, w.created_at;
+          `,
+          [userId, ...conversationIds]
+        )
       )
-    )
-    .then((result) =>
-      result.rows.map((r) => ({
-        ...r,
-        created_at: convertIsoTimestampFromMysql(r.created_at),
-        last_read_at: r.last_read_at ? convertIsoTimestampFromMysql(r.last_read_at) : null,
-        sent_at: r.sent_at ? convertIsoTimestampFromMysql(r.sent_at) : null,
-        delivered_at: r.delivered_at ? convertIsoTimestampFromMysql(r.delivered_at) : null,
-        read_at: r.read_at ? convertIsoTimestampFromMysql(r.read_at) : null,
-      }))
-    );
+      .then((result) =>
+        result.rows.map((r) => ({
+          ...r,
+          created_at: convertIsoTimestampFromMysql(r.created_at),
+          last_read_at: r.last_read_at ? convertIsoTimestampFromMysql(r.last_read_at) : null,
+          sent_at: r.sent_at ? convertIsoTimestampFromMysql(r.sent_at) : null,
+          delivered_at: r.delivered_at ? convertIsoTimestampFromMysql(r.delivered_at) : null,
+          read_at: r.read_at ? convertIsoTimestampFromMysql(r.read_at) : null,
+        }))
+      );
+  } catch (err) {
+    if (isMissingTableError(err)) {
+      console.warn("[buildConversationsFor] WhatsApp table(s) not yet created — returning empty conversations");
+      return { conversations: [] };
+    }
+    throw err;
+  }
 
   const convos: Record<string, WhatsappRow[]> = {};
   for (const row of rows) {
@@ -454,33 +487,43 @@ export async function buildConversationsFor(
   let schedules: Record<string, ScheduleRow[]> = {};
   if (whatsappIds.length) {
     const schedPH = whatsappIds.map(() => "?").join(",");
-    const scheduleRows = await conn
-      .transaction(async (tx) =>
-        tx.execute<ScheduleRow>(
-          `
-          SELECT
-            whatsapp_id,
-            created_at,
-            template_id,
-            variables,
-            send_at,
-            is_sent,
-            sender_user_id,
-            cancel_on_reply
-          FROM gc_scheduled_whatsapps
-          WHERE whatsapp_id IN (${schedPH})
-          ORDER BY created_at;
-          `,
-          whatsappIds
+    let scheduleRows: ScheduleRow[];
+    try {
+      scheduleRows = await conn
+        .transaction(async (tx) =>
+          tx.execute<ScheduleRow>(
+            `
+            SELECT
+              whatsapp_id,
+              created_at,
+              template_id,
+              variables,
+              send_at,
+              is_sent,
+              sender_user_id,
+              cancel_on_reply
+            FROM gc_scheduled_whatsapps
+            WHERE whatsapp_id IN (${schedPH})
+            ORDER BY created_at;
+            `,
+            whatsappIds
+          )
         )
-      )
-      .then((res) =>
-        res.rows.map((r) => ({
-          ...r,
-          created_at: convertIsoTimestampFromMysql(r.created_at),
-          send_at: convertIsoTimestampFromMysql(r.send_at),
-        }))
-      );
+        .then((res) =>
+          res.rows.map((r) => ({
+            ...r,
+            created_at: convertIsoTimestampFromMysql(r.created_at),
+            send_at: convertIsoTimestampFromMysql(r.send_at),
+          }))
+        );
+    } catch (err) {
+      if (isMissingTableError(err)) {
+        console.warn("[buildConversationsFor] gc_scheduled_whatsapps table not yet created — skipping schedules");
+        scheduleRows = [];
+      } else {
+        throw err;
+      }
+    }
 
     for (const s of scheduleRows) {
       (schedules[s.whatsapp_id] ??= []).push(s);
@@ -552,24 +595,32 @@ export async function countTotalFiltered(
   }
 ) {
   const params: any[] = [...sqlParts.whereParams, ...sqlParts.havingParams];
-  const row = await conn
-    .transaction(async (tx) =>
-      tx.execute<{ total: number }>(
-        `
-        SELECT COUNT(*) AS total
-        FROM (
-          SELECT w.conversation_id
-          FROM gc_whatsapps w
-          ${sqlParts.joinClause}
-          ${sqlParts.whereClause}
-          GROUP BY w.conversation_id
-          ${sqlParts.havingClause}
-        ) t;
-        `,
-        params
+  try {
+    const row = await conn
+      .transaction(async (tx) =>
+        tx.execute<{ total: number }>(
+          `
+          SELECT COUNT(*) AS total
+          FROM (
+            SELECT w.conversation_id
+            FROM gc_whatsapps w
+            ${sqlParts.joinClause}
+            ${sqlParts.whereClause}
+            GROUP BY w.conversation_id
+            ${sqlParts.havingClause}
+          ) t;
+          `,
+          params
+        )
       )
-    )
-    .then((r) => r.rows[0]);
+      .then((r) => r.rows[0]);
 
-  return Number(row?.total ?? 0);
+    return Number(row?.total ?? 0);
+  } catch (err) {
+    if (isMissingTableError(err)) {
+      console.warn("[countTotalFiltered] WhatsApp table(s) not yet created — returning 0");
+      return 0;
+    }
+    throw err;
+  }
 }
