@@ -9,7 +9,7 @@ export const config = {
 
 async function handler(req: NextRequest) {
   const { userId: adminUserId, sessionClaims } = getAuth(req);
-  if (!adminUserId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!adminUserId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return new Response(null, { status: 401 });
   }
 

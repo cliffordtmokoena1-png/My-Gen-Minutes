@@ -42,7 +42,7 @@ type Body =
 
 async function handler(req: NextRequest) {
   const { userId, sessionClaims } = getAuth(req);
-  if (!userId || sessionClaims?.role !== "admin") {
+  if (!userId || sessionClaims?.metadata?.role !== "admin") {
     return new Response("Unauthorized", { status: 401 });
   }
 

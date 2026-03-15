@@ -8,7 +8,7 @@ export type ApiAdminCompleteUploadResponse = ApiCompleteUploadResponse;
 async function handler(req: NextApiRequest, res: NextApiResponse<ApiAdminCompleteUploadResponse>) {
   const { userId: adminUserId, sessionClaims } = getAuth(req);
 
-  if (!adminUserId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!adminUserId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return res.status(401).json({});
   }
 

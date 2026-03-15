@@ -11,7 +11,7 @@ export const config = {
 
 async function handler(req: NextRequest) {
   const { userId, sessionClaims } = getAuth(req);
-  if (!userId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!userId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return new Response(null, { status: 401 });
   }
 

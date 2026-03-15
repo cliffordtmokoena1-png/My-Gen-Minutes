@@ -13,7 +13,7 @@ type UnsubscribeBody = {
 
 async function handler(req: Request): Promise<Response> {
   const { userId, sessionClaims } = getAuth(req as any);
-  if (!userId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!userId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return new Response(null, { status: 401 });
   }
 

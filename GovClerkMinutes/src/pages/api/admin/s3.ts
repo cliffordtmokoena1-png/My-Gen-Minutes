@@ -9,7 +9,7 @@ export type ApiAdminS3ResponseResult = ApiS3ResponseResult;
 async function handler(req: NextApiRequest, res: NextApiResponse<ApiAdminS3ResponseResult | {}>) {
   const { userId: adminUserId, sessionClaims } = getAuth(req);
 
-  if (!adminUserId || !sessionClaims?.role || sessionClaims.role !== "admin") {
+  if (!adminUserId || !sessionClaims?.metadata?.role || sessionClaims.metadata.role !== "admin") {
     return res.status(401).json({});
   }
 
