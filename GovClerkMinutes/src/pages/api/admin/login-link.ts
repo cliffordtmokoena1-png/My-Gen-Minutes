@@ -6,7 +6,7 @@ import { sendSignInMagicEmail, sendSignUpMagicEmail } from "@/utils/postmark";
 import { createAuthToken } from "@/auth/createAuthToken";
 import { getUserIdFromEmail } from "@/auth/getUserIdFromEmail";
 import { createUser } from "@/auth/createUser";
-import { getSiteFromRequest } from "@/utils/site";
+import { getSiteFromHeaders } from "@/utils/site";
 
 type LoginLinkResponse = {
   emailSent: boolean;
@@ -32,7 +32,7 @@ async function handler(
   }
 
   try {
-    const site = getSiteFromRequest(req.headers);
+    const site = getSiteFromHeaders(req.headers);
     const userIdFromEmail = await getUserIdFromEmail({
       email,
       env,

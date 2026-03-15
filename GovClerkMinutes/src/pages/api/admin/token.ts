@@ -18,9 +18,11 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
+  console.log(`[admin/token] Crediting user_id=${userId} with ${finalAmount} credits`);
+
   try {
     const result = await conn.execute(
-      "INSERT INTO payments (user_id, credit, action) VALUES (?, ?, ?)",
+      "INSERT INTO payments (user_id, org_id, credit, action) VALUES (?, NULL, ?, ?)",
       [userId, finalAmount, "admin"]
     );
     return result.insertId.toString();
@@ -29,7 +31,7 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
     if (error?.errno === 1054 || error?.message?.includes("1054") || error?.message?.includes("Unknown column")) {
       console.warn("[admin/token] 'action' column not found, retrying without it");
       const result = await conn.execute(
-        "INSERT INTO payments (user_id, credit) VALUES (?, ?)",
+        "INSERT INTO payments (user_id, org_id, credit) VALUES (?, NULL, ?)",
         [userId, finalAmount]
       );
       return result.insertId.toString();
@@ -52,6 +54,15 @@ async function handler(
 
   if (!targetUserId || typeof amount !== "number") {
     return res.status(400).json({ error: "Missing required fields: userId and amount" });
+  }
+
+  if (
+    typeof targetUserId !== "string" ||
+    (!targetUserId.startsWith("user_") && !targetUserId.startsWith("org_"))
+  ) {
+    return res.status(400).json({
+      error: `Invalid userId format: "${targetUserId}". Must be a Clerk user ID starting with "user_" or "org_".`,
+    });
   }
 
   if (amount <= 0) {

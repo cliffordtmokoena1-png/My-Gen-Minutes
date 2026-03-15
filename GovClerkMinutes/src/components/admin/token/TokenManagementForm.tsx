@@ -167,10 +167,24 @@ export default function TokenManagementForm({ onSuccess, initialWhatsappId }: Pr
           `Successfully ${action === "subtract" ? "deducted" : "added"} ${Math.abs(amount)} tokens`,
         duration: 4000,
       });
+      // Re-fetch the user's updated balance so the admin can confirm the change
+      if (userInfo) {
+        try {
+          const refreshRes = await fetch("/api/admin/lookup-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ identifier: userInfo.userId }),
+          });
+          if (refreshRes.ok) {
+            const refreshData = await refreshRes.json();
+            setUserInfo(refreshData);
+          }
+        } catch {
+          // ignore refresh errors — the operation itself succeeded
+        }
+      }
       if (opts.resetAfter) {
-        setIdentifier("");
         setTokenAmount(100);
-        setUserInfo(null);
         if (onSuccess) {
           onSuccess();
         }
