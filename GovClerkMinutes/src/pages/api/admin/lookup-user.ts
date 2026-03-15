@@ -19,6 +19,9 @@ async function tryClient(
   site: Site
 ): Promise<User | null> {
   const keys = getClerkKeysFromEnv(env, site);
+  if (!keys?.secretKey) {
+    return null;
+  }
   const client = createClerkClient({ secretKey: keys.secretKey });
 
   const isEmail = identifier.includes("@");
