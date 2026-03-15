@@ -13,30 +13,39 @@ async function handler(req: NextRequest) {
     return new Response(null, { status: 401 });
   }
 
-  const conn = connect({
-    host: process.env.PLANETSCALE_DB_HOST,
-    username: process.env.PLANETSCALE_DB_USERNAME,
-    password: process.env.PLANETSCALE_DB_PASSWORD,
-  });
+  try {
+    const conn = connect({
+      host: process.env.PLANETSCALE_DB_HOST,
+      username: process.env.PLANETSCALE_DB_USERNAME,
+      password: process.env.PLANETSCALE_DB_PASSWORD,
+    });
 
-  const rows = await conn
-    .execute(
-      `
-    SELECT whatsapp_id, template_id, send_at, sender_user_id, is_sent
-    FROM gc_scheduled_whatsapps
-    ORDER BY send_at DESC
-    LIMIT 100
-    `,
-      []
-    )
-    .then((result) => result.rows);
+    const rows = await conn
+      .execute(
+        `
+      SELECT whatsapp_id, template_id, send_at, sender_user_id, is_sent
+      FROM gc_scheduled_whatsapps
+      ORDER BY send_at DESC
+      LIMIT 100
+      `,
+        []
+      )
+      .then((result) => result.rows);
 
-  return new Response(JSON.stringify(rows), {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+    return new Response(JSON.stringify(rows), {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("[admin/get-scheduled-whatsapps] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 export default withErrorReporting(handler);

@@ -83,7 +83,12 @@ export default function withErrorReporting(handler: Handler): Handler {
         await handler(req, res);
       } catch (error) {
         waitUntil(handleError(error, req));
-        throw error;
+        if (!res.headersSent) {
+          const message = error instanceof Error ? error.message : "Internal server error";
+          res.status(500).json({ error: message });
+        } else {
+          throw error;
+        }
       } finally {
         waitUntil(handleBadStatusCode(res.statusCode, req));
       }
@@ -96,7 +101,11 @@ export default function withErrorReporting(handler: Handler): Handler {
         return res;
       } catch (error) {
         waitUntil(handleError(error, req));
-        throw error;
+        const message = error instanceof Error ? error.message : "Internal server error";
+        return new Response(JSON.stringify({ error: message }), {
+          status: 500,
+          headers: { "Content-Type": "application/json" },
+        });
       }
     };
   }

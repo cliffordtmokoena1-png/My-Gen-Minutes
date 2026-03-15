@@ -81,22 +81,28 @@ async function handler(
     return res.status(400).json({ error: "Email or user ID required" });
   }
 
-  const lookupResult = await findUserIdByIdentifier(identifier);
+  try {
+    const lookupResult = await findUserIdByIdentifier(identifier);
 
-  if (lookupResult.kind === "error") {
-    return res.status(404).json({ error: lookupResult.err });
+    if (lookupResult.kind === "error") {
+      return res.status(404).json({ error: lookupResult.err });
+    }
+
+    const { user } = lookupResult;
+
+    const tokens = (await getCurrentBalance(user.id)) || 0;
+
+    return res.status(200).json({
+      userId: user.id,
+      email: user.emailAddresses[0]?.emailAddress || "",
+      displayName: [user.firstName, user.lastName].filter(Boolean).join(" ") || undefined,
+      tokens: tokens,
+    });
+  } catch (error) {
+    console.error("[admin/lookup-user] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
   }
-
-  const { user } = lookupResult;
-
-  const tokens = (await getCurrentBalance(user.id)) || 0;
-
-  return res.status(200).json({
-    userId: user.id,
-    email: user.emailAddresses[0]?.emailAddress || "",
-    displayName: [user.firstName, user.lastName].filter(Boolean).join(" ") || undefined,
-    tokens: tokens,
-  });
 }
 
 export default withErrorReporting(handler);

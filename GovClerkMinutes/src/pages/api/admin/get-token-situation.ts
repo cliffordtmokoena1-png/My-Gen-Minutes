@@ -34,47 +34,56 @@ async function handler(req: NextRequest) {
     });
   }
 
-  const body = await req.json();
-  const userId = assertString(body.userId);
+  try {
+    const body = await req.json();
+    const userId = assertString(body.userId);
 
-  const conn = connect({
-    host: process.env.PLANETSCALE_DB_HOST,
-    username: process.env.PLANETSCALE_DB_USERNAME,
-    password: process.env.PLANETSCALE_DB_PASSWORD,
-  });
+    const conn = connect({
+      host: process.env.PLANETSCALE_DB_HOST,
+      username: process.env.PLANETSCALE_DB_USERNAME,
+      password: process.env.PLANETSCALE_DB_PASSWORD,
+    });
 
-  const rows: TokenSituation[] = await conn
-    .execute<Row>(
-      `
-      SELECT
-        id,
-        dateCreated,
-        transcribe_paused,
-        transcribe_finished,
-        credits_required
-      FROM transcripts
-      WHERE userId = ?
-      ORDER BY dateCreated DESC
-    `,
-      [userId]
-    )
-    .then((res) =>
-      res.rows.map((row) => ({
-        transcriptId: row.id,
-        createdAt: convertIsoTimestampFromMysql(row.dateCreated),
-        transcribePaused: Boolean(row.transcribe_paused),
-        transcribeFinished: Boolean(row.transcribe_finished),
-        tokensRequired: Number(row.credits_required),
-      }))
-    );
+    const rows: TokenSituation[] = await conn
+      .execute<Row>(
+        `
+        SELECT
+          id,
+          dateCreated,
+          transcribe_paused,
+          transcribe_finished,
+          credits_required
+        FROM transcripts
+        WHERE userId = ?
+        ORDER BY dateCreated DESC
+      `,
+        [userId]
+      )
+      .then((res) =>
+        res.rows.map((row) => ({
+          transcriptId: row.id,
+          createdAt: convertIsoTimestampFromMysql(row.dateCreated),
+          transcribePaused: Boolean(row.transcribe_paused),
+          transcribeFinished: Boolean(row.transcribe_finished),
+          tokensRequired: Number(row.credits_required),
+        }))
+      );
 
-  // The least recent upload is always the example upload
-  rows.pop();
+    // The least recent upload is always the example upload
+    rows.pop();
 
-  return new Response(JSON.stringify({ rows }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+    return new Response(JSON.stringify({ rows }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("[admin/get-token-situation] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }
 
 export default withErrorReporting(handler);

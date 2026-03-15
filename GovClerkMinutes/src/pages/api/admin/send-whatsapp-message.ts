@@ -15,28 +15,37 @@ async function handler(req: NextRequest) {
     return new Response(null, { status: 401 });
   }
 
-  const body = await req.json();
-  const whatsappId = assertString(body.whatsappId);
-  const text = assertString(body.text);
-  const businessWhatsappId = assertString(body.businessWhatsappId);
-  const source = assertSource(body.source);
-  const callPermissionRequest = Boolean(body.callPermissionRequest);
+  try {
+    const body = await req.json();
+    const whatsappId = assertString(body.whatsappId);
+    const text = assertString(body.text);
+    const businessWhatsappId = assertString(body.businessWhatsappId);
+    const source = assertSource(body.source);
+    const callPermissionRequest = Boolean(body.callPermissionRequest);
 
-  const normalized = normalizeWhatsappId(whatsappId);
+    const normalized = normalizeWhatsappId(whatsappId);
 
-  if (source === "whatsapp") {
-    await whatsapp.sendMessage({
-      type: callPermissionRequest ? "call_permission_request" : "text",
-      adminUserId,
-      businessWhatsappId,
-      to: normalized,
-      body: text,
+    if (source === "whatsapp") {
+      await whatsapp.sendMessage({
+        type: callPermissionRequest ? "call_permission_request" : "text",
+        adminUserId,
+        businessWhatsappId,
+        to: normalized,
+        body: text,
+      });
+    } else {
+      console.error("Unsupported source for sending WhatsApp message:", source);
+    }
+
+    return new Response(null, { status: 200 });
+  } catch (error) {
+    console.error("[admin/send-whatsapp-message] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
     });
-  } else {
-    console.error("Unsupported source for sending WhatsApp message:", source);
   }
-
-  return new Response(null, { status: 200 });
 }
 
 export default withErrorReporting(handler);

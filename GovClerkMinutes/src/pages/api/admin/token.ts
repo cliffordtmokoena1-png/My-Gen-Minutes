@@ -46,13 +46,19 @@ async function handler(
     return res.status(400).json({ error: "Amount must be greater than zero" });
   }
 
-  const transactionId = await modifyUserToken(targetUserId, amount, action === "add");
+  try {
+    const transactionId = await modifyUserToken(targetUserId, amount, action === "add");
 
-  return res.status(200).json({
-    userId: targetUserId,
-    amount: action === "add" ? Math.abs(amount) : -Math.abs(amount),
-    id: transactionId,
-  });
+    return res.status(200).json({
+      userId: targetUserId,
+      amount: action === "add" ? Math.abs(amount) : -Math.abs(amount),
+      id: transactionId,
+    });
+  } catch (error) {
+    console.error("[admin/token] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
+  }
 }
 
 export default withErrorReporting(handler);

@@ -114,7 +114,11 @@ async function handler(req: NextRequest) {
     }
   } catch (e: unknown) {
     console.error("Error handling WhatsApp call action:", e);
-    return new Response(String((e as Error).message || e), { status: 500 });
+    const message = e instanceof Error ? e.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 }
 
