@@ -16,6 +16,10 @@ export async function createUser({
 }: CreateUserParams): Promise<string> {
   const keys = getClerkKeysFromEnv(env, site);
 
+  if (!keys?.secretKey) {
+    throw new Error(`[createUser] No Clerk secret key found for env=${env}, site=${site}`);
+  }
+
   const res = await fetch("https://api.clerk.com/v1/users", {
     method: "POST",
     headers: {
