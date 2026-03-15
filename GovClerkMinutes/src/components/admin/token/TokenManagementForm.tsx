@@ -68,7 +68,12 @@ export default function TokenManagementForm({ onSuccess, initialWhatsappId }: Pr
         body: JSON.stringify({ identifier: idToUse }),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        throw new Error(`Server error (${res.status}): ${e instanceof Error ? e.message : "Invalid JSON"}`);
+      }
 
       if (!res.ok) {
         throw new Error(data.error || "Failed to look up user");
@@ -145,7 +150,12 @@ export default function TokenManagementForm({ onSuccess, initialWhatsappId }: Pr
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: userInfo.userId, amount, action }),
       });
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        throw new Error(`Server error (${res.status}): ${e instanceof Error ? e.message : "Invalid JSON"}`);
+      }
       if (!res.ok) {
         throw new Error(data.error || "Failed to process token operation");
       }
