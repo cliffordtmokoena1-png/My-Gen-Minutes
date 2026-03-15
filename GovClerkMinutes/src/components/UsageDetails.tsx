@@ -44,15 +44,7 @@ export default function UsageDetails({
 }: UsageDetailsProps) {
   return (
     <VStack align="stretch" spacing={4}>
-      {subscriptionPaused || subscriptionCanceled || isFreeUser ? (
-        <Text fontSize="sm" color="gray.600">
-          Need more tokens? Please upgrade to a paid plan in the{" "}
-          <NextLink href="/dashboard" passHref>
-            <Link color="blue.500">Dashboard</Link>
-          </NextLink>
-          .
-        </Text>
-      ) : (
+      {!isFreeUser && !subscriptionPaused && !subscriptionCanceled && (
         <Text fontSize="sm" color="gray.600">
           Your token usage will reset in{" "}
           <strong>
@@ -89,13 +81,37 @@ export default function UsageDetails({
 
         <Flex justify="space-between" align="center" mb={2}>
           <Text fontSize="sm" fontWeight="bold">
-            {subscriptionPaused || subscriptionCanceled ? "Previous" : "Current"} Plan
+            {isFreeUser ? "Trial Plan" : subscriptionPaused || subscriptionCanceled ? "Previous" : "Current"} Plan
           </Text>
           <Text fontSize="sm">
-            {currentUsage} of {subscriptionData.tokensPerMonth} used
+            {isFreeUser
+              ? `${subscriptionData.remainingToken} of ${subscriptionData.tokensPerMonth} tokens remaining`
+              : `${currentUsage} of ${subscriptionData.tokensPerMonth} used`}
           </Text>
         </Flex>
-        <Progress value={tokenUsagePercentage} colorScheme="green" size="sm" borderRadius="md" />
+        {(() => {
+          const trialTokensUsedPercentage = subscriptionData.tokensPerMonth > 0
+            ? Math.max(0, Math.min(100, ((subscriptionData.tokensPerMonth - subscriptionData.remainingToken) / subscriptionData.tokensPerMonth) * 100))
+            : 0;
+          return (
+            <Progress
+              value={isFreeUser ? trialTokensUsedPercentage : tokenUsagePercentage}
+              colorScheme={isFreeUser ? "orange" : "green"}
+              size="sm"
+              borderRadius="md"
+            />
+          );
+        })()}
+
+        {isFreeUser && (
+          <Text fontSize="sm" color="gray.600" mt={3}>
+            Need more tokens?{" "}
+            <NextLink href="/dashboard" passHref>
+              <Link color="blue.500">Upgrade to a paid plan</Link>
+            </NextLink>{" "}
+            for more minutes.
+          </Text>
+        )}
 
         <Button
           mt={4}

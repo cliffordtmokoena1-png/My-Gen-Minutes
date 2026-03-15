@@ -54,8 +54,35 @@ async function handler(req: NextRequest) {
 
   const tokens = await getCurrentBalance(userId, orgId);
 
-  // NOTE: tokens can be null if the user first logs in, and it takes a minute for the webhook to fire.
-  // The sum() returns null, and the UI won't show tokens. But it will revalidate and show 30 after a few seconds.
+  // Self-healing: if the user has no payment rows (webhook likely failed silently),
+  // auto-grant 30 trial tokens so the dashboard always shows a correct balance.
+  if (tokens === null && !orgId) {
+    console.warn(`[get-tokens] No payment rows for user ${userId}, auto-granting 30 trial tokens`);
+    const conn = connect({
+      host: process.env.PLANETSCALE_DB_HOST,
+      username: process.env.PLANETSCALE_DB_USERNAME,
+      password: process.env.PLANETSCALE_DB_PASSWORD,
+    });
+    try {
+      await conn.execute(
+        'INSERT INTO payments (user_id, credit, action) VALUES (?, 30, "add")',
+        [userId]
+      );
+      console.info(`[get-tokens] Auto-granted 30 trial tokens to user ${userId}`);
+      return new Response(JSON.stringify({ tokens: 30 }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    } catch (err) {
+      console.error(`[get-tokens] Failed to auto-grant tokens for user ${userId}:`, err);
+      // Return null so the UI shows a loading skeleton rather than a misleading 0
+      return new Response(JSON.stringify({ tokens: null }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+  }
+
   return new Response(JSON.stringify({ tokens }), {
     status: 200,
     headers: {

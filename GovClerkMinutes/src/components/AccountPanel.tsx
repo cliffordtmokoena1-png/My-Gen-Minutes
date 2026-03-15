@@ -73,10 +73,14 @@ const AccountPanel = ({ layoutKind, customerDetails, tokenData, onOpen }: Accoun
               <Text fontSize="sm" fontWeight="semibold">
                 Tokens:
               </Text>
-              <Text fontSize="sm">{tokenData.tokens ?? 0}</Text>
+              {tokenData.tokens != null ? (
+                <Text fontSize="sm">{tokenData.tokens}</Text>
+              ) : (
+                <Skeleton height="14px" width="24px" />
+              )}
               <Flex alignItems="center" ml={1}>
                 <Tooltip
-                  label={`You can transcribe up to ${tokenData.tokens ?? 0} minutes of recorded meetings`}
+                  label={tokenData.tokens != null ? `You can transcribe up to ${tokenData.tokens} minutes of recorded meetings` : "Loading token balance..."}
                   fontSize="md"
                 >
                   <span>
