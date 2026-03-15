@@ -64,21 +64,13 @@ async function handler(req: NextRequest) {
   }
 
   let body: ExportBody;
-  try {
-    body = (await req.json()) as ExportBody;
-  } catch (error) {
-    return new Response(JSON.stringify({ error: "Invalid request body" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const sortOption: SortOption = body.sortOption ?? "recent-desc";
-
+  let sortOption: SortOption;
   let filters: ReturnType<typeof deserializeFilters>;
   let sqlParts: ReturnType<typeof buildSqlParts>;
   let conn: ReturnType<typeof connect>;
   try {
+    body = (await req.json()) as ExportBody;
+    sortOption = body.sortOption ?? "recent-desc";
     filters = deserializeFilters(assertString(body.filters));
     const startDateFilter = filters.find((f) => f.type === "startDate")?.value as Date | undefined;
     const endDateFilter = filters.find((f) => f.type === "endDate")?.value as Date | undefined;
