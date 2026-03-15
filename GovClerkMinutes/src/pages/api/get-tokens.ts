@@ -75,15 +75,12 @@ async function handler(req: NextRequest) {
       });
     } catch (err) {
       console.error(`[get-tokens] Failed to auto-grant tokens for user ${userId}:`, err);
-      // Return null so the UI shows a loading skeleton rather than a misleading 0
-      return new Response(JSON.stringify({ tokens: null }), {
-        status: 200,
-        headers: { "Content-Type": "application/json" },
-      });
+      // Fall through: the user has no payment rows and the auto-grant failed,
+      // so return 0 to always give the frontend a real number to display.
     }
   }
 
-  return new Response(JSON.stringify({ tokens }), {
+  return new Response(JSON.stringify({ tokens: tokens ?? 0 }), {
     status: 200,
     headers: {
       "Content-Type": "application/json",
