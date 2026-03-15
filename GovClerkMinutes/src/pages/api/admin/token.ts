@@ -9,7 +9,22 @@ type TokenResponse = {
   id: string;
 };
 
-async function modifyUserToken(userId: string, amount: number, isAdd: boolean): Promise<string> {
+function isActionColumnMissing(error: unknown): boolean {
+  if (error == null || typeof error !== "object") return false;
+  const e = error as { errno?: number; message?: string };
+  return (
+    e.errno === 1054 ||
+    (typeof e.message === "string" &&
+      (e.message.includes("1054") || e.message.includes("Unknown column")))
+  );
+}
+
+async function modifyUserToken(
+  userId: string,
+  amount: number,
+  isAdd: boolean,
+  orgId?: string
+): Promise<string> {
   const finalAmount = isAdd ? Math.abs(amount) : -Math.abs(amount);
 
   const conn = connect({
@@ -18,17 +33,43 @@ async function modifyUserToken(userId: string, amount: number, isAdd: boolean): 
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  console.log(`[admin/token] Crediting user_id=${userId} with ${finalAmount} credits`);
+  console.log(
+    `[admin/token] Crediting user_id=${userId}${orgId ? ` org_id=${orgId}` : ""} with ${finalAmount} credits`
+  );
 
+  if (orgId) {
+    // Insert tokens scoped to the organisation so org-context balance queries find them.
+    try {
+      const result = await conn.execute(
+        "INSERT INTO payments (user_id, org_id, credit, action) VALUES (?, ?, ?, ?)",
+        [userId, orgId, finalAmount, "admin"]
+      );
+      return result.insertId.toString();
+    } catch (error: unknown) {
+      if (isActionColumnMissing(error)) {
+        console.warn("[admin/token] 'action' column not found, retrying without it");
+        const result = await conn.execute(
+          "INSERT INTO payments (user_id, org_id, credit) VALUES (?, ?, ?)",
+          [userId, orgId, finalAmount]
+        );
+        return result.insertId.toString();
+      }
+      throw error;
+    }
+  }
+
+  // Default: insert as personal tokens (org_id = NULL).
+  // These are always visible to the user regardless of their org context
+  // because get-tokens.ts now queries both personal and org balances.
   try {
     const result = await conn.execute(
       "INSERT INTO payments (user_id, org_id, credit, action) VALUES (?, NULL, ?, ?)",
       [userId, finalAmount, "admin"]
     );
     return result.insertId.toString();
-  } catch (error: any) {
+  } catch (error: unknown) {
     // Fallback for DB branches that don't have the 'action' column (errno 1054)
-    if (error?.errno === 1054 || error?.message?.includes("1054") || error?.message?.includes("Unknown column")) {
+    if (isActionColumnMissing(error)) {
       console.warn("[admin/token] 'action' column not found, retrying without it");
       const result = await conn.execute(
         "INSERT INTO payments (user_id, org_id, credit) VALUES (?, NULL, ?)",
@@ -50,7 +91,7 @@ async function handler(
     return res.status(401).json({ error: "Unauthorized" });
   }
 
-  const { userId: targetUserId, amount, action } = req.body;
+  const { userId: targetUserId, amount, action, orgId: targetOrgId } = req.body;
 
   if (!targetUserId || typeof amount !== "number") {
     return res.status(400).json({ error: "Missing required fields: userId and amount" });
@@ -70,7 +111,7 @@ async function handler(
   }
 
   try {
-    const transactionId = await modifyUserToken(targetUserId, amount, action === "add");
+    const transactionId = await modifyUserToken(targetUserId, amount, action === "add", targetOrgId);
 
     return res.status(200).json({
       userId: targetUserId,

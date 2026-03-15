@@ -18,29 +18,40 @@ export async function getCurrentBalance(
     password: process.env.PLANETSCALE_DB_PASSWORD,
   });
 
-  let query: string;
-  let params: string[];
+  function parseBalance(rows: Record<string, unknown>[]): number {
+    const raw = rows?.[0] ? (rows[0] as { balance: string | null }).balance : null;
+    return parseInt(raw ?? "0") || 0;
+  }
+
+  // Always get the personal balance (rows with org_id IS NULL).
+  // Admin-added tokens are always inserted without an org_id, so this
+  // ensures they are visible regardless of the user's org context.
+  const personalRows = await conn
+    .execute(
+      "SELECT SUM(credit) AS balance FROM payments WHERE user_id = ? AND org_id IS NULL;",
+      [userId]
+    )
+    .then((res) => res.rows as Record<string, unknown>[]);
+
+  const personalBalance = parseBalance(personalRows);
 
   if (orgId) {
-    query = "SELECT SUM(credit) AS balance FROM payments WHERE org_id = ?;";
-    params = [orgId];
-  } else {
-    query = "SELECT SUM(credit) AS balance FROM payments WHERE user_id = ? AND org_id IS NULL;";
-    params = [userId];
+    // Also fetch tokens that belong to the organisation.
+    const orgRows = await conn
+      .execute(
+        "SELECT SUM(credit) AS balance FROM payments WHERE org_id = ?;",
+        [orgId]
+      )
+      .then((res) => res.rows as Record<string, unknown>[]);
+
+    const orgBalance = parseBalance(orgRows);
+
+    // Return the combined total so users can spend both personal and org tokens.
+    const total = personalBalance + orgBalance;
+    return total > 0 ? total : null;
   }
 
-  const rows = await conn.execute(query, params).then((res) => res.rows);
-
-  if (!rows || rows.length !== 1) {
-    console.error("Bad balance query result:", rows);
-    throw new Error("Bad balance query result");
-  }
-
-  const tokens: null | string = (rows[0] as { balance: string | null }).balance;
-  if (tokens == null) {
-    return tokens;
-  }
-  return parseInt(tokens);
+  return personalBalance > 0 ? personalBalance : null;
 }
 
 async function handler(req: NextRequest) {
