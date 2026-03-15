@@ -12,22 +12,28 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ApiAdminComplet
     return res.status(401).json({});
   }
 
-  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-  const transcriptId: number = body["transcriptId"];
-  const uploadId: string = body["uploadId"];
-  const parts: Array<{
-    ETag: string;
-    PartNumber: number;
-  }> = body["parts"];
+  try {
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const transcriptId: number = body["transcriptId"];
+    const uploadId: string = body["uploadId"];
+    const parts: Array<{
+      ETag: string;
+      PartNumber: number;
+    }> = body["parts"];
 
-  await completeUpload({
-    transcriptId,
-    uploadId,
-    parts,
-    isAdminUpload: true,
-  });
+    await completeUpload({
+      transcriptId,
+      uploadId,
+      parts,
+      isAdminUpload: true,
+    });
 
-  return res.status(200).json({});
+    return res.status(200).json({});
+  } catch (error) {
+    console.error("[admin/complete-upload] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
+  }
 }
 
 export default withErrorReporting(handler);

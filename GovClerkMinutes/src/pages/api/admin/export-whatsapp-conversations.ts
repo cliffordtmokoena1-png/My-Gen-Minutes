@@ -63,27 +63,40 @@ async function handler(req: NextRequest) {
     return new Response(null, { status: 401 });
   }
 
-  const body = (await req.json()) as ExportBody;
-  const sortOption: SortOption = body.sortOption ?? "recent-desc";
+  let body: ExportBody;
+  let sortOption: SortOption;
+  let filters: ReturnType<typeof deserializeFilters>;
+  let sqlParts: ReturnType<typeof buildSqlParts>;
+  let conn: ReturnType<typeof connect>;
+  try {
+    body = (await req.json()) as ExportBody;
+    sortOption = body.sortOption ?? "recent-desc";
+    filters = deserializeFilters(assertString(body.filters));
+    const startDateFilter = filters.find((f) => f.type === "startDate")?.value as Date | undefined;
+    const endDateFilter = filters.find((f) => f.type === "endDate")?.value as Date | undefined;
+    const needsFollowup = filters.find((f) => f.type === "needsFollowup")?.value === true;
+    const minutesDue = filters.find((f) => f.type === "minutesDue")?.value as Date | undefined;
 
-  const filters = deserializeFilters(assertString(body.filters));
-  const startDateFilter = filters.find((f) => f.type === "startDate")?.value as Date | undefined;
-  const endDateFilter = filters.find((f) => f.type === "endDate")?.value as Date | undefined;
-  const needsFollowup = filters.find((f) => f.type === "needsFollowup")?.value === true;
-  const minutesDue = filters.find((f) => f.type === "minutesDue")?.value as Date | undefined;
+    sqlParts = buildSqlParts({
+      startDate: startDateFilter,
+      endDate: endDateFilter,
+      needsFollowup,
+      minutesDueDate: minutesDue,
+    });
 
-  const sqlParts = buildSqlParts({
-    startDate: startDateFilter,
-    endDate: endDateFilter,
-    needsFollowup,
-    minutesDueDate: minutesDue,
-  });
-
-  const conn = connect({
-    host: process.env.PLANETSCALE_DB_HOST,
-    username: process.env.PLANETSCALE_DB_USERNAME,
-    password: process.env.PLANETSCALE_DB_PASSWORD,
-  });
+    conn = connect({
+      host: process.env.PLANETSCALE_DB_HOST,
+      username: process.env.PLANETSCALE_DB_USERNAME,
+      password: process.env.PLANETSCALE_DB_PASSWORD,
+    });
+  } catch (error) {
+    console.error("[admin/export-whatsapp-conversations] Setup error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
   const includedSet = new Set(body.includedConversationIds ?? []);
   const excludedSet = new Set(body.excludedConversationIds ?? []);

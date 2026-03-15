@@ -31,34 +31,40 @@ async function handler(
     return res.status(400).json({ error: "Valid email address required" });
   }
 
-  const site = getSiteFromRequest(req.headers);
-  const userIdFromEmail = await getUserIdFromEmail({
-    email,
-    env,
-    site,
-  });
-
-  const userExists = userIdFromEmail !== null;
-
-  if (userExists && userIdFromEmail) {
-    const token = await createAuthToken(userIdFromEmail);
-    await sendSignInMagicEmail(email, token);
-  } else {
-    const newUserId = await createUser({
+  try {
+    const site = getSiteFromRequest(req.headers);
+    const userIdFromEmail = await getUserIdFromEmail({
       email,
-      firstName: null,
       env,
       site,
     });
-    const token = await createAuthToken(newUserId);
-    await sendSignUpMagicEmail(email, token);
-  }
 
-  return res.status(200).json({
-    emailSent: true,
-    isExistingUser: userExists,
-    email,
-  });
+    const userExists = userIdFromEmail !== null;
+
+    if (userExists && userIdFromEmail) {
+      const token = await createAuthToken(userIdFromEmail);
+      await sendSignInMagicEmail(email, token);
+    } else {
+      const newUserId = await createUser({
+        email,
+        firstName: null,
+        env,
+        site,
+      });
+      const token = await createAuthToken(newUserId);
+      await sendSignUpMagicEmail(email, token);
+    }
+
+    return res.status(200).json({
+      emailSent: true,
+      isExistingUser: userExists,
+      email,
+    });
+  } catch (error) {
+    console.error("[admin/login-link] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
+  }
 }
 
 export default withErrorReporting(handler);

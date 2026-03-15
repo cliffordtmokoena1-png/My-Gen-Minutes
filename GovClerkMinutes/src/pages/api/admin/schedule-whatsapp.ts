@@ -61,78 +61,87 @@ async function handler(req: NextRequest) {
     return new Response(null, { status: 401 });
   }
 
-  const body = (await req.json()) as ScheduleWhatsappRequestPayload;
+  try {
+    const body = (await req.json()) as ScheduleWhatsappRequestPayload;
 
-  const sendAt = assertString(body.sendAt as string);
-  const whatsappId = assertString(
-    (body.whatsappId as string)?.replace(/^\+/, "").replace(/[^0-9]/g, "")
-  );
-  const mode = body.mode;
-  const makeHubspotTask = Boolean(body.makeHubspotTask);
-  const cancelOnReply = Boolean(body.cancelOnReply);
-  const source = assertSource(body.source);
-  const businessWhatsappId = body.businessWhatsappId;
+    const sendAt = assertString(body.sendAt as string);
+    const whatsappId = assertString(
+      (body.whatsappId as string)?.replace(/^\+/, "").replace(/[^0-9]/g, "")
+    );
+    const mode = body.mode;
+    const makeHubspotTask = Boolean(body.makeHubspotTask);
+    const cancelOnReply = Boolean(body.cancelOnReply);
+    const source = assertSource(body.source);
+    const businessWhatsappId = body.businessWhatsappId;
 
-  const conn = connect({
-    host: process.env.PLANETSCALE_DB_HOST,
-    username: process.env.PLANETSCALE_DB_USERNAME,
-    password: process.env.PLANETSCALE_DB_PASSWORD,
-  });
+    const conn = connect({
+      host: process.env.PLANETSCALE_DB_HOST,
+      username: process.env.PLANETSCALE_DB_USERNAME,
+      password: process.env.PLANETSCALE_DB_PASSWORD,
+    });
 
-  if (mode === "freeform") {
-    await conn.execute(
-      `
+    if (mode === "freeform") {
+      await conn.execute(
+        `
+        INSERT INTO gc_scheduled_whatsapps
+        (whatsapp_id, business_whatsapp_id, freeform, send_at, sender_user_id, mode, cancel_on_reply, source)
+        VALUES (?, ?, ?, ?, ?, "freeform_tool", ?, ?)
+        `,
+        [
+          whatsappId,
+          businessWhatsappId,
+          body.text,
+          convertIsoTimestampForMysql(sendAt),
+          adminUserId,
+          cancelOnReply ? 1 : 0,
+          source,
+        ]
+      );
+    } else {
+      const templateName = assertString(body.templateName);
+      const templateBody = assertString(body.templateBody);
+      const templateVariables = body.templateVariables ?? "{}";
+      const language = body.language;
+
+      await conn.execute(
+        `
       INSERT INTO gc_scheduled_whatsapps
-      (whatsapp_id, business_whatsapp_id, freeform, send_at, sender_user_id, mode, cancel_on_reply, source)
-      VALUES (?, ?, ?, ?, ?, "freeform_tool", ?, ?)
+      (whatsapp_id, business_whatsapp_id, template_id, variables, send_at, sender_user_id, mode, cancel_on_reply, source, language, template_body)
+      VALUES (?, ?, ?, ?, ?, ?, "tool", ?, ?, ?, ?)
       `,
-      [
-        whatsappId,
-        businessWhatsappId,
-        body.text,
-        convertIsoTimestampForMysql(sendAt),
-        adminUserId,
-        cancelOnReply ? 1 : 0,
-        source,
-      ]
-    );
-  } else {
-    const templateName = assertString(body.templateName);
-    const templateBody = assertString(body.templateBody);
-    const templateVariables = body.templateVariables ?? "{}";
-    const language = body.language;
+        [
+          whatsappId,
+          businessWhatsappId,
+          templateName,
+          templateVariables,
+          convertIsoTimestampForMysql(sendAt),
+          adminUserId,
+          cancelOnReply ? 1 : 0,
+          source,
+          language,
+          templateBody,
+        ]
+      );
+    }
 
-    await conn.execute(
-      `
-    INSERT INTO gc_scheduled_whatsapps
-    (whatsapp_id, business_whatsapp_id, template_id, variables, send_at, sender_user_id, mode, cancel_on_reply, source, language, template_body)
-    VALUES (?, ?, ?, ?, ?, ?, "tool", ?, ?, ?, ?)
-    `,
-      [
-        whatsappId,
-        businessWhatsappId,
-        templateName,
-        templateVariables,
-        convertIsoTimestampForMysql(sendAt),
-        adminUserId,
-        cancelOnReply ? 1 : 0,
-        source,
-        language,
-        templateBody,
-      ]
-    );
+    if (makeHubspotTask) {
+      await logHubspotTask(adminUserId, sendAt, whatsappId);
+    }
+
+    return new Response(null, {
+      status: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  } catch (error) {
+    console.error("[admin/schedule-whatsapp] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
   }
-
-  if (makeHubspotTask) {
-    await logHubspotTask(adminUserId, sendAt, whatsappId);
-  }
-
-  return new Response(null, {
-    status: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
 }
 
 export default withErrorReporting(handler);

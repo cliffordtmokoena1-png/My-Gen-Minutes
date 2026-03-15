@@ -14,22 +14,28 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   const AccessToken = twilio.jwt.AccessToken;
   const VoiceGrant = AccessToken.VoiceGrant;
 
-  const twilioAccountSid = assertString(process.env.TWILIO_ACCOUNT_SID);
-  const twilioApiKey = assertString(process.env.TWILIO_API_KEY);
-  const twilioApiSecret = assertString(process.env.TWILIO_API_SECRET);
+  try {
+    const twilioAccountSid = assertString(process.env.TWILIO_ACCOUNT_SID);
+    const twilioApiKey = assertString(process.env.TWILIO_API_KEY);
+    const twilioApiSecret = assertString(process.env.TWILIO_API_SECRET);
 
-  const voiceGrant = new VoiceGrant({
-    outgoingApplicationSid: TWILIO_APP_ID,
-    incomingAllow: true,
-  });
+    const voiceGrant = new VoiceGrant({
+      outgoingApplicationSid: TWILIO_APP_ID,
+      incomingAllow: true,
+    });
 
-  const token = new AccessToken(twilioAccountSid, twilioApiKey, twilioApiSecret, {
-    identity: adminUserId,
-    ttl: 10 * 60 * 60, // 10 hours
-  });
-  token.addGrant(voiceGrant);
+    const token = new AccessToken(twilioAccountSid, twilioApiKey, twilioApiSecret, {
+      identity: adminUserId,
+      ttl: 10 * 60 * 60, // 10 hours
+    });
+    token.addGrant(voiceGrant);
 
-  return res.status(200).json({ token: token.toJwt(), product: "voice" });
+    return res.status(200).json({ token: token.toJwt(), product: "voice" });
+  } catch (error) {
+    console.error("[admin/twilio/get-token] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
+  }
 }
 
 export default withErrorReporting(handler);

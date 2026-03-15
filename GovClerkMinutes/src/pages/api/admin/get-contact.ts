@@ -14,35 +14,44 @@ async function handler(req: NextRequest) {
     return new Response(null, { status: 401 });
   }
 
-  const body = await req.json();
-  const whatsappId = assertString(body.whatsappId?.replace(/^\+/, ""));
+  try {
+    const body = await req.json();
+    const whatsappId = assertString(body.whatsappId?.replace(/^\+/, ""));
 
-  const contact = await hubspot.getContact({
-    filter: {
-      propertyName: "phone",
-      value: `+${whatsappId}`,
-    },
-    returnedProperties: ["firstname", "email", "phone"],
-  });
-
-  if (contact == null) {
-    return new Response(JSON.stringify({ error: "Contact not found" }), {
-      status: 404,
-      headers: {
-        "Content-Type": "application/json",
+    const contact = await hubspot.getContact({
+      filter: {
+        propertyName: "phone",
+        value: `+${whatsappId}`,
       },
+      returnedProperties: ["firstname", "email", "phone"],
+    });
+
+    if (contact == null) {
+      return new Response(JSON.stringify({ error: "Contact not found" }), {
+        status: 404,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
+
+    return new Response(
+      JSON.stringify({ ...contact.properties, name: contact.properties.firstname }),
+      {
+        status: 200,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch (error) {
+    console.error("[admin/get-contact] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return new Response(JSON.stringify({ error: message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
     });
   }
-
-  return new Response(
-    JSON.stringify({ ...contact.properties, name: contact.properties.firstname }),
-    {
-      status: 200,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
 }
 
 export default withErrorReporting(handler);

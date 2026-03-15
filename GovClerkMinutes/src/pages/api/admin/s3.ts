@@ -13,21 +13,27 @@ async function handler(req: NextApiRequest, res: NextApiResponse<ApiAdminS3Respo
     return res.status(401).json({});
   }
 
-  const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
-  const transcriptId = body["transcriptId"];
-  const fileSize: number = body["fileSize"];
-  const region: Region = body["region"];
-  const useBiggerPartSize: boolean = Boolean(body["useBiggerPartSize"]);
+  try {
+    const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
+    const transcriptId = body["transcriptId"];
+    const fileSize: number = body["fileSize"];
+    const region: Region = body["region"];
+    const useBiggerPartSize: boolean = Boolean(body["useBiggerPartSize"]);
 
-  const result = await createS3Upload({
-    transcriptId,
-    fileSize,
-    region,
-    useBiggerPartSize,
-    isAdminUpload: true,
-  });
+    const result = await createS3Upload({
+      transcriptId,
+      fileSize,
+      region,
+      useBiggerPartSize,
+      isAdminUpload: true,
+    });
 
-  return res.status(200).json(result);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.error("[admin/s3] Handler error:", error);
+    const message = error instanceof Error ? error.message : "Internal server error";
+    return res.status(500).json({ error: message });
+  }
 }
 
 export default withErrorReporting(handler);
